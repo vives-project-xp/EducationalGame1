@@ -54,13 +54,25 @@ def main(window):
         # Draw the grid
         grid.draw_grid()
 
-        # Render the game state parameters and draw them onto the window
+
+        #margin for the text
+        MARGIN = 250
+
+        # Render the game state parameters
         citizens_text = font.render(f"Citizens: {game_state.amountOfCitizens}", True, (0, 0, 0))
         houses_text = font.render(f"Houses: {game_state.amountOfHouses}", True, (0, 0, 0))
         money_text = font.render(f"Money: {game_state.money}", True, (0, 0, 0))
-        window.blit(citizens_text, (10, 10))
-        window.blit(houses_text, (10, 50))
-        window.blit(money_text, (10, 90))
+
+        # Calculate the total width of the text and the margins
+        total_width = citizens_text.get_width() + houses_text.get_width() + money_text.get_width() + 2 * MARGIN
+
+        # Calculate the starting x position for the text
+        start_x = (WIDTH - total_width) // 2
+
+        # Draw the text onto the window
+        window.blit(citizens_text, (start_x, 10))
+        window.blit(houses_text, (start_x + citizens_text.get_width() + MARGIN, 10))
+        window.blit(money_text, (start_x + citizens_text.get_width() + houses_text.get_width() + 2 * MARGIN, 10))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
