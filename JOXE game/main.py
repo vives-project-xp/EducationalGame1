@@ -1,22 +1,39 @@
 import pygame
+import os
+import sys
+import random
+import time
 
 pygame.init()
+pygame.display.set_caption('JOXE')
 
-# Set up the drawing window
-screen = pygame.display.set_mode([500, 500])
+programIcon = pygame.image.load('./assets/house.png')
+pygame.display.set_icon(programIcon)
 
-# Run until the user asks to quit
-running = True
-while running:
+WIDTH, HEIGHT = 800, 600
+window = pygame.display.set_mode((WIDTH, HEIGHT))
 
-    # Did the user click the window close button?
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+FPS = 60
 
-    # Fill the background with green
-    screen.fill((0, 255, 0))
+def main(window):
+    clock = pygame.time.Clock()
+    run = True
+    while run:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                break
 
-    # Flip the display
-    pygame.display.flip()
+        window.fill((255, 255, 255))
+        pygame.display.flip()
+    pygame.quit()
+    sys.exit()
+
+
+if __name__ == "__main__":
+    main(window)
+
+
+
 
