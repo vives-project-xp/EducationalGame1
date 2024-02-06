@@ -13,7 +13,8 @@ pygame.display.set_caption('JOXE')
 programIcon = pygame.image.load('./assets/logo/JOXEC.png') #add the cut out logo
 pygame.display.set_icon(programIcon)
 
-WIDTH, HEIGHT = 1920, 1000 # Set the width and height of the window (WIDTH, HEIGHT)
+#WIDTH, HEIGHT = 1920, 1000 # Set the width and height of the window (WIDTH, HEIGHT)
+WIDTH, HEIGHT = 1420, 1000
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,31) # Set the position of the window (x,y)
 window = pygame.display.set_mode((WIDTH, HEIGHT)) # , pygame.RESIZABLE for resizable window (pygame.fullscreen for fullscreen mode)
@@ -26,12 +27,6 @@ def main(window):
     clock = pygame.time.Clock()
     grid = Grid(window, WIDTH, HEIGHT, GRID_SIZE) 
     run = True
-
-    #houses
-    house_image = pygame.image.load('./assets/resources/houses/house1.png')
-    house_image2 = pygame.image.load('./assets/resources/houses/house2.png')
-    house_image3 = pygame.image.load('./assets/resources/houses/house3.png')
-    house_image4 = pygame.image.load('./assets/resources/houses/house4.png')
 
     # Load the road image
     road_image = pygame.transform.scale(pygame.image.load('./assets/resources/road/road.png'), (GRID_SIZE, GRID_SIZE))
