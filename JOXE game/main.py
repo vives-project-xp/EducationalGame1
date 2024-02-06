@@ -30,10 +30,19 @@ def main(window):
 
     #houses
     house_image = pygame.image.load('./assets/resources/houses/house1.png')
-    house_image = pygame.transform.scale(house_image, (GRID_SIZE, GRID_SIZE))
-
     house_image2 = pygame.image.load('./assets/resources/houses/house2.png')
-    house_image2 = pygame.transform.scale(house_image2, (GRID_SIZE, GRID_SIZE))
+    house_image3 = pygame.image.load('./assets/resources/houses/house3.png')
+    house_image4 = pygame.image.load('./assets/resources/houses/house4.png')
+
+    # Load the road image
+    road_image = pygame.transform.scale(pygame.image.load('./assets/resources/road/road.png'), (GRID_SIZE, GRID_SIZE))
+
+    house_images = [
+    pygame.transform.scale(pygame.image.load('./assets/resources/houses/house1.png'), (GRID_SIZE, GRID_SIZE)),
+    pygame.transform.scale(pygame.image.load('./assets/resources/houses/house2.png'), (GRID_SIZE, GRID_SIZE)),
+    pygame.transform.scale(pygame.image.load('./assets/resources/houses/house3.png'), (GRID_SIZE, GRID_SIZE)),
+    pygame.transform.scale(pygame.image.load('./assets/resources/houses/house4.png'), (GRID_SIZE, GRID_SIZE))
+]
 
     # Load the background image
     background_image = pygame.image.load('./assets/resources/background/grass.jpg')
@@ -41,6 +50,9 @@ def main(window):
 
     # Dictionary to store the positions where the image should be drawn
     house_positions = {}
+
+    # Dictionary to store the positions where the road image should be drawn
+    road_positions = {}
 
     # Create a game state
     game_state = Gamestate()
@@ -90,26 +102,43 @@ def main(window):
                     # If it is, switch to fullscreen mode
                     pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
             elif event.type == pygame.MOUSEBUTTONDOWN:
+                house_pos = None
                 if event.button == 1:  # 1 is the left mouse button, 2 is middle, 3 is right.
                     pos = pygame.mouse.get_pos()  # Returns a tuple of (x, y)
                     grid_x = pos[0] // GRID_SIZE  # Calculate the grid cell x
                     grid_y = pos[1] // GRID_SIZE  # Calculate the grid cell y
                     house_pos = (grid_x * GRID_SIZE, grid_y * GRID_SIZE)  # Calculate the house position
+                elif event.button == 3:  # 3 is the right mouse button
+                    pos = pygame.mouse.get_pos()
+                    grid_x = pos[0] // GRID_SIZE
+                    grid_y = pos[1] // GRID_SIZE
+                    road_pos = (grid_x * GRID_SIZE, grid_y * GRID_SIZE)
+                    road_positions[road_pos] = road_image
+
 
                 # Check if there's already a house at this position
                 if house_pos not in house_positions:
-                    house_positions[house_pos] = house_image  # Store the position and type of the house
+                    house_positions[house_pos] = house_images[0]  # Store the position and type of the house
                     game_state.add_house(1)  # Increment the number of houses
                     # game_state.add_citizen(5)  # Add 5 citizens for each new house
                     # game_state.remove_money(100)  # Assume each house costs 100 money
                     print(pos)
                 else:
-                    # If there's already a house, replace it with the other type
-                    house_positions[house_pos] = house_image2
+                    # If there's already a house, upgrade it to the next level if not already at max level
+                    current_house_index = house_images.index(house_positions[house_pos])
+                    if current_house_index < len(house_images) - 1:
+                        next_house_index = current_house_index + 1
+                        house_positions[house_pos] = house_images[next_house_index]
 
         # Draw the image at all stored positions
+        # Draw the image at all stored positions
         for pos, image in house_positions.items():
-            window.blit(image, pos)
+            if pos is not None:
+                window.blit(image, pos)
+
+        for pos, image in road_positions.items():
+            if pos is not None:
+                window.blit(image, pos)
 
         pygame.display.flip()
 
