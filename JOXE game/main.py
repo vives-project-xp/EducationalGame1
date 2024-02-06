@@ -28,16 +28,19 @@ def main(window):
     grid = Grid(window, WIDTH, HEIGHT, GRID_SIZE) 
     run = True
 
-    # Load and scale the images outside the main loop
-    house_image = pygame.image.load('./assets/resources/house.png')
+    #houses
+    house_image = pygame.image.load('./assets/resources/houses/house1.png')
     house_image = pygame.transform.scale(house_image, (GRID_SIZE, GRID_SIZE))
+
+    house_image2 = pygame.image.load('./assets/resources/houses/house2.png')
+    house_image2 = pygame.transform.scale(house_image2, (GRID_SIZE, GRID_SIZE))
 
     # Load the background image
     background_image = pygame.image.load('./assets/resources/background/grass.jpg')
     background_image = pygame.transform.scale(background_image, (WIDTH, HEIGHT))
 
-    # List to store the positions where the image should be drawn
-    house_positions = []
+    # Dictionary to store the positions where the image should be drawn
+    house_positions = {}
 
     # Create a game state
     game_state = Gamestate()
@@ -62,17 +65,20 @@ def main(window):
         citizens_text = font.render(f"Citizens: {game_state.amountOfCitizens}", True, (0, 0, 0))
         houses_text = font.render(f"Houses: {game_state.amountOfHouses}", True, (0, 0, 0))
         money_text = font.render(f"Money: {game_state.money}", True, (0, 0, 0))
+        climateScore_text = font.render(f"Climate Score: {game_state.climateScore}", True, (0, 0, 0))
 
         # Calculate the total width of the text and the margins
-        total_width = citizens_text.get_width() + houses_text.get_width() + money_text.get_width() + 2 * MARGIN
+        total_width = citizens_text.get_width() + houses_text.get_width() + money_text.get_width() + climateScore_text.get_width() + 3 * MARGIN
 
         # Calculate the starting x position for the text
         start_x = (WIDTH - total_width) // 2
+
 
         # Draw the text onto the window
         window.blit(citizens_text, (start_x, 10))
         window.blit(houses_text, (start_x + citizens_text.get_width() + MARGIN, 10))
         window.blit(money_text, (start_x + citizens_text.get_width() + houses_text.get_width() + 2 * MARGIN, 10))
+        window.blit(climateScore_text, (start_x + citizens_text.get_width() + houses_text.get_width() + money_text.get_width() + 3 * MARGIN, 10))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -90,17 +96,20 @@ def main(window):
                     grid_y = pos[1] // GRID_SIZE  # Calculate the grid cell y
                     house_pos = (grid_x * GRID_SIZE, grid_y * GRID_SIZE)  # Calculate the house position
 
-                    # Check if there's already a house at this position
-                    if house_pos not in house_positions:
-                        house_positions.append(house_pos)  # Store the position
-                        game_state.add_house(1)  # Increment the number of houses
-                        # game_state.add_citizen(5)  # Add 5 citizens for each new house
-                        # game_state.remove_money(100)  # Assume each house costs 100 money
-                        print(pos)
+                # Check if there's already a house at this position
+                if house_pos not in house_positions:
+                    house_positions[house_pos] = house_image  # Store the position and type of the house
+                    game_state.add_house(1)  # Increment the number of houses
+                    # game_state.add_citizen(5)  # Add 5 citizens for each new house
+                    # game_state.remove_money(100)  # Assume each house costs 100 money
+                    print(pos)
+                else:
+                    # If there's already a house, replace it with the other type
+                    house_positions[house_pos] = house_image2
 
         # Draw the image at all stored positions
-        for pos in house_positions:
-            window.blit(house_image, pos)
+        for pos, image in house_positions.items():
+            window.blit(image, pos)
 
         pygame.display.flip()
 
