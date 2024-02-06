@@ -19,7 +19,6 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,31) # Set the position of the 
 window = pygame.display.set_mode((WIDTH, HEIGHT)) # , pygame.RESIZABLE for resizable window (pygame.fullscreen for fullscreen mode)
 
 
-
 FPS = 60
 GRID_SIZE = 40  # Define the size of the grid cells
 
@@ -108,12 +107,21 @@ def main(window):
                     grid_x = pos[0] // GRID_SIZE  # Calculate the grid cell x
                     grid_y = pos[1] // GRID_SIZE  # Calculate the grid cell y
                     house_pos = (grid_x * GRID_SIZE, grid_y * GRID_SIZE)  # Calculate the house position
+
+                    # Check if there's already a house or road at this position
+                    if house_pos not in house_positions and house_pos not in road_positions:
+                        house_positions[house_pos] = house_images[0]  # Store the position and type of the house
+                        game_state.add_house(1)  # Increment the number of houses
+                        print(pos)
                 elif event.button == 3:  # 3 is the right mouse button
                     pos = pygame.mouse.get_pos()
                     grid_x = pos[0] // GRID_SIZE
                     grid_y = pos[1] // GRID_SIZE
                     road_pos = (grid_x * GRID_SIZE, grid_y * GRID_SIZE)
-                    road_positions[road_pos] = road_image
+
+                    # Check if there's already a house or road at this position
+                    if road_pos not in road_positions and road_pos not in house_positions:
+                        road_positions[road_pos] = road_image
 
 
                 # Check if there's already a house at this position
