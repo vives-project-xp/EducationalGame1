@@ -101,7 +101,7 @@ class Grid:
 
         # Set the color based on the climate score
         if self.game_state.climateScore >= 30:
-            score_color = (0, 255, 0)  # Green
+            score_color = (0, 150, 0)  # Green
         else:
             score_color = (255, 0, 0)  # Red
 

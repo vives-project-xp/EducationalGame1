@@ -18,8 +18,8 @@ GRID_SIZE = 50
 
 def main(window):
     clock = pygame.time.Clock()
-    game = Game(window, WIDTH, HEIGHT, GRID_SIZE)
     gamestate = Gamestate()
+    game = Game(window, WIDTH, HEIGHT, GRID_SIZE, gamestate)
     run = True
 
     while run:
