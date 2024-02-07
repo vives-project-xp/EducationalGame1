@@ -18,6 +18,7 @@ class Game:
         self.grid = Grid(window, width, height, grid_size, self.game_state, self.font)
         self.selected_cell = None
         self.menu_bar_visible = False
+        self.house_menu_visible = False
         self.occupied_cells = set()
 
         house_image = pygame.image.load('./assets/resources/houses/house1.png')
@@ -28,6 +29,14 @@ class Game:
 
     def draw(self):
         self.grid.draw_grid()
+
+        # If a cell is selected, draw a white outline around it
+        if self.selected_cell is not None:
+            pygame.draw.rect(self.window, (255, 255, 255), (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
+            #draw the house menu
+            if self.house_menu_visible:
+                self.draw_house_menu()
+
 
         if self.menu_bar_visible:
             self.draw_menu_bar()
@@ -68,17 +77,62 @@ class Game:
         pixel_x = grid_x * self.grid_size
         pixel_y = grid_y * self.grid_size
 
-        if self.menu_bar_visible:
+        # Check if a house already exists at the clicked cell
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, House) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+                # If a house exists, store its coordinates in self.selected_cell
+                self.selected_cell = (pixel_x, pixel_y)
+                self.house_menu_visible = True
+                return
+
+        if self.house_menu_visible:
+            # If the house menu is visible, check if the upgrade or remove button was clicked
+            if self.selected_cell[1] - 80 <= y <= self.selected_cell[1] - 50:
+                if self.selected_cell[0] + 10 <= x <= self.selected_cell[0] + 150:
+                    # Upgrade button was clicked
+                    for obj in self.game_state.placed_objects:
+                        if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                            # If the player has enough money, upgrade the house
+                            if self.game_state.money >= 5000:
+                                obj.image = pygame.image.load('./assets/resources/houses/house2.png')  # Upgrade the house image
+                                self.game_state.remove_money(5000)  # Deduct the cost of the upgrade
+                                new_inhabitants = random.randint(5, 8)
+                                self.game_state.add_citizen(new_inhabitants - obj.inhabitants)  # Add the new inhabitants
+                                obj.inhabitants = new_inhabitants  # Update the inhabitants of the house
+                            break
+            elif self.selected_cell[1] - 50 <= y <= self.selected_cell[1] - 20:
+                if self.selected_cell[0] + 10 <= x <= self.selected_cell[0] + 150:
+                    # Remove button was clicked
+                    for obj in self.game_state.placed_objects:
+                        if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                            # Remove the house
+                            self.game_state.placed_objects.remove(obj)
+                            self.game_state.add_citizen(-obj.inhabitants)  # Remove the inhabitants of the house
+                            self.game_state.remove_house(1)
+                            break
+            self.house_menu_visible = False
+            self.selected_cell = None  # Clear the selected cell
+        elif self.menu_bar_visible:
             # If the menu bar is visible, check if the house or road image was clicked
             if self.height - 80 <= y <= self.height - 10:
                 if 10 <= x <= 90:
                     # House image was clicked
-                    if self.selected_cell is not None and self.game_state.money >= 1000:
-                        house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size)
-                        self.game_state.placed_objects.append(house)
-                        self.game_state.remove_money(1000)
-                        self.game_state.add_citizen(random.randint(3, 6))
-                        self.game_state.add_house(1)
+                    if self.selected_cell is not None:
+                        # Check if a house already exists at the selected cell
+                        for obj in self.game_state.placed_objects:
+                            if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                                # If a house exists, show the house menu
+                                self.menu_bar_visible = False
+                                self.house_menu_visible = True
+                                break
+                        else:
+                            # If no house exists and the player has enough money, place a new house
+                            if self.game_state.money >= 1000:
+                                house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+                                self.game_state.placed_objects.append(house)
+                                self.game_state.remove_money(1000)
+                                self.game_state.add_citizen(random.randint(3, 6))
+                                self.game_state.add_house(1)
                         self.selected_cell = None  # Clear the selected cell
                     self.menu_bar_visible = False
                 elif 100 <= x <= 180:
@@ -100,6 +154,17 @@ class Game:
                 self.menu_bar_visible = True
                 self.selected_cell = (pixel_x, pixel_y)
                 self.occupied_cells.add((grid_x, grid_y))  # Mark the cell as occupied
+
+    def draw_house_menu(self):
+        # Draw the house menu background
+        pygame.draw.rect(self.window, (230, 230, 230), (self.selected_cell[0], self.selected_cell[1] - 80, 160, 80))
+
+        # Draw the upgrade and remove buttons
+        font = pygame.font.Font(None, 24)  # Create a font object
+        upgrade_text = font.render("Upgrade ($5000)", True, (0, 0, 0))  # Create a Surface with the upgrade text
+        remove_text = font.render("Remove", True, (0, 0, 0))  # Create a Surface with the remove text
+        self.window.blit(upgrade_text, (self.selected_cell[0] + 10, self.selected_cell[1] - 70))  # Draw the upgrade text
+        self.window.blit(remove_text, (self.selected_cell[0] + 10, self.selected_cell[1] - 40))  # Draw the remove text
 
     def draw_game_over(self):
         font = pygame.font.Font(None, 170)
