@@ -14,7 +14,7 @@ programIcon = pygame.image.load('./assets/logo/JOXEC.png')
 pygame.display.set_icon(programIcon)
 
 FPS = 60
-GRID_SIZE = 50
+GRID_SIZE = 60
 
 def main(window):
     clock = pygame.time.Clock()
