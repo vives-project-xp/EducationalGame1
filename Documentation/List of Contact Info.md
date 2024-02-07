@@ -1,6 +1,6 @@
 Experts:
-Climate Change: Extinction Rebellion (Gent)
- xrgent@protonmail.com 
+Climate Change: Extinction Rebellion (Nederland)
+ media@extinctionrebellion.nl
 
 High School Education: Vives opleiding middelbare school (Brugge)
 	sofie.pottier@vives.be 	0491379046 
