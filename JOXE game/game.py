@@ -35,24 +35,32 @@ class Game:
 
     def draw_menu_bar(self):
         # Draw the menu bar at the bottom of the screen
-        pygame.draw.rect(self.window, (200, 200, 200), (0, self.height - 100, self.width, 100))
+        pygame.draw.rect(self.window, (90, 200, 90), (0, self.height - 100, self.width, 100))
 
         # Draw the house image on the menu bar
         self.window.blit(self.house_image, (10, self.height - 80))
-
-
+        
     def handle_click(self, x, y):
+        # Convert the mouse click coordinates to grid coordinates
+        grid_x = x // self.grid_size
+        grid_y = y // self.grid_size
+
+        # Convert grid coordinates back to pixel coordinates
+        pixel_x = grid_x * self.grid_size
+        pixel_y = grid_y * self.grid_size
+
         if self.menu_bar_visible:
             # If the menu bar is visible, check if the house image was clicked
             if self.height - 80 <= y <= self.height - 10 and 10 <= x <= 90:
-                # Add a house to the selected cell
-                self.game_state.objects.append(House(self.selected_cell))
+                # If a cell was previously selected, place the house there
+                if self.selected_cell is not None:
+                    house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+                    self.game_state.placed_objects.append(house)
                 self.menu_bar_visible = False
         else:
             # If the menu bar is not visible, show it and store the selected cell
             self.menu_bar_visible = True
-            self.selected_cell = (x // self.grid_size, y // self.grid_size)
-
+            self.selected_cell = (pixel_x, pixel_y)
 
     def draw_game_over(self):
         font = pygame.font.Font(None, 170)
