@@ -150,21 +150,33 @@ class Game:
                 self.selected_cell = None  # Clear the selected cell
         else:
             # If the menu bar is not visible, show it and store the selected cell
-            if (grid_x, grid_y) not in self.occupied_cells:
-                self.menu_bar_visible = True
-                self.selected_cell = (pixel_x, pixel_y)
-                self.occupied_cells.add((grid_x, grid_y))  # Mark the cell as occupied
+            self.menu_bar_visible = True
+            self.selected_cell = (pixel_x, pixel_y)
 
     def draw_house_menu(self):
+        # Load the icons
+        upgrade_icon = pygame.image.load('./assets/resources/icons/upgrade.png')
+        remove_icon = pygame.image.load('./assets/resources/icons/remove.png')
+
+        # Resize the icons
+        icon_width = 30
+        icon_height = 30
+        upgrade_icon = pygame.transform.scale(upgrade_icon, (icon_width, icon_height))
+        remove_icon = pygame.transform.scale(remove_icon, (icon_width, icon_height))
+
+        # Calculate the position of the menu
+        menu_x = self.selected_cell[0] - 80 + self.grid_size // 2  # Center the menu below the house
+        menu_y = self.selected_cell[1] + self.grid_size
+
         # Draw the house menu background
-        pygame.draw.rect(self.window, (230, 230, 230), (self.selected_cell[0], self.selected_cell[1] - 80, 160, 80))
+        pygame.draw.rect(self.window, (230, 230, 230), (menu_x, menu_y, 160, 50))  # Lower the height of the menu
 
         # Draw the upgrade and remove buttons
         font = pygame.font.Font(None, 24)  # Create a font object
-        upgrade_text = font.render("Upgrade ($5000)", True, (0, 0, 0))  # Create a Surface with the upgrade text
-        remove_text = font.render("Remove", True, (0, 0, 0))  # Create a Surface with the remove text
-        self.window.blit(upgrade_text, (self.selected_cell[0] + 10, self.selected_cell[1] - 70))  # Draw the upgrade text
-        self.window.blit(remove_text, (self.selected_cell[0] + 10, self.selected_cell[1] - 40))  # Draw the remove text
+        upgrade_text = font.render("$5000", True, (0, 0, 0))  # Create a Surface with the upgrade text
+        self.window.blit(upgrade_icon, (menu_x + 10, menu_y + 10))  # Draw the upgrade icon
+        self.window.blit(upgrade_text, (menu_x + 40, menu_y + 16))  # Draw the upgrade text
+        self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))  # Draw the remove icon
 
     def draw_game_over(self):
         font = pygame.font.Font(None, 170)
