@@ -3,6 +3,7 @@ from gamestate import Gamestate
 from house import House
 from road import Road
 from energy import Energy
+from tree import Tree
 import pygame
 import os
 import sys
@@ -28,12 +29,18 @@ class Game:
         'house': 1000,
         'road': 50,
         'energy': 2000,
+        'tree': 250,
     }
 
     BUILDING_IMAGES = {
         'house': './assets/resources/houses/house1.png',
         'road': './assets/resources/road/road.png',
         'energy': './assets/resources/buildings/energy/windmills/windmill.png',
+        'tree': './assets/resources/nature/tree1.png',
+    }
+
+    ECO_SCORE_BONUS = {
+    'tree': 5,
     }
 
     def __init__(self, window, width, height, grid_size, game_state=None):
@@ -48,6 +55,8 @@ class Game:
         self.menu_bar_visible = False
         self.house_menu_visible = False
         self.occupied_cells = set()
+        self.font = pygame.font.Font(None, 16)
+        
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
@@ -58,6 +67,32 @@ class Game:
         self.draw_selected_cell_outline()
         self.draw_game_elements()
         self.draw_houses_level()
+
+    def draw_averages(self, average_money_gain, average_ecoscore_change):
+        square_width, square_height = 100, 30
+        square_x = self.width - square_width
+        square_y = self.height - square_height
+        square_color = (255, 255, 255)  # white
+
+        pygame.draw.rect(self.window, square_color, (square_x, square_y, square_width, square_height))
+
+        formatted_money_gain = self.format_number(average_money_gain)
+        formatted_ecoscore_change = self.format_number(average_ecoscore_change)
+
+        money_text = self.font.render(f"$/m:   {formatted_money_gain}", True, (0, 0, 0))
+        ecoscore_text = self.font.render(f"CO2/m: {formatted_ecoscore_change}", True, (0, 0, 0))
+
+        self.window.blit(money_text, (square_x + 12, square_y + 7))
+        self.window.blit(ecoscore_text, (square_x + 12, square_y + 17))
+
+    def format_number(self, num):
+        sign = "+" if num > 0 else ""
+        if num >= 1000000:
+            return f"{sign}{round(num / 1000000)}m"
+        elif num >= 1000:
+            return f"{sign}{round(num / 1000)}k"
+        else:
+            return f"{sign}{round(num)}"
 
     def draw_selected_cell_outline(self):
         if self.selected_cell:
@@ -92,11 +127,13 @@ class Game:
                          (100, self.height - 75))
         self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['energy']), (80, 80)),
                          (190, self.height - 80))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['tree']), (80, 80)),
+                        (280, self.height - 75))
 
     def draw_building_costs(self):
         font = pygame.font.Font(None, 24)
-        for i, building_type in enumerate(['house', 'road', 'energy']):
-            cost_text = font.render(f"${self.COSTS[building_type]}", True, self.COLORS['white'])
+        for i, building_type in enumerate(['house', 'road', 'energy', 'tree']):
+            cost_text = font.render(f"${self.COSTS.get(building_type, 0)}", True, self.COLORS['white'])
             self.window.blit(cost_text, (60 + i * 90, self.height - 70))
 
     def draw_houses_level(self):
@@ -188,9 +225,25 @@ class Game:
             self.handle_road_icon_click()
         elif self.is_energy_icon_clicked(x, y):
             self.handle_energy_icon_click()
+        elif self.is_tree_icon_clicked(x, y):
+            self.handle_tree_icon_click()
         else:
             self.menu_bar_visible = False
             self.selected_cell = None
+
+    def is_tree_icon_clicked(self, x, y):
+        return self.height - 80 <= y <= self.height - 10 and 280 <= x <= 360  # Adjust the x-coordinate range for the tree icon
+
+    def handle_tree_icon_click(self):
+        if self.selected_cell is not None and self.game_state.money >= self.COSTS['tree']:
+            tree = Tree(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+            self.game_state.placed_objects.append(tree)
+            self.game_state.remove_money(self.COSTS['tree'])
+            self.game_state.add_climate_score(self.ECO_SCORE_BONUS['tree']) 
+            self.selected_cell = None
+        else:
+            print("Not enough money to place a tree.")
+        self.menu_bar_visible = False
 
     def is_house_icon_clicked(self, x, y):
         return self.height - 80 <= y <= self.height - 10 and 10 <= x <= 90

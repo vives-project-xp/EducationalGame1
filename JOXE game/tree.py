@@ -1,7 +1,15 @@
 import pygame
-from object import Object
 
-class Tree(Object):
-    def __init__(self, game_state) -> None:
-        super().__init__(game_state)
-        self.image = pygame.transform.scale(pygame.image.load('./assets/resources/tree/tree.png'), (GRID_SIZE, GRID_SIZE))
+class Tree:
+    def __init__(self, x, y, grid_size):
+        self.x = x
+        self.y = y
+        self.grid_size = grid_size
+        self.image = pygame.image.load('./assets/resources/nature/tree1.png')
+        self.image = pygame.transform.scale(self.image, (grid_size, grid_size))
+
+    def draw(self, window):
+        window.blit(self.image, (self.x * self.grid_size, self.y * self.grid_size))
+
+    def update(self):
+        pass
