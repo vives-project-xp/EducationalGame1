@@ -1,6 +1,6 @@
 from grid import Grid
 from gamestate import Gamestate
-from house import House 
+from house import House
 from road import Road
 from energy import Energy
 import pygame
@@ -9,6 +9,33 @@ import sys
 import random
 
 class Game:
+    COLORS = {
+        'white': (255, 255, 255),
+        'yellow': (255, 255, 0),
+        'menu_background': (230, 230, 230),
+        'game_over_text': (255, 0, 0),
+    }
+
+    ICON_PATHS = {
+        'house': './assets/resources/houses/house1.png',
+        'road': './assets/resources/road/road.png',
+        'energy': './assets/resources/buildings/energy/windmills/windmill.png',
+        'upgrade': './assets/resources/icons/upgrade.png',
+        'remove': './assets/resources/icons/remove.png',
+    }
+
+    COSTS = {
+        'house': 1000,
+        'road': 50,
+        'energy': 2000,
+    }
+
+    BUILDING_IMAGES = {
+        'house': './assets/resources/houses/house1.png',
+        'road': './assets/resources/road/road.png',
+        'energy': './assets/resources/buildings/energy/windmills/windmill.png',
+    }
+
     def __init__(self, window, width, height, grid_size, game_state=None):
         self.window = window
         self.width = width
@@ -22,64 +49,62 @@ class Game:
         self.house_menu_visible = False
         self.occupied_cells = set()
 
-        house_image = pygame.image.load('./assets/resources/houses/house1.png')
-        self.house_image = pygame.transform.scale(house_image, (80, 80))
-
-        road_image = pygame.image.load('./assets/resources/road/road.png')
-        self.road_image = pygame.transform.scale(road_image, (80, 80))
-
-        energy_image = pygame.image.load('./assets/resources/buildings/energy/windmills/windmill.png')
-        self.energy_image = pygame.transform.scale(energy_image, (80, 80))
+        self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
+        self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
+        self.energy_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['energy']), (80, 80))
 
     def draw(self):
         self.grid.draw_grid()
+        self.draw_selected_cell_outline()
+        self.draw_game_elements()
+        self.draw_houses_level()
 
-        # If a cell is selected, draw a white outline around it
-        if self.selected_cell is not None:
-            pygame.draw.rect(self.window, (255, 255, 255), (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
-            #draw the house menu
+    def draw_selected_cell_outline(self):
+        if self.selected_cell:
+            pygame.draw.rect(self.window, self.COLORS['white'],
+                             (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
             if self.house_menu_visible:
                 self.draw_house_menu()
 
-
+    def draw_game_elements(self):
         if self.menu_bar_visible:
             self.draw_menu_bar()
+            if self.selected_cell:
+                pygame.draw.rect(self.window, self.COLORS['yellow'],
+                                 (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
 
-            # If a cell is selected, draw a yellow outline around it
-            if self.selected_cell is not None:
-                pygame.draw.rect(self.window, (255, 255, 0), (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
-
-        # End the game if climateScore is 0 or lower
         if self.game_state.climateScore <= 0:
             self.draw_game_over()
             pygame.display.update()
-            pygame.time.wait(3000)  # wait for 3 seconds
+            pygame.time.wait(3000)
             pygame.quit()
             sys.exit()
 
-            # Draw the level of each house
+    def draw_menu_bar(self):
+        pygame.draw.rect(self.window, self.COLORS['menu_background'], (0, self.height - 80, self.width, 80))
+        self.draw_building_icons()
+        self.draw_building_costs()
+
+    def draw_building_icons(self):
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80)),
+                         (10, self.height - 75))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80)),
+                         (100, self.height - 75))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['energy']), (80, 80)),
+                         (190, self.height - 80))
+
+    def draw_building_costs(self):
+        font = pygame.font.Font(None, 24)
+        for i, building_type in enumerate(['house', 'road', 'energy']):
+            cost_text = font.render(f"${self.COSTS[building_type]}", True, self.COLORS['white'])
+            self.window.blit(cost_text, (60 + i * 90, self.height - 70))
+
+    def draw_houses_level(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House):
-                level_text = self.font.render(str(obj.level), True, (255, 255, 255))  
-                self.window.blit(level_text, (obj.x, obj.y)) 
+                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                self.window.blit(level_text, (obj.x, obj.y))
 
-    def draw_menu_bar(self):
-        # Draw the menu bar background
-        pygame.draw.rect(self.window, (230, 230, 230), (0, self.height - 80, self.width, 80))
-
-        # Draw the house and road images
-        self.window.blit(self.house_image, (10, self.height - 75))
-        self.window.blit(self.road_image, (100, self.height - 75))
-        self.window.blit(self.energy_image, (190, self.height - 80))
-
-        # Draw the cost text
-        font = pygame.font.Font(None, 24)  # Create a font object
-        house_cost_text = font.render("$1000", True, (0, 0, 0))  # Create a Surface with the house cost text
-        road_cost_text = font.render("$50", True, (0, 0, 0))  # Create a Surface with the road cost text
-        energy_cost_text = font.render("$2000", True, (0, 0, 0)) 
-        self.window.blit(house_cost_text, (60, self.height - 70))  # Draw the house cost text
-        self.window.blit(road_cost_text, (150, self.height - 70))  # Draw the road cost text
-        self.window.blit(energy_cost_text, (240, self.height - 70))  # Draw the energy building cost text
 
     def handle_click(self, x, y):
         # Convert the mouse click coordinates to grid coordinates
@@ -90,10 +115,10 @@ class Game:
         pixel_x = grid_x * self.grid_size
         pixel_y = grid_y * self.grid_size
 
-        # Check if a house already exists at the clicked cell
+        # Check if a house, road or energy building already exists at the clicked cell
         for obj in self.game_state.placed_objects:
-            if isinstance(obj, House) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
-                # If a house exists, store its coordinates in self.selected_cell
+            if (isinstance(obj, House) or isinstance(obj, Road) or isinstance(obj, Energy)) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+                # If a house, road or energy building exists, store its coordinates in self.selected_cell
                 self.selected_cell = (pixel_x, pixel_y)
                 self.house_menu_visible = True
                 return
@@ -180,6 +205,7 @@ class Game:
             self.selected_cell = (pixel_x, pixel_y)
 
     def draw_house_menu(self):
+        upgrade_cost = 0
         # Load the icons
         upgrade_icon = pygame.image.load('./assets/resources/icons/upgrade.png')
         remove_icon = pygame.image.load('./assets/resources/icons/remove.png')
@@ -224,7 +250,7 @@ class Game:
     def draw_game_over(self):
         font = pygame.font.Font(None, 170)
         font2 = pygame.font.Font(None, 50)
-        text = font.render('Game Over', 1, (255, 0, 0))
-        text2 = font2.render('You have destroyed the climate!', 1, (255, 0, 0))
-        self.window.blit(text, (self.width//2 - text.get_width()//2, self.height//2 - text.get_height()//2))
-        self.window.blit(text2, (self.width//2 - text2.get_width()//2, self.height//2 + text.get_height()//2))
+        text = font.render('Game Over', 1, self.COLORS['game_over_text'])
+        text2 = font2.render('You have destroyed the climate!', 1, self.COLORS['game_over_text'])
+        self.window.blit(text, (self.width // 2 - text.get_width() // 2, self.height // 2 - text.get_height() // 2))
+        self.window.blit(text2, (self.width // 2 - text2.get_width() // 2, self.height // 2 + text.get_height() // 2))
