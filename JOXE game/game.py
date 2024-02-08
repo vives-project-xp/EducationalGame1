@@ -53,6 +53,12 @@ class Game:
             pygame.quit()
             sys.exit()
 
+            # Draw the level of each house
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, House):
+                level_text = self.font.render(str(obj.level), True, (255, 255, 255))  
+                self.window.blit(level_text, (obj.x, obj.y)) 
+
     def draw_menu_bar(self):
         # Draw the menu bar background
         pygame.draw.rect(self.window, (230, 230, 230), (0, self.height - 80, self.width, 80))
@@ -93,14 +99,14 @@ class Game:
                     for obj in self.game_state.placed_objects:
                         if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                             # If the player has enough money, upgrade the house
-                            if self.game_state.money >= 5000:
-                                new_image = pygame.image.load('./assets/resources/houses/house2.png')  # Upgrade the house image
+                            if self.game_state.money >= obj.upgrade_cost and obj.level < 7:
+                                obj.upgrade()
+                                new_image = pygame.image.load(f'./assets/resources/houses/house{obj.level}.png')  # Upgrade the house image
                                 obj.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
-                                self.game_state.remove_money(5000)  # Deduct the cost of the upgrade
-                                new_inhabitants = random.randint(5, 8)
-                                self.game_state.add_citizen(new_inhabitants - obj.inhabitants)  # Add the new inhabitants
-                                #add the new inhabitants to the house
-                                obj.inhabitants = new_inhabitants  # Update the inhabitants of the house
+                                self.game_state.remove_money(obj.upgrade_cost)  # Deduct the cost of the upgrade
+                                additional_inhabitants = random.randint(3, 8)
+                                self.game_state.add_citizen(additional_inhabitants)  
+                                obj.inhabitants += additional_inhabitants  
                             break
             if self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30:
                 if self.selected_cell[0] + 50 <= x <= self.selected_cell[0] + 90:
@@ -177,7 +183,24 @@ class Game:
 
         # Draw the upgrade and remove buttons
         font = pygame.font.Font(None, 24)  # Create a font object
-        upgrade_text = font.render("$5000", True, (0, 0, 0))  # Create a Surface with the upgrade text
+
+        # Get the upgrade cost and format it
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                upgrade_cost = obj.upgrade_cost
+                break
+
+        # Format the upgrade cost string
+        if upgrade_cost >= 1000000000:
+            upgrade_cost_str = f"${upgrade_cost / 1000000000}b"
+        elif upgrade_cost >= 1000000:
+            upgrade_cost_str = f"${upgrade_cost / 1000000}m"
+        elif upgrade_cost >= 1000:
+            upgrade_cost_str = f"${upgrade_cost / 1000}k"
+        else:
+            upgrade_cost_str = f"${upgrade_cost}"
+
+        upgrade_text = font.render(upgrade_cost_str, True, (0, 0, 0))  # Create a Surface with the upgrade text
         self.window.blit(upgrade_icon, (menu_x + 10, menu_y + 10))  # Draw the upgrade icon
         self.window.blit(upgrade_text, (menu_x + 40, menu_y + 16))  # Draw the upgrade text
         self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))  # Draw the remove icon

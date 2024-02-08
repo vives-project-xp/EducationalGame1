@@ -7,6 +7,8 @@ class House:
         self.image = pygame.image.load('./assets/resources/houses/house1.png')
         self.image = pygame.transform.scale(self.image, (cell_size, cell_size))
         self.inhabitants = 0 
+        self.level = 1
+        self.upgrade_cost = 1000
 
     def draw(self, surface):
         # Adjust the position so the house is centered at (x, y)
@@ -15,3 +17,8 @@ class House:
 
     def add_inhabitant(self, amount):
         self.inhabitants += amount
+    
+    def upgrade(self):
+            if self.level < 7:
+                self.level += 1
+                self.upgrade_cost *= 5  

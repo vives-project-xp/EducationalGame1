@@ -2,7 +2,7 @@ class Gamestate:
     def __init__(self):
         self.amountOfCitizens = 0
         self.amountOfHouses = 0
-        self.money = 30000
+        self.money = 100000000
         self.climateScore = 92
         self.placed_objects = []
 
