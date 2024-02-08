@@ -99,6 +99,7 @@ class Game:
                                 self.game_state.remove_money(5000)  # Deduct the cost of the upgrade
                                 new_inhabitants = random.randint(5, 8)
                                 self.game_state.add_citizen(new_inhabitants - obj.inhabitants)  # Add the new inhabitants
+                                #add the new inhabitants to the house
                                 obj.inhabitants = new_inhabitants  # Update the inhabitants of the house
                             break
             if self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30:
@@ -132,7 +133,9 @@ class Game:
                                 house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size)
                                 self.game_state.placed_objects.append(house)
                                 self.game_state.remove_money(1000)
-                                self.game_state.add_citizen(random.randint(3, 6))
+                                add_citizen = random.randint(3, 6)
+                                self.game_state.add_citizen(add_citizen)
+                                house.add_inhabitant(add_citizen)
                                 self.game_state.add_house(1)
                         self.selected_cell = None  # Clear the selected cell
                     self.menu_bar_visible = False
