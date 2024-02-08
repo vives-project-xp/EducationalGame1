@@ -9,6 +9,7 @@ class House:
         self.inhabitants = 0 
         self.level = 1
         self.upgrade_cost = 1000
+        self.ecoscore = -1
 
     def draw(self, surface):
         # Adjust the position so the house is centered at (x, y)

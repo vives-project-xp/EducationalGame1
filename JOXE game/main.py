@@ -19,12 +19,30 @@ def main(window):
     clock = pygame.time.Clock()
     gamestate = Gamestate()
     game = Game(window, WIDTH, HEIGHT, GRID_SIZE, gamestate)
-    run = True
 
+    # Track the time when the last money increment occurred
+    last_increment_time = pygame.time.get_ticks()
+
+    run = True
     while run:
         clock.tick(FPS)
         game.draw()
+
+        # Check if 10 seconds have passed since the last increment
+        current_time = pygame.time.get_ticks()
+        if current_time - last_increment_time >= 1000:  # 10000 milliseconds = 10 seconds
+            # Calculate the amount of money to add based on the number of citizens
+            
+            if game.game_state.get_citizen_count() == 0:
+                money_to_add = 10
+            else:
+                money_to_add = game.game_state.get_citizen_count() * 10
+            game.game_state.add_money(money_to_add)
+            
+            last_increment_time = current_time  # Update the last increment time
+
         pygame.display.update()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -37,7 +55,7 @@ def main(window):
 
 def menu_screen(window):
     # Load the full-screen image and the play button image
-    background = pygame.image.load('./assets/resources/background/bg3.png')
+    background = pygame.image.load('./assets/resources/background/bg2.png')
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))  # Resize the background
     play_button = pygame.image.load('./assets/resources/background/play.png')
 

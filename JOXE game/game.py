@@ -132,8 +132,7 @@ class Game:
 
     def is_building_already_present(self, grid_x, grid_y):
         for obj in self.game_state.placed_objects:
-            if (isinstance(obj, House) or isinstance(obj, Road) or isinstance(obj, Energy)) and \
-                    obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+            if isinstance(obj, House) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
         return False
 
