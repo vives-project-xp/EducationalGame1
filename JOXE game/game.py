@@ -55,7 +55,8 @@ class Game:
         self.menu_bar_visible = False
         self.house_menu_visible = False
         self.occupied_cells = set()
-        self.font = pygame.font.Font(None, 16)
+        self.font = pygame.font.Font(None, 36)
+        self.averagestatfont = pygame.font.Font(None, 16)
         
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
@@ -79,8 +80,8 @@ class Game:
         formatted_money_gain = self.format_number(average_money_gain)
         formatted_ecoscore_change = self.format_number(average_ecoscore_change)
 
-        money_text = self.font.render(f"$/m:   {formatted_money_gain}", True, (0, 0, 0))
-        ecoscore_text = self.font.render(f"CO2/m: {formatted_ecoscore_change}", True, (0, 0, 0))
+        money_text = self.averagestatfont.render(f"$/m:   {formatted_money_gain}", True, (0, 0, 0))
+        ecoscore_text = self.averagestatfont.render(f"CO2/m: {formatted_ecoscore_change}", True, (0, 0, 0))
 
         self.window.blit(money_text, (square_x + 12, square_y + 7))
         self.window.blit(ecoscore_text, (square_x + 12, square_y + 17))
