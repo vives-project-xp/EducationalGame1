@@ -3,7 +3,7 @@ class Gamestate:
         self.amountOfCitizens = 0
         self.amountOfHouses = 0
         self.money = 100000000
-        self.climateScore = 92
+        self.climateScore = 50
         self.placed_objects = []
 
     def add_object(self, obj):
@@ -31,13 +31,13 @@ class Gamestate:
         self.money -= amount
 
     def add_climate_score(self, amount):
-        if self.climateScore < 100:
+        if self.climateScore + amount <= 100:
             self.climateScore += amount
-        elif self.climateScore + amount > 100:
+        else:
             self.climateScore = 100
 
     def remove_climate_score(self, amount):
-        if self.climateScore > 0:
+        if self.climateScore - amount >= 0:
             self.climateScore -= amount
-        elif self.climateScore - amount < 0:
+        else:
             self.climateScore = 0

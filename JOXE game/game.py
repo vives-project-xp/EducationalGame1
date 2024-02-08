@@ -2,6 +2,7 @@ from grid import Grid
 from gamestate import Gamestate
 from house import House 
 from road import Road
+from energy import Energy
 import pygame
 import os
 import sys
@@ -26,6 +27,9 @@ class Game:
 
         road_image = pygame.image.load('./assets/resources/road/road.png')
         self.road_image = pygame.transform.scale(road_image, (80, 80))
+
+        energy_image = pygame.image.load('./assets/resources/buildings/energy/windmills/windmill.png')
+        self.energy_image = pygame.transform.scale(energy_image, (80, 80))
 
     def draw(self):
         self.grid.draw_grid()
@@ -64,15 +68,18 @@ class Game:
         pygame.draw.rect(self.window, (230, 230, 230), (0, self.height - 80, self.width, 80))
 
         # Draw the house and road images
-        self.window.blit(self.house_image, (10, self.height - 70))
-        self.window.blit(self.road_image, (100, self.height - 70))
+        self.window.blit(self.house_image, (10, self.height - 75))
+        self.window.blit(self.road_image, (100, self.height - 75))
+        self.window.blit(self.energy_image, (190, self.height - 80))
 
         # Draw the cost text
         font = pygame.font.Font(None, 24)  # Create a font object
         house_cost_text = font.render("$1000", True, (0, 0, 0))  # Create a Surface with the house cost text
         road_cost_text = font.render("$50", True, (0, 0, 0))  # Create a Surface with the road cost text
+        energy_cost_text = font.render("$2000", True, (0, 0, 0)) 
         self.window.blit(house_cost_text, (60, self.height - 70))  # Draw the house cost text
         self.window.blit(road_cost_text, (150, self.height - 70))  # Draw the road cost text
+        self.window.blit(energy_cost_text, (240, self.height - 70))  # Draw the energy building cost text
 
     def handle_click(self, x, y):
         # Convert the mouse click coordinates to grid coordinates
@@ -152,6 +159,15 @@ class Game:
                         self.game_state.placed_objects.append(road)
                         self.game_state.remove_money(50)
                         self.game_state.remove_climate_score(1)
+                        self.selected_cell = None
+                    self.menu_bar_visible = False
+                elif 190 <= x <= 270:
+                    # Energy building image was clicked
+                    if self.selected_cell is not None and self.game_state.money >= 2000:
+                        energy = Energy(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+                        self.game_state.placed_objects.append(energy)
+                        self.game_state.remove_money(2000)
+                        self.game_state.add_climate_score(10)
                         self.selected_cell = None
                     self.menu_bar_visible = False
             else:
