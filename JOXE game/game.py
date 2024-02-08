@@ -87,27 +87,28 @@ class Game:
 
         if self.house_menu_visible:
             # If the house menu is visible, check if the upgrade or remove button was clicked
-            if self.selected_cell[1] - 80 <= y <= self.selected_cell[1] - 50:
-                if self.selected_cell[0] + 10 <= x <= self.selected_cell[0] + 150:
+            if self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30:
+                if self.selected_cell[0] -50 <= x <= self.selected_cell[0] + 40:
                     # Upgrade button was clicked
                     for obj in self.game_state.placed_objects:
                         if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                             # If the player has enough money, upgrade the house
                             if self.game_state.money >= 5000:
-                                obj.image = pygame.image.load('./assets/resources/houses/house2.png')  # Upgrade the house image
+                                new_image = pygame.image.load('./assets/resources/houses/house2.png')  # Upgrade the house image
+                                obj.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
                                 self.game_state.remove_money(5000)  # Deduct the cost of the upgrade
                                 new_inhabitants = random.randint(5, 8)
                                 self.game_state.add_citizen(new_inhabitants - obj.inhabitants)  # Add the new inhabitants
                                 obj.inhabitants = new_inhabitants  # Update the inhabitants of the house
                             break
-            elif self.selected_cell[1] - 50 <= y <= self.selected_cell[1] - 20:
-                if self.selected_cell[0] + 10 <= x <= self.selected_cell[0] + 150:
+            if self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30:
+                if self.selected_cell[0] + 50 <= x <= self.selected_cell[0] + 90:
                     # Remove button was clicked
                     for obj in self.game_state.placed_objects:
                         if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                             # Remove the house
                             self.game_state.placed_objects.remove(obj)
-                            self.game_state.add_citizen(-obj.inhabitants)  # Remove the inhabitants of the house
+                            self.game_state.remove_citizen(obj.inhabitants)  # Remove the inhabitants of the house
                             self.game_state.remove_house(1)
                             break
             self.house_menu_visible = False

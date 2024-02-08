@@ -6,6 +6,7 @@ class House:
         self.y = y
         self.image = pygame.image.load('./assets/resources/houses/house1.png')
         self.image = pygame.transform.scale(self.image, (cell_size, cell_size))
+        self.inhabitants = 0 
 
     def draw(self, surface):
         # Adjust the position so the house is centered at (x, y)
