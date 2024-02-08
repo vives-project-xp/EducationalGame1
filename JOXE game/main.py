@@ -6,8 +6,8 @@ import sys
 
 pygame.init()
 
-WIDTH, HEIGHT = 1920, 1000
-
+#WIDTH, HEIGHT = 1920, 1000
+WIDTH, HEIGHT = 1420, 800
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 programIcon = pygame.image.load('./assets/logo/JOXEC.png')
