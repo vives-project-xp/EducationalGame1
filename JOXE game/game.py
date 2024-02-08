@@ -107,102 +107,147 @@ class Game:
 
 
     def handle_click(self, x, y):
-        # Convert the mouse click coordinates to grid coordinates
-        grid_x = x // self.grid_size
-        grid_y = y // self.grid_size
-
-        # Convert grid coordinates back to pixel coordinates
-        pixel_x = grid_x * self.grid_size
-        pixel_y = grid_y * self.grid_size
-
-        # Check if a house, road or energy building already exists at the clicked cell
-        for obj in self.game_state.placed_objects:
-            if (isinstance(obj, House) or isinstance(obj, Road) or isinstance(obj, Energy)) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
-                # If a house, road or energy building exists, store its coordinates in self.selected_cell
-                self.selected_cell = (pixel_x, pixel_y)
-                self.house_menu_visible = True
-                return
+        grid_x, grid_y = self.get_grid_coordinates(x, y)
 
         if self.house_menu_visible:
-            # If the house menu is visible, check if the upgrade or remove button was clicked
-            if self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30:
-                if self.selected_cell[0] -50 <= x <= self.selected_cell[0] + 40:
-                    # Upgrade button was clicked
-                    for obj in self.game_state.placed_objects:
-                        if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                            # If the player has enough money, upgrade the house
-                            if self.game_state.money >= obj.upgrade_cost and obj.level < 7:
-                                obj.upgrade()
-                                new_image = pygame.image.load(f'./assets/resources/houses/house{obj.level}.png')  # Upgrade the house image
-                                obj.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
-                                self.game_state.remove_money(obj.upgrade_cost)  # Deduct the cost of the upgrade
-                                additional_inhabitants = random.randint(3, 8)
-                                self.game_state.add_citizen(additional_inhabitants)  
-                                obj.inhabitants += additional_inhabitants  
-                            break
-            if self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30:
-                if self.selected_cell[0] + 50 <= x <= self.selected_cell[0] + 90:
-                    # Remove button was clicked
-                    for obj in self.game_state.placed_objects:
-                        if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                            # Remove the house
-                            self.game_state.placed_objects.remove(obj)
-                            self.game_state.remove_citizen(obj.inhabitants)  # Remove the inhabitants of the house
-                            self.game_state.remove_house(1)
-                            break
-            self.house_menu_visible = False
-            self.selected_cell = None  # Clear the selected cell
-        elif self.menu_bar_visible:
-            # If the menu bar is visible, check if the house or road image was clicked
-            if self.height - 80 <= y <= self.height - 10:
-                if 10 <= x <= 90:
-                    # House image was clicked
-                    if self.selected_cell is not None:
-                        # Check if a house already exists at the selected cell
-                        for obj in self.game_state.placed_objects:
-                            if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                                # If a house exists, show the house menu
-                                self.menu_bar_visible = False
-                                self.house_menu_visible = True
-                                break
-                        else:
-                            # If no house exists and the player has enough money, place a new house
-                            if self.game_state.money >= 1000:
-                                house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size)
-                                self.game_state.placed_objects.append(house)
-                                self.game_state.remove_money(1000)
-                                add_citizen = random.randint(3, 6)
-                                self.game_state.add_citizen(add_citizen)
-                                house.add_inhabitant(add_citizen)
-                                self.game_state.add_house(1)
-                        self.selected_cell = None  # Clear the selected cell
-                    self.menu_bar_visible = False
-                elif 100 <= x <= 180:
-                    # Road image was clicked
-                    if self.selected_cell is not None and self.game_state.money >= 50:
-                        road = Road(self.selected_cell[0], self.selected_cell[1], self.grid_size)
-                        self.game_state.placed_objects.append(road)
-                        self.game_state.remove_money(50)
-                        self.game_state.remove_climate_score(1)
-                        self.selected_cell = None
-                    self.menu_bar_visible = False
-                elif 190 <= x <= 270:
-                    # Energy building image was clicked
-                    if self.selected_cell is not None and self.game_state.money >= 2000:
-                        energy = Energy(self.selected_cell[0], self.selected_cell[1], self.grid_size)
-                        self.game_state.placed_objects.append(energy)
-                        self.game_state.remove_money(2000)
-                        self.game_state.add_climate_score(10)
-                        self.selected_cell = None
-                    self.menu_bar_visible = False
-            else:
-                # If the click was outside the menu bar, close the menu
-                self.menu_bar_visible = False
-                self.selected_cell = None  # Clear the selected cell
+            self.handle_house_menu_click(x, y)
+            return
+
+        if self.menu_bar_visible:
+            self.handle_menu_bar_click(x, y)
+            return
+
+        if self.is_building_already_present(grid_x, grid_y):
+            self.selected_cell = (grid_x * self.grid_size, grid_y * self.grid_size)
+            self.house_menu_visible = True
+            return
+
+        self.menu_bar_visible = True
+        self.selected_cell = (grid_x * self.grid_size, grid_y * self.grid_size)
+
+    def get_grid_coordinates(self, x, y):
+        grid_x = x // self.grid_size
+        grid_y = y // self.grid_size
+        return grid_x, grid_y
+
+    def is_building_already_present(self, grid_x, grid_y):
+        for obj in self.game_state.placed_objects:
+            if (isinstance(obj, House) or isinstance(obj, Road) or isinstance(obj, Energy)) and \
+                    obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+                return True
+        return False
+
+    def handle_house_menu_click(self, x, y):
+        if self.is_upgrade_button_clicked(x, y):
+            self.handle_upgrade_button_click()
+        elif self.is_remove_button_clicked(x, y):
+            self.handle_remove_button_click()
+        self.house_menu_visible = False
+        self.selected_cell = None
+
+    def is_upgrade_button_clicked(self, x, y):
+        return self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30 and \
+            self.selected_cell[0] - 50 <= x <= self.selected_cell[0] + 40
+
+    def is_remove_button_clicked(self, x, y):
+        return self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30 and \
+            self.selected_cell[0] + 50 <= x <= self.selected_cell[0] + 90
+
+    def handle_upgrade_button_click(self):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 7:  # Check if money after upgrade is >= 0
+                    self.game_state.remove_money(obj.upgrade_cost)  # Deduct money before upgrading
+                    obj.upgrade()
+                    self.upgrade_house(obj)
+                else:
+                    print("Not enough money to upgrade the house.")
+                break
+
+    def upgrade_house(self, house):
+        new_image = pygame.image.load(f'./assets/resources/houses/house{house.level}.png')
+        house.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+        additional_inhabitants = random.randint(3, 8)
+        self.game_state.add_citizen(additional_inhabitants)
+        house.inhabitants += additional_inhabitants
+
+    def handle_remove_button_click(self):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                self.remove_house(obj)
+                break
+
+    def remove_house(self, house):
+        self.game_state.placed_objects.remove(house)
+        self.game_state.remove_citizen(house.inhabitants)
+        self.game_state.remove_house(1)
+
+    def handle_menu_bar_click(self, x, y):
+        if self.is_house_icon_clicked(x, y):
+            self.handle_house_icon_click()
+        elif self.is_road_icon_clicked(x, y):
+            self.handle_road_icon_click()
+        elif self.is_energy_icon_clicked(x, y):
+            self.handle_energy_icon_click()
         else:
-            # If the menu bar is not visible, show it and store the selected cell
-            self.menu_bar_visible = True
-            self.selected_cell = (pixel_x, pixel_y)
+            self.menu_bar_visible = False
+            self.selected_cell = None
+
+    def is_house_icon_clicked(self, x, y):
+        return self.height - 80 <= y <= self.height - 10 and 10 <= x <= 90
+
+    def is_road_icon_clicked(self, x, y):
+        return self.height - 80 <= y <= self.height - 10 and 100 <= x <= 180
+
+    def is_energy_icon_clicked(self, x, y):
+        return self.height - 80 <= y <= self.height - 10 and 190 <= x <= 270
+
+    def handle_house_icon_click(self):
+        if self.selected_cell is not None:
+            for obj in self.game_state.placed_objects:
+                if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                    self.menu_bar_visible = False
+                    self.house_menu_visible = True
+                    break
+            else:
+                if self.game_state.money >= 1000:
+                    self.place_new_house()
+                self.selected_cell = None
+            self.menu_bar_visible = False
+
+    def place_new_house(self):
+        if self.game_state.money >= 1000:
+            house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+            self.game_state.placed_objects.append(house)
+            self.game_state.remove_money(1000)
+            add_citizen = random.randint(3, 6)
+            self.game_state.add_citizen(add_citizen)
+            house.add_inhabitant(add_citizen)
+            self.game_state.add_house(1)
+        else:
+            print("Not enough money to place a new house.")
+
+    def handle_road_icon_click(self):
+        if self.selected_cell is not None and self.game_state.money >= 50:
+            road = Road(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+            self.game_state.placed_objects.append(road)
+            self.game_state.remove_money(50)
+            self.game_state.remove_climate_score(1)
+            self.selected_cell = None
+        else:
+            print("Not enough money to place a road.")
+        self.menu_bar_visible = False
+
+    def handle_energy_icon_click(self):
+        if self.selected_cell is not None and self.game_state.money >= 2000:
+            energy = Energy(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+            self.game_state.placed_objects.append(energy)
+            self.game_state.remove_money(2000)
+            self.game_state.add_climate_score(10)
+            self.selected_cell = None
+        else:
+            print("Not enough money to place an energy building.")
+        self.menu_bar_visible = False
 
     def draw_house_menu(self):
         upgrade_cost = 0
