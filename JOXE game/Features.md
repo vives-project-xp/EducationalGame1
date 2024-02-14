@@ -1,12 +1,11 @@
 |      Task      | Completed |
 |----------------|-----------|
-| House Upgrades | <input type="checkbox" disabled checked> |
-| House Remove   | <input type="checkbox" disabled checked> |
-| Task 3         | <input type="checkbox" disabled checked> |
-| Task 3         | <input type="checkbox" disabled checked> |
-| Task 3         | <input type="checkbox" disabled checked> |
-| Task 3         | <input type="checkbox" disabled checked> |
-| Task 3         | <input type="checkbox" disabled checked> |
-| Task 3         | <input type="checkbox" disabled checked> |
-| Task 3         | <input type="checkbox" disabled checked> |
-| Task 3         | <input type="checkbox" disabled checked> |
+| House Upgrades |     ✅    | 
+| House Remove   |     ❌    | 
+| Task 3         |     ❌    | 
+| Task 3         |     ❌    | 
+| Task 3         |     ❌    | 
+| Task 3         |     ❌    | 
+| Task 3         |     ❌    | 
+| Task 3         |     ❌    | 
+| Task 3         |     ❌    | 
