@@ -2,6 +2,7 @@ import pygame
 from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
+import datetime
 import os
 import sys
 
@@ -32,6 +33,15 @@ def main(window):
         game.draw_averages(average_money_gain, average_ecoscore_change)
 
         pygame.display.update()
+
+        elapsed_time = pygame.time.get_ticks() - game.start_time
+        game.total_elapsed_time += elapsed_time
+        game.start_time = pygame.time.get_ticks()  # Reset the start time
+
+        # If 2 seconds (2,000 milliseconds) have passed
+        if game.total_elapsed_time >= 2000:
+            game.current_date += datetime.timedelta(days=1)  # Advance the date by one day
+            game.total_elapsed_time -= 2000
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

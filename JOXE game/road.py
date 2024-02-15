@@ -13,3 +13,15 @@ class Road:
     def draw(self, window):
         # Draw the road image at the given coordinates
         window.blit(self.image, (self.x, self.y))
+
+    def get_road_type(self, neighbors):
+        if neighbors == [1, 1, 0, 0]:
+            return 'horizontal'
+        elif neighbors == [0, 0, 1, 1]:
+            return 'vertical'
+        elif neighbors == [1, 1, 1, 0]:
+            return 't_point'
+        elif neighbors == [1, 1, 1, 1]:
+            return 'x_point'
+        else:
+            return 'corner'

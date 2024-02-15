@@ -8,6 +8,7 @@ import pygame
 import os
 import sys
 import random
+import datetime
 
 class Game:
     COLORS = {
@@ -57,7 +58,9 @@ class Game:
         self.occupied_cells = set()
         self.font = pygame.font.Font(None, 36)
         self.averagestatfont = pygame.font.Font(None, 16)
-        
+        self.start_time = pygame.time.get_ticks()  # Get the current time in milliseconds
+        self.total_elapsed_time = 0  # Total elapsed time in milliseconds
+        self.current_date = datetime.datetime(2022, 1, 1)  # Start at January 1, 2022
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
@@ -68,6 +71,13 @@ class Game:
         self.draw_selected_cell_outline()
         self.draw_game_elements()
         self.draw_houses_level()
+        self.draw_date()
+
+    def draw_date(self):
+        # Draw the current date on the screen
+        font = pygame.font.SysFont(None, 36)
+        text = font.render(self.current_date.strftime("%d/%m/%Y"), True, (255, 255, 255))
+        self.window.blit(text, (0, 0))  # Adjust the position as needed
 
     def draw_averages(self, average_money_gain, average_ecoscore_change):
         square_width, square_height = 100, 30
