@@ -314,33 +314,37 @@ class Game:
         if self.game_state.money >= 50:
             # Draw the road from the start position to the current mouse position
             start_x, start_y = self.road_start_position
-            road_length = max(
-                abs((x - start_x) // self.grid_size),
-                abs((y - start_y) // self.grid_size)
-            )
+            road_length_x = (x - start_x) // self.grid_size
+            road_length_y = (y - start_y) // self.grid_size
 
-            for i in range(road_length + 1):
+            for i in range(abs(road_length_x) + 1):
                 new_x = start_x + i * self.grid_size
                 new_y = start_y
+                self.place_road_at_location(new_x, new_y)
 
-                # Check if a road is already present at the target grid cell
-                if self.is_building_already_present(new_x // self.grid_size, new_y // self.grid_size):
-                    break
-
-                road = Road(new_x, new_y, self.grid_size)
-                road.set_type('v-road')  # Set road type to 'v-road'
-                self.game_state.placed_objects.append(road)
-                self.game_state.remove_money(50)
-                self.game_state.remove_climate_score(1)
-
-                # Check for nearby roads to connect
-                self.connect_nearby_roads(new_x, new_y)
+            for i in range(abs(road_length_y) + 1):
+                new_x = start_x
+                new_y = start_y + i * self.grid_size
+                self.place_road_at_location(new_x, new_y)
 
             self.selected_cell = None
             self.road_placement_in_progress = False
         else:
             print("Not enough money to place a road.")
 
+    def place_road_at_location(self, x, y):
+        # Check if a road is already present at the target grid cell
+        if self.is_building_already_present(x // self.grid_size, y // self.grid_size):
+            return
+
+        road = Road(x, y, self.grid_size)
+        road.set_type('road')
+        self.game_state.placed_objects.append(road)
+        self.game_state.remove_money(50)
+        self.occupied_cells.add((x, y))
+
+        # Check for nearby roads to connect
+        self.connect_nearby_roads(x, y)
 
 
     def connect_nearby_roads(self, x, y):
@@ -351,20 +355,10 @@ class Game:
             (x, y + self.grid_size),
         ]
 
-        # Count the number of neighboring roads
-        num_neighboring_roads = sum(
-            1 for cell in nearby_cells
-            if any(isinstance(obj, Road) and obj.x == cell[0] and obj.y == cell[1] for obj in self.game_state.placed_objects)
-        )
-
-        if num_neighboring_roads == 4:
-            self.set_road_image(x, y, 'crossroad.png')
-        elif num_neighboring_roads == 3:
-            self.set_road_image(x, y, 't-road.png')
-        elif num_neighboring_roads == 2:
-            self.update_adjacent_roads(x, y, nearby_cells)
-        elif num_neighboring_roads == 1:
-            self.set_road_image(x, y, 'road.png')
+        for cell in nearby_cells:
+            cell_x, cell_y = cell
+            if (cell_x, cell_y) in self.occupied_cells:
+                self.update_adjacent_roads(cell_x, cell_y, nearby_cells)
 
     def update_adjacent_roads(self, x, y, nearby_cells):
         for cell in nearby_cells:
@@ -376,6 +370,14 @@ class Game:
 
         # No nearby roads, use default horizontal road image
         self.set_road_image(x, y, 'road.png')
+
+    def set_road_image(self, x, y, image_path):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Road) and obj.x == x and obj.y == y:
+                print(f"Setting road image at ({x}, {y}) to {image_path}")
+                # Load the new image
+                new_image = pygame.transform.scale(pygame.image.load(image_path), (self.grid_size, self.grid_size))
+                obj.image = new_image
 
     def check_adjacent_roads(self, x1, y1, x2, y2):
         if x1 == x2:  # Same column
@@ -395,14 +397,6 @@ class Game:
         else:  # Corner road
             self.set_road_image(x1, y1, 'cornerroad.png')
             self.set_road_image(x2, y2, 'cornerroad.png')
-
-    def set_road_image(self, x, y, image_path):
-        for obj in self.game_state.placed_objects:
-            if isinstance(obj, Road) and obj.x == x and obj.y == y:
-                print(f"Setting road image at ({x}, {y}) to {image_path}")
-                # Load the new image
-                new_image = pygame.transform.scale(pygame.image.load(image_path), (self.grid_size, self.grid_size))
-                obj.image = new_image
 
     def print_roads(self):
         for row in range(self.height // self.grid_size):
