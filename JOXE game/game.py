@@ -324,22 +324,29 @@ class Game:
             for i in range(abs(road_length_x) + 1):
                 new_x = start_x + i * self.grid_size * x_direction
                 new_y = start_y
+                # Skip the starting position if a road is being placed in both directions
+                if new_x == start_x and new_y == start_y and abs(road_length_y) > 0:
+                    continue
                 road = self.place_road_at_location(new_x, new_y)
-                road.set_type('road')  # Set road type to 'road'
+                if road is not None:
+                    road.set_type('road')  # Set road type to 'road'
 
             # Handle roads in y direction
             for i in range(abs(road_length_y) + 1):
                 new_x = start_x
                 new_y = start_y + i * self.grid_size * y_direction
+                # Skip the starting position if a road is being placed in both directions
+                if new_x == start_x and new_y == start_y and abs(road_length_x) > 0:
+                    continue
                 road = self.place_road_at_location(new_x, new_y)
-                road.set_type('v-road')  # Set road type to 'v-road'
+                if road is not None:
+                    road.set_type('v-road')  # Set road type to 'v-road'
 
             self.selected_cell = None
             self.road_placement_in_progress = False
             self.game_state.remove_money(50)
         else:
             print("Not enough money to place a road.")
-
 
     def place_road_at_location(self, x, y):
         # Check if a road is already present at the target grid cell
