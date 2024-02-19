@@ -417,8 +417,12 @@ class Game:
         for obj in self.game_state.placed_objects:
             if isinstance(obj, Road) and obj.x == x and obj.y == y:
                 print(f"Setting road image at ({x}, {y}) to {image_path}")
-                # Load the new image
-                new_image = pygame.transform.scale(pygame.image.load(image_path), (self.grid_size, self.grid_size))
+                # Load the original image
+                original_image = pygame.image.load(image_path)
+                # Create a new surface with the desired size
+                new_image = pygame.Surface((self.grid_size, self.grid_size), pygame.SRCALPHA)
+                # Blit the original image onto the new surface
+                new_image.blit(original_image, (0, 0))
                 obj.image = new_image
 
     def check_adjacent_roads(self, x1, y1, x2, y2):
