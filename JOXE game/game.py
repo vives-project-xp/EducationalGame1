@@ -343,46 +343,74 @@ class Game:
             (x, y + self.grid_size),
         ]
 
-        # Check if an intersection is already present at the target grid cell
-        for cell in nearby_cells:
-            cell_x, cell_y = cell
-            for obj in self.game_state.placed_objects:
-                if isinstance(obj, Intersection) and obj.x == cell_x and obj.y == cell_y:
-                    return
+        # Count the number of neighboring roads
+        num_neighboring_roads = sum(
+            1 for cell in nearby_cells
+            if any(isinstance(obj, Road) and obj.x == cell[0] and obj.y == cell[1] for obj in self.game_state.placed_objects)
+        )
 
-        road_images = {
-            (0, 0): 'horizontal_road.png',  # No nearby roads, use default horizontal road image
-            (1, 0): 'horizontal_road.png',  # Right neighbor
-            (-1, 0): 'horizontal_road.png',  # Left neighbor
-            (0, 1): 'vertical_road.png',  # Bottom neighbor
-            (0, -1): 'vertical_road.png',  # Top neighbor
-            (1, 1): 'corner_road.png',  # Right-bottom neighbor
-            (-1, -1): 'corner_road.png',  # Left-top neighbor
-            (-1, 1): 'corner_road.png',  # Left-bottom neighbor
-            (1, -1): 'corner_road.png',  # Right-top neighbor
-        }
+        if num_neighboring_roads == 4:
+            self.set_road_image(x, y, 'crossroad.png')
+        elif num_neighboring_roads == 3:
+            self.set_road_image(x, y, 't-road.png')
+        elif num_neighboring_roads == 2:
+            self.update_adjacent_roads(x, y, nearby_cells)
+        elif num_neighboring_roads == 1:
+            self.set_road_image(x, y, 'road.png')
 
-        road_direction = (0, 0)
-
+    def update_adjacent_roads(self, x, y, nearby_cells):
         for cell in nearby_cells:
             cell_x, cell_y = cell
             for obj in self.game_state.placed_objects:
                 if isinstance(obj, Road) and obj.x == cell_x and obj.y == cell_y:
-                    # Determine the direction of the nearby road
-                    road_direction = (cell_x - x, cell_y - y)
-                    break
+                    self.check_adjacent_roads(x, y, cell_x, cell_y)
+                    return
 
-        # Set the image of the current road based on nearby roads
-        if road_direction in road_images:
-            image_path = road_images[road_direction]
-            self.set_road_image(x, y, image_path)
+        # No nearby roads, use default horizontal road image
+        self.set_road_image(x, y, 'road.png')
+
+    def check_adjacent_roads(self, x1, y1, x2, y2):
+        if x1 == x2:  # Same column
+            for obj in self.game_state.placed_objects:
+                if isinstance(obj, Road):
+                    if obj.x == x1 and obj.y == y1:
+                        self.set_road_image(x1, y1, 'v-road.png')
+                    elif obj.x == x2 and obj.y == y2:
+                        self.set_road_image(x2, y2, 'v-road.png')
+        elif y1 == y2:  # Same row
+            for obj in self.game_state.placed_objects:
+                if isinstance(obj, Road):
+                    if obj.x == x1 and obj.y == y1:
+                        self.set_road_image(x1, y1, 'road.png')
+                    elif obj.x == x2 and obj.y == y2:
+                        self.set_road_image(x2, y2, 'road.png')
+        else:  # Corner road
+            self.set_road_image(x1, y1, 'cornerroad.png')
+            self.set_road_image(x2, y2, 'cornerroad.png')
 
     def set_road_image(self, x, y, image_path):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, Road) and obj.x == x and obj.y == y:
+                print(f"Setting road image at ({x}, {y}) to {image_path}")
                 # Load the new image
                 new_image = pygame.transform.scale(pygame.image.load(image_path), (self.grid_size, self.grid_size))
                 obj.image = new_image
+
+    def print_roads(self):
+        for row in range(self.height // self.grid_size):
+            for col in range(self.width // self.grid_size):
+                road_present = any(
+                    isinstance(obj, Road) and obj.x // self.grid_size == col and obj.y // self.grid_size == row
+                    for obj in self.game_state.placed_objects
+                )
+                print("R" if road_present else ".", end=" ")
+            print()
+
+    #method to change road image to v-road.png
+    def change_road_image(self, x, y):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Road) and obj.x == x and obj.y == y:
+                obj.image = pygame.transform.scale(pygame.image.load('./assets/resources/road/v-road.png'), (self.grid_size, self.grid_size))
 
     def place_road(self, start_x, start_y):
         dragging = True
