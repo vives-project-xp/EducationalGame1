@@ -5,6 +5,7 @@ from tracker import Tracker
 import datetime
 import os
 import sys
+from pygame import mixer
 
 pygame.init()
 
@@ -13,6 +14,11 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 programIcon = pygame.image.load('./assets/logo/JOXEC.png')
 pygame.display.set_icon(programIcon)
+
+mixer.init()
+
+mixer.music.load('Sounds/AmbientLoop1.mp3')
+mixer.music.play(-1)
 
 FPS = 60
 GRID_SIZE = 60 #keep at 60

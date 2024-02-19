@@ -6,6 +6,7 @@ from energy import Energy
 from road import Intersection
 from tree import Tree
 import pygame
+from pygame import mixer
 import os
 import sys
 import random
@@ -64,6 +65,7 @@ class Game:
         self.start_time = pygame.time.get_ticks()  # Get the current time in milliseconds
         self.total_elapsed_time = 0  # Total elapsed time in milliseconds
         self.current_date = datetime.datetime(2022, 1, 1)  # Start at January 1, 2022
+        self.placing_house_sound = mixer.Sound('Sounds/Placing house SFX.mp3')
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
@@ -285,6 +287,9 @@ class Game:
             self.menu_bar_visible = False
 
     def place_new_house(self):
+        # Play the placing house sound
+        self.placing_house_sound.play()
+
         if self.game_state.money >= 1000:
             house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size)
             self.game_state.placed_objects.append(house)
@@ -323,6 +328,7 @@ class Game:
                     break
 
                 road = Road(new_x, new_y, self.grid_size)
+                road.set_type('v-road')  # Set road type to 'v-road'
                 self.game_state.placed_objects.append(road)
                 self.game_state.remove_money(50)
                 self.game_state.remove_climate_score(1)
@@ -334,6 +340,8 @@ class Game:
             self.road_placement_in_progress = False
         else:
             print("Not enough money to place a road.")
+
+
 
     def connect_nearby_roads(self, x, y):
         nearby_cells = [
@@ -411,47 +419,6 @@ class Game:
         for obj in self.game_state.placed_objects:
             if isinstance(obj, Road) and obj.x == x and obj.y == y:
                 obj.image = pygame.transform.scale(pygame.image.load('./assets/resources/road/v-road.png'), (self.grid_size, self.grid_size))
-
-    def place_road(self, start_x, start_y):
-        dragging = True
-        road_segments = []
-        end_x, end_y = start_x, start_y  # Initialize end_x and end_y
-
-        while dragging:
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEMOTION:
-                    end_x, end_y = pygame.mouse.get_pos()
-                    end_x -= end_x % self.grid_size
-                    end_y -= end_y % self.grid_size
-
-                elif event.type == pygame.MOUSEBUTTONUP:
-                    dragging = False
-
-            # Draw the road segments
-            self.draw()
-            for segment in road_segments:
-                pygame.draw.line(self.window, self.COLORS['white'], segment[0], segment[1], 5)
-
-            # Draw the current segment
-            pygame.draw.line(self.window, self.COLORS['white'], (start_x, start_y), (end_x, end_y), 5)
-            pygame.display.update()
-
-            # Append the current segment to the list
-            road_segments.append(((start_x, start_y), (end_x, end_y)))
-
-        for segment in road_segments:
-            road_length = max(
-                abs((segment[1][0] - segment[0][0]) // self.grid_size),
-                abs((segment[1][1] - segment[0][1]) // self.grid_size)
-            )
-
-            for i in range(road_length + 1):
-                road = Road(segment[0][0] + i * self.grid_size, segment[0][1], self.grid_size)
-                self.game_state.placed_objects.append(road)
-                self.game_state.remove_money(50)
-                self.game_state.remove_climate_score(1)
-
-        self.selected_cell = None
 
 
     def handle_energy_icon_click(self):

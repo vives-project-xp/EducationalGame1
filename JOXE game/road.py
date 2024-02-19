@@ -7,9 +7,8 @@ class Road:
         self.grid_size = grid_size
         self.type = None
 
-        # Load the road image and scale it slightly larger than the grid cell
-        road_image_path = './assets/resources/road/road.png'
-        self.image = pygame.transform.scale(pygame.image.load(road_image_path), (self.grid_size + 20, self.grid_size + 18))
+        # Load the default road image
+        self.set_type('road')
 
     def draw(self, window):
         # Draw the road image at the given coordinates
@@ -17,15 +16,19 @@ class Road:
 
     def set_type(self, road_type):
         self.type = road_type
+        # Update the road image based on the new type
+        self.update_image()
 
-    def get_type(self):
-        return self.type
+    def update_image(self):
+        # Load the road image based on its type and scale it
+        road_image_path = f'./assets/resources/road/{self.type}.png'
+        self.image = pygame.transform.scale(pygame.image.load(road_image_path), (self.grid_size + 20, self.grid_size + 18))
 
-    def get_road_image(self, col, row):
-        for obj in self.game_state.placed_objects:
-            if isinstance(obj, Road) and obj.x // self.grid_size == col and obj.y // self.grid_size == row:
-                return obj.get_type()
-        return '.'
+    def change_image(self, new_image_path):
+        # Change the road image to the specified image
+        self.type = 'v-road'
+        self.update_image()
+
 
 
 class Intersection:
