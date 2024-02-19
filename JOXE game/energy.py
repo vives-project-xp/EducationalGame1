@@ -5,7 +5,7 @@ class Energy:
         self.x = x
         self.y = y
         self.grid_size = grid_size
-        self.image = pygame.image.load('./assets/resources/buildings/energy/windmills/windmill.png')
+        self.image = pygame.image.load('./assets/resources/buildings/energy/windmills/windmillv2.png')
         self.image = pygame.transform.scale(self.image, (grid_size, grid_size))
 
     def draw(self, window):
