@@ -35,7 +35,6 @@ def main(window):
         game.draw()
         game.print_roads()
 
-
         tracker.update()
         average_money_gain, average_ecoscore_change = tracker.get_averages()
         game.draw_averages(average_money_gain, average_ecoscore_change)

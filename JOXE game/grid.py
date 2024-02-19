@@ -1,5 +1,6 @@
 import pygame
 from house import House
+from road import Road
 
 class Grid:
     def __init__(self, window, width, height, grid_size, game_state, font):
@@ -35,6 +36,9 @@ class Grid:
         background_image = pygame.image.load('./assets/resources/background/grass.jpg')
         background_image = pygame.transform.scale(background_image, (self.width, self.height))
         self.window.blit(background_image, (0, 0))
+
+    def get_all_cells(self):
+        return [obj for obj in self.game_state.placed_objects if isinstance(obj, Road)]
 
     def draw_grid_lines(self):
         for x in range(0, self.width, self.grid_size):

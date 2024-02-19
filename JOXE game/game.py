@@ -300,6 +300,12 @@ class Game:
             self.game_state.add_house(1)
         else:
             print("Not enough money to place a new house.")
+            
+    def get_cell_at_location(self, x, y):
+        for obj in self.grid.get_all_cells():
+            if obj.x == x and obj.y == y:
+                return obj
+        return None
 
     def handle_road_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= 50:
@@ -309,6 +315,30 @@ class Game:
             self.menu_bar_visible = False
         else:
             print("Not enough money to place a road.")
+
+    def update_road_images(self):
+        for cell in self.grid.get_all_cells():
+            if cell.type in ['road', 'v-road', '+-road']:  # Access the type attribute directly
+                x, y = cell.x, cell.y  # Access the x and y attributes directly
+                # Check the neighboring cells
+                neighbors = [(x, y - self.grid_size), (x, y + self.grid_size), 
+                            (x - self.grid_size, y), (x + self.grid_size, y)]
+                horizontal_neighbor = False
+                vertical_neighbor = False
+                for nx, ny in neighbors:
+                    neighbor = self.get_cell_at_location(nx, ny)
+                    if neighbor is not None and neighbor.type in ['road', 'v-road', '+-road']:
+                        if nx != x:  # Horizontal road
+                            horizontal_neighbor = True
+                        if ny != y:  # Vertical road
+                            vertical_neighbor = True
+                # If the cell has both horizontal and vertical neighbors, update its image
+                if horizontal_neighbor and vertical_neighbor:
+                    cell.set_type('+-road')
+                elif vertical_neighbor and not horizontal_neighbor:
+                    cell.set_type('v-road')
+                elif horizontal_neighbor and not vertical_neighbor:
+                    cell.set_type('road')
 
     def handle_road_placement(self, x, y):
         if self.game_state.money >= 50:
@@ -324,23 +354,16 @@ class Game:
             for i in range(abs(road_length_x) + 1):
                 new_x = start_x + i * self.grid_size * x_direction
                 new_y = start_y
-                # Skip the starting position if a road is being placed in both directions
-                if new_x == start_x and new_y == start_y and abs(road_length_y) > 0:
-                    continue
-                road = self.place_road_at_location(new_x, new_y)
-                if road is not None:
-                    road.set_type('road')  # Set road type to 'road'
+                self.place_road_at_location(new_x, new_y)
 
             # Handle roads in y direction
             for i in range(abs(road_length_y) + 1):
                 new_x = start_x
                 new_y = start_y + i * self.grid_size * y_direction
-                # Skip the starting position if a road is being placed in both directions
-                if new_x == start_x and new_y == start_y and abs(road_length_x) > 0:
-                    continue
-                road = self.place_road_at_location(new_x, new_y)
-                if road is not None:
-                    road.set_type('v-road')  # Set road type to 'v-road'
+                self.place_road_at_location(new_x, new_y)
+
+            # Update the road images
+            self.update_road_images()
 
             self.selected_cell = None
             self.road_placement_in_progress = False
