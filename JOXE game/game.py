@@ -55,6 +55,8 @@ class Game:
         self.selected_cell = None
         self.menu_bar_visible = False
         self.house_menu_visible = False
+        self.road_placement_in_progress = False
+        self.road_start_position = (0, 0)
         self.occupied_cells = set()
         self.font = pygame.font.Font(None, 36)
         self.averagestatfont = pygame.font.Font(None, 16)
@@ -153,9 +155,12 @@ class Game:
                 level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                 self.window.blit(level_text, (obj.x, obj.y))
 
-
     def handle_click(self, x, y):
         grid_x, grid_y = self.get_grid_coordinates(x, y)
+
+        if self.road_placement_in_progress:
+            self.handle_road_placement(x, y)
+            return
 
         if self.house_menu_visible:
             self.handle_house_menu_click(x, y)
@@ -292,14 +297,44 @@ class Game:
 
     def handle_road_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= 50:
-            self.place_road(self.selected_cell[0], self.selected_cell[1])
+            # Set road placement in progress and store the starting position
+            self.road_placement_in_progress = True
+            self.road_start_position = self.selected_cell
             self.menu_bar_visible = False
         else:
             print("Not enough money to place a road.")
 
+    def handle_road_placement(self, x, y):
+        if self.game_state.money >= 50:
+            # Draw the road from the start position to the current mouse position
+            start_x, start_y = self.road_start_position
+            road_length = max(
+                abs((x - start_x) // self.grid_size),
+                abs((y - start_y) // self.grid_size)
+            )
+
+            for i in range(road_length + 1):
+                new_x = start_x + i * self.grid_size
+                new_y = start_y
+                if not self.is_building_already_present(new_x // self.grid_size, new_y // self.grid_size):
+                    road = Road(new_x, new_y, self.grid_size)
+                    self.game_state.placed_objects.append(road)
+                    self.game_state.remove_money(50)
+                    self.game_state.remove_climate_score(1)
+                else:
+                    print("Cannot place road over existing building.")
+                    break
+
+            self.selected_cell = None
+            self.road_placement_in_progress = False
+        else:
+            print("Not enough money to place a road.")
+
+
     def place_road(self, start_x, start_y):
-        end_x, end_y = start_x, start_y
         dragging = True
+        road_segments = []
+        end_x, end_y = start_x, start_y  # Initialize end_x and end_y
 
         while dragging:
             for event in pygame.event.get():
@@ -311,19 +346,32 @@ class Game:
                 elif event.type == pygame.MOUSEBUTTONUP:
                     dragging = False
 
+            # Draw the road segments
             self.draw()
+            for segment in road_segments:
+                pygame.draw.line(self.window, self.COLORS['white'], segment[0], segment[1], 5)
+
+            # Draw the current segment
             pygame.draw.line(self.window, self.COLORS['white'], (start_x, start_y), (end_x, end_y), 5)
             pygame.display.update()
 
-        road_length = max(abs((end_x - start_x) // self.grid_size), abs((end_y - start_y) // self.grid_size))
+            # Append the current segment to the list
+            road_segments.append(((start_x, start_y), (end_x, end_y)))
 
-        for i in range(road_length + 1):
-            road = Road(start_x + i * self.grid_size, start_y, self.grid_size)
-            self.game_state.placed_objects.append(road)
-            self.game_state.remove_money(50)
-            self.game_state.remove_climate_score(1)
+        for segment in road_segments:
+            road_length = max(
+                abs((segment[1][0] - segment[0][0]) // self.grid_size),
+                abs((segment[1][1] - segment[0][1]) // self.grid_size)
+            )
+
+            for i in range(road_length + 1):
+                road = Road(segment[0][0] + i * self.grid_size, segment[0][1], self.grid_size)
+                self.game_state.placed_objects.append(road)
+                self.game_state.remove_money(50)
+                self.game_state.remove_climate_score(1)
 
         self.selected_cell = None
+
 
     def handle_energy_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= 2000:
