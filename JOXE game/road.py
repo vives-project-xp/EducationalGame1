@@ -8,24 +8,24 @@ class Road:
         self.type = None
 
         # Load the road image and scale it slightly larger than the grid cell
-        road_image = pygame.image.load('./assets/resources/road/road.png')
-        self.image = pygame.transform.scale(road_image, (self.grid_size + 20, self.grid_size + 18))
+        road_image_path = './assets/resources/road/road.png'
+        self.image = pygame.transform.scale(pygame.image.load(road_image_path), (self.grid_size + 20, self.grid_size + 18))
 
     def draw(self, window):
         # Draw the road image at the given coordinates
         window.blit(self.image, (self.x, self.y))
 
-    def get_road_type(self, neighbors):
-        if neighbors == [1, 1, 0, 0]:
-            return 'horizontal'
-        elif neighbors == [0, 0, 1, 1]:
-            return 'vertical'
-        elif neighbors == [1, 1, 1, 0]:
-            return 't_point'
-        elif neighbors == [1, 1, 1, 1]:
-            return 'x_point'
-        else:
-            return 'corner'
+    def set_type(self, road_type):
+        self.type = road_type
+
+    def get_type(self):
+        return self.type
+
+    def get_road_image(self, col, row):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Road) and obj.x // self.grid_size == col and obj.y // self.grid_size == row:
+                return obj.get_type()
+        return '.'
 
 
 class Intersection:

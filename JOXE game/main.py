@@ -27,6 +27,8 @@ def main(window):
     while run:
         clock.tick(FPS)
         game.draw()
+        game.print_roads()
+
 
         tracker.update()
         average_money_gain, average_ecoscore_change = tracker.get_averages()
@@ -52,7 +54,6 @@ def main(window):
 
     pygame.quit()
     sys.exit()
-
 
 def menu_screen(window):
     background = pygame.image.load('./assets/resources/background/bg2.png')
