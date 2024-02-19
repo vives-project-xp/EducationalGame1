@@ -56,8 +56,8 @@ export default {
     <div class="carousel">
   <div class="carousel-inner">
     <div class="carousel-item">
-        <p>text 1</p>
-      <!-- <img src="image1.jpg" alt="Image 1"> -->
+        <p>There are many assets in the game, like the windmill.</p>
+      <img src="../img/windmillv2.png" alt="windmill asset">
     </div>
     <div class="carousel-item">
         <p>text 2</p>
