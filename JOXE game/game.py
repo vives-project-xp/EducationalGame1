@@ -292,14 +292,38 @@ class Game:
 
     def handle_road_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= 50:
-            road = Road(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+            self.place_road(self.selected_cell[0], self.selected_cell[1])
+            self.menu_bar_visible = False
+        else:
+            print("Not enough money to place a road.")
+
+    def place_road(self, start_x, start_y):
+        end_x, end_y = start_x, start_y
+        dragging = True
+
+        while dragging:
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEMOTION:
+                    end_x, end_y = pygame.mouse.get_pos()
+                    end_x -= end_x % self.grid_size
+                    end_y -= end_y % self.grid_size
+
+                elif event.type == pygame.MOUSEBUTTONUP:
+                    dragging = False
+
+            self.draw()
+            pygame.draw.line(self.window, self.COLORS['white'], (start_x, start_y), (end_x, end_y), 5)
+            pygame.display.update()
+
+        road_length = max(abs((end_x - start_x) // self.grid_size), abs((end_y - start_y) // self.grid_size))
+
+        for i in range(road_length + 1):
+            road = Road(start_x + i * self.grid_size, start_y, self.grid_size)
             self.game_state.placed_objects.append(road)
             self.game_state.remove_money(50)
             self.game_state.remove_climate_score(1)
-            self.selected_cell = None
-        else:
-            print("Not enough money to place a road.")
-        self.menu_bar_visible = False
+
+        self.selected_cell = None
 
     def handle_energy_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= 2000:
