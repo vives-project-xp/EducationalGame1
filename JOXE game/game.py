@@ -312,25 +312,32 @@ class Game:
 
     def handle_road_placement(self, x, y):
         if self.game_state.money >= 50:
-            # Draw the road from the start position to the current mouse position
             start_x, start_y = self.road_start_position
             road_length_x = (x - start_x) // self.grid_size
             road_length_y = (y - start_y) // self.grid_size
 
+            # Determine direction for road placement
+            x_direction = 1 if road_length_x >= 0 else -1
+            y_direction = 1 if road_length_y >= 0 else -1
+
+            # Handle roads in x direction
             for i in range(abs(road_length_x) + 1):
-                new_x = start_x + i * self.grid_size
+                new_x = start_x + i * self.grid_size * x_direction
                 new_y = start_y
                 self.place_road_at_location(new_x, new_y)
 
+            # Handle roads in y direction
             for i in range(abs(road_length_y) + 1):
                 new_x = start_x
-                new_y = start_y + i * self.grid_size
+                new_y = start_y + i * self.grid_size * y_direction
                 self.place_road_at_location(new_x, new_y)
 
             self.selected_cell = None
             self.road_placement_in_progress = False
+            self.game_state.remove_money(50)
         else:
             print("Not enough money to place a road.")
+
 
     def place_road_at_location(self, x, y):
         # Check if a road is already present at the target grid cell
