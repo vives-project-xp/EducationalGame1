@@ -3,6 +3,7 @@ from gamestate import Gamestate
 from house import House
 from road import Road
 from energy import Energy
+from road import Intersection
 from tree import Tree
 import pygame
 import os
@@ -316,20 +317,72 @@ class Game:
             for i in range(road_length + 1):
                 new_x = start_x + i * self.grid_size
                 new_y = start_y
-                if not self.is_building_already_present(new_x // self.grid_size, new_y // self.grid_size):
-                    road = Road(new_x, new_y, self.grid_size)
-                    self.game_state.placed_objects.append(road)
-                    self.game_state.remove_money(50)
-                    self.game_state.remove_climate_score(1)
-                else:
-                    print("Cannot place road over existing building.")
+
+                # Check if a road is already present at the target grid cell
+                if self.is_building_already_present(new_x // self.grid_size, new_y // self.grid_size):
                     break
+
+                road = Road(new_x, new_y, self.grid_size)
+                self.game_state.placed_objects.append(road)
+                self.game_state.remove_money(50)
+                self.game_state.remove_climate_score(1)
+
+                # Check for nearby roads to connect
+                self.connect_nearby_roads(new_x, new_y)
 
             self.selected_cell = None
             self.road_placement_in_progress = False
         else:
             print("Not enough money to place a road.")
 
+    def connect_nearby_roads(self, x, y):
+        nearby_cells = [
+            (x - self.grid_size, y),
+            (x + self.grid_size, y),
+            (x, y - self.grid_size),
+            (x, y + self.grid_size),
+        ]
+
+        # Check if an intersection is already present at the target grid cell
+        for cell in nearby_cells:
+            cell_x, cell_y = cell
+            for obj in self.game_state.placed_objects:
+                if isinstance(obj, Intersection) and obj.x == cell_x and obj.y == cell_y:
+                    return
+
+        road_images = {
+            (0, 0): 'horizontal_road.png',  # No nearby roads, use default horizontal road image
+            (1, 0): 'horizontal_road.png',  # Right neighbor
+            (-1, 0): 'horizontal_road.png',  # Left neighbor
+            (0, 1): 'vertical_road.png',  # Bottom neighbor
+            (0, -1): 'vertical_road.png',  # Top neighbor
+            (1, 1): 'corner_road.png',  # Right-bottom neighbor
+            (-1, -1): 'corner_road.png',  # Left-top neighbor
+            (-1, 1): 'corner_road.png',  # Left-bottom neighbor
+            (1, -1): 'corner_road.png',  # Right-top neighbor
+        }
+
+        road_direction = (0, 0)
+
+        for cell in nearby_cells:
+            cell_x, cell_y = cell
+            for obj in self.game_state.placed_objects:
+                if isinstance(obj, Road) and obj.x == cell_x and obj.y == cell_y:
+                    # Determine the direction of the nearby road
+                    road_direction = (cell_x - x, cell_y - y)
+                    break
+
+        # Set the image of the current road based on nearby roads
+        if road_direction in road_images:
+            image_path = road_images[road_direction]
+            self.set_road_image(x, y, image_path)
+
+    def set_road_image(self, x, y, image_path):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Road) and obj.x == x and obj.y == y:
+                # Load the new image
+                new_image = pygame.transform.scale(pygame.image.load(image_path), (self.grid_size, self.grid_size))
+                obj.image = new_image
 
     def place_road(self, start_x, start_y):
         dragging = True
