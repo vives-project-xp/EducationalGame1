@@ -324,13 +324,15 @@ class Game:
             for i in range(abs(road_length_x) + 1):
                 new_x = start_x + i * self.grid_size * x_direction
                 new_y = start_y
-                self.place_road_at_location(new_x, new_y)
+                road = self.place_road_at_location(new_x, new_y)
+                road.set_type('road')  # Set road type to 'road'
 
             # Handle roads in y direction
             for i in range(abs(road_length_y) + 1):
                 new_x = start_x
                 new_y = start_y + i * self.grid_size * y_direction
-                self.place_road_at_location(new_x, new_y)
+                road = self.place_road_at_location(new_x, new_y)
+                road.set_type('v-road')  # Set road type to 'v-road'
 
             self.selected_cell = None
             self.road_placement_in_progress = False
@@ -342,7 +344,7 @@ class Game:
     def place_road_at_location(self, x, y):
         # Check if a road is already present at the target grid cell
         if self.is_building_already_present(x // self.grid_size, y // self.grid_size):
-            return
+            return None
 
         road = Road(x, y, self.grid_size)
         road.set_type('road')
@@ -352,6 +354,9 @@ class Game:
 
         # Check for nearby roads to connect
         self.connect_nearby_roads(x, y)
+
+        # Return the road object
+        return road
 
 
     def connect_nearby_roads(self, x, y):
