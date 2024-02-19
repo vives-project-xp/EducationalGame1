@@ -14,4 +14,8 @@
         color: white;
         margin-top: 50px;
     }
+
+    .container h1 {
+        font-size: 70px;
+    }
 </style>

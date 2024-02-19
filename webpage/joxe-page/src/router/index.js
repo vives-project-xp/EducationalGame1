@@ -20,6 +20,16 @@ const router = createRouter({
       component: () => import('../views/Missions.vue')
     },
     {
+      path: '/download',
+      name: 'download',
+      component: () => import('../views/Download.vue')
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/About.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       component: () => import('../views/NotFound.vue'),      
     },

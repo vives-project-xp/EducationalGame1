@@ -14,10 +14,11 @@
 // Template section
 <template>
   <div class="content">
-  <h1 class="animation">A new upcoming game</h1>
-  <p class="animation">This site is still under construction, please come back soon!</p>
-  <!-- <img :src="image2" alt="gameplay" class="animationImage"> -->
-  <img :src="image3" alt="gameplay" class="animationImage">
+  <h1>Welcome!</h1>
+  <p>JOXE is an upcoming game, online and offline. On this site you'll find
+    more about the board game and additional missions to unlock the online game for free!
+  </p>
+  <p>Carousel showing online game trivia here?</p>
 </div>
 </template>
 
@@ -29,7 +30,7 @@
   }
 
   .content {
-    margin-top: 2%;
+    margin-top: 50px;
     max-width: 1000px;
   }
 

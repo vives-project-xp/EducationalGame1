@@ -23,7 +23,8 @@
         </RouterLink>
         <RouterLink to="/info" class="nav-link nav-link-custom">Info</RouterLink>
         <RouterLink to="/missions" class="nav-link nav-link-custom">Missions</RouterLink>
-        <RouterLink to="/download" class="button">Download</RouterLink>
+        <RouterLink to="/about" class="nav-link nav-link-custom">About</RouterLink>
+        <RouterLink to="/download" class="button">Download € 25,99</RouterLink>
       </nav>
     </div>
   <RouterView />
