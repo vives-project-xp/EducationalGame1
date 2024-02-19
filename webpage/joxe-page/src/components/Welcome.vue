@@ -1,6 +1,11 @@
 //Logic section
 <script>
+  import Carousel from '../components/Carousel.vue'
    export default{
+        components: {
+            Carousel
+        },
+        
         data(){
             return{
                 image: 'img/JOXEC-noBG.png',
@@ -18,7 +23,8 @@
   <p>JOXE is an upcoming game, online and offline. On this site you'll find
     more about the board game and additional missions to unlock the online game for free!
   </p>
-  <p>Carousel showing online game trivia here?</p>
+  <br>
+  <Carousel />
 </div>
 </template>
 
