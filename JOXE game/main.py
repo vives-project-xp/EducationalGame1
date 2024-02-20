@@ -17,9 +17,9 @@ programIcon = pygame.image.load('./assets/logo/JOXEC.png')
 pygame.display.set_icon(programIcon)
 
 
-mixer.init()
-mixer.music.load('Sounds/AmbientLoop1.mp3')
-mixer.music.play(-1)
+# mixer.init()
+# mixer.music.load('Sounds/AmbientLoop1.mp3')
+# mixer.music.play(-1)
 
 FPS = 60
 GRID_SIZE = 60 #keep at 60
@@ -36,7 +36,7 @@ def main(window):
     while run:
         clock.tick(FPS)
         game.draw()
-        game.print_roads()
+        # game.print_roads()
 
         tracker.update()
         average_money_gain, average_ecoscore_change = tracker.get_averages()
