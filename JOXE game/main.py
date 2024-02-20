@@ -2,6 +2,7 @@ import pygame
 from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
+from car import Car
 import datetime
 import os
 import sys
@@ -16,9 +17,9 @@ programIcon = pygame.image.load('./assets/logo/JOXEC.png')
 pygame.display.set_icon(programIcon)
 
 
-# mixer.init()
-# mixer.music.load('Sounds/AmbientLoop1.mp3')
-# mixer.music.play(-1)
+mixer.init()
+mixer.music.load('Sounds/AmbientLoop1.mp3')
+mixer.music.play(-1)
 
 FPS = 60
 GRID_SIZE = 60 #keep at 60
@@ -29,6 +30,8 @@ def main(window):
     game = Game(window, WIDTH, HEIGHT, GRID_SIZE, gamestate)
     tracker = Tracker(game)
 
+    car = Car(GRID_SIZE, gamestate.placed_objects)
+
     run = True
     while run:
         clock.tick(FPS)
@@ -38,6 +41,8 @@ def main(window):
         tracker.update()
         average_money_gain, average_ecoscore_change = tracker.get_averages()
         game.draw_averages(average_money_gain, average_ecoscore_change)
+
+        car.update()
 
         pygame.display.update()
 
