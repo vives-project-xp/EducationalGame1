@@ -323,9 +323,8 @@ class Game:
 
     def update_road_images(self):
         for cell in self.grid.get_all_cells():
-            if cell.type in ['road', 'v-road', '+-road', 'cornerroad', 't-road']:  # Include 'cornerroad' in the list
-                x, y = cell.x, cell.y  # Access the x and y attributes directly
-                # Check the neighboring cells
+            if cell.type in ['road', 'v-road', '+-road', 'cornerroad', 't-road']:
+                x, y = cell.x, cell.y
                 neighbors = [(x, y - self.grid_size), (x, y + self.grid_size), 
                             (x - self.grid_size, y), (x + self.grid_size, y)]
                 horizontal_neighbors = 0
@@ -337,9 +336,16 @@ class Game:
                             horizontal_neighbors += 1
                         if ny != y:  # Vertical road
                             vertical_neighbors += 1
-                # If the cell has both horizontal and vertical neighbors, update its image
                 if horizontal_neighbors == 2 and vertical_neighbors == 1 or horizontal_neighbors == 1 and vertical_neighbors == 2:
                     cell.set_type('t-road')
+                    if self.get_cell_at_location(x, y + self.grid_size) is None:  # No cell at the top
+                        cell.image = pygame.transform.rotate(cell.image, 180)
+                    elif self.get_cell_at_location(x, y - self.grid_size) is None:  # No cell at the bottom
+                        cell.image = pygame.transform.rotate(cell.image, 0)
+                    elif self.get_cell_at_location(x - self.grid_size, y) is None:  # No cell at the left
+                        cell.image = pygame.transform.rotate(cell.image, 90)
+                    elif self.get_cell_at_location(x + self.grid_size, y) is None:  # No cell at the right
+                        cell.image = pygame.transform.rotate(cell.image, 270)
                 elif horizontal_neighbors == 2 and vertical_neighbors == 2:
                     cell.set_type('+-road')
                 elif vertical_neighbors == 2 or vertical_neighbors == 1 and horizontal_neighbors == 0:
@@ -348,6 +354,15 @@ class Game:
                     cell.set_type('road')
                 elif horizontal_neighbors == 1 and vertical_neighbors == 1:
                     cell.set_type('cornerroad')
+                    if self.get_cell_at_location(x, y - self.grid_size) is not None and self.get_cell_at_location(x + self.grid_size, y) is not None:
+                        cell.image = pygame.transform.rotate(cell.image, 90)  # Rotate 90 degrees
+                    elif self.get_cell_at_location(x, y + self.grid_size) is not None and self.get_cell_at_location(x + self.grid_size, y) is not None:
+                        cell.image = pygame.transform.rotate(cell.image, 0)  # Rotate 0 degrees
+                    elif self.get_cell_at_location(x, y + self.grid_size) is not None and self.get_cell_at_location(x - self.grid_size, y) is not None:
+                        cell.image = pygame.transform.rotate(cell.image, 270)  # Rotate 270 degrees
+                    elif self.get_cell_at_location(x, y - self.grid_size) is not None and self.get_cell_at_location(x - self.grid_size, y) is not None:
+                        cell.image = pygame.transform.rotate(cell.image, 180)  # Rotate 180 degrees
+
 
     def handle_road_placement(self, x, y):
         if self.game_state.money >= 50:
