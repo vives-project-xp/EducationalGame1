@@ -7,6 +7,7 @@ class Car:
         self.current_road_index = 0  # Start from the first road
         self.speed = 5  # Adjust the speed as needed
         self.scale = 0.05  # Adjust the scale as needed
+        self.offset = 3  # Adjust the offset as needed
 
         # Load the image
         image = pygame.image.load('./assets/resources/cars/car.png')
@@ -22,7 +23,9 @@ class Car:
         # Get the starting position based on the first road
         if self.road_objects:
             first_road = self.road_objects[0]
-            return (first_road.x, first_road.y)
+            offset = 3  # Adjust the offset as needed
+            middle_y = first_road.y + (self.grid_size / 2) - (self.image.get_height() / 2) + self.offset
+            return (first_road.x, middle_y)
         return (0, 0)
 
     def update(self):
@@ -45,7 +48,8 @@ class Car:
             if self.current_road_index == 0:  # If the car has reached the end of the final road
                 # Reset the car's position to the start of the first road
                 first_road = self.road_objects[0]
-                self.position = (first_road.x, first_road.y)
+                middle_y = first_road.y + (self.grid_size / 2) - (self.image.get_height() / 2) + self.offset
+                self.position = (first_road.x, middle_y)
             else:
                 next_road = self.road_objects[self.current_road_index]  # Get the next road
 
@@ -55,8 +59,9 @@ class Car:
                 elif self.position[0] > next_road.x:
                     self.position = (self.position[0] - 1, self.position[1])
 
-                # Update the car's y position to the y position of the next road
-                self.position = (self.position[0], next_road.y)
+                # Update the car's y position to the middle of the next road
+                middle_y = next_road.y + (self.grid_size / 2) - (self.image.get_height() / 2) + self.offset
+                self.position = (self.position[0], middle_y)
 
     def draw(self, window):
         # Draw the car at its current position
