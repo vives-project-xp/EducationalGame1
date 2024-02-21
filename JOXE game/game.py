@@ -323,7 +323,7 @@ class Game:
 
     def update_road_images(self):
         for cell in self.grid.get_all_cells():
-            if cell.type in ['road', 'v-road', '+-road', 'cornerroad']:  # Include 'cornerroad' in the list
+            if cell.type in ['road', 'v-road', '+-road', 'cornerroad', 't-road']:  # Include 'cornerroad' in the list
                 x, y = cell.x, cell.y  # Access the x and y attributes directly
                 # Check the neighboring cells
                 neighbors = [(x, y - self.grid_size), (x, y + self.grid_size), 
@@ -332,13 +332,15 @@ class Game:
                 vertical_neighbors = 0
                 for nx, ny in neighbors:
                     neighbor = self.get_cell_at_location(nx, ny)
-                    if neighbor is not None and neighbor.type in ['road', 'v-road', '+-road', 'cornerroad']:  # Include 'cornerroad' in the list
+                    if neighbor is not None and neighbor.type in ['road', 'v-road', '+-road', 'cornerroad', 't-road' ]: 
                         if nx != x:  # Horizontal road
                             horizontal_neighbors += 1
                         if ny != y:  # Vertical road
                             vertical_neighbors += 1
                 # If the cell has both horizontal and vertical neighbors, update its image
-                if horizontal_neighbors == 2 and vertical_neighbors == 2:
+                if horizontal_neighbors == 2 and vertical_neighbors == 1 or horizontal_neighbors == 1 and vertical_neighbors == 2:
+                    cell.set_type('t-road')
+                elif horizontal_neighbors == 2 and vertical_neighbors == 2:
                     cell.set_type('+-road')
                 elif vertical_neighbors == 2 or vertical_neighbors == 1 and horizontal_neighbors == 0:
                     cell.set_type('v-road')
