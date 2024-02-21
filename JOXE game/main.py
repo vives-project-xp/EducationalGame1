@@ -36,7 +36,7 @@ def main(window):
     while run:
         clock.tick(FPS)
         game.draw()
-        # game.print_roads()
+        game.print_roads()
 
         tracker.update()
         average_money_gain, average_ecoscore_change = tracker.get_averages()

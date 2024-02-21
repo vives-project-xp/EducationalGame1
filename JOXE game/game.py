@@ -323,27 +323,29 @@ class Game:
 
     def update_road_images(self):
         for cell in self.grid.get_all_cells():
-            if cell.type in ['road', 'v-road', '+-road']:  # Access the type attribute directly
+            if cell.type in ['road', 'v-road', '+-road', 'cornerroad']:  # Include 'cornerroad' in the list
                 x, y = cell.x, cell.y  # Access the x and y attributes directly
                 # Check the neighboring cells
                 neighbors = [(x, y - self.grid_size), (x, y + self.grid_size), 
                             (x - self.grid_size, y), (x + self.grid_size, y)]
-                horizontal_neighbor = False
-                vertical_neighbor = False
+                horizontal_neighbors = 0
+                vertical_neighbors = 0
                 for nx, ny in neighbors:
                     neighbor = self.get_cell_at_location(nx, ny)
-                    if neighbor is not None and neighbor.type in ['road', 'v-road', '+-road']:
+                    if neighbor is not None and neighbor.type in ['road', 'v-road', '+-road', 'cornerroad']:  # Include 'cornerroad' in the list
                         if nx != x:  # Horizontal road
-                            horizontal_neighbor = True
+                            horizontal_neighbors += 1
                         if ny != y:  # Vertical road
-                            vertical_neighbor = True
+                            vertical_neighbors += 1
                 # If the cell has both horizontal and vertical neighbors, update its image
-                if horizontal_neighbor and vertical_neighbor:
+                if horizontal_neighbors == 2 and vertical_neighbors == 2:
                     cell.set_type('+-road')
-                elif vertical_neighbor and not horizontal_neighbor:
+                elif vertical_neighbors == 2 or vertical_neighbors == 1 and horizontal_neighbors == 0:
                     cell.set_type('v-road')
-                elif horizontal_neighbor and not vertical_neighbor:
+                elif horizontal_neighbors == 2 or horizontal_neighbors == 1 and vertical_neighbors == 0:
                     cell.set_type('road')
+                elif horizontal_neighbors == 1 and vertical_neighbors == 1:
+                    cell.set_type('cornerroad')
 
     def handle_road_placement(self, x, y):
         if self.game_state.money >= 50:
