@@ -3,9 +3,10 @@ import pygame
 class Road:
     def __init__(self, x, y, grid_size):
         self.x = x - 10
-        self.y = y - 8
+        self.y = y - 10
         self.grid_size = grid_size
         self.type = None
+        self.scale = 1.28  #1.28
 
         # Load the default road image
         self.set_type('road')
@@ -20,9 +21,16 @@ class Road:
         self.update_image()
 
     def update_image(self):
-        # Load the road image based on its type and scale it
+        # Load the road image based on its type
         road_image_path = f'./assets/resources/road/{self.type}.png'
-        self.image = pygame.transform.scale(pygame.image.load(road_image_path), (self.grid_size + 20, self.grid_size + 18))
+        image = pygame.image.load(road_image_path)
+
+        # Calculate new size
+        new_size = (int(self.grid_size * (self.scale + 0.1)), int(self.grid_size * (self.scale + 0.11)))
+
+        # Scale the image
+        self.image = pygame.transform.scale(image, new_size)
+
 
     def change_image(self, new_image_path):
         # Change the road image to the specified image

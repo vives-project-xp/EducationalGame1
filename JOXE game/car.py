@@ -6,7 +6,16 @@ class Car:
         self.road_objects = road_objects
         self.current_road_index = 0  # Start from the first road
         self.speed = 5  # Adjust the speed as needed
-        self.image = pygame.transform.scale(pygame.image.load('./assets/resources/cars/car.png'), (grid_size, grid_size))
+        self.scale = 0.05  # Adjust the scale as needed
+
+        # Load the image
+        image = pygame.image.load('./assets/resources/cars/car.png')
+        # Calculate new size
+        width, height = image.get_size()
+        new_size = (int(width * self.scale), int(height * self.scale))
+        # Scale the image
+        self.image = pygame.transform.scale(image, new_size)
+
         self.position = self.get_start_position()
 
     def get_start_position(self):
