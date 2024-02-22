@@ -1,4 +1,5 @@
 import pygame
+import random
 
 class Car:
     def __init__(self, grid_size, road_objects):
@@ -8,6 +9,7 @@ class Car:
         self.speed = 5  # Adjust the speed as needed
         self.scale = 0.05  # Adjust the scale as needed
         self.offset = 3  # Adjust the offset as needed
+        self.visible = False  # The car is initially invisible
 
         # Load the image
         image = pygame.image.load('./assets/resources/cars/car.png')
@@ -23,16 +25,30 @@ class Car:
         # Get the starting position based on the first road
         if self.road_objects:
             first_road = self.road_objects[0]
-            offset = 3  # Adjust the offset as needed
             middle_y = first_road.y + (self.grid_size / 2) - (self.image.get_height() / 2) + self.offset
             return (first_road.x, middle_y)
         return (0, 0)
 
     def update(self):
         if self.road_objects:
-            # Move the car along the current road
-            current_road = self.road_objects[self.current_road_index]
-            self.move_along_road(current_road)
+            # If the car is not visible and there are road objects, make the car visible and choose a random road
+            if not self.visible and len(self.road_objects) > 0:
+                self.visible = True
+                self.choose_random_road()
+
+            # If the car is visible, move it along the current road
+            if self.visible:
+                current_road = self.road_objects[self.current_road_index]
+                self.move_along_road(current_road)
+
+    def choose_random_road(self):
+        # Choose a random road from the list of road objects
+        self.current_road_index = random.randint(0, len(self.road_objects) - 1)
+
+        # Update the car's position to the start of the chosen road
+        chosen_road = self.road_objects[self.current_road_index]
+        middle_y = chosen_road.y + (self.grid_size / 2) - (self.image.get_height() / 2) + self.offset
+        self.position = (chosen_road.x, middle_y)
 
     def move_along_road(self, road):
         road_length = self.grid_size + 20  # Adjust the road length
@@ -64,5 +80,6 @@ class Car:
                 self.position = (self.position[0], middle_y)
 
     def draw(self, window):
-        # Draw the car at its current position
-        window.blit(self.image, self.position)
+        # Only draw the car if it is visible
+        if self.visible:
+            window.blit(self.image, self.position)
