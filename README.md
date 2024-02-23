@@ -13,7 +13,7 @@ Our team consist of 4 students from Vives Brugge:
 - Jasper (Sound Engineer and all-rounder)
 - Olivier (Board Game Developer and Administration)
 
-- Porject Owner is Vives, guided by our teacher Ronny Mees.
+- Project Owner is Vives, guided by our teacher Ronny Mees.
 
 All **resources** required to emulate this project are listed in this Repository either as direct data or viable links mentioned in designated markdown files, like this one.
 To sum up in broad terms:

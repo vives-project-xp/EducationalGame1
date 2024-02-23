@@ -11,6 +11,8 @@ class Car:
         self.offset = 3  # Adjust the offset as needed
         self.visible = False  # The car is initially invisible
 
+        #car being drawn in game class
+
         # Load the image
         image = pygame.image.load('./assets/resources/cars/car.png')
         # Calculate new size
