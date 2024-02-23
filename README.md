@@ -1,4 +1,4 @@
-# H1 EducationalGame1
+# Educational Game 1
 In this project we aim to create an educational game that consists of **3 large parts**:
  
 1. Pc game made with Pygame.
