@@ -2,9 +2,16 @@ Experts:
 Climate Change: Extinction Rebellion (Nederland)
  media@extinctionrebellion.nl
 
-High School Education: Vives opleiding middelbare school (Brugge)
-	sofie.pottier@vives.be 	0491379046 
+Spellenlab: Jef Suykerbuyk 
+		Tel: +32 (0)50 30 52 55
+		spellenlab@vives.be
+  		Open op Woensdag en Vrijdag van 13u30-17u
 
-Game Development: DAE Howest Kortrijk
-					T 056 23 43 60
+Docent Strong-Sustainability Vives: Pieter Boussemaere
+		https://pieterboussemaere.com/
+		pieter.boussemaere@vives.be
 
+Opleidingshoofd Secundair onderwijs Vives: Evelien Geurts
+		tel.       + 32 50 23 10 30 
+		gsm        + 32 498 61 97 26
+		e-mail    evelien.geurts@vives.be
