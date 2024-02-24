@@ -31,6 +31,8 @@ During the game the player will have to balance the size of their income, popula
 The game runs until the grid is fully occupied and upgraded or until the player's CO2 emmision score goes too low at which point they lose.
 The Game Client will be able to be downloaded from the website and run on the player's device with some minimum requirements specified on the webpage.
 
+More information about the PC-game can be found [here](./Game%20Storyboard/mainGame.md).
+
 ## Board Game version:
 Our goal is for a grid-based puzzle game similar to existing games like _Cathedral_, _Patchwork_ and _My City_.
 During the game the 2-4 players will be able to place tiles in various shapes and sizes on a grid in which they must balance the size of their population and Climate Impact.
