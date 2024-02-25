@@ -7,8 +7,8 @@ class Store:
         self.image = pygame.image.load('./assets/resources/buildings/stores/store.png')
         self.image = pygame.transform.scale(self.image, (cell_size, cell_size))
         self.level = 1
-        self.upgrade_cost = 2000
-        self.ecoscore_bonus = 15
+        self.upgrade_cost = 5000
+        self.ecoscore_bonus = -5
 
     def draw(self, surface):
         # Adjust the position so the store is centered at (x, y)
@@ -19,4 +19,4 @@ class Store:
         if self.level < 5:
             self.level += 1
             self.upgrade_cost *= 2  # You can adjust the upgrade cost formula as needed
-            self.ecoscore_bonus += 5  # You can adjust the eco score bonus as needed
+            self.ecoscore_bonus += 1  # You can adjust the eco score bonus as needed

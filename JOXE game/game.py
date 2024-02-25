@@ -162,7 +162,7 @@ class Game:
 
     def draw_building_costs(self):
         font = pygame.font.Font(None, 24)
-        for i, building_type in enumerate(['house', 'road', 'energy', 'tree']):
+        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree']):
             cost_text = font.render(f"${self.COSTS.get(building_type, 0)}", True, self.COLORS['white'])
             self.window.blit(cost_text, (60 + i * 90, self.height - 70))
 
@@ -278,6 +278,8 @@ class Game:
                     self.place_new_store()
                 self.selected_cell = None
             self.menu_bar_visible = False
+
+            
 
     def is_store_icon_clicked(self, x, y):
         store_icon_area = pygame.Rect(280, self.height - 75, 80, 80)  # Adjust the coordinates as needed
