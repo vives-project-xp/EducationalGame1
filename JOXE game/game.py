@@ -6,6 +6,7 @@ from energy import Energy
 from road import Intersection
 from tree import Tree
 from car import Car
+from store import Store
 import pygame
 from pygame import mixer
 import os
@@ -27,12 +28,14 @@ class Game:
         'energy': './assets/resources/buildings/energy/windmills/windmill.png',
         'upgrade': './assets/resources/icons/upgrade.png',
         'remove': './assets/resources/icons/remove.png',
+        'store': './assets/resources/buildings/stores/store.png',
     }
 
     COSTS = {
         'house': 1000,
         'road': 50,
         'energy': 2000,
+        'store': 3000,
         'tree': 250,
     }
 
@@ -41,10 +44,12 @@ class Game:
         'road': './assets/resources/road/road.png',
         'energy': './assets/resources/buildings/energy/windmills/windmill.png',
         'tree': './assets/resources/nature/tree1.png',
+        'store': './assets/resources/buildings/stores/store.png'
     }
 
     ECO_SCORE_BONUS = {
     'tree': 5,
+    'store': -5
     }
 
     def __init__(self, window, width, height, grid_size, game_state=None):
@@ -72,6 +77,7 @@ class Game:
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
         self.energy_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['energy']), (80, 80))
+        self.store_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['store']), (80, 80))
 
     def draw(self):
         self.grid.draw_grid()
@@ -143,13 +149,16 @@ class Game:
 
     def draw_building_icons(self):
         self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80)),
-                         (10, self.height - 75))
+                        (10, self.height - 75))
         self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80)),
-                         (100, self.height - 75))
+                        (100, self.height - 75))
         self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['energy']), (80, 80)),
-                         (190, self.height - 80))
-        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['tree']), (80, 80)),
+                        (190, self.height - 80))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['store']), (80, 80)),
                         (280, self.height - 75))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['tree']), (80, 80)),
+                        (370, self.height - 75))
+
 
     def draw_building_costs(self):
         font = pygame.font.Font(None, 24)
@@ -250,13 +259,41 @@ class Game:
         elif self.is_energy_icon_clicked(x, y):
             self.handle_energy_icon_click()
         elif self.is_tree_icon_clicked(x, y):
-            self.handle_tree_icon_click()
+            self.handle_tree_icon_click()  
+        elif self.is_store_icon_clicked(x, y):  
+            self.handle_store_icon_click()      
         else:
             self.menu_bar_visible = False
             self.selected_cell = None
 
+    def handle_store_icon_click(self):
+        if self.selected_cell is not None:
+            for obj in self.game_state.placed_objects:
+                if isinstance(obj, Store) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                    self.menu_bar_visible = False
+                    self.store_menu_visible = True
+                    break
+            else:
+                if self.game_state.money >= self.COSTS['store']:
+                    self.place_new_store()
+                self.selected_cell = None
+            self.menu_bar_visible = False
+
+    def is_store_icon_clicked(self, x, y):
+        store_icon_area = pygame.Rect(280, self.height - 75, 80, 80)  # Adjust the coordinates as needed
+        return store_icon_area.collidepoint(x, y)
+    
+    def place_new_store(self):
+        if self.game_state.money >= self.COSTS['store']:
+            store = Store(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+            self.game_state.placed_objects.append(store)
+            self.game_state.remove_money(self.COSTS['store'])
+            self.game_state.add_climate_score(self.ECO_SCORE_BONUS['store'])
+        else:
+            print("Not enough money to place a new store.")
+
     def is_tree_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 280 <= x <= 360  # Adjust the x-coordinate range for the tree icon
+        return self.height - 80 <= y <= self.height - 10 and 370 <= x <= 450 
 
     def handle_tree_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['tree']:
