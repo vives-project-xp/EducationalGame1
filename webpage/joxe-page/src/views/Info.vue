@@ -15,9 +15,6 @@
     <h2>Manual</h2>
     <p>Download the manual for the board game here.</p>
     </div>
-    <div class="footerMenu">
-    <p>Project made by Esteban Desmedt, Jasper Vantuyne, Olivier Westerman and Xander Vyvey in 2024 for VIVES</p>
-    </div>
   </main>
 </template>
 
@@ -57,14 +54,5 @@
 
     main {
         margin-top: 50px;
-    }
-
-    .footerMenu {
-    background-color: #f8f4f0;
-    color: gray;
-    border-top-left-radius: 80px;
-    border-top-right-radius: 80px;
-    text-align: center;
-    padding: 40px;
     }
 </style>

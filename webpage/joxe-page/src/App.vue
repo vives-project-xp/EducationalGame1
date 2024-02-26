@@ -28,6 +28,11 @@
       </nav>
     </div>
   <RouterView />
+  <footer>
+    <div class="footerMenu">
+    <p>Project made by Esteban Desmedt, Jasper Vantuyne, Olivier Westerman and Xander Vyvey in 2024 for VIVES</p>
+    </div>
+  </footer>
 </template>
 
 <style>
@@ -80,4 +85,13 @@
   .button:hover {
     background-image: linear-gradient(45deg, #c430d7, #df4881);
   }
+
+  .footerMenu {
+    background-color: #f8f4f0;
+    color: gray;
+    border-top-left-radius: 80px;
+    border-top-right-radius: 80px;
+    text-align: center;
+    padding: 40px;
+    }
 </style>
