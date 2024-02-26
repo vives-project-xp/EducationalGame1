@@ -2,6 +2,7 @@ import pygame
 from house import House
 from tree import Tree
 from energy import Energy
+from store import Store
 
 class Tracker:
     def __init__(self, game):
@@ -11,6 +12,8 @@ class Tracker:
         self.last_windmill_ecoscore_time = pygame.time.get_ticks()
         self.last_tree_ecoscore_time = pygame.time.get_ticks()
         self.last_windmill_cost_time = pygame.time.get_ticks()
+        self.last_store_cost_time = pygame.time.get_ticks()
+        self.last_store_ecoscore_time = pygame.time.get_ticks()
         self.total_money_gain = 0
         self.total_ecoscore_change = 0
         self.start_time = pygame.time.get_ticks()
@@ -23,6 +26,8 @@ class Tracker:
         self.update_windmill_ecoscore(current_time)
         self.update_windmill_cost(current_time)  
         self.update_tree_ecoscore(current_time)
+        self.update_store_cost(current_time)
+        self.update_store_ecoscore(current_time)
 
     def update_money(self, current_time):
         if current_time - self.last_increment_time >= 1000:
@@ -63,6 +68,22 @@ class Tracker:
                     self.game.game_state.add_climate_score(1)
                     self.total_ecoscore_change += 1
             self.last_tree_ecoscore_time = current_time
+
+    def update_store_cost(self, current_time):
+        if current_time - self.last_store_cost_time >= 60000:
+            for obj in self.game.game_state.placed_objects:
+                if isinstance(obj, Store):
+                    self.game.game_state.add_money(100)
+                    self.total_money_gain += 100
+            self.last_store_cost_time = current_time
+
+    def update_store_ecoscore(self, current_time):
+        if current_time - self.last_store_ecoscore_time >= 60000:
+            for obj in self.game.game_state.placed_objects:
+                if isinstance(obj, Store):
+                    self.game.game_state.remove_climate_score(5)
+                    self.total_ecoscore_change -= 5
+            self.last_store_ecoscore_time = current_time
 
     def get_averages(self):
         elapsed_minutes = (pygame.time.get_ticks() - self.start_time) / 60000

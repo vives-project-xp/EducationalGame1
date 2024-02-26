@@ -219,8 +219,6 @@ class Game:
                 return True
             elif isinstance(obj, Store) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
-            elif isinstance(obj, Road) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
-                return True
         return False
 
     # Is button clicked methods
@@ -283,9 +281,6 @@ class Game:
                 break
             elif isinstance(obj, Store) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 self.remove_store(obj)
-                break
-            elif isinstance(obj, Road) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                self.remove_road(obj)
                 break
 
     def remove_house(self, house):
@@ -577,17 +572,17 @@ class Game:
         if upgrade_cost is None:
             upgrade_cost = self.get_upgrade_cost(Store)
 
-        # Format the upgrade cost string
-        if upgrade_cost >= 1000000000:
-            upgrade_cost_str = f"${upgrade_cost / 1000000000}b"
-        elif upgrade_cost >= 1000000:
-            upgrade_cost_str = f"${upgrade_cost / 1000000}m"
-        elif upgrade_cost >= 1000:
-            upgrade_cost_str = f"${upgrade_cost / 1000}k"
+    # Check if upgrade_cost is not None before comparing it with an integer
+        if upgrade_cost is not None and upgrade_cost >= 1000000000:
+            upgrade_cost_text = f'{upgrade_cost / 1000000000:.2f}B'
+        elif upgrade_cost is not None and upgrade_cost >= 1000000:
+            upgrade_cost_text = f'{upgrade_cost / 1000000:.2f}M'
+        elif upgrade_cost is not None and upgrade_cost >= 1000:
+            upgrade_cost_text = f'{upgrade_cost / 1000:.2f}K'
         else:
-            upgrade_cost_str = f"${upgrade_cost}"
+            upgrade_cost_text = str(upgrade_cost)
 
-        upgrade_text = font.render(upgrade_cost_str, True, (0, 0, 0))  # Create a Surface with the upgrade text
+        upgrade_text = font.render(upgrade_cost_text, True, (0, 0, 0))  # Create a Surface with the upgrade text
         self.window.blit(upgrade_icon, (menu_x + 10, menu_y + 10))  # Draw the upgrade icon
         self.window.blit(upgrade_text, (menu_x + 40, menu_y + 16))  # Draw the upgrade text
         self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))  # Draw the remove icon
