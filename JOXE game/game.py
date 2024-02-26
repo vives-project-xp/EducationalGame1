@@ -48,8 +48,8 @@ class Game:
     }
 
     ECO_SCORE_BONUS = {
-    'tree': 5,
-    'store': -5
+        'tree': 5,
+        'store': -5
     }
 
     def __init__(self, window, width, height, grid_size, game_state=None):
@@ -78,6 +78,8 @@ class Game:
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
         self.energy_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['energy']), (80, 80))
         self.store_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['store']), (80, 80))
+
+    # Methods to draw the game
 
     def draw(self):
         self.grid.draw_grid()
@@ -172,39 +174,27 @@ class Game:
                 level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                 self.window.blit(level_text, (obj.x, obj.y))
 
+    # Handle methods
+
     def handle_click(self, x, y):
         grid_x, grid_y = self.get_grid_coordinates(x, y)
 
         if self.road_placement_in_progress:
             self.handle_road_placement(x, y)
             return
-
         if self.house_menu_visible:
             self.handle_house_menu_click(x, y)
             return
-
         if self.menu_bar_visible:
             self.handle_menu_bar_click(x, y)
             return
-
         if self.is_building_already_present(grid_x, grid_y):
             self.selected_cell = (grid_x * self.grid_size, grid_y * self.grid_size)
             self.house_menu_visible = True
             return
-
+        
         self.menu_bar_visible = True
         self.selected_cell = (grid_x * self.grid_size, grid_y * self.grid_size)
-
-    def get_grid_coordinates(self, x, y):
-        grid_x = x // self.grid_size
-        grid_y = y // self.grid_size
-        return grid_x, grid_y
-
-    def is_building_already_present(self, grid_x, grid_y):
-        for obj in self.game_state.placed_objects:
-            if isinstance(obj, House) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
-                return True
-        return False
 
     def handle_house_menu_click(self, x, y):
         if self.is_upgrade_button_clicked(x, y):
@@ -214,6 +204,19 @@ class Game:
         self.house_menu_visible = False
         self.selected_cell = None
 
+    def get_grid_coordinates(self, x, y):
+        grid_x = x // self.grid_size
+        grid_y = y // self.grid_size
+        return grid_x, grid_y
+    
+
+    def is_building_already_present(self, grid_x, grid_y):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, House) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+                return True
+        return False
+
+    # Is button clicked methods
     def is_upgrade_button_clicked(self, x, y):
         return self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30 and \
             self.selected_cell[0] - 50 <= x <= self.selected_cell[0] + 40
@@ -221,6 +224,21 @@ class Game:
     def is_remove_button_clicked(self, x, y):
         return self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30 and \
             self.selected_cell[0] + 50 <= x <= self.selected_cell[0] + 90
+    
+    def is_house_icon_clicked(self, x, y):
+        return self.height - 80 <= y <= self.height - 10 and 10 <= x <= 90
+
+    def is_road_icon_clicked(self, x, y):
+        return self.height - 80 <= y <= self.height - 10 and 100 <= x <= 180
+
+    def is_energy_icon_clicked(self, x, y):
+        return self.height - 80 <= y <= self.height - 10 and 190 <= x <= 270
+    
+    def is_store_icon_clicked(self, x, y):
+        return self.height - 80 <= y <= self.height - 10 and 280 <= x <= 360
+    
+    def is_tree_icon_clicked(self, x, y):
+        return self.height - 80 <= y <= self.height - 10 and 370 <= x <= 450 
 
     def handle_upgrade_button_click(self):
         for obj in self.game_state.placed_objects:
@@ -279,12 +297,6 @@ class Game:
                 self.selected_cell = None
             self.menu_bar_visible = False
 
-            
-
-    def is_store_icon_clicked(self, x, y):
-        store_icon_area = pygame.Rect(280, self.height - 75, 80, 80)  # Adjust the coordinates as needed
-        return store_icon_area.collidepoint(x, y)
-    
     def place_new_store(self):
         if self.game_state.money >= self.COSTS['store']:
             store = Store(self.selected_cell[0], self.selected_cell[1], self.grid_size)
@@ -293,9 +305,6 @@ class Game:
             self.game_state.add_climate_score(self.ECO_SCORE_BONUS['store'])
         else:
             print("Not enough money to place a new store.")
-
-    def is_tree_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 370 <= x <= 450 
 
     def handle_tree_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['tree']:
@@ -308,14 +317,7 @@ class Game:
             print("Not enough money to place a tree.")
         self.menu_bar_visible = False
 
-    def is_house_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 10 <= x <= 90
 
-    def is_road_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 100 <= x <= 180
-
-    def is_energy_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 190 <= x <= 270
 
     def handle_house_icon_click(self):
         if self.selected_cell is not None:
@@ -520,13 +522,6 @@ class Game:
                 print("R" if road_present else ".", end=" ")
             print()
 
-    #method to change road image to v-road.png
-    def change_road_image(self, x, y):
-        for obj in self.game_state.placed_objects:
-            if isinstance(obj, Road) and obj.x == x and obj.y == y:
-                obj.image = pygame.transform.scale(pygame.image.load('./assets/resources/road/v-road.png'), (self.grid_size, self.grid_size))
-
-
     def handle_energy_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= 2000:
             energy = Energy(self.selected_cell[0], self.selected_cell[1], self.grid_size)
@@ -580,6 +575,27 @@ class Game:
         self.window.blit(upgrade_icon, (menu_x + 10, menu_y + 10))  # Draw the upgrade icon
         self.window.blit(upgrade_text, (menu_x + 40, menu_y + 16))  # Draw the upgrade text
         self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))  # Draw the remove icon
+
+    def print_game_grid(self):
+        print("---------------------------------")
+        grid_representation = [['.' for _ in range(self.width // self.grid_size)] for _ in range(self.height // self.grid_size)]
+
+        for obj in self.game_state.placed_objects:
+            x, y = obj.x // self.grid_size, obj.y // self.grid_size
+            if isinstance(obj, House):
+                grid_representation[y][x] = 'H'
+            elif isinstance(obj, Road):
+                grid_representation[y][x] = 'R'
+            elif isinstance(obj, Tree):
+                grid_representation[y][x] = 'T'
+            elif isinstance(obj, Store):
+                grid_representation[y][x] = 'S'
+            elif isinstance(obj, Energy):
+                grid_representation[y][x] = 'W'
+
+        for row in grid_representation:
+            print(" ".join(row))
+
 
     def draw_game_over(self):
         font = pygame.font.Font(None, 170)
