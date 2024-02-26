@@ -254,7 +254,7 @@ class Game:
                     obj.upgrade()
                     self.upgrade_house(obj)
             elif isinstance(obj, Store) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 3:
+                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 10:
                     self.game_state.remove_money(obj.upgrade_cost)
                     obj.upgrade()
                     self.upgrade_store(obj)
@@ -469,6 +469,7 @@ class Game:
         road.set_type('road')
         self.game_state.placed_objects.append(road)
         self.game_state.remove_money(50)
+        self.game_state.remove_climate_score(1)
         self.occupied_cells.add((x, y))
 
         # Check for nearby roads to connect
