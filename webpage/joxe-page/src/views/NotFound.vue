@@ -1,21 +1,20 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div >
-                <h1>PAGE NOT FOUND</h1>
-                <p>Sorry, the page you are looking for was not found!</p>
-            </div>
-        </div>
+    <div class="mainInfo">
+        <h1>404 PAGE NOT FOUND</h1>
+        <p>Sorry, the page you are looking for was not found!</p>
     </div>
 </template>
 
 <style scoped>
-    .container {
+    .mainInfo {
         color: white;
-        margin-top: 50px;
+        margin-left: 20px;
+        margin-bottom: 40px;
     }
 
-    .container h1 {
-        font-size: 70px;
+    h1 {
+        font-size: 50px;
+        margin-bottom: 30px;
+        font-family: 'Public Pixel', sans-serif;
     }
 </style>

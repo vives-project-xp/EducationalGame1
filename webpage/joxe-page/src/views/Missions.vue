@@ -3,21 +3,29 @@
 
 <template>
   <main>
+    <div class="mainInfo">
     <h1>Missions</h1>
     On this page, additional missions for the board game will appear. They will unlock codes which will you make able to play the online game.
+    </div>
   </main>
 </template>
 
 <style scoped>
-  * {
-    color: white;
+
+  .mainInfo {
+      color: white;
+      margin-left: 20px;
+      margin-bottom: 40px;
   }
 
-    main {
-        margin-top: 50px;
-    }
+  h1 {
+      font-size: 50px;
+      margin-bottom: 30px;
+      font-family: 'Public Pixel', sans-serif;
+  }
 
-    h1 {
-        font-size: 70px;
-    }
+  main {
+      margin-top: 50px;
+  }
+
 </style>
