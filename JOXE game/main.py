@@ -22,7 +22,7 @@ pygame.display.set_icon(programIcon)
 # mixer.music.play(-1)
 
 FPS = 60
-GRID_SIZE = 60 #keep at 60
+GRID_SIZE = WIDTH//32
 
 def main(window):
     clock = pygame.time.Clock()

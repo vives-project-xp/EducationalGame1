@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "multer": "^1.4.5-lts.1",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
