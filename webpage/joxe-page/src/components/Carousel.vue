@@ -9,7 +9,7 @@ export default {
   mounted() {
     this.items = this.$el.querySelectorAll('.carousel-item');
     this.showItem(this.currentIndex);
-    setInterval(this.next, 3000); // Change slide every 3 seconds
+    setInterval(this.next, 10000); 
   },
   methods: {
     showItem(index) {
@@ -35,39 +35,92 @@ export default {
 
 <style>
   .carousel {
-    width: 100%;
+    height: 600px;
     overflow: hidden;
-    position: relative;
+    text-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
   }
-  
-  .carousel-inner {
-    display: flex;
-    transition: transform 0.5s ease;
+
+  .carousel-content {
+  display: flex;
+  align-items: center;
+  }
+
+  .carousel-content img {
+    flex: 1;
+    max-width: 50%; /* Adjust this value as needed */
+  }
+
+  .carousel-text {
+    flex: 1;
+    padding-left: 20px; /* Adjust this value as needed */
   }
   
   .carousel-item {
     min-width: 100%;
     overflow: hidden;
+    position: relative;
+    animation: slideInOut 10s infinite;
+  }
+
+  .carousel-item img {
+    max-width: 500px;
+  }
+
+  .carousel h1 {
+    font-size: 20px;
+    font-family: 'Public Pixel', sans-serif;
+  }
+
+  @keyframes slideInOut {
+    0% {
+      transform: translateX(100%);
+    }
+    20% {
+      transform: translateX(0);
+    }
+    80% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
   }
 </style>
 
 <template>
   <main>
     <div class="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item">
-        <p>There are many assets in the game, like the windmill.</p>
-      <img src="../../img/windmillv2.png" alt="windmill asset">
-    </div>
-    <div class="carousel-item">
-        <p>text 2</p>
-      <!-- <img src="image2.jpg" alt="Image 2"> -->
-    </div>
-    <div class="carousel-item">
-        <p>text 3</p>
-      <!-- <img src="image3.jpg" alt="Image 3"> -->
-    </div>
-  </div>
+      <div class="carousel-item">
+        <div class="carousel-content">
+        <img src="../../img/JOXEC-noBG.png" alt="logo ">
+        <div class="carousel-text">
+          <h1>Welcome!</h1>
+          <p>JOXE is an upcoming game, online and offline. On this site you'll find
+          more about the board game and additional missions to unlock the online game for free!
+          </p>
+        </div>
+      </div>
+      </div>
+        <div class="carousel-item">
+          <div class="carousel-content">
+          <img src="../../img/windmillv2.png" alt="windmill asset">
+          <div class="carousel-text">
+          <h1>Assets</h1>
+          <p>A lot of assets like windmills are available to build.</p>
+        </div>
+      </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-content">
+          <img src="../../img/gameplay.png" alt="gameplay">
+          <div class="carousel-text">
+          <h1>Shop</h1>
+          <p>Build houses and more to get a higher score.</p>
+        </div>
+      </div>
+      </div>
 </div>
   </main>
 </template>

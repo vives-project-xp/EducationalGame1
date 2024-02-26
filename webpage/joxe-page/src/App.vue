@@ -40,6 +40,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
+    margin: 20px;
   }
 
   .nav-link {
