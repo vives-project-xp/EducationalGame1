@@ -6,8 +6,8 @@
 | Remove Road    |❌| 
 | Remove Tree    |❌| 
 | Remove Windmill|❌| 
-| Auto Road place|❌| 
-| Date Counter   |❌| 
+| Auto Road place|✅| 
+| Date Counter   |✅| 
 | Education?     |❌| 
 | Healthcare?    |❌| 
 | Safety?        |❌| 
