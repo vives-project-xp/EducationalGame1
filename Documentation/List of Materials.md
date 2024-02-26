@@ -1,3 +1,9 @@
-1. https://neverland.be/creatief/materialen/div/5-kleine-canvaszakjes-in-5-verschillende-maten
-2. https://neverland.be/snijplotters-toebehoren/blanco-bedrukkingsmateriaal/doos/vierkant-doosje-met-magneet-wit 
+1. Player Tokens:
+https://www.temu.com/be-nl/60-stuks-veelkleurige-spellen-voor-bordspellen-plastic-speelstukken-1-inch-spelpionnen-tafelbladmarkeringen-bulk-g-601099518247395.html?top_gallery_url=https%3A%2F%2Fimg.kwcdn.com%2Fproduct%2FFancyalgo%2FVirtualModelMatting%2Fe63f969252a97f5be46eeef243cb9c24.jpg&spec_gallery_id=4003078919&refer_page_sn=10032&refer_source=10016&freesia_scene=11&_oak_freesia_scene=11&_oak_rec_ext_1=MjUx&_oak_gallery_order=1028064974%2C2077229632%2C198465564%2C519180881%2C1884984322&refer_page_el_sn=200444&_x_vst_scene=adg&_x_ads_sub_channel=shopping&_x_ns_prz_type=-1&_x_ns_sku_id=17592223410899&_x_ads_channel=google&_x_gmc_account=760631223&_x_login_type=Google&_x_ads_account=9370551288&_x_ads_set=20846510836&_x_ads_id=158086938164&_x_ads_creative_id=683739524335&_x_ns_source=g&_x_ns_gclid=Cj0KCQiA5-uuBhDzARIsAAa21T8nrCbxUGV5AUKEbiclsc3hlD29FpPEPOZSC9AXJrUrSIfN-XyhpKAaAsdZEALw_wcB&_x_ns_placement=&_x_ns_match_type=&_x_ns_ad_position=&_x_ns_product_id=760631223-nl-17592223410899&_x_ns_target=&_x_ns_devicemodel=&_x_ns_wbraid=Cj8KCQiAxOauBhDlARIuAPIlw21eSqKAgRDttDaolEXsfXBNOCGsgH13iWxmidKjBGA4R5cy6I7aDesn3BoCERA&_x_ns_gbraid=0AAAAAo4mICHE8vL-4Xd_5jhWXs68giYsp&_x_ns_targetid=pla-2263305892293&_x_sessn_id=pa9d7a20tk&refer_page_name=goods&refer_page_id=10032_1708865724530_dlizp6w4so
+
+2. https://neverland.be/snijplotters-toebehoren/blanco-bedrukkingsmateriaal/doos/vierkant-doosje-met-magneet-wit
+   
 3. Resin
+   
+4. Muntjes
+https://www.temu.com/be-nl/100-stuks-piratenmunten-plastic-schatmunten-piratenschattenjacht-munten-nepmunten-decoraties-voor-spelen-gunst-feestartikelen-halloween-verjaardag-piratenpartij-schatspel-gouden-g-601099519347152.html?top_gallery_url=https%3A%2F%2Fimg.kwcdn.com%2Fproduct%2FFancyalgo%2FVirtualModelMatting%2Ffa5eb04d3f73505617ecbb561a6dad7e.jpg&spec_gallery_id=4005338402&refer_page_sn=10009&refer_source=0&freesia_scene=2&_oak_freesia_scene=2&_oak_rec_ext_1=NzQ4&_oak_gallery_order=1887333930%2C242477085%2C1145104805%2C1457607030%2C1026756325&search_key=muntjes&refer_page_el_sn=200049&refer_page_name=search_result&refer_page_id=10009_1708866271791_c1w0rkl9kc&_x_sessn_id=pa9d7a20tk
