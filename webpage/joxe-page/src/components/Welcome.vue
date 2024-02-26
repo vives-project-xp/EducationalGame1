@@ -31,9 +31,6 @@
   <h1>Board Game</h1>
   <p>There will also be a board game version. Our goal is for a grid-based puzzle game similar to existing games like Cathedral, Patchwork and My City. During the game the 2-4 players will be able to place tiles in various shapes and sizes on a grid in which they must balance the size of their population and Climate Impact. The game runs until all tiles have filled up the board or until no tiles are left at which point a winner is calculated by the points they acrued during the game. A Tutorial video on how to play and a downloadable manual will be provided on the webpage. Missions will also be available via the webpage in which the players will get to play with an altered ruleset or start with a prewritten board state to overcome these challenges.</p>
 </div>
-<div class="footerMenu">
-  <p>Project made by Esteban Desmedt, Jasper Vantuyne, Olivier Westerman and Xander Vyvey in 2024 for VIVES</p>
-</div>
 </template>
 
 // Style section
@@ -100,14 +97,5 @@
     font-size: 50px;
     margin-bottom: 50px;
     font-family: 'Public Pixel', sans-serif;
-  }
-
-  .footerMenu {
-    background-color: #f8f4f0;
-    color: gray;
-    border-top-left-radius: 80px;
-    border-top-right-radius: 80px;
-    text-align: center;
-    padding: 40px;
   }
 </style>
