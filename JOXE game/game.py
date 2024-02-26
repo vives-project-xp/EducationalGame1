@@ -52,7 +52,7 @@ class Game:
         'store': -5
     }
 
-    def __init__(self, window, width, height, grid_size, game_state=None):
+    def __init__(self, window, width, height, grid_size, gamestate=None):
         self.window = window
         self.width = width
         self.height = height
@@ -85,7 +85,7 @@ class Game:
         self.grid.draw_grid()
         self.draw_selected_cell_outline()
         self.draw_game_elements()
-        self.draw_houses_level()
+        self.draw_object_level()
         self.draw_date()
         self.car.update()
         self.car.draw(self.window)
@@ -128,7 +128,7 @@ class Game:
             pygame.draw.rect(self.window, self.COLORS['white'],
                              (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
             if self.house_menu_visible:
-                self.draw_house_menu()
+                self.draw_building_clicked_menu()
 
     def draw_game_elements(self):
         if self.menu_bar_visible:
@@ -136,9 +136,9 @@ class Game:
             if self.selected_cell:
                 pygame.draw.rect(self.window, self.COLORS['yellow'],
                                  (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
-
+        # GAME OVER
         if self.game_state.climateScore <= 0:
-            self.draw_game_over()
+            self.draw_game_over() 
             pygame.display.update()
             pygame.time.wait(3000)
             pygame.quit()
@@ -160,22 +160,24 @@ class Game:
                         (280, self.height - 75))
         self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['tree']), (80, 80)),
                         (370, self.height - 75))
-
+        #BUILDING
 
     def draw_building_costs(self):
         font = pygame.font.Font(None, 24)
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree']):
+        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree']): #BUILDING
             cost_text = font.render(f"${self.COSTS.get(building_type, 0)}", True, self.COLORS['white'])
             self.window.blit(cost_text, (60 + i * 90, self.height - 70))
 
-    def draw_houses_level(self):
+    def draw_object_level(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House):
                 level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                 self.window.blit(level_text, (obj.x, obj.y))
+            elif isinstance(obj, Store):
+                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                self.window.blit(level_text, (obj.x, obj.y))
 
     # Handle methods
-
     def handle_click(self, x, y):
         grid_x, grid_y = self.get_grid_coordinates(x, y)
 
@@ -183,7 +185,7 @@ class Game:
             self.handle_road_placement(x, y)
             return
         if self.house_menu_visible:
-            self.handle_house_menu_click(x, y)
+            self.handle_clicked_menu_click(x, y)
             return
         if self.menu_bar_visible:
             self.handle_menu_bar_click(x, y)
@@ -195,8 +197,9 @@ class Game:
         
         self.menu_bar_visible = True
         self.selected_cell = (grid_x * self.grid_size, grid_y * self.grid_size)
+        print(f"Clicked on cell ({grid_x}, {grid_y})")
 
-    def handle_house_menu_click(self, x, y):
+    def handle_clicked_menu_click(self, x, y):
         if self.is_upgrade_button_clicked(x, y):
             self.handle_upgrade_button_click()
         elif self.is_remove_button_clicked(x, y):
@@ -208,11 +211,13 @@ class Game:
         grid_x = x // self.grid_size
         grid_y = y // self.grid_size
         return grid_x, grid_y
-    
 
+    # IS BUILDING PRESENT BUT ONLY HOUSE GETS CHECKED
     def is_building_already_present(self, grid_x, grid_y):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+                return True
+            elif isinstance(obj, Store) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
         return False
 
@@ -240,6 +245,7 @@ class Game:
     def is_tree_icon_clicked(self, x, y):
         return self.height - 80 <= y <= self.height - 10 and 370 <= x <= 450 
 
+    #ALSO ONLY CHECKS HOUSE
     def handle_upgrade_button_click(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
@@ -247,6 +253,11 @@ class Game:
                     self.game_state.remove_money(obj.upgrade_cost)  # Deduct money before upgrading
                     obj.upgrade()
                     self.upgrade_house(obj)
+            elif isinstance(obj, Store) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 3:
+                    self.game_state.remove_money(obj.upgrade_cost)
+                    obj.upgrade()
+                    self.upgrade_store(obj)
                 else:
                     print("Not enough money to upgrade the house.")
                 break
@@ -258,16 +269,27 @@ class Game:
         self.game_state.add_citizen(additional_inhabitants)
         house.inhabitants += additional_inhabitants
 
+    def upgrade_store(self, store):
+        new_image = pygame.image.load(f'./assets/resources/buildings/stores/store{store.level}.png')
+        store.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+
+    #also only checks house
     def handle_remove_button_click(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 self.remove_house(obj)
+                break
+            elif isinstance(obj, Store) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                self.remove_store(obj)
                 break
 
     def remove_house(self, house):
         self.game_state.placed_objects.remove(house)
         self.game_state.remove_citizen(house.inhabitants)
         self.game_state.remove_house(1)
+
+    def remove_store(self, store):
+        self.game_state.placed_objects.remove(store)
 
     def handle_menu_bar_click(self, x, y):
         if self.is_house_icon_clicked(x, y):
@@ -316,8 +338,6 @@ class Game:
         else:
             print("Not enough money to place a tree.")
         self.menu_bar_visible = False
-
-
 
     def handle_house_icon_click(self):
         if self.selected_cell is not None:
@@ -453,7 +473,6 @@ class Game:
         # Return the road object
         return road
 
-
     def connect_nearby_roads(self, x, y):
         nearby_cells = [
             (x - self.grid_size, y),
@@ -512,16 +531,6 @@ class Game:
             self.set_road_image(x1, y1, 'cornerroad.png')
             self.set_road_image(x2, y2, 'cornerroad.png')
 
-    def print_roads(self):
-        for row in range(self.height // self.grid_size):
-            for col in range(self.width // self.grid_size):
-                road_present = any(
-                    isinstance(obj, Road) and obj.x // self.grid_size == col and obj.y // self.grid_size == row
-                    for obj in self.game_state.placed_objects
-                )
-                print("R" if road_present else ".", end=" ")
-            print()
-
     def handle_energy_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= 2000:
             energy = Energy(self.selected_cell[0], self.selected_cell[1], self.grid_size)
@@ -533,8 +542,7 @@ class Game:
             print("Not enough money to place an energy building.")
         self.menu_bar_visible = False
 
-    def draw_house_menu(self):
-        upgrade_cost = 0
+    def draw_building_clicked_menu(self):
         # Load the icons
         upgrade_icon = pygame.image.load('./assets/resources/icons/upgrade.png')
         remove_icon = pygame.image.load('./assets/resources/icons/remove.png')
@@ -555,11 +563,10 @@ class Game:
         # Draw the upgrade and remove buttons
         font = pygame.font.Font(None, 24)  # Create a font object
 
-        # Get the upgrade cost and format it
-        for obj in self.game_state.placed_objects:
-            if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                upgrade_cost = obj.upgrade_cost
-                break
+        # Get the upgrade cost
+        upgrade_cost = self.get_upgrade_cost(House)
+        if upgrade_cost is None:
+            upgrade_cost = self.get_upgrade_cost(Store)
 
         # Format the upgrade cost string
         if upgrade_cost >= 1000000000:
@@ -575,6 +582,12 @@ class Game:
         self.window.blit(upgrade_icon, (menu_x + 10, menu_y + 10))  # Draw the upgrade icon
         self.window.blit(upgrade_text, (menu_x + 40, menu_y + 16))  # Draw the upgrade text
         self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))  # Draw the remove icon
+
+    def get_upgrade_cost(self, object_type):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, object_type) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                return obj.upgrade_cost
+        return None
 
     def print_game_grid(self):
         print("---------------------------------")
@@ -596,7 +609,6 @@ class Game:
         for row in grid_representation:
             print(" ".join(row))
 
-
     def draw_game_over(self):
         font = pygame.font.Font(None, 170)
         font2 = pygame.font.Font(None, 50)
@@ -604,3 +616,13 @@ class Game:
         text2 = font2.render('You have destroyed the climate!', 1, self.COLORS['game_over_text'])
         self.window.blit(text, (self.width // 2 - text.get_width() // 2, self.height // 2 - text.get_height() // 2))
         self.window.blit(text2, (self.width // 2 - text2.get_width() // 2, self.height // 2 + text.get_height() // 2))
+
+    # def print_roads(self):
+    #     for row in range(self.height // self.grid_size):
+    #         for col in range(self.width // self.grid_size):
+    #             road_present = any(
+    #                 isinstance(obj, Road) and obj.x // self.grid_size == col and obj.y // self.grid_size == row
+    #                 for obj in self.game_state.placed_objects
+    #             )
+    #             print("R" if road_present else ".", end=" ")
+    #         print()
