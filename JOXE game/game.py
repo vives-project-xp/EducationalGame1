@@ -63,7 +63,7 @@ class Game:
         self.grid = Grid(window, width, height, grid_size, self.game_state, self.font)
         self.selected_cell = None
         self.menu_bar_visible = False
-        self.house_menu_visible = False
+        self.clicked_menu_visible = False
         self.road_placement_in_progress = False
         self.road_start_position = (0, 0)
         self.occupied_cells = set()
@@ -127,7 +127,7 @@ class Game:
         if self.selected_cell:
             pygame.draw.rect(self.window, self.COLORS['white'],
                              (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
-            if self.house_menu_visible:
+            if self.clicked_menu_visible:
                 self.draw_building_clicked_menu()
 
     def draw_game_elements(self):
@@ -184,7 +184,7 @@ class Game:
         if self.road_placement_in_progress:
             self.handle_road_placement(x, y)
             return
-        if self.house_menu_visible:
+        if self.clicked_menu_visible:
             self.handle_clicked_menu_click(x, y)
             return
         if self.menu_bar_visible:
@@ -192,7 +192,7 @@ class Game:
             return
         if self.is_building_already_present(grid_x, grid_y):
             self.selected_cell = (grid_x * self.grid_size, grid_y * self.grid_size)
-            self.house_menu_visible = True
+            self.clicked_menu_visible = True
             return
         
         self.menu_bar_visible = True
@@ -204,7 +204,7 @@ class Game:
             self.handle_upgrade_button_click()
         elif self.is_remove_button_clicked(x, y):
             self.handle_remove_button_click()
-        self.house_menu_visible = False
+        self.clicked_menu_visible = False
         self.selected_cell = None
 
     def get_grid_coordinates(self, x, y):
@@ -218,6 +218,8 @@ class Game:
             if isinstance(obj, House) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
             elif isinstance(obj, Store) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+                return True
+            elif isinstance(obj, Road) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
         return False
 
@@ -282,6 +284,9 @@ class Game:
             elif isinstance(obj, Store) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 self.remove_store(obj)
                 break
+            elif isinstance(obj, Road) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                self.remove_road(obj)
+                break
 
     def remove_house(self, house):
         self.game_state.placed_objects.remove(house)
@@ -290,6 +295,10 @@ class Game:
 
     def remove_store(self, store):
         self.game_state.placed_objects.remove(store)
+
+    def remove_road(self, road):
+        self.game_state.placed_objects.remove(road)
+        self.occupied_cells.remove((road.x, road.y))
 
     def handle_menu_bar_click(self, x, y):
         if self.is_house_icon_clicked(x, y):
@@ -344,7 +353,7 @@ class Game:
             for obj in self.game_state.placed_objects:
                 if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                     self.menu_bar_visible = False
-                    self.house_menu_visible = True
+                    self.clicked_menu_visible = True
                     break
             else:
                 if self.game_state.money >= 1000:
@@ -582,6 +591,24 @@ class Game:
         self.window.blit(upgrade_icon, (menu_x + 10, menu_y + 10))  # Draw the upgrade icon
         self.window.blit(upgrade_text, (menu_x + 40, menu_y + 16))  # Draw the upgrade text
         self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))  # Draw the remove icon
+
+    def draw_building_clicked_menu_remove_only(self):
+        # Load the icons
+        remove_icon = pygame.image.load('./assets/resources/icons/remove.png')
+
+        # Resize the icons
+        icon_width = 30
+        icon_height = 30
+        remove_icon = pygame.transform.scale(remove_icon, (icon_width, icon_height))
+
+        # Calculate the position of the menu
+        menu_x = self.selected_cell[0] - 80 + self.grid_size // 2
+        menu_y = self.selected_cell[1] + self.grid_size
+
+        # Draw the house menu background
+        pygame.draw.rect(self.window, (230, 230, 230), (menu_x, menu_y, 160, 50))
+        # Draw the remove button
+        self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))
 
     def get_upgrade_cost(self, object_type):
         for obj in self.game_state.placed_objects:
