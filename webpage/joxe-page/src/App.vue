@@ -52,6 +52,7 @@
     color: white;
     margin-right: 120px;
     padding: 8px;
+    border-radius: 10px;
   }
 
   .nav-link:hover {
