@@ -13,6 +13,7 @@ Start the game as normal.
 
 ## Mission 2 Waste Disposal:
 in this mission there is a new mechanic that allows you to dispose of pollution tokens.
+The Moral of this game is that you may be able to shift trash around (like is done to many south-east asian countries)
 
 ## Mission 3 Capitalism Rules:
 In this mode the player with the highest amount om money tokens at the end of the game wins.
