@@ -31,7 +31,7 @@ The Auction token determines which building tiles can be bought during your turn
 Starting from the Auction token, the 3 pieces in front of the token (clockwise) are available for purchase. \
 Each tile has a price printed on it which must be paid to the bank to obtain the Building.\
 Move the Auction token to where the bought building was laying and place your new Building on the board.\
-Make sure the Building Tile does not overlap with any Blockers. (Shaded red)\
+Make sure the Building Tile does not overlap with any Blockers. (Shaded red)
 #### Buy a Land Expansion:
 Pay 5 Money to the bank to draw and place an Land Expansion tile. \
 Reach into the brown blind bag and pull out 1 tile. \
@@ -48,16 +48,19 @@ Note: this may leave you with a negative number in which case you do not lower y
 The next clockwise player now starts their turn.
 
 ## Crisis Tracker:
-The Crisis tracker only has one cube marking its progress and is shared by all players. If ine player's Crisis
+The Crisis tracker only has one cube marking its progress and is shared by all players. Whenever a player buys or loses a building that has a (crisis symbol) score, increase (when bought) or decrease (when removed from the board) the overall Crisis score.\
+Certain spaces on the Crisis Tracker are marked in red, these are what we call Thresholds.\ 
+When a player moves the Crisis token on or past one of these Thresholds, that player draws a Disaster Card.
 
-(The crisis tracker is shared and has thresholds that if triggered unleash a random natural disaster. The higher the tracker the more thresholds and thus the more disasters.\
-Disasters wipe some buildings or create blocked terrain or reduce pops. If the tracker is fully filled, only the player with the most nature tiles wins)
+### Disaster Cards:
+A player that forces the Crisis Score past or on a Treshold must draw a Disaster Card. 
+This player then must perform the tasks on the card before the next player's turn can begin.
 
 ## When does the game end?
 The game continues until:
 - All tiles have been bought from the Building circle.
 - If no room is available to place any building tiles and no Land Expansions can be bought.
-- The crisis tracker has reached its maximum, the planet is now doomed and nobody wins.
+- The crisis tracker has reached its maximum, the planet is now doomed and the player with the most nature tiles wins the game.
 
 
 
