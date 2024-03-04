@@ -21,13 +21,12 @@ programIcon = pygame.image.load('./assets/logo/JOXEC.png')
 pygame.display.set_icon(programIcon)
 
 FPS = 60
-GRID_SIZE = WIDTH // 32
 
 
 def main(window):
     clock = pygame.time.Clock()
     gamestate = Gamestate()
-    game = Game(window, WIDTH, HEIGHT, GRID_SIZE, gamestate)
+    game = Game(window, WIDTH, HEIGHT, res.GRID_SIZE, gamestate)
     tracker = Tracker(game)
 
     run = True
@@ -56,7 +55,7 @@ def main(window):
                 game.handle_click(x, y)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    resolutionWindow(window, main)
+                    resolutionWindow(window, main, res)
 
     pygame.quit()
     sys.exit()
@@ -94,19 +93,17 @@ def menu_screen(window):
     sys.exit()
 
 
-def resolutionWindow(window, main_function):
-    resolution = Resolution()
-
+def resolutionWindow(window, main_function, resolution):
     def set_res(resolution_str):
         width, height = map(int, resolution_str.split('x'))
         resolution.set_resolution(width, height)
-        window = pygame.display.set_mode((width, height))  # Update the window size
-        resolutionWindow(window, main_function)  # Recreate the menu with the new resolution
+        window = pygame.display.set_mode((width, height))
+        resolutionWindow(window, main_function, resolution)
 
     def back_to_game():
         main_function(window)
 
-    window_width, window_height = window.get_size()  # Get the current window size
+    window_width, window_height = window.get_size()
     menu = pygame_menu.Menu('Resolution', window_width, window_height, theme=pygame_menu.themes.THEME_BLUE)
 
     for res_option in ['1920x1080', '1920x1000', '1152x600', '800x600', '640x480']:
@@ -114,8 +111,8 @@ def resolutionWindow(window, main_function):
 
     menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER)
     
-
     menu.mainloop(window)
+
 
 if __name__ == "__main__":
     menu_screen(window)
