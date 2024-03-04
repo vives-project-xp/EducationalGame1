@@ -9,7 +9,7 @@
 8. Place the Auction token on the Building Circle in between two buildings in front of the player who wears the most green, they get to start the game.
 
 ## Winning/ Losing:
-The player who at the end of the game has the highest Pop score wins the game.
+The player who at the end of the game has the highest Pop score wins the game.\
 The player who at the end of the game has the highest amount of Pollution tokens loses the game (even if they had the highest Pop score) and gets to clean up the board or set it up for the next round.
 If two or more players have the same Pop score, count the amount of Nature tiles they control, the player who controls the most then wins.
 (Note: The player who controls the most adjacent Nature tiles at the end of the game may add 10 Pops.)
