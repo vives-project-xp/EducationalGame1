@@ -31,17 +31,30 @@ The Auction token determines which building tiles can be bought during your turn
 Starting from the Auction token, the 3 pieces in front of the token (clockwise) are available for purchase. 
 Each tile has a price printed on it which must be paid to the bank to obtain the Building.
 Move the Auction token to where the bought building was laying and place your new Building on the board.
- 
+Make sure the Building Tile does not overlap with any Blockers. (Shaded red)
+#### Buy a Land Expansion:
+Pay 5 Money to the bank to draw and place an Land Expansion tile. 
+Reach into the brown blind bag and pull out 1 tile. 
+You must immediately place this tile with one edge (fully or partially) touching the gameboard or another Land Expansion tile.
+Note: You choose the orientation and which side of the tile is used.
+You may immediately place any (nature) tile from the Building Circle on the Land Expansion tile (fully or partially).
 
-You may spend Money on Buying a Building Tile, Buying an Land Expansion.
-Place any tiles you may have bought on the board and make sure they do not overlap with any Blockers (marked by the red edges on the board/tile). 
-After you have bought everything you want/can end your turn by moving your color cube an amount of spaces to the right or left on the Pops and Crisis tracker.
-The amount of spaces for the Pops tracker is increased by the amount of (pop symbol) noted on any new buildings you may have bought.
-The amount of spaces for the Crisis tracker is calculated by adding all (crisis symbol) values from your buildings together.
-Note: this may leave you with a negative number in which case you may lower your Crisis cube with the negative amount. You can never go below 0 on the Crisis tracker.
+### End Your Turn:
+When you can take no further actions, your turn ends.
+Move your colored cube on the Population and Crisis tracker to reflect the changes that occured by your actions.
+The amount of spaces for the Pops tracker is increased by the amount of (pop symbol) noted on your new building.
+The amount of spaces for the Crisis tracker is increased by the amount of (crisis symbol) noted on your new building.
+Note: this may leave you with a negative number in which case you do not lower your Crisis Score but instead get to discard Pollution tokens equal to the negative amount.
 The next clockwise player now starts their turn.
-The game continues until all tiles have been bought from the Building circle or if no room is available to place any building tiles.
 
+## When does the game end?
+The game continues until:
+- All tiles have been bought from the Building circle.
+- If no room is available to place any building tiles and no Land Expansions can be bought.
+- The crisis tracker has reached its maximum, the planet is now doomed and nobody wins.
+
+## Crisis Tracker:
+The Crisis tracker only has one cube marking its progress and is shared by all players. If ine player's Crisis
 
 (The crisis tracker is shared and has thresholds that if triggered unleash a random natural disaster. The higher the tracker the more thresholds and thus the more disasters.
 Disasters wipe some buildings or create blocked terrain or reduce pops. If the tracker is fully filled, only the player with the most nature tiles wins)
