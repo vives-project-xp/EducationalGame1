@@ -1,8 +1,11 @@
+from resolution import Resolution
 import random
 import pygame
 import json
 
-WIDTH, HEIGHT = 1920, 1000
+res = Resolution()
+
+WIDTH, HEIGHT = res.width, res.height
 
 # Load trivia from json file
 with open('src/trivia.json') as f:
