@@ -1,6 +1,6 @@
 # Disaster Cards:
 - **Flood**:
-  \n Remove any two tiles fom the board and place them back in the Building Circle.
+  Remove any two tiles fom the board and place them back in the Building Circle.
 - **Plague**:
   You lose 1 Pop, choose clockwise or counter-clockwise, the first player sitting in the direction you chose loses 2 Pops, the next player 3 and so on.
 - **Starvation**:
@@ -15,6 +15,8 @@
   Until the end of your next turn, nobody can gain any money tokens.
 - **Earthquake**:
   Move an Expansion Tile to any new possible location, any buildings that didnt completely fit on the expansion are lost and added back to the Building Circle.
-- **Hurricane**: 
-- **Heat Wave**: 
+- **Hurricane**:
+  Destroy any tile and remove it from play entirely.
+- **Heat Wave**:
+  Until the start of your next turn all players gain twice the amount of Pollution thehy would normally gain at the start of their turn.
   
