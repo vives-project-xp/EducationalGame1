@@ -83,25 +83,26 @@ class Grid:
         total_width = 4 * box_width + 3 * MARGIN
 
         # Calculate the starting x position for the boxes
-        start_x = (self.width - total_width) // 2
+        # start_x = (self.width - total_width) // 2
+        start_x = 10
 
         # Draw the boxes around the logos and the text
         pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding, box_width, box_height + 2 * padding), 2)
-        pygame.draw.rect(self.window, (0, 0, 0), (start_x + box_width + MARGIN, 10 - padding, box_width, box_height + 2 * padding), 2)
-        pygame.draw.rect(self.window, (0, 0, 0), (start_x + 2 * box_width + 2 * MARGIN, 10 - padding, box_width, box_height + 2 * padding), 2)
-        pygame.draw.rect(self.window, (0, 0, 0), (start_x + 3 * box_width + 3 * MARGIN, 10 - padding, box_width, box_height + 2 * padding), 2)
+        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding + box_height + MARGIN, box_width, box_height + 2 * padding), 2)
+        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding + 2 * box_height + 2 * MARGIN, box_width, box_height + 2 * padding), 2)
+        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding + 3 * box_height + 3 * MARGIN, box_width, box_height + 2 * padding), 2)
 
         # Draw the logos onto the window
         self.window.blit(self.citizens_logo, (start_x + padding, 10))
-        self.window.blit(self.houses_logo, (start_x + box_width + MARGIN + padding, 10))
-        self.window.blit(self.money_logo, (start_x + 2 * box_width + 2 * MARGIN + padding, 10))
-        self.window.blit(self.climate_score_logo, (start_x + 3 * box_width + 3 * MARGIN + padding, 10))
+        self.window.blit(self.houses_logo, (start_x + padding, 10 + box_height + MARGIN))
+        self.window.blit(self.money_logo, (start_x + padding, 10 + 2 * box_height + 2 * MARGIN))
+        self.window.blit(self.climate_score_logo, (start_x + padding, 10 + 3 * box_height + 3 * MARGIN))
 
         # Draw the text onto the window
         self.window.blit(citizens_text, (start_x + self.citizens_logo.get_width() + 2 * padding, 10))
-        self.window.blit(houses_text, (start_x + box_width + MARGIN + self.houses_logo.get_width() + 2 * padding, 10))
-        self.window.blit(money_text, (start_x + 2 * box_width + 2 * MARGIN + self.money_logo.get_width() + 2 * padding, 10))
-        self.window.blit(climateScore_text, (start_x + 3 * box_width + 3 * MARGIN + self.climate_score_logo.get_width() + 2 * padding, 10))
+        self.window.blit(houses_text, (start_x + padding, 10 + box_height + MARGIN))
+        self.window.blit(money_text, (start_x + padding, 10 + 2 * box_height + 2 * MARGIN))
+        self.window.blit(climateScore_text, (start_x + padding, 10 + 3 * box_height + 3 * MARGIN))
 
         # Draw the climate score bar
         pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 + box_height + padding, 4 * box_width + 3 * MARGIN, box_height), 2)

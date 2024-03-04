@@ -11,7 +11,7 @@ from pygame import mixer
 pygame.init()
 
 
-WIDTH, HEIGHT = 1152, 600
+# WIDTH, HEIGHT = 1152, 600
 
 
 WIDTH, HEIGHT = 1920, 1000
