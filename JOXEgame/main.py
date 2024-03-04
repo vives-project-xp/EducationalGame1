@@ -10,6 +10,7 @@ from pygame import mixer
 
 pygame.init()
 
+WIDTH, HEIGHT = 1152, 600
 WIDTH, HEIGHT = 1920, 1000
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
