@@ -47,27 +47,18 @@ The amount of spaces for the Crisis tracker is increased by the amount of (crisi
 Note: this may leave you with a negative number in which case you do not lower your Crisis Score but instead get to discard Pollution tokens equal to the negative amount.
 The next clockwise player now starts their turn.
 
-## When does the game end?
-The game continues until:
-- All tiles have been bought from the Building circle.
-- If no room is available to place any building tiles and no Land Expansions can be bought.
-- The crisis tracker has reached its maximum, the planet is now doomed and nobody wins.
-
 ## Crisis Tracker:
 The Crisis tracker only has one cube marking its progress and is shared by all players. If ine player's Crisis
 
 (The crisis tracker is shared and has thresholds that if triggered unleash a random natural disaster. The higher the tracker the more thresholds and thus the more disasters.
 Disasters wipe some buildings or create blocked terrain or reduce pops. If the tracker is fully filled, only the player with the most nature tiles wins)
 
-Buy a Building:
-The Auction token determines which building tiles can be bought during your turn.
-Starting from the Auction token, the 3 pieces in front of the token (clockwise) are available for purchase. 
-Each tile has a price printed on it which must be paid to the bank to obtain the Building.
-Move the Auction token to where the bought building was laying and place the Building on the Grid.
-At the end of your turn increase, move your piece on the 
+## When does the game end?
+The game continues until:
+- All tiles have been bought from the Building circle.
+- If no room is available to place any building tiles and no Land Expansions can be bought.
+- The crisis tracker has reached its maximum, the planet is now doomed and nobody wins.
 
-Buying a Land Expansion:
-During your turn you may pay 5 Money to the bank to draw and place an Land Expansion tile. 
-Reach into the brown blind bag and pull out 1 tile. 
-You must immediately place this tile with one edge (fully or partially) touching the gameboard or another Land Expansion tile.
-You may immediately place any (nature) tile from the Building Circle on the Land Expansion tile (fully or partially).
+
+
+
