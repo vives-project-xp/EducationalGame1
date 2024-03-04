@@ -5,12 +5,12 @@ This Board game is part of a university project of student from Vives (Brugge).\
 Our purpose for this manual is to help you as a teacher prepare a lesson plan or even better, not have to worry about prep.\
 This game can be played and is very enjoyable on its own but our mission is to educate as well as entertain.\
 Of course, you are still free to alter and add/remove parts of these lesson plans, these are simply guidelines meant to help you and unburden you a little.\
-The only preparation you will need is to read this manual and the Player Rules so you can explain it to your students, please make sure not to skip this step.\
+The only preparation you will need is to read this manual and the Player Rules so you can explain it to your students, please make sure not to skip this step.
 
 On its own, this game and this manual will provide a single lesson plan of 1hour with a few ideas on how to keep it running beyond that.\
 We also recommend you take a look at our webpage () once you are finished with this booklet.\ 
 There you will find 5 extra missions that each will have a lesson plan attached to it like this one.\
-These are meant as follow-up material that builds on the main game, we recommend you have at least played the base game at least once before trying any of these special missions.\
+These are meant as follow-up material that builds on the main game, we recommend you have at least played the base game at least once before trying any of these special missions.
 
 ## Lesson Plan
 ### Overview
