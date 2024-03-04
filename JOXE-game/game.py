@@ -7,6 +7,7 @@ from tree import Tree
 # from car import Car
 from store import Store
 import pygame
+from trivia import Trivia
 from pygame import mixer
 import os
 import sys
@@ -553,6 +554,29 @@ class Game:
             print("Not enough money to place an energy building.")
         self.menu_bar_visible = False
 
+    def trivia_popup(self):
+        trivia = Trivia()
+        # Decide whether to show trivia
+        if random.random() < 0.01:  # % chance
+            trivia = Trivia.get_random_trivia(trivia_list=trivia.trivia_list)
+            show_trivia = True
+
+        # Show trivia popup
+        if show_trivia:
+            close_button_rect = Trivia.show_trivia_popup(self.window, trivia)
+
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                self.handle_click(x, y)
+                # If popup is showing, hide it when mouse is clicked
+                if show_trivia and close_button_rect.collidepoint(x, y):
+                    show_trivia = False
+
     def draw_building_clicked_menu(self):
         # Load the icons
         upgrade_icon = pygame.image.load('./assets/resources/icons/upgrade.png')
@@ -620,25 +644,25 @@ class Game:
                 return obj.upgrade_cost
         return None
 
-    def print_game_grid(self):
-        print("---------------------------------")
-        grid_representation = [['.' for _ in range(self.width // self.grid_size)] for _ in range(self.height // self.grid_size)]
+    # def print_game_grid(self):
+    #     print("---------------------------------")
+    #     grid_representation = [['.' for _ in range(self.width // self.grid_size)] for _ in range(self.height // self.grid_size)]
 
-        for obj in self.game_state.placed_objects:
-            x, y = obj.x // self.grid_size, obj.y // self.grid_size
-            if isinstance(obj, House):
-                grid_representation[y][x] = 'H'
-            elif isinstance(obj, Road):
-                grid_representation[y][x] = 'R'
-            elif isinstance(obj, Tree):
-                grid_representation[y][x] = 'T'
-            elif isinstance(obj, Store):
-                grid_representation[y][x] = 'S'
-            elif isinstance(obj, Energy):
-                grid_representation[y][x] = 'W'
+    #     for obj in self.game_state.placed_objects:
+    #         x, y = obj.x // self.grid_size, obj.y // self.grid_size
+    #         if isinstance(obj, House):
+    #             grid_representation[y][x] = 'H'
+    #         elif isinstance(obj, Road):
+    #             grid_representation[y][x] = 'R'
+    #         elif isinstance(obj, Tree):
+    #             grid_representation[y][x] = 'T'
+    #         elif isinstance(obj, Store):
+    #             grid_representation[y][x] = 'S'
+    #         elif isinstance(obj, Energy):
+    #             grid_representation[y][x] = 'W'
 
-        for row in grid_representation:
-            print(" ".join(row))
+    #     for row in grid_representation:
+    #         print(" ".join(row))
 
     def draw_game_over(self):
         font = pygame.font.Font(None, 170)

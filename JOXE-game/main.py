@@ -3,7 +3,6 @@ import random
 from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
-from trivia import get_random_trivia, show_trivia_popup
 from resolution import Resolution
 # from car import Car
 import datetime
@@ -68,6 +67,8 @@ def main(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 game.handle_click(x, y)
+<<<<<<< HEAD
+=======
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     resolutionWindow(window)
@@ -92,6 +93,7 @@ def main(window):
                 # If popup is showing, hide it when mouse is clicked
                 if show_trivia and close_button_rect.collidepoint(x, y):
                     show_trivia = False
+>>>>>>> 51bd57f5a04f6e8800c3196638f20f78b8dc0738
 
     pygame.quit()
     sys.exit()

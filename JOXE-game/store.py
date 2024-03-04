@@ -16,6 +16,7 @@ class Store:
         pos = (self.x - self.image.get_width() // 2, self.y - self.image.get_height() // 2)
         surface.blit(self.image, pos)
         self.built = True
+        print("Store built")
 
     def upgrade(self):
         if self.level < 4:
