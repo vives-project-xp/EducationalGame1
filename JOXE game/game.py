@@ -468,6 +468,9 @@ class Game:
         # Check if a road is already present at the target grid cell
         if self.is_building_already_present(x // self.grid_size, y // self.grid_size):
             return None
+            
+        x = x + 60
+        y = y + 60
 
         road = Road(x, y, self.grid_size)
         road.set_type('road')
@@ -489,7 +492,6 @@ class Game:
             (x, y - self.grid_size),
             (x, y + self.grid_size),
         ]
-
         for cell in nearby_cells:
             cell_x, cell_y = cell
             if (cell_x, cell_y) in self.occupied_cells:

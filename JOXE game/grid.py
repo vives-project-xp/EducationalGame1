@@ -48,7 +48,11 @@ class Grid:
 
     def draw_objects(self):
         for obj in self.game_state.placed_objects:
-            self.window.blit(obj.image, (obj.x, obj.y))
+            #roads should be displayed one cell above and to the left
+            if isinstance(obj, Road):
+                self.window.blit(obj.image, (obj.x - self.grid_size, obj.y - self.grid_size))
+            else:
+                self.window.blit(obj.image, (obj.x, obj.y))
 
     def draw_game_state(self):
         MARGIN = 50
