@@ -1,4 +1,4 @@
-# Teacher Manual
+# Teacher Pamphlet
 
 ## Preface
 This Board game is part of a university project of student from Vives (Brugge).\
