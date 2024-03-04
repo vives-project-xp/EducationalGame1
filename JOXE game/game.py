@@ -3,7 +3,6 @@ from gamestate import Gamestate
 from house import House
 from road import Road
 from energy import Energy
-from road import Intersection
 from tree import Tree
 from car import Car
 from store import Store
@@ -219,6 +218,8 @@ class Game:
                 return True
             elif isinstance(obj, Store) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
+            elif isinstance(obj, Road) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+                return True
         return False
 
     # Is button clicked methods
@@ -281,6 +282,9 @@ class Game:
                 break
             elif isinstance(obj, Store) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 self.remove_store(obj)
+                break
+            elif isinstance(obj, Road) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                self.remove_road(obj)
                 break
 
     def remove_house(self, house):
@@ -477,7 +481,7 @@ class Game:
 
         # Return the road object
         return road
-
+ 
     def connect_nearby_roads(self, x, y):
         nearby_cells = [
             (x - self.grid_size, y),
@@ -589,10 +593,10 @@ class Game:
         self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))  # Draw the remove icon
 
     def draw_building_clicked_menu_remove_only(self):
-        # Load the icons
+        # Load the remove icon
         remove_icon = pygame.image.load('./assets/resources/icons/remove.png')
 
-        # Resize the icons
+        # Resize the icon
         icon_width = 30
         icon_height = 30
         remove_icon = pygame.transform.scale(remove_icon, (icon_width, icon_height))
@@ -601,10 +605,12 @@ class Game:
         menu_x = self.selected_cell[0] - 80 + self.grid_size // 2
         menu_y = self.selected_cell[1] + self.grid_size
 
-        # Draw the house menu background
+        # Draw the menu background
         pygame.draw.rect(self.window, (230, 230, 230), (menu_x, menu_y, 160, 50))
+
         # Draw the remove button
         self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))
+
 
     def get_upgrade_cost(self, object_type):
         for obj in self.game_state.placed_objects:

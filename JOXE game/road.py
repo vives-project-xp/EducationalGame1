@@ -39,17 +39,3 @@ class Road:
 
 
 
-class Intersection:
-    def __init__(self, x, y, grid_size, road_type):
-        self.x = x - 10
-        self.y = y - 8
-        self.grid_size = grid_size
-        self.road_type = road_type
-
-        # Load the intersection image based on road type
-        intersection_image_path = f'./assets/resources/road/{road_type}_intersection.png'
-        self.image = pygame.transform.scale(pygame.image.load(intersection_image_path), (self.grid_size + 20, self.grid_size + 18))
-
-    def draw(self, window):
-        # Draw the intersection image at the given coordinates
-        window.blit(self.image, (self.x, self.y))

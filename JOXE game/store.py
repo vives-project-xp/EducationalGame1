@@ -16,7 +16,7 @@ class Store:
         surface.blit(self.image, pos)
 
     def upgrade(self):
-        if self.level < 5:
+        if self.level < 4:
             self.level += 1
             self.upgrade_cost *= 2  # You can adjust the upgrade cost formula as needed
             self.ecoscore_bonus += 1  # You can adjust the eco score bonus as needed
