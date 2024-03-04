@@ -3,7 +3,6 @@ import random
 from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
-from trivia import get_random_trivia, show_trivia_popup
 from resolution import Resolution
 # from car import Car
 import datetime
@@ -42,7 +41,7 @@ def main(window):
     while run:
         clock.tick(FPS)
         game.draw()
-        game.print_game_grid()
+        # game.print_game_grid()
 
         tracker.update()
         average_money_gain, average_ecoscore_change = tracker.get_averages()
@@ -67,27 +66,6 @@ def main(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 game.handle_click(x, y)
-    
-        # Decide whether to show trivia
-        if random.random() < 0.01:  # % chance
-            trivia = get_random_trivia()
-            show_trivia = True
-
-        # Show trivia popup
-        if show_trivia:
-            close_button_rect = show_trivia_popup(window, trivia)
-
-        pygame.display.update()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                game.handle_click(x, y)
-                # If popup is showing, hide it when mouse is clicked
-                if show_trivia and close_button_rect.collidepoint(x, y):
-                    show_trivia = False
 
     pygame.quit()
     sys.exit()
