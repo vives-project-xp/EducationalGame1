@@ -113,6 +113,7 @@ def resolutionWindow(window, main_function):
         menu.add.button(res_option, set_res, res_option)
 
     menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER)
+    
 
     menu.mainloop(window)
 

@@ -20,6 +20,6 @@ class House:
         self.inhabitants += amount
     
     def upgrade(self):
-            if self.level < 7:
+            if self.level < 9:
                 self.level += 1
                 self.upgrade_cost *= 5  
