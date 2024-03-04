@@ -12,16 +12,9 @@ from pygame import mixer
 
 pygame.init()
 
-<<<<<<< HEAD
-WIDTH, HEIGHT = 1152, 600
-# WIDTH, HEIGHT = 1920, 1000
-=======
-
 # WIDTH, HEIGHT = 1152, 600
-
-
 WIDTH, HEIGHT = 1920, 1000
->>>>>>> ff1d437668ac0cdc959455ed2928e9d80700b76d
+
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 programIcon = pygame.image.load('./assets/logo/JOXEC.png')
@@ -75,13 +68,13 @@ def main(window):
                 game.handle_click(x, y)
     
         # Decide whether to show trivia
-        if random.random() < 0.9:  # 90% chance
+        if random.random() < 0.01:  # % chance
             trivia = get_random_trivia()
             show_trivia = True
 
         # Show trivia popup
         if show_trivia:
-            show_trivia_popup(window, trivia)
+            close_button_rect = show_trivia_popup(window, trivia)
 
         pygame.display.update()
 
@@ -92,7 +85,7 @@ def main(window):
                 x, y = pygame.mouse.get_pos()
                 game.handle_click(x, y)
                 # If popup is showing, hide it when mouse is clicked
-                if show_trivia:
+                if show_trivia and close_button_rect.collidepoint(x, y):
                     show_trivia = False
 
     pygame.quit()
