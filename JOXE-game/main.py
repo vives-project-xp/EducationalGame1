@@ -1,7 +1,9 @@
 import pygame
+import random
 from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
+from trivia import get_random_trivia, show_trivia_popup
 # from car import Car
 import datetime
 import os
@@ -10,8 +12,8 @@ from pygame import mixer
 
 pygame.init()
 
-# WIDTH, HEIGHT = 1152, 600
-WIDTH, HEIGHT = 1920, 1000
+WIDTH, HEIGHT = 1152, 600
+# WIDTH, HEIGHT = 1920, 1000
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 programIcon = pygame.image.load('./assets/logo/JOXEC.png')
@@ -34,6 +36,7 @@ def main(window):
     # car = Car(GRID_SIZE, gamestate.placed_objects)
 
     run = True
+    show_trivia = False
     while run:
         clock.tick(FPS)
         game.draw()
@@ -62,6 +65,27 @@ def main(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 game.handle_click(x, y)
+    
+        # Decide whether to show trivia
+        if random.random() < 0.9:  # 90% chance
+            trivia = get_random_trivia()
+            show_trivia = True
+
+        # Show trivia popup
+        if show_trivia:
+            show_trivia_popup(window, trivia)
+
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                game.handle_click(x, y)
+                # If popup is showing, hide it when mouse is clicked
+                if show_trivia:
+                    show_trivia = False
 
     pygame.quit()
     sys.exit()
