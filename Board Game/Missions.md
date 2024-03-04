@@ -12,8 +12,14 @@ After shuffling the Disaster Deck, place the 'Nuclear Disaster' card at the top 
 Start the game as normal.
 
 ## Mission 2 Waste Disposal:
-in this mission there is a new mechanic that allows you to dispose of pollution tokens.
-The Moral of this game is that you may be able to shift trash around (like is done to many south-east asian countries)
+In this mission there is a new mechanic that allows you to dispose of pollution tokens.
+The Moral: you may be able to shift trash around (like is done to many south-east asian countries) and hope other people take care of things but this is not a solution to your problems.
+
+### Setup:
+### Rules Changes:
+Whenever a player gains a pollution token they may pay the next player up to an equal amount in money tokens to make them take the pollution instead. 
+That player then is allowed to pay twice the money they gained from this to move this pollution to the next player. This continues until no one can pay this any longer.
+
 
 ## Mission 3 Capitalism Rules:
 In this mode the player with the highest amount om money tokens at the end of the game wins.
