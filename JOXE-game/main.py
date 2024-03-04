@@ -128,19 +128,17 @@ def menu_screen(window):
 def resolutionWindow(window):
     resolution = Resolution()
 
-    def set_res(selected_resolution, value, **kwargs):
-        # Extract the first item from the tuple (selected_resolution)
-        resolution_str = selected_resolution[0]
-        # Unpack the selected resolution string correctly
+    def set_res(resolution_str):
         width, height = map(int, resolution_str.split('x'))
         resolution.set_resolution(width, height)
+        pygame.display.set_mode((width, height))
 
     menu = pygame_menu.Menu('Resolution', resolution.width, resolution.height, theme=pygame_menu.themes.THEME_BLUE)
 
-    menu.add.dropselect('resolution : ', [('1920x1000', '1920x1000'), ('1152x600', '1152x600')], onchange=set_res, default=0, argument=resolution)
+    for res_option in ['1920x1000', '1152x600']:
+        menu.add.button(res_option, set_res, res_option)
 
     menu.mainloop(window)
 
 if __name__ == "__main__":
     menu_screen(window)
-
