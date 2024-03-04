@@ -2,7 +2,7 @@ import pygame
 from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
-from car import Car
+# from car import Car
 import datetime
 import os
 import sys
@@ -10,7 +10,11 @@ from pygame import mixer
 
 pygame.init()
 
+<<<<<<<< HEAD:JOXEgame/main.py
 WIDTH, HEIGHT = 1152, 600
+========
+# WIDTH, HEIGHT = 1152, 600
+>>>>>>>> 1afa7172b93ea7d1cd30f1d13cd8155ced0196b4:JOXE-game/main.py
 WIDTH, HEIGHT = 1920, 1000
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -31,7 +35,7 @@ def main(window):
     game = Game(window, WIDTH, HEIGHT, GRID_SIZE, gamestate)
     tracker = Tracker(game)
 
-    car = Car(GRID_SIZE, gamestate.placed_objects)
+    # car = Car(GRID_SIZE, gamestate.placed_objects)
 
     run = True
     while run:
@@ -43,7 +47,7 @@ def main(window):
         average_money_gain, average_ecoscore_change = tracker.get_averages()
         game.draw_averages(average_money_gain, average_ecoscore_change)
 
-        car.update()
+        # car.update()
 
         pygame.display.update()
 

@@ -37,7 +37,13 @@ More information about the PC-game can be found [here](./Game%20Storyboard/mainG
 Our goal is for a grid-based puzzle game similar to existing games like _Cathedral_, _Patchwork_ and _My City_.
 During the game the 2-4 players will be able to place tiles in various shapes and sizes on a grid in which they must balance the size of their population and Climate Impact.
 The game runs until all tiles have filled up the board or until no tiles are left at which point a winner is calculated by the points they acrued during the game. 
-A Tutorial video on how to play and a downloadable manual will be provided on the webpage. Missions will also be available via the webpage in which the players will get to play with an altered ruleset or start with a prewritten board state to overcome these challenges.
+
+## Webpage:
+The project will also contain a website to connect the PC-version and board game version with each other. There will also be added information about both products will also be displayed to present them in an interesting way to potential users.
+
+A Tutorial video on how to play and a downloadable manual will also be provided here. Missions will be available via the webpage in which the players will get to play with an altered ruleset or start with a prewritten board state to overcome these challenges. Once a player did enough missions a download code will be provided to make it possible to download the online version.
+
+Possible expansion: missions for the PC-version (trivia quiz) that will unlock coins or give other advantages in the PC-version.
 
 
 
