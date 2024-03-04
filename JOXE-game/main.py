@@ -4,6 +4,7 @@ from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
 from trivia import get_random_trivia, show_trivia_popup
+from resolution import Resolution
 # from car import Car
 import datetime
 import os
@@ -11,10 +12,17 @@ import sys
 from pygame import mixer
 
 pygame.init()
+<<<<<<< HEAD
 
 # WIDTH, HEIGHT = 1152, 600
 WIDTH, HEIGHT = 1920, 1000
 
+=======
+res = Resolution()
+
+
+WIDTH, HEIGHT = res.width, res.height
+>>>>>>> 9ad65756a73c548c6e55b84ccd10b281e5d89640
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 programIcon = pygame.image.load('./assets/logo/JOXEC.png')

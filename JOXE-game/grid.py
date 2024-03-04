@@ -83,7 +83,6 @@ class Grid:
         total_width = 4 * box_width + 3 * MARGIN
 
         # Calculate the starting x position for the boxes
-        # start_x = (self.width - total_width) // 2
         start_x = 10
 
         # Draw the boxes around the logos and the text
@@ -97,16 +96,24 @@ class Grid:
         self.window.blit(self.houses_logo, (start_x + padding, 10 + box_height + MARGIN))
         self.window.blit(self.money_logo, (start_x + padding, 10 + 2 * box_height + 2 * MARGIN))
         self.window.blit(self.climate_score_logo, (start_x + padding, 10 + 3 * box_height + 3 * MARGIN))
-
+                                               
+        paddY = 40
         # Draw the text onto the window
         self.window.blit(citizens_text, (start_x + self.citizens_logo.get_width() + 2 * padding, 10))
-        self.window.blit(houses_text, (start_x + padding, 10 + box_height + MARGIN))
-        self.window.blit(money_text, (start_x + padding, 10 + 2 * box_height + 2 * MARGIN))
-        self.window.blit(climateScore_text, (start_x + padding, 10 + 3 * box_height + 3 * MARGIN))
+        self.window.blit(houses_text, (start_x + padding + paddY, 10 + box_height + MARGIN))
+        self.window.blit(money_text, (start_x + padding  + paddY, 10 + 2 * box_height + 2 * MARGIN))
+        self.window.blit(climateScore_text, (start_x + padding  + paddY, 10 + 3 * box_height + 3 * MARGIN))
 
-        # Draw the climate score bar
-        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 + box_height + padding, 4 * box_width + 3 * MARGIN, box_height), 2)
-        pygame.draw.rect(self.window, (0, 0, 0), (start_x + padding, 10 + box_height + padding + padding // 2, 4 * box_width + 3 * MARGIN - 2 * padding, box_height - padding), 2)
+        # Calculate the starting x position for the climate bar
+        climate_bar_start_x = (self.width - (4 * box_width + 3 * MARGIN)) // 2
+
+
+        # Define a new variable for the y-coordinate adjustment
+        adjust_y = 10  # Adjust this value as needed
+
+        # Draw the climate score bar at the top
+        pygame.draw.rect(self.window, (0, 0, 0), (climate_bar_start_x, adjust_y, 4 * box_width + 3 * MARGIN, box_height), 2)
+        pygame.draw.rect(self.window, (0, 0, 0), (climate_bar_start_x + padding, adjust_y + padding // 2, 4 * box_width + 3 * MARGIN - 2 * padding, box_height - padding), 2)
 
         # Set the color based on the climate score
         if self.game_state.climateScore >= 30:
@@ -114,5 +121,5 @@ class Grid:
         else:
             score_color = (255, 0, 0)  # Red
 
-        # Draw the score bar with the chosen color
-        pygame.draw.rect(self.window, score_color, (start_x + padding, 10 + box_height + padding + padding // 2, (4 * box_width + 3 * MARGIN - 2 * padding) * self.game_state.climateScore // 100, box_height - padding))
+        # Draw the score bar with the chosen color at the top
+        pygame.draw.rect(self.window, score_color, (climate_bar_start_x + padding, adjust_y + padding // 2, (4 * box_width + 3 * MARGIN - 2 * padding) * self.game_state.climateScore // 100, box_height - padding))
