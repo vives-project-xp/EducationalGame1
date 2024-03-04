@@ -10,8 +10,8 @@
 
 ## Winning/ Losing:
 The player who at the end of the game has the highest Pop score wins the game.\
-The player who at the end of the game has the highest amount of Pollution tokens loses the game (even if they had the highest Pop score) and gets to clean up the board or set it up for the next round.
-If two or more players have the same Pop score, count the amount of Nature tiles they control, the player who controls the most then wins.
+The player who at the end of the game has the highest amount of Pollution tokens loses the game (even if they had the highest Pop score) and gets to clean up the board or set it up for the next round.\
+If two or more players have the same Pop score, count the amount of Nature tiles they control, the player who controls the most then wins.\
 (Note: The player who controls the most adjacent Nature tiles at the end of the game may add 10 Pops.)
 
 ## Play the Game:
@@ -19,7 +19,7 @@ The players take turns in a clockwise rotation with the player that is currently
 
 
 ### Start your turn:
-Collect an amount of Money tokens equal to your Population Score.
+Collect an amount of Money tokens equal to your Population Score.\
 Collect an amount of Pollution tokens equal to your Crisis score.
 
 ### Actions:
@@ -27,30 +27,30 @@ Only one action may be taken during your turn, unless otherwise specified in the
 #### Get Corrupt:
 You may increase your Crisis points by a maximum of 5 to immediately gain the same amount of Money from the bank. You may still Buy a Building or Buy a Land Expansion.
 #### Buy a Building:
-The Auction token determines which building tiles can be bought during your turn.
-Starting from the Auction token, the 3 pieces in front of the token (clockwise) are available for purchase. 
-Each tile has a price printed on it which must be paid to the bank to obtain the Building.
-Move the Auction token to where the bought building was laying and place your new Building on the board.
-Make sure the Building Tile does not overlap with any Blockers. (Shaded red)
+The Auction token determines which building tiles can be bought during your turn.\
+Starting from the Auction token, the 3 pieces in front of the token (clockwise) are available for purchase. \
+Each tile has a price printed on it which must be paid to the bank to obtain the Building.\
+Move the Auction token to where the bought building was laying and place your new Building on the board.\
+Make sure the Building Tile does not overlap with any Blockers. (Shaded red)\
 #### Buy a Land Expansion:
-Pay 5 Money to the bank to draw and place an Land Expansion tile. 
-Reach into the brown blind bag and pull out 1 tile. 
-You must immediately place this tile with one edge (fully or partially) touching the gameboard or another Land Expansion tile.
-Note: You choose the orientation and which side of the tile is used.
+Pay 5 Money to the bank to draw and place an Land Expansion tile. \
+Reach into the brown blind bag and pull out 1 tile. \
+You must immediately place this tile with one edge (fully or partially) touching the gameboard or another Land Expansion tile.\
+Note: You choose the orientation and which side of the tile is used.\
 You may immediately place any (nature) tile from the Building Circle on the Land Expansion tile (fully or partially).
 
 ### End Your Turn:
-When you can take no further actions, your turn ends.
-Move your colored cube on the Population and Crisis tracker to reflect the changes that occured by your actions.
-The amount of spaces for the Pops tracker is increased by the amount of (pop symbol) noted on your new building.
-The amount of spaces for the Crisis tracker is increased by the amount of (crisis symbol) noted on your new building.
-Note: this may leave you with a negative number in which case you do not lower your Crisis Score but instead get to discard Pollution tokens equal to the negative amount.
+When you can take no further actions, your turn ends.\
+Move your colored cube on the Population and Crisis tracker to reflect the changes that occured by your actions.\
+The amount of spaces for the Pops tracker is increased by the amount of (pop symbol) noted on your new building.\
+The amount of spaces for the Crisis tracker is increased by the amount of (crisis symbol) noted on your new building.\
+Note: this may leave you with a negative number in which case you do not lower your Crisis Score but instead get to discard Pollution tokens equal to the negative amount.\
 The next clockwise player now starts their turn.
 
 ## Crisis Tracker:
 The Crisis tracker only has one cube marking its progress and is shared by all players. If ine player's Crisis
 
-(The crisis tracker is shared and has thresholds that if triggered unleash a random natural disaster. The higher the tracker the more thresholds and thus the more disasters.
+(The crisis tracker is shared and has thresholds that if triggered unleash a random natural disaster. The higher the tracker the more thresholds and thus the more disasters.\
 Disasters wipe some buildings or create blocked terrain or reduce pops. If the tracker is fully filled, only the player with the most nature tiles wins)
 
 ## When does the game end?
