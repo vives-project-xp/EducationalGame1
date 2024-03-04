@@ -10,6 +10,7 @@ class Car:
         self.scale = 0.05  # Adjust the scale as needed
         self.offset = 3  # Adjust the offset as needed
         self.visible = False  # The car is initially invisible
+        self.changed_position = False 
 
         #car being drawn in game class
 
@@ -27,7 +28,7 @@ class Car:
         # Get the starting position based on the first road
         if self.road_objects:
             first_road = self.road_objects[0]
-            middle_y = first_road.y + (self.grid_size / 2) - (self.image.get_height() / 2) + self.offset
+            middle_y = first_road.y + (self.grid_size / 2) - (self.image.get_height() / 2) + self.offset - self.grid_size
             return (first_road.x, middle_y)
         return (0, 0)
 
@@ -42,6 +43,13 @@ class Car:
             if self.visible:
                 current_road = self.road_objects[self.current_road_index]
                 self.move_along_road(current_road)
+
+    def update_position(self, dx, dy):
+        if self.changed_position == False:
+            new_x = self.position[0] + dx
+            new_y = self.position[1] + dy
+            self.position = (new_x, new_y)
+            self.changed_position = True
 
     def choose_random_road(self):
         # Choose a random road from the list of road objects
@@ -84,4 +92,5 @@ class Car:
     def draw(self, window):
         # Only draw the car if it is visible
         if self.visible:
+            self.update_position(-60, -60)
             window.blit(self.image, self.position)
