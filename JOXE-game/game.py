@@ -60,7 +60,7 @@ class Game:
         self.game_state = Gamestate()
         # self.car = Car(grid_size, self.game_state.placed_objects)
         self.font = pygame.font.Font(None, 36)
-        self.grid = Grid(window, width, height, grid_size, self.game_state, self.font)
+        self.grid = Grid(window, grid_size, self.game_state, self.font)
         self.selected_cell = None
         self.menu_bar_visible = False
         self.clicked_menu_visible = False

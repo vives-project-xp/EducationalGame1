@@ -1,12 +1,14 @@
 import pygame
 from house import House
 from road import Road
+from resolution import Resolution
 
 class Grid:
-    def __init__(self, window, width, height, grid_size, game_state, font):
+    def __init__(self, window, grid_size, game_state, font):
         self.window = window
-        self.width = width
-        self.height = height
+        self.res = Resolution()
+        self.width = self.res.width
+        self.height = self.res.height
         self.grid_size = grid_size
         self.game_state = game_state
         self.font = font

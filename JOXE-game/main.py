@@ -4,7 +4,6 @@ from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
 from resolution import Resolution
-# from car import Car
 import datetime
 import os
 import sys
@@ -16,18 +15,14 @@ res = Resolution()
 
 WIDTH, HEIGHT = res.width, res.height
 
-os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,31)
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 programIcon = pygame.image.load('./assets/logo/JOXEC.png')
 pygame.display.set_icon(programIcon)
 
-
-# mixer.init()
-# mixer.music.load('Sounds/AmbientLoop1.mp3')
-# mixer.music.play(-1)
-
 FPS = 60
-GRID_SIZE = WIDTH//32
+GRID_SIZE = WIDTH // 32
+
 
 def main(window):
     clock = pygame.time.Clock()
@@ -35,30 +30,22 @@ def main(window):
     game = Game(window, WIDTH, HEIGHT, GRID_SIZE, gamestate)
     tracker = Tracker(game)
 
-    # car = Car(GRID_SIZE, gamestate.placed_objects)
-
     run = True
     show_trivia = False
     while run:
         clock.tick(FPS)
         game.draw()
-        # game.print_game_grid()
-
         tracker.update()
         average_money_gain, average_ecoscore_change = tracker.get_averages()
         game.draw_averages(average_money_gain, average_ecoscore_change)
-
-        # car.update()
-
         pygame.display.update()
 
         elapsed_time = pygame.time.get_ticks() - game.start_time
         game.total_elapsed_time += elapsed_time
-        game.start_time = pygame.time.get_ticks()  # Reset the start time
+        game.start_time = pygame.time.get_ticks()
 
-        # If 2 seconds (2,000 milliseconds) have passed
         if game.total_elapsed_time >= 2000:
-            game.current_date += datetime.timedelta(days=1)  # Advance the date by one day
+            game.current_date += datetime.timedelta(days=1)
             game.total_elapsed_time -= 2000
 
         for event in pygame.event.get():
@@ -67,33 +54,9 @@ def main(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 game.handle_click(x, y)
-<<<<<<< HEAD
-=======
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    resolutionWindow(window)
-    
-        # Decide whether to show trivia
-        if random.random() < 0.01:  # % chance
-            trivia = get_random_trivia()
-            show_trivia = True
-
-        # Show trivia popup
-        if show_trivia:
-            close_button_rect = show_trivia_popup(window, trivia)
-
-        pygame.display.update()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                game.handle_click(x, y)
-                # If popup is showing, hide it when mouse is clicked
-                if show_trivia and close_button_rect.collidepoint(x, y):
-                    show_trivia = False
->>>>>>> 51bd57f5a04f6e8800c3196638f20f78b8dc0738
+                    resolutionWindow(window, main)
 
     pygame.quit()
     sys.exit()
@@ -118,6 +81,9 @@ def menu_screen(window):
                 if button_x <= mouse_x <= button_x + button_width and button_y <= mouse_y <= button_y + button_height:
                     pygame.time.delay(1000)
                     main(window)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    resolutionWindow(window, main)
 
         window.blit(background, (0, 0))
         window.blit(play_button, (button_x, button_y))
@@ -127,18 +93,26 @@ def menu_screen(window):
     pygame.quit()
     sys.exit()
 
-def resolutionWindow(window):
+
+def resolutionWindow(window, main_function):
     resolution = Resolution()
 
     def set_res(resolution_str):
         width, height = map(int, resolution_str.split('x'))
         resolution.set_resolution(width, height)
-        pygame.display.set_mode((width, height))
+        window = pygame.display.set_mode((width, height))  # Update the window size
+        resolutionWindow(window, main_function)  # Recreate the menu with the new resolution
 
-    menu = pygame_menu.Menu('Resolution', resolution.width, resolution.height, theme=pygame_menu.themes.THEME_BLUE)
+    def back_to_game():
+        main_function(window)
 
-    for res_option in ['1920x1000', '1152x600']:
+    window_width, window_height = window.get_size()  # Get the current window size
+    menu = pygame_menu.Menu('Resolution', window_width, window_height, theme=pygame_menu.themes.THEME_BLUE)
+
+    for res_option in ['1920x1080', '1920x1000', '1152x600', '800x600', '640x480']:
         menu.add.button(res_option, set_res, res_option)
+
+    menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER)
 
     menu.mainloop(window)
 
