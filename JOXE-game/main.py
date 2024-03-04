@@ -2,7 +2,7 @@ import pygame
 from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
-from car import Car
+# from car import Car
 import datetime
 import os
 import sys
@@ -31,7 +31,7 @@ def main(window):
     game = Game(window, WIDTH, HEIGHT, GRID_SIZE, gamestate)
     tracker = Tracker(game)
 
-    car = Car(GRID_SIZE, gamestate.placed_objects)
+    # car = Car(GRID_SIZE, gamestate.placed_objects)
 
     run = True
     while run:
@@ -43,7 +43,7 @@ def main(window):
         average_money_gain, average_ecoscore_change = tracker.get_averages()
         game.draw_averages(average_money_gain, average_ecoscore_change)
 
-        car.update()
+        # car.update()
 
         pygame.display.update()
 

@@ -4,7 +4,7 @@ from house import House
 from road import Road
 from energy import Energy
 from tree import Tree
-from car import Car
+# from car import Car
 from store import Store
 import pygame
 from pygame import mixer
@@ -57,7 +57,7 @@ class Game:
         self.height = height
         self.grid_size = grid_size
         self.game_state = Gamestate()
-        self.car = Car(grid_size, self.game_state.placed_objects)
+        # self.car = Car(grid_size, self.game_state.placed_objects)
         self.font = pygame.font.Font(None, 36)
         self.grid = Grid(window, width, height, grid_size, self.game_state, self.font)
         self.selected_cell = None
@@ -86,8 +86,8 @@ class Game:
         self.draw_game_elements()
         self.draw_object_level()
         self.draw_date()
-        self.car.update()
-        self.car.draw(self.window)
+        # self.car.update()
+        # self.car.draw(self.window)
         pygame.display.update()
 
     def draw_date(self):
