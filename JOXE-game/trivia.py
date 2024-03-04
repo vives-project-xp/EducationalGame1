@@ -5,7 +5,7 @@ import json
 WIDTH, HEIGHT = 1920, 1000
 
 # Load trivia from json file
-with open('src/trivia.js') as f:
+with open('src/trivia.json') as f:
     trivia_list = json.load(f)
 
 # Function to get a random trivia

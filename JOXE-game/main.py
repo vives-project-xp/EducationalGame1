@@ -12,16 +12,8 @@ from pygame import mixer
 
 pygame.init()
 
-<<<<<<< HEAD
-WIDTH, HEIGHT = 1152, 600
-# WIDTH, HEIGHT = 1920, 1000
-=======
-
 # WIDTH, HEIGHT = 1152, 600
-
-
 WIDTH, HEIGHT = 1920, 1000
->>>>>>> ff1d437668ac0cdc959455ed2928e9d80700b76d
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 programIcon = pygame.image.load('./assets/logo/JOXEC.png')
