@@ -9,6 +9,7 @@ import datetime
 import os
 import sys
 from pygame import mixer
+import pygame_menu
 
 pygame.init()
 res = Resolution()
@@ -66,6 +67,33 @@ def main(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 game.handle_click(x, y)
+<<<<<<< HEAD
+=======
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    resolutionWindow(window)
+    
+        # Decide whether to show trivia
+        if random.random() < 0.01:  # % chance
+            trivia = get_random_trivia()
+            show_trivia = True
+
+        # Show trivia popup
+        if show_trivia:
+            close_button_rect = show_trivia_popup(window, trivia)
+
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                game.handle_click(x, y)
+                # If popup is showing, hide it when mouse is clicked
+                if show_trivia and close_button_rect.collidepoint(x, y):
+                    show_trivia = False
+>>>>>>> 51bd57f5a04f6e8800c3196638f20f78b8dc0738
 
     pygame.quit()
     sys.exit()
@@ -99,5 +127,22 @@ def menu_screen(window):
     pygame.quit()
     sys.exit()
 
+def resolutionWindow(window):
+    resolution = Resolution()
+
+    def set_res(selected_resolution, value, **kwargs):
+        # Extract the first item from the tuple (selected_resolution)
+        resolution_str = selected_resolution[0]
+        # Unpack the selected resolution string correctly
+        width, height = map(int, resolution_str.split('x'))
+        resolution.set_resolution(width, height)
+
+    menu = pygame_menu.Menu('Resolution', resolution.width, resolution.height, theme=pygame_menu.themes.THEME_BLUE)
+
+    menu.add.dropselect('resolution : ', [('1920x1000', '1920x1000'), ('1152x600', '1152x600')], onchange=set_res, default=0, argument=resolution)
+
+    menu.mainloop(window)
+
 if __name__ == "__main__":
     menu_screen(window)
+
