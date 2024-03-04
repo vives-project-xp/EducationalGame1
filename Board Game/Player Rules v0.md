@@ -4,22 +4,36 @@
 3. Place one of the colored cube pieces from each player on the Pops tracker and the other on the Crisis tracker, both starting with a value of 0. 
 4. Shuffle the Land tiles and then place them in the brown blind bag.
 5. (Shuffle the Disaster cards, then place them face down within reach.)
-6. Place the money tokens in a handy spot and within reach of all players.
+6. Place the money tokens and polluction tokens in a handy spot and within reach of all players.
 7. Every player starts with 5 money tokens.
 8. Place the Auction token on the Building Circle in between two buildings in front of the player who wears the most green, they get to start the game.
 
 ## Winning/ Losing:
 The player who at the end of the game has the highest Pop score wins the game.
-The player who at the end of the game has the highest Crisis score loses the game (even if they had the highest Pop score) and gets to clean up the board or set it up for the next round.
+The player who at the end of the game has the highest amount of Pollution tokens loses the game (even if they had the highest Pop score) and gets to clean up the board or set it up for the next round.
 If two or more players have the same Pop score, count the amount of Nature tiles they control, the player who controls the most then wins.
 (Note: The player who controls the most adjacent Nature tiles at the end of the game may add 10 Pops.)
-Play the Game:
+
+## Play the Game:
 The players take turns in a clockwise rotation with the player that is currently wearing the most green in their outfit going first.
-Start by collecting an amount of Money tokens equal to the amount of Population markers on your buildings.
-Get Corrupt:
-You may increase your Crisis points by a maximum of 5 to immediately gain the same amount of Money from the bank.
-Spend Cash:
-You may spend Money on Buying a Building, Buying an Expansion or Buying an upgrade.
+
+
+### Start your turn:
+Collect an amount of Money tokens equal to your Population Score.
+Collect an amount of Pollution tokens equal to your Crisis score.
+
+### Actions:
+Only one action may be taken during your turn, unless otherwise specified in the action.
+#### Get Corrupt:
+You may increase your Crisis points by a maximum of 5 to immediately gain the same amount of Money from the bank. You may still Buy a Building or Buy a Land Expansion.
+#### Buy a Building:
+The Auction token determines which building tiles can be bought during your turn.
+Starting from the Auction token, the 3 pieces in front of the token (clockwise) are available for purchase. 
+Each tile has a price printed on it which must be paid to the bank to obtain the Building.
+Move the Auction token to where the bought building was laying and place your new Building on the board.
+ 
+
+You may spend Money on Buying a Building Tile, Buying an Land Expansion.
 Place any tiles you may have bought on the board and make sure they do not overlap with any Blockers (marked by the red edges on the board/tile). 
 After you have bought everything you want/can end your turn by moving your color cube an amount of spaces to the right or left on the Pops and Crisis tracker.
 The amount of spaces for the Pops tracker is increased by the amount of (pop symbol) noted on any new buildings you may have bought.
@@ -39,8 +53,8 @@ Each tile has a price printed on it which must be paid to the bank to obtain the
 Move the Auction token to where the bought building was laying and place the Building on the Grid.
 At the end of your turn increase, move your piece on the 
 
-Buying an expansion:
-During your turn you may pay 5 Money to the bank to draw and place an expansion tile. 
+Buying a Land Expansion:
+During your turn you may pay 5 Money to the bank to draw and place an Land Expansion tile. 
 Reach into the brown blind bag and pull out 1 tile. 
-You must immediately place this tile with one edge (fully or partially) touching the gameboard or another expansion tile.
-You may immediately place any nature tile from the Building Circle on the expansion tile (fully or partially).
+You must immediately place this tile with one edge (fully or partially) touching the gameboard or another Land Expansion tile.
+You may immediately place any (nature) tile from the Building Circle on the Land Expansion tile (fully or partially).
