@@ -4,6 +4,7 @@ from house import House
 from road import Road
 from energy import Energy
 from tree import Tree
+from resolution import Resolution
 # from car import Car
 from store import Store
 import pygame
@@ -53,14 +54,15 @@ class Game:
     }
 
     def __init__(self, window, width, height, grid_size, gamestate=None):
+        self.res = Resolution()
         self.window = window
-        self.width = width
-        self.height = height
+        self.width = self.res.width
+        self.height = self.res.height
         self.grid_size = grid_size
         self.game_state = Gamestate()
         # self.car = Car(grid_size, self.game_state.placed_objects)
         self.font = pygame.font.Font(None, 36)
-        self.grid = Grid(window, width, height, grid_size, self.game_state, self.font)
+        self.grid = Grid(window, grid_size, self.game_state, self.font)
         self.selected_cell = None
         self.menu_bar_visible = False
         self.clicked_menu_visible = False
@@ -251,7 +253,7 @@ class Game:
     def handle_upgrade_button_click(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 7:  # Check if money after upgrade is >= 0
+                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 100:  # Check if money after upgrade is >= 0
                     self.game_state.remove_money(obj.upgrade_cost)  # Deduct money before upgrading
                     obj.upgrade()
                     self.upgrade_house(obj)
