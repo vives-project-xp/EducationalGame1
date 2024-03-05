@@ -2,6 +2,7 @@ import pygame
 from house import House
 from road import Road
 from resolution import Resolution
+import datetime
 
 class Grid:
     def __init__(self, window, grid_size, game_state, font):
@@ -10,6 +11,9 @@ class Grid:
         self.grid_size = grid_size
         self.game_state = game_state
         self.font = font
+        self.start_time = pygame.time.get_ticks()  
+        self.total_elapsed_time = 0  
+        self.current_date = datetime.datetime(2022, 1, 1) 
 
         # Load the logos
         citizens_logo = pygame.image.load('./assets/resources/icons/person.png')
@@ -125,4 +129,11 @@ class Grid:
 
         # Draw the score bar with the chosen color at the top with proportional adjustment
         pygame.draw.rect(self.window, score_color, (climate_bar_start_x + padding * resize_value, adjust_y + padding // 2, (4 * box_width * resize_value + 3 * MARGIN - 2 * padding) * self.game_state.climateScore // 100, box_height - padding))
+        
+        # draw date
+        self.draw_date()
 
+    def draw_date(self):
+        # Draw the current date on the screen
+        text = self.font.render(self.current_date.strftime("%d/%m/%Y"), True, (255, 255, 255))
+        self.window.blit(text, (self.width / 10 * 9, 0)) 

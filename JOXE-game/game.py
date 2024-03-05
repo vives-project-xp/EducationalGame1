@@ -70,9 +70,6 @@ class Game:
         self.road_start_position = (0, 0)
         self.occupied_cells = set()
         self.averagestatfont = pygame.font.Font(None, 16)
-        self.start_time = pygame.time.get_ticks()  # Get the current time in milliseconds
-        self.total_elapsed_time = 0  # Total elapsed time in milliseconds
-        self.current_date = datetime.datetime(2022, 1, 1)  # Start at January 1, 2022
         self.placing_house_sound = mixer.Sound('Sounds/Placing house SFX.mp3')
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
@@ -87,15 +84,9 @@ class Game:
         self.draw_selected_cell_outline()
         self.draw_game_elements()
         self.draw_object_level()
-        self.draw_date()
         # self.car.update()
         # self.car.draw(self.window)
         pygame.display.update()
-
-    def draw_date(self):
-        # Draw the current date on the screen
-        text = self.font.render(self.current_date.strftime("%d/%m/%Y"), True, (255, 255, 255))
-        self.window.blit(text, (self.width / 10 * 9, 0)) 
 
     def draw_averages(self, average_money_gain, average_ecoscore_change):
         square_width, square_height = 100, 30

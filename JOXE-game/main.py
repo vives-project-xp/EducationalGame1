@@ -36,13 +36,13 @@ def main(window, gamestate):
         game.draw_averages(average_money_gain, average_ecoscore_change)
         pygame.display.update()
 
-        elapsed_time = pygame.time.get_ticks() - game.start_time
-        game.total_elapsed_time += elapsed_time
-        game.start_time = pygame.time.get_ticks()
+        elapsed_time = pygame.time.get_ticks() - game.grid.start_time
+        game.grid.total_elapsed_time += elapsed_time
+        game.grid.start_time = pygame.time.get_ticks()
 
-        if game.total_elapsed_time >= 2000:
-            game.current_date += datetime.timedelta(days=1)
-            game.total_elapsed_time -= 2000
+        if game.grid.total_elapsed_time >= 2000:
+            game.grid.current_date += datetime.timedelta(days=1)
+            game.grid.total_elapsed_time -= 2000
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
