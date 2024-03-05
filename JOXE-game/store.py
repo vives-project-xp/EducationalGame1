@@ -9,14 +9,11 @@ class Store:
         self.level = 1
         self.upgrade_cost = 5000
         self.ecoscore_bonus = -5
-        self.built = False
 
     def draw(self, surface):
         # Adjust the position so the store is centered at (x, y)
         pos = (self.x - self.image.get_width() // 2, self.y - self.image.get_height() // 2)
         surface.blit(self.image, pos)
-        self.built = True
-        print("Store built")
 
     def upgrade(self):
         if self.level < 4:

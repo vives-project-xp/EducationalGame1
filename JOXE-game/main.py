@@ -38,7 +38,6 @@ def main(window):
     # car = Car(GRID_SIZE, gamestate.placed_objects)
 
     run = True
-    show_trivia = False
     while run:
         clock.tick(FPS)
         game.draw()
@@ -67,34 +66,10 @@ def main(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 game.handle_click(x, y)
-<<<<<<< HEAD
-=======
-            if event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     resolutionWindow(window)
     
-        # Decide whether to show trivia
-        if random.random() < 0.01:  # % chance
-            trivia = get_random_trivia()
-            show_trivia = True
-
-        # Show trivia popup
-        if show_trivia:
-            close_button_rect = show_trivia_popup(window, trivia)
-
-        pygame.display.update()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                game.handle_click(x, y)
-                # If popup is showing, hide it when mouse is clicked
-                if show_trivia and close_button_rect.collidepoint(x, y):
-                    show_trivia = False
->>>>>>> 51bd57f5a04f6e8800c3196638f20f78b8dc0738
-
     pygame.quit()
     sys.exit()
 
