@@ -69,7 +69,6 @@ class Game:
         self.road_placement_in_progress = False
         self.road_start_position = (0, 0)
         self.occupied_cells = set()
-        self.font = pygame.font.Font(None, 36)
         self.averagestatfont = pygame.font.Font(None, 16)
         self.start_time = pygame.time.get_ticks()  # Get the current time in milliseconds
         self.total_elapsed_time = 0  # Total elapsed time in milliseconds
@@ -95,8 +94,7 @@ class Game:
 
     def draw_date(self):
         # Draw the current date on the screen
-        font = pygame.font.SysFont(None, 36)
-        text = font.render(self.current_date.strftime("%d/%m/%Y"), True, (255, 255, 255))
+        text = self.font.render(self.current_date.strftime("%d/%m/%Y"), True, (255, 255, 255))
         self.window.blit(text, (self.width / 10 * 9, 0))  # Adjust the position as needed
 
     def draw_averages(self, average_money_gain, average_ecoscore_change):
