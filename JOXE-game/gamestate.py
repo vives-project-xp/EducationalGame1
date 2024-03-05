@@ -5,6 +5,7 @@ class Gamestate:
         self.money = 1000000
         self.climateScore = 50
         self.placed_objects = []
+        self.username = ""
 
     def add_object(self, obj):
         self.placed_objects.append(obj)

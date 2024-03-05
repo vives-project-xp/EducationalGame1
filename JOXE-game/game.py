@@ -59,7 +59,7 @@ class Game:
         self.width = self.res.width
         self.height = self.res.height
         self.grid_size = grid_size
-        self.game_state = Gamestate()
+        self.game_state = gamestate
         # self.car = Car(grid_size, self.game_state.placed_objects)
         self.font = pygame.font.Font(None, 36)
         self.grid = Grid(window, grid_size, self.game_state, self.font)
@@ -95,7 +95,7 @@ class Game:
     def draw_date(self):
         # Draw the current date on the screen
         text = self.font.render(self.current_date.strftime("%d/%m/%Y"), True, (255, 255, 255))
-        self.window.blit(text, (self.width / 10 * 9, 0))  # Adjust the position as needed
+        self.window.blit(text, (self.width / 10 * 9, 0)) 
 
     def draw_averages(self, average_money_gain, average_ecoscore_change):
         square_width, square_height = 100, 30

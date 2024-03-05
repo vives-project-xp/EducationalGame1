@@ -8,3 +8,5 @@ class Resolution:
         self.width = width
         self.height = height
         self.GRID_SIZE = self.width // 32 
+
+

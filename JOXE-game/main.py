@@ -22,10 +22,8 @@ pygame.display.set_icon(programIcon)
 
 FPS = 60
 
-
-def main(window):
+def main(window, gamestate):
     clock = pygame.time.Clock()
-    gamestate = Gamestate()
     game = Game(window, WIDTH, HEIGHT, res.GRID_SIZE, gamestate)
     tracker = Tracker(game)
 
@@ -55,28 +53,31 @@ def main(window):
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    resolutionWindow(window, main, res)
+                    resolutionWindow(window, main, res, gamestate)
 
     pygame.quit()
     sys.exit()
 
 def login_screen(window):
     def start_game(username):
-        if username:
-            print(f"Username: {username}") 
-            main(window)
+        if username and username != "Enter username":
+            gamestate = Gamestate()
+            gamestate.username = username
+            print(f"Starting game for user {username}")
+            main(window, gamestate)
         else:
             print("Please enter a username.")
 
     window_width, window_height = window.get_size()
     menu = pygame_menu.Menu('Login', window_width, window_height, theme=pygame_menu.themes.THEME_BLUE)
 
-    username_input = menu.add.text_input('')
+    #textblock asking city name
+    menu.add.label('City name:')
+    username_input = menu.add.text_input('', default='................')
     menu.add.button('Play', lambda: start_game(username_input.get_value()))
     menu.add.button('Quit', pygame_menu.events.EXIT)
 
     menu.mainloop(window)
-
 
 def menu_screen(window):
     background = pygame.image.load('./assets/resources/background/bg2.png')
@@ -111,15 +112,15 @@ def menu_screen(window):
     sys.exit()
 
 
-def resolutionWindow(window, main_function, resolution):
+def resolutionWindow(window, main_function, resolution, gamestate):
     def set_res(resolution_str):
         width, height = map(int, resolution_str.split('x'))
         resolution.set_resolution(width, height)
         window = pygame.display.set_mode((width, height))
-        resolutionWindow(window, main_function, resolution)
+        resolutionWindow(window, main_function, resolution, gamestate)
 
     def back_to_game():
-        main_function(window)
+        main_function(window, gamestate)
 
     window_width, window_height = window.get_size()
     menu = pygame_menu.Menu('Resolution', window_width, window_height, theme=pygame_menu.themes.THEME_BLUE)

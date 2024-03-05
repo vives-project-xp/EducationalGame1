@@ -24,7 +24,7 @@ class Grid:
         self.citizens_logo = pygame.transform.scale(citizens_logo, (citizens_logo.get_width() * font_height // citizens_logo.get_height(), font_height))
         self.houses_logo = pygame.transform.scale(houses_logo, (houses_logo.get_width() * font_height // houses_logo.get_height(), font_height))
         self.money_logo = pygame.transform.scale(money_logo, (money_logo.get_width() * font_height // money_logo.get_height(), font_height))
-        self.climate_score_logo = pygame.transform.scale(climate_score_logo, (climate_score_logo.get_width() * font_height // climate_score_logo.get_height(), font_height))
+        self.city_name_logo = pygame.transform.scale(climate_score_logo, (climate_score_logo.get_width() * font_height // climate_score_logo.get_height(), font_height))
 
     def draw_grid(self):
         self.draw_background()
@@ -61,10 +61,10 @@ class Grid:
         citizens_text = self.font.render(f"{self.game_state.amountOfCitizens}", True, (0, 0, 0))
         houses_text = self.font.render(f"{self.game_state.amountOfHouses}", True, (0, 0, 0))
         money_text = self.font.render(f"{self.game_state.money}", True, (0, 0, 0))
-        climateScore_text = self.font.render(f"{self.game_state.climateScore}", True, (0, 0, 0))
+        city_name_text = self.font.render(f"{self.game_state.username}", True, (0, 0, 0))
 
         # Calculate the total width of the text and the margins
-        total_width = citizens_text.get_width() + houses_text.get_width() + money_text.get_width() + climateScore_text.get_width() + 3 * MARGIN
+        total_width = citizens_text.get_width() + houses_text.get_width() + money_text.get_width() + city_name_text.get_width() + 3 * MARGIN
 
         # Calculate the starting x position for the text
         start_x = (self.width - total_width) // 2
@@ -98,14 +98,14 @@ class Grid:
         self.window.blit(self.citizens_logo, (start_x + padding, 10))
         self.window.blit(self.houses_logo, (start_x + padding, 10 + box_height + MARGIN))
         self.window.blit(self.money_logo, (start_x + padding, 10 + 2 * box_height + 2 * MARGIN))
-        self.window.blit(self.climate_score_logo, (start_x + padding, 10 + 3 * box_height + 3 * MARGIN))
+        self.window.blit(self.city_name_logo, (start_x + padding, 10 + 3 * box_height + 3 * MARGIN))
 
         paddY = 40 * resize_value
         # Draw the text onto the window with proportional adjustment
         self.window.blit(citizens_text, (start_x + self.citizens_logo.get_width() + 2 * padding * resize_value, 10))
         self.window.blit(houses_text, (start_x + padding + paddY, 10 + box_height + MARGIN))
         self.window.blit(money_text, (start_x + padding + paddY, 10 + 2 * box_height + 2 * MARGIN))
-        self.window.blit(climateScore_text, (start_x + padding + paddY, 10 + 3 * box_height + 3 * MARGIN))
+        self.window.blit(city_name_text, (start_x + padding + paddY, 10 + 3 * box_height + 3 * MARGIN))
 
         # Calculate the starting x position for the climate bar with proportional adjustment
         climate_bar_start_x = (self.width - (4 * box_width + 3 * MARGIN)) // 2
@@ -125,3 +125,4 @@ class Grid:
 
         # Draw the score bar with the chosen color at the top with proportional adjustment
         pygame.draw.rect(self.window, score_color, (climate_bar_start_x + padding * resize_value, adjust_y + padding // 2, (4 * box_width * resize_value + 3 * MARGIN - 2 * padding) * self.game_state.climateScore // 100, box_height - padding))
+
