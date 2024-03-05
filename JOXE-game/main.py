@@ -60,6 +60,24 @@ def main(window):
     pygame.quit()
     sys.exit()
 
+def login_screen(window):
+    def start_game(username):
+        if username:
+            print(f"Username: {username}") 
+            main(window)
+        else:
+            print("Please enter a username.")
+
+    window_width, window_height = window.get_size()
+    menu = pygame_menu.Menu('Login', window_width, window_height, theme=pygame_menu.themes.THEME_BLUE)
+
+    username_input = menu.add.text_input('')
+    menu.add.button('Play', lambda: start_game(username_input.get_value()))
+    menu.add.button('Quit', pygame_menu.events.EXIT)
+
+    menu.mainloop(window)
+
+
 def menu_screen(window):
     background = pygame.image.load('./assets/resources/background/bg2.png')
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
@@ -79,7 +97,7 @@ def menu_screen(window):
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if button_x <= mouse_x <= button_x + button_width and button_y <= mouse_y <= button_y + button_height:
                     pygame.time.delay(1000)
-                    main(window)
+                    login_screen(window)  # call login_screen() instead of main()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     resolutionWindow(window, main, res)
