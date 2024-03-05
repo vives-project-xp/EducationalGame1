@@ -52,17 +52,11 @@ def main(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 game.handle_click(x, y)
-<<<<<<< HEAD
-        if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    resolutionWindow(window)
-    
-=======
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     resolutionWindow(window, main, res)
 
->>>>>>> 7093345e247ac52923d20a4ecc78f07cd63b0c39
     pygame.quit()
     sys.exit()
 
