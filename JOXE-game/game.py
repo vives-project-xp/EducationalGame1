@@ -97,7 +97,7 @@ class Game:
         # Draw the current date on the screen
         font = pygame.font.SysFont(None, 36)
         text = font.render(self.current_date.strftime("%d/%m/%Y"), True, (255, 255, 255))
-        self.window.blit(text, (0, 0))  # Adjust the position as needed
+        self.window.blit(text, (self.width / 10 * 9, 0))  # Adjust the position as needed
 
     def draw_averages(self, average_money_gain, average_ecoscore_change):
         square_width, square_height = 100, 30

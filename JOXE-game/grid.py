@@ -6,9 +6,7 @@ from resolution import Resolution
 class Grid:
     def __init__(self, window, grid_size, game_state, font):
         self.window = window
-        self.res = Resolution()
-        self.width = self.res.width
-        self.height = self.res.height
+        self.width, self.height = window.get_size()
         self.grid_size = grid_size
         self.game_state = game_state
         self.font = font
@@ -50,7 +48,7 @@ class Grid:
 
     def draw_objects(self):
         for obj in self.game_state.placed_objects:
-            #roads should be displayed one cell above and to the left
+            # Roads should be displayed one cell above and to the left
             if isinstance(obj, Road):
                 self.window.blit(obj.image, (obj.x - self.grid_size, obj.y - self.grid_size))
             else:
@@ -87,35 +85,37 @@ class Grid:
         # Calculate the starting x position for the boxes
         start_x = 10
 
-        # Draw the boxes around the logos and the text
-        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding, box_width, box_height + 2 * padding), 2)
-        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding + box_height + MARGIN, box_width, box_height + 2 * padding), 2)
-        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding + 2 * box_height + 2 * MARGIN, box_width, box_height + 2 * padding), 2)
-        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding + 3 * box_height + 3 * MARGIN, box_width, box_height + 2 * padding), 2)
+        # Calculate resize value for proportional adjustment
+        resize_value = self.grid_size / 60
 
-        # Draw the logos onto the window
+        # Draw the boxes around the logos and the text with proportional adjustment
+        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding, box_width * resize_value, box_height + 2 * padding), 2)
+        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding + box_height + MARGIN, box_width * resize_value, box_height + 2 * padding), 2)
+        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding + 2 * box_height + 2 * MARGIN, box_width * resize_value, box_height + 2 * padding), 2)
+        pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding + 3 * box_height + 3 * MARGIN, box_width * resize_value, box_height + 2 * padding), 2)
+
+        # Draw the logos onto the window with proportional adjustment
         self.window.blit(self.citizens_logo, (start_x + padding, 10))
         self.window.blit(self.houses_logo, (start_x + padding, 10 + box_height + MARGIN))
         self.window.blit(self.money_logo, (start_x + padding, 10 + 2 * box_height + 2 * MARGIN))
         self.window.blit(self.climate_score_logo, (start_x + padding, 10 + 3 * box_height + 3 * MARGIN))
-                                               
-        paddY = 40
-        # Draw the text onto the window
-        self.window.blit(citizens_text, (start_x + self.citizens_logo.get_width() + 2 * padding, 10))
+
+        paddY = 40 * resize_value
+        # Draw the text onto the window with proportional adjustment
+        self.window.blit(citizens_text, (start_x + self.citizens_logo.get_width() + 2 * padding * resize_value, 10))
         self.window.blit(houses_text, (start_x + padding + paddY, 10 + box_height + MARGIN))
-        self.window.blit(money_text, (start_x + padding  + paddY, 10 + 2 * box_height + 2 * MARGIN))
-        self.window.blit(climateScore_text, (start_x + padding  + paddY, 10 + 3 * box_height + 3 * MARGIN))
+        self.window.blit(money_text, (start_x + padding + paddY, 10 + 2 * box_height + 2 * MARGIN))
+        self.window.blit(climateScore_text, (start_x + padding + paddY, 10 + 3 * box_height + 3 * MARGIN))
 
-        # Calculate the starting x position for the climate bar
+        # Calculate the starting x position for the climate bar with proportional adjustment
         climate_bar_start_x = (self.width - (4 * box_width + 3 * MARGIN)) // 2
-
 
         # Define a new variable for the y-coordinate adjustment
         adjust_y = 10  # Adjust this value as needed
 
-        # Draw the climate score bar at the top
-        pygame.draw.rect(self.window, (0, 0, 0), (climate_bar_start_x, adjust_y, 4 * box_width + 3 * MARGIN, box_height), 2)
-        pygame.draw.rect(self.window, (0, 0, 0), (climate_bar_start_x + padding, adjust_y + padding // 2, 4 * box_width + 3 * MARGIN - 2 * padding, box_height - padding), 2)
+        # Draw the climate score bar at the top with proportional adjustment
+        pygame.draw.rect(self.window, (0, 0, 0), (climate_bar_start_x, adjust_y, 4 * box_width * resize_value + 3 * MARGIN, box_height), 2)
+        pygame.draw.rect(self.window, (0, 0, 0), (climate_bar_start_x + padding * resize_value, adjust_y + padding // 2, 4 * box_width * resize_value + 3 * MARGIN - 2 * padding, box_height - padding), 2)
 
         # Set the color based on the climate score
         if self.game_state.climateScore >= 30:
@@ -123,5 +123,5 @@ class Grid:
         else:
             score_color = (255, 0, 0)  # Red
 
-        # Draw the score bar with the chosen color at the top
-        pygame.draw.rect(self.window, score_color, (climate_bar_start_x + padding, adjust_y + padding // 2, (4 * box_width + 3 * MARGIN - 2 * padding) * self.game_state.climateScore // 100, box_height - padding))
+        # Draw the score bar with the chosen color at the top with proportional adjustment
+        pygame.draw.rect(self.window, score_color, (climate_bar_start_x + padding * resize_value, adjust_y + padding // 2, (4 * box_width * resize_value + 3 * MARGIN - 2 * padding) * self.game_state.climateScore // 100, box_height - padding))

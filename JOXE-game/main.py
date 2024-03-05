@@ -82,7 +82,7 @@ def menu_screen(window):
                     main(window)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    resolutionWindow(window, main)
+                    resolutionWindow(window, main, res)
 
         window.blit(background, (0, 0))
         window.blit(play_button, (button_x, button_y))
