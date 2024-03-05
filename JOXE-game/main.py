@@ -30,7 +30,6 @@ def main(window):
     tracker = Tracker(game)
 
     run = True
-    show_trivia = False
     while run:
         clock.tick(FPS)
         game.draw()
@@ -53,6 +52,7 @@ def main(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 game.handle_click(x, y)
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     resolutionWindow(window, main, res)

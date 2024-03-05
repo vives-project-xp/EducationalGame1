@@ -346,6 +346,11 @@ class Game:
             self.game_state.remove_money(self.COSTS['tree'])
             self.game_state.add_climate_score(self.ECO_SCORE_BONUS['tree']) 
             self.selected_cell = None
+
+            # Display trivia popup
+            trivia = Trivia(self.window)
+            trivia.show_trivia()        
+
         else:
             print("Not enough money to place a tree.")
         self.menu_bar_visible = False
@@ -555,29 +560,6 @@ class Game:
         else:
             print("Not enough money to place an energy building.")
         self.menu_bar_visible = False
-
-    def trivia_popup(self):
-        trivia = Trivia()
-        # Decide whether to show trivia
-        if random.random() < 0.01:  # % chance
-            trivia = Trivia.get_random_trivia(trivia_list=trivia.trivia_list)
-            show_trivia = True
-
-        # Show trivia popup
-        if show_trivia:
-            close_button_rect = Trivia.show_trivia_popup(self.window, trivia)
-
-        pygame.display.update()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                self.handle_click(x, y)
-                # If popup is showing, hide it when mouse is clicked
-                if show_trivia and close_button_rect.collidepoint(x, y):
-                    show_trivia = False
 
     def draw_building_clicked_menu(self):
         # Load the icons

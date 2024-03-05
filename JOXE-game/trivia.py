@@ -9,40 +9,27 @@ WIDTH, HEIGHT = res.width, res.height
 
 class Trivia:
 
+    def __init__(self, window):
+        self.window = window
+        self.trivia_list = self.load_trivia()
+        self.trivia = self.get_random_trivia(self.trivia_list)
+
+    def show_trivia(self):
+        self.trivia = self.get_random_trivia(self.trivia_list)
+        self.show_trivia_popup(self.trivia)
+
     # Load trivia from json file
-    def load_trivia():
+    def load_trivia(self):
         with open('src/trivia.json') as f:
             trivia_list = json.load(f)
         return trivia_list
 
     # Function to get a random trivia
-    def get_random_trivia(trivia_list):
+    def get_random_trivia(self, trivia_list):
         return random.choice(trivia_list)['fact']
 
-    # Function to fit text inside popup box
-    def wrap_text(text, font, max_width):
-        words = text.split(' ')
-        lines = []
-        current_line = []
-        current_width = 0
-
-        for word in words:
-            word_width, _ = font.size(word + ' ')
-            if current_width + word_width <= max_width:
-                current_line.append(word)
-                current_width += word_width
-            else:
-                lines.append(' '.join(current_line))
-                current_line = [word]
-                current_width = word_width
-
-        if current_line:
-            lines.append(' '.join(current_line))
-
-        return lines
-
     # Function to show trivia popup
-    def show_trivia_popup(window, trivia):
+    def show_trivia_popup( self, trivia):
         # Define popup properties
         popup_width = WIDTH // 90
         popup_height = HEIGHT // 90
@@ -51,7 +38,7 @@ class Trivia:
 
         # Create popup (a rectangle with white background)
         popup_rect = pygame.Rect(popup_x, popup_y, popup_width, popup_height)
-        pygame.draw.rect(window, (255, 255, 255), popup_rect)
+        pygame.draw.rect(self.window, (255, 255, 255), popup_rect)
 
         # Define close button properties
         close_button_size = 20
@@ -60,18 +47,23 @@ class Trivia:
         close_button_rect = pygame.Rect(close_button_x, close_button_y, close_button_size, close_button_size)
 
         # Draw close button (a smaller rectangle in the top-right corner of the popup)
-        pygame.draw.rect(window, (255, 0, 0), close_button_rect)
+        pygame.draw.rect(self.window, (255, 0, 0), close_button_rect)
 
+        # Load the image
+        mayor_image = pygame.image.load('./assets/resources/characters/Mayor.png')
+        # Draw the image onto the screen
+        image_x = popup_x + 10  
+        image_y = popup_y + 10  
+        self.window.blit(mayor_image, (image_x, image_y))
 
         # Render trivia text
         font = pygame.font.Font(None, 16)
-        lines = Trivia.wrap_text(trivia, font, popup_width)
-        for i, line in enumerate(lines):
-            text = font.render(line, True, (0, 0, 0))
-            text_rect = text.get_rect(center=(WIDTH // 2, popup_y + i * font.get_height()))
-            window.blit(text, text_rect)
+        text = font.render(trivia, True, (0, 0, 0))
+        text_rect = text.get_rect(center=(WIDTH // 2, popup_y + popup_height // 2))
+        self.window.blit(text, text_rect)
 
-        # Draw text on popup
-        window.blit(text, text_rect)
+        # Update the display
+        pygame.display.update()
 
         return close_button_rect
+
