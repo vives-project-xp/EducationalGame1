@@ -60,38 +60,20 @@ class Grid:
 
     def draw_game_state(self):
         MARGIN = 50
+        padding = 10
+        resize_value = self.grid_size / 60
+        box_height = max(self.citizens_logo.get_height(), self.font.get_height())
+        max_text_width = self.font.size('999999999')[0]
+        box_width = self.citizens_logo.get_width() + max_text_width + 2 * padding
+        start_x = 10
+        paddY = 40 * resize_value
 
-        # Draw the game state parameters
+        # Render the game state parameters
+        city_name_text = self.font.render(f"{self.game_state.username}", True, (0, 0, 0))
+        date_text = self.font.render(f"{self.current_date.strftime('%d/%m/%Y')}", True, (0, 0, 0))
         citizens_text = self.font.render(f"{self.game_state.amountOfCitizens}", True, (0, 0, 0))
         houses_text = self.font.render(f"{self.game_state.amountOfHouses}", True, (0, 0, 0))
         money_text = self.font.render(f"{self.game_state.money}", True, (0, 0, 0))
-        city_name_text = self.font.render(f"{self.game_state.username}", True, (0, 0, 0))
-        date_text = self.font.render(f"{self.current_date.strftime('%d/%m/%Y')}", True, (0, 0, 0))
-
-        # Calculate the total width of the text and the margins
-        total_width = citizens_text.get_width() + houses_text.get_width() + money_text.get_width() + city_name_text.get_width() + 3 * MARGIN
-
-        # Calculate the starting x position for the text
-        start_x = (self.width - total_width) // 2
-
-        # Define the height and padding for the boxes
-        box_height = max(self.citizens_logo.get_height(), self.font.get_height())
-        padding = 10
-
-        # Calculate the width of the text with 9 numbers
-        max_text_width = self.font.size('999999999')[0]
-
-        # Calculate the width of the box
-        box_width = self.citizens_logo.get_width() + max_text_width + 2 * padding
-
-        # Calculate the total width of all boxes and margins
-        total_width = 4 * box_width + 3 * MARGIN
-
-        # Calculate the starting x position for the boxes
-        start_x = 10
-
-        # Calculate resize value for proportional adjustment
-        resize_value = self.grid_size / 60
 
         # Draw the boxes around the logos and the text with proportional adjustment
         pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding, box_width * resize_value, box_height + 2 * padding), 2)
@@ -101,18 +83,17 @@ class Grid:
         pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding + 4 * box_height + 4 * MARGIN, box_width * resize_value, box_height + 2 * padding), 2)
 
         # Draw the logos onto the window with proportional adjustment
-        self.window.blit(self.citizens_logo, (start_x + padding, 10))
-        self.window.blit(self.houses_logo, (start_x + padding, 10 + box_height + MARGIN))
-        self.window.blit(self.money_logo, (start_x + padding, 10 + 2 * box_height + 2 * MARGIN))
-        self.window.blit(self.city_name_logo, (start_x + padding, 10 + 3 * box_height + 3 * MARGIN))
+        self.window.blit(self.city_name_logo, (start_x + padding, 10 + box_height + MARGIN))
+        self.window.blit(self.citizens_logo, (start_x + padding, 10 + 2 * box_height + 2 * MARGIN))
+        self.window.blit(self.houses_logo, (start_x + padding, 10 + 3 * box_height + 3 * MARGIN))
+        self.window.blit(self.money_logo, (start_x + padding, 10 + 4 * box_height + 4 * MARGIN))
 
-        paddY = 40 * resize_value
         # Draw the text onto the window with proportional adjustment
-        self.window.blit(citizens_text, (start_x + self.citizens_logo.get_width() + 2 * padding * resize_value, 10))
-        self.window.blit(houses_text, (start_x + padding + paddY, 10 + box_height + MARGIN))
-        self.window.blit(money_text, (start_x + padding + paddY, 10 + 2 * box_height + 2 * MARGIN))
-        self.window.blit(city_name_text, (start_x + padding + paddY, 10 + 3 * box_height + 3 * MARGIN))
-        self.window.blit(date_text, (start_x + padding + paddY, 10 + 4 * box_height + 4 * MARGIN))
+        self.window.blit(city_name_text, (start_x + self.city_name_logo.get_width() - (25 * resize_value) + 2 * padding * resize_value, 10))
+        self.window.blit(date_text, (start_x + padding + paddY, 10 + box_height + MARGIN))
+        self.window.blit(citizens_text, (start_x + padding + paddY, 10 + 2 * box_height + 2 * MARGIN))
+        self.window.blit(houses_text, (start_x + padding + paddY, 10 + 3 * box_height + 3 * MARGIN))
+        self.window.blit(money_text, (start_x + padding + paddY, 10 + 4 * box_height + 4 * MARGIN))
 
         # Calculate the starting x position for the climate bar with proportional adjustment
         climate_bar_start_x = (self.width - (4 * box_width + 3 * MARGIN)) // 2
