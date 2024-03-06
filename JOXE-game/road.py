@@ -7,6 +7,7 @@ class Road:
         self.grid_size = grid_size
         self.type = None
         self.scale = 1.28  #1.28
+        self.level = 0
 
         # Load the default road image
         self.set_type('road')

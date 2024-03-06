@@ -124,6 +124,7 @@ def resolutionWindow(window, main_function, resolution, gamestate):
 
     def save_gamestate():
         gamestate.save_gamestate()
+        back_to_game()
 
     window_width, window_height = window.get_size()
     menu = pygame_menu.Menu('Resolution', window_width, window_height, theme=pygame_menu.themes.THEME_BLUE)

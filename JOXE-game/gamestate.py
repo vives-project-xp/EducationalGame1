@@ -20,7 +20,10 @@ class Gamestate:
             file.write(f"Climate Score: {self.climateScore}\n")
             file.write("Placed Objects:\n")
             for obj in self.placed_objects:
-                file.write(f"- {obj}\n")
+                file.write(f"{obj.__class__.__name__}")
+                file.write(f"- {obj.level}")
+                file.write(f"({obj.x}")
+                file.write(f"- {obj.y})\n")
 
     def add_object(self, obj):
         self.placed_objects.append(obj)
