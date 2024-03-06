@@ -59,7 +59,7 @@ class Grid:
                 self.window.blit(obj.image, (obj.x, obj.y))
 
     def draw_game_state(self):
-        MARGIN = 50
+        MARGIN = 25
         padding = 10
         resize_value = self.grid_size / 60
         box_height = max(self.citizens_logo.get_height(), self.font.get_height())
