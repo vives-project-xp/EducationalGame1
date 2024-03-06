@@ -1,4 +1,9 @@
 import os
+from road import Road
+from house import House
+from energy import Energy
+from tree import Tree
+from store import Store
 
 class Gamestate:
     def __init__(self):
@@ -22,8 +27,48 @@ class Gamestate:
             for obj in self.placed_objects:
                 file.write(f"{obj.__class__.__name__}")
                 file.write(f"- {obj.level}")
-                file.write(f"({obj.x}")
-                file.write(f"- {obj.y})\n")
+                file.write(f"({obj.x}-{obj.y})\n")
+
+    def load_gamestate(self):
+        save_folder = "gamesave/"
+        filename = f"{save_folder}{self.username.replace('.', '_')}.txt"
+        if os.path.exists(filename):
+            with open(filename, 'r') as file:
+                lines = file.readlines()
+
+            self.amountOfCitizens = int(lines[0].split(": ")[1])
+            self.amountOfHouses = int(lines[1].split(": ")[1])
+            self.money = int(lines[2].split(": ")[1])
+            self.climateScore = int(lines[3].split(": ")[1])
+
+            for line in lines[5:]:
+                obj_data = line.strip().split('(')
+                obj_name = obj_data[0].split('-')[0].strip()
+                level, coords = obj_data[1].split(')')[0].split('-')
+                coordinates = coords.split('-')
+                if len(coordinates) == 2:
+                    x, y = map(int, map(str.strip, coordinates))
+                else:
+                    print(f"Error: Invalid coordinates - {coords}")
+                    continue
+                level = int(level)
+                x = int(x)
+                y = int(y)
+
+                if obj_name == "Road":
+                    obj = Road(level, x, y)
+                elif obj_name == "House":
+                    obj = House(level, x, y)
+                elif obj_name == "Energy":
+                    obj = Energy(level, x, y)
+                elif obj_name == "Tree":
+                    obj = Tree(level, x, y)
+                elif obj_name == "Store":
+                    obj = Store(level, x, y)
+                else:
+                    continue 
+
+                self.placed_objects.append(obj)
 
     def add_object(self, obj):
         self.placed_objects.append(obj)

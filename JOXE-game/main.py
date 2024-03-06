@@ -63,6 +63,7 @@ def login_screen(window):
         if username and username != "Enter username":
             gamestate = Gamestate()
             gamestate.username = username
+            gamestate.load_gamestate() 
             print(f"Starting game for user {username}")
             main(window, gamestate)
         else:
