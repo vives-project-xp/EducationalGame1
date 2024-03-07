@@ -4,6 +4,7 @@ from house import House
 from energy import Energy
 from tree import Tree
 from store import Store
+from resolution import Resolution
 import datetime
 
 class Gamestate:
@@ -15,6 +16,8 @@ class Gamestate:
         self.placed_objects = []
         self.username = ""
         self.current_date = datetime.datetime(2022, 1, 1)
+        self.res = Resolution()
+        self.cell_size = self.res.GRID_SIZE
 
     def save_gamestate(self):
         save_folder = "gamesave/"
@@ -45,8 +48,8 @@ class Gamestate:
             self.climateScore = int(lines[3].split(": ")[1])
             self.current_date = datetime.datetime.strptime(lines[4].split(": ")[1].strip(), '%Y-%m-%d')
 
+            # Inside the load_gamestate method
             for line in lines[6:]:
-                print(line)
                 obj_data = line.strip().split('(')
                 obj_name, level = obj_data[0].split('-')
                 obj_name = obj_name.strip()
@@ -64,7 +67,8 @@ class Gamestate:
                 if obj_name == "Road":
                     obj = Road(level, x, y)
                 elif obj_name == "House":
-                    obj = House(level, x, y)
+                    # Pass the cell_size parameter when creating a House object
+                    obj = House(x, y, self.res.GRID_SIZE)
                 elif obj_name == "Energy":
                     obj = Energy(level, x, y)
                 elif obj_name == "Tree":
@@ -72,9 +76,10 @@ class Gamestate:
                 elif obj_name == "Store":
                     obj = Store(level, x, y)
                 else:
-                    continue 
+                    continue
 
                 self.placed_objects.append(obj)
+
 
     def add_object(self, obj):
         self.placed_objects.append(obj)
