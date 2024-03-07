@@ -4,12 +4,17 @@ class House:
     def __init__(self, x, y, cell_size, level=1):
         self.x = x
         self.y = y
-        self.image = pygame.image.load('./assets/resources/houses/house1.png')
-        self.image = pygame.transform.scale(self.image, (cell_size, cell_size))
-        self.inhabitants = 0 
         self.level = level
+        self.inhabitants = 0 
         self.upgrade_cost = 1000
         self.ecoscore = -1
+        self.images = [f'./assets/resources/houses/house{i}.png' for i in range(1, 10)]
+        self.image = self.load_image(self.images[self.level - 1], cell_size, cell_size)
+
+    def load_image(self, image_path, width, height):
+        image = pygame.image.load(image_path)
+        image = pygame.transform.scale(image, (width, height))
+        return image
 
     def draw(self, surface):
         # Adjust the position so the house is centered at (x, y)
@@ -20,6 +25,7 @@ class House:
         self.inhabitants += amount
     
     def upgrade(self):
-            if self.level < 9:
-                self.level += 1
-                self.upgrade_cost *= 5  
+        if self.level < 9:
+            self.level += 1
+            self.upgrade_cost *= 5
+            self.image = self.load_image(self.images[self.level - 1], self.image.get_width(), self.image.get_height())
