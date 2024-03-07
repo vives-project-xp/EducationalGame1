@@ -1,13 +1,13 @@
 import pygame
 
 class Road:
-    def __init__(self, x, y, grid_size):
+    def __init__(self, x, y, grid_size, level=0):
         self.x = x - 10
         self.y = y - 10
         self.grid_size = grid_size
         self.type = None
         self.scale = 1.28  #1.28
-        self.level = 0
+        self.level = level
 
         # Load the default road image
         self.set_type('road')

@@ -1,13 +1,13 @@
 import pygame
 
 class House:
-    def __init__(self, x, y, cell_size):
+    def __init__(self, x, y, cell_size, level=1):
         self.x = x
         self.y = y
         self.image = pygame.image.load('./assets/resources/houses/house1.png')
         self.image = pygame.transform.scale(self.image, (cell_size, cell_size))
         self.inhabitants = 0 
-        self.level = 1
+        self.level = level
         self.upgrade_cost = 1000
         self.ecoscore = -1
 

@@ -1,12 +1,12 @@
 import pygame
 
 class Store:
-    def __init__(self, x, y, cell_size):
+    def __init__(self, x, y, cell_size, level=1):
         self.x = x
         self.y = y
         self.image = pygame.image.load('./assets/resources/buildings/stores/store.png')
         self.image = pygame.transform.scale(self.image, (cell_size, cell_size))
-        self.level = 1
+        self.level = level
         self.upgrade_cost = 5000
         self.ecoscore_bonus = -5
 

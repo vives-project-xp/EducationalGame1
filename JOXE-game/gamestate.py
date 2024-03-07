@@ -65,16 +65,16 @@ class Gamestate:
                 y = int(y)
 
                 if obj_name == "Road":
-                    obj = Road(level, x, y)
+                    obj = Road(x, y, self.res.GRID_SIZE, level)
                 elif obj_name == "House":
                     # Pass the cell_size parameter when creating a House object
-                    obj = House(x, y, self.res.GRID_SIZE)
+                    obj = House(x, y, self.res.GRID_SIZE, level)
                 elif obj_name == "Energy":
-                    obj = Energy(level, x, y)
+                    obj = Energy(x, y, self.res.GRID_SIZE, level)
                 elif obj_name == "Tree":
-                    obj = Tree(level, x, y)
+                    obj = Tree(x, y, self.res.GRID_SIZE, level)
                 elif obj_name == "Store":
-                    obj = Store(level, x, y)
+                    obj = Store(x, y, self.res.GRID_SIZE, level)
                 else:
                     continue
 
