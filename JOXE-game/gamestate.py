@@ -46,16 +46,18 @@ class Gamestate:
             self.current_date = datetime.datetime.strptime(lines[4].split(": ")[1].strip(), '%Y-%m-%d')
 
             for line in lines[6:]:
+                print(line)
                 obj_data = line.strip().split('(')
-                obj_name = obj_data[0].split('-')[0].strip()
-                level, coords = obj_data[1].split(')')[0].split('-')
+                obj_name, level = obj_data[0].split('-')
+                obj_name = obj_name.strip()
+                level = int(level.strip())
+                coords = obj_data[1].split(')')[0]
                 coordinates = coords.split('-')
                 if len(coordinates) == 2:
                     x, y = map(int, map(str.strip, coordinates))
                 else:
                     print(f"Error: Invalid coordinates - {coords}")
                     continue
-                level = int(level)
                 x = int(x)
                 y = int(y)
 
