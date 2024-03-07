@@ -33,7 +33,9 @@ class Gamestate:
             for obj in self.placed_objects:
                 file.write(f"{obj.__class__.__name__}")
                 file.write(f"- {obj.level}")
-                file.write(f"({obj.x}-{obj.y})\n")
+                file.write(f"({obj.x}-{obj.y})")
+                if obj.__class__.__name__ == "Road":
+                    file.write(f"{obj.type}\n")
 
     def load_gamestate(self):
         save_folder = "gamesave/"
@@ -65,9 +67,9 @@ class Gamestate:
                 y = int(y)
 
                 if obj_name == "Road":
-                    obj = Road(x, y, self.res.GRID_SIZE, level)
+                    road_type = obj_data[1].split(')')[1].strip()
+                    obj = Road(x, y, self.res.GRID_SIZE, level, road_type)
                 elif obj_name == "House":
-                    # Pass the cell_size parameter when creating a House object
                     obj = House(x, y, self.res.GRID_SIZE, level)
                 elif obj_name == "Energy":
                     obj = Energy(x, y, self.res.GRID_SIZE, level)
