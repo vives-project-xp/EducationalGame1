@@ -1,14 +1,15 @@
 import pygame
 
 class Road:
-    def __init__(self, x, y, grid_size, level=0, type=None):
+    def __init__(self, x, y, grid_size, level=0):
         self.x = x - 10
         self.y = y - 10
         self.grid_size = grid_size
-        self.type = type
+        self.type = None
         self.scale = 1.28  #1.28
         self.level = level
-
+        self.rotation = 0 
+        
         self.set_type('road')
 
     def draw(self, window):
@@ -30,6 +31,13 @@ class Road:
 
         # Scale the image
         self.image = pygame.transform.scale(image, new_size)
+
+        # Apply rotation
+        self.image = pygame.transform.rotate(self.image, self.rotation)
+
+    def set_rotation(self, rotation):
+        self.rotation = rotation
+        self.image = pygame.transform.rotate(self.image, rotation)
 
 
         

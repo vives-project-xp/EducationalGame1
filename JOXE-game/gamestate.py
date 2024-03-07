@@ -68,7 +68,12 @@ class Gamestate:
 
                 if obj_name == "Road":
                     road_type = obj_data[1].split(')')[1].strip()
-                    obj = Road(x, y, self.res.GRID_SIZE, level, road_type)
+                    print(road_type)
+                    obj = Road(x, y, self.res.GRID_SIZE, level)
+                    #update image
+                    obj.set_type(road_type)
+                    obj.update_image()
+                    
                 elif obj_name == "House":
                     obj = House(x, y, self.res.GRID_SIZE, level)
                 elif obj_name == "Energy":

@@ -405,13 +405,14 @@ class Game:
                 if horizontal_neighbors == 2 and vertical_neighbors == 1 or horizontal_neighbors == 1 and vertical_neighbors == 2:
                     cell.set_type('t-road')
                     if self.get_cell_at_location(x, y + self.grid_size) is None:  # No cell at the top
-                        cell.image = pygame.transform.rotate(cell.image, 180)
+                        cell.set_rotation(180)
                     elif self.get_cell_at_location(x, y - self.grid_size) is None:  # No cell at the bottom
-                        cell.image = pygame.transform.rotate(cell.image, 0)
+                        cell.set_rotation(0)
                     elif self.get_cell_at_location(x - self.grid_size, y) is None:  # No cell at the left
-                        cell.image = pygame.transform.rotate(cell.image, 90)
+                        cell.set_rotation(90)
                     elif self.get_cell_at_location(x + self.grid_size, y) is None:  # No cell at the right
-                        cell.image = pygame.transform.rotate(cell.image, 270)
+                        cell.set_rotation(270)
+                    cell.update_image()
                 elif horizontal_neighbors == 2 and vertical_neighbors == 2:
                     cell.set_type('+-road')
                 elif vertical_neighbors == 2 or vertical_neighbors == 1 and horizontal_neighbors == 0:
@@ -421,14 +422,14 @@ class Game:
                 elif horizontal_neighbors == 1 and vertical_neighbors == 1:
                     cell.set_type('cornerroad')
                     if self.get_cell_at_location(x, y - self.grid_size) is not None and self.get_cell_at_location(x + self.grid_size, y) is not None:
-                        cell.image = pygame.transform.rotate(cell.image, 90)  # Rotate 90 degrees
+                        cell.set_rotation(90)
                     elif self.get_cell_at_location(x, y + self.grid_size) is not None and self.get_cell_at_location(x + self.grid_size, y) is not None:
-                        cell.image = pygame.transform.rotate(cell.image, 0)  # Rotate 0 degrees
+                        cell.set_rotation(0)
                     elif self.get_cell_at_location(x, y + self.grid_size) is not None and self.get_cell_at_location(x - self.grid_size, y) is not None:
-                        cell.image = pygame.transform.rotate(cell.image, 270)  # Rotate 270 degrees
+                        cell.set_rotation(270)
                     elif self.get_cell_at_location(x, y - self.grid_size) is not None and self.get_cell_at_location(x - self.grid_size, y) is not None:
-                        cell.image = pygame.transform.rotate(cell.image, 180)  # Rotate 180 degrees
-
+                        cell.set_rotation(180)
+                    cell.update_image()
 
     def handle_road_placement(self, x, y):
         if self.game_state.money >= 50:
