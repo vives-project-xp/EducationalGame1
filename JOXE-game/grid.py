@@ -13,7 +13,7 @@ class Grid:
         self.font = font
         self.start_time = pygame.time.get_ticks()  
         self.total_elapsed_time = 0  
-        self.current_date = datetime.datetime(2022, 1, 1) 
+        self.current_date = self.game_state.current_date
 
         # Load the logos
         citizens_logo = pygame.image.load('./assets/resources/icons/person.png')
@@ -114,3 +114,5 @@ class Grid:
         # Draw the score bar with the chosen color at the top with proportional adjustment
         pygame.draw.rect(self.window, score_color, (climate_bar_start_x + padding * resize_value, adjust_y + padding // 2, (4 * box_width * resize_value + 3 * MARGIN - 2 * padding) * self.game_state.climateScore // 100, box_height - padding))
 
+        # Add date to gamestate variable
+        self.game_state.current_date = self.current_date
