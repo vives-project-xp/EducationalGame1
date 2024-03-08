@@ -1,12 +1,12 @@
 import pygame
 
 class House:
-    def __init__(self, x, y, cell_size, level=1):
+    def __init__(self, x, y, cell_size, level=1, upgrade_cost=1000):
         self.x = x
         self.y = y
         self.level = level
         self.inhabitants = 0 
-        self.upgrade_cost = 1000
+        self.upgrade_cost = upgrade_cost
         self.ecoscore = -1
         self.images = [f'./assets/resources/houses/house{i}.png' for i in range(1, 10)]
         self.image = self.load_image(self.images[self.level - 1], cell_size, cell_size)
@@ -27,5 +27,5 @@ class House:
     def upgrade(self):
         if self.level < 9:
             self.level += 1
-            self.upgrade_cost *= 5
-            self.image = self.load_image(self.images[self.level - 1], self.image.get_width(), self.image.get_height())
+            for i in range(self.level):
+                self.upgrade_cost = (5**i)*1000

@@ -1,11 +1,11 @@
 import pygame
 
 class Store:
-    def __init__(self, x, y, cell_size, level=1):
+    def __init__(self, x, y, cell_size, level=1, upgrade_cost=3000):
         self.x = x
         self.y = y
         self.level = level
-        self.upgrade_cost = 5000
+        self.upgrade_cost = upgrade_cost
         self.ecoscore_bonus = -5
         self.images = [f'./assets/resources/buildings/stores/store{i}.png' for i in range(1, 5)]
         self.image = self.load_image(self.images[self.level - 1], cell_size, cell_size)
@@ -23,6 +23,6 @@ class Store:
     def upgrade(self):
         if self.level < 4:
             self.level += 1
-            self.upgrade_cost *= 2  # You can adjust the upgrade cost formula as needed
+            self.upgrade_cost = (5**(self.level-1))*3000
             self.ecoscore_bonus += 1  # You can adjust the eco score bonus as needed
             self.image = self.load_image(self.images[self.level - 1], self.image.get_width(), self.image.get_height())

@@ -78,13 +78,13 @@ class Gamestate:
                     obj.update_image()
                     
                 elif obj_name == "House":
-                    obj = House(x, y, self.res.GRID_SIZE, level)
+                    obj = House(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*1000)
                 elif obj_name == "Energy":
                     obj = Energy(x, y, self.res.GRID_SIZE, level)
                 elif obj_name == "Tree":
                     obj = Tree(x, y, self.res.GRID_SIZE, level)
                 elif obj_name == "Store":
-                    obj = Store(x, y, self.res.GRID_SIZE, level)
+                    obj = Store(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*3000)
                 else:
                     continue
 
