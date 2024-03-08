@@ -72,7 +72,7 @@ class Gamestate:
                     road_type, rotation = obj_data[1].split(')')[1].split('|')
                     rotation = int(rotation.strip())
                     road_type = road_type.strip()
-                    obj = Road(x, y, self.res.GRID_SIZE, level, rotation)
+                    obj = Road(x+10, y+10, self.res.GRID_SIZE, level, rotation)
                     #update image
                     obj.set_type(road_type)
                     obj.update_image()
