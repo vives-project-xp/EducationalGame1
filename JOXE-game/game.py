@@ -618,26 +618,6 @@ class Game:
                 return obj.upgrade_cost
         return None
 
-    # def print_game_grid(self):
-    #     print("---------------------------------")
-    #     grid_representation = [['.' for _ in range(self.width // self.grid_size)] for _ in range(self.height // self.grid_size)]
-
-    #     for obj in self.game_state.placed_objects:
-    #         x, y = obj.x // self.grid_size, obj.y // self.grid_size
-    #         if isinstance(obj, House):
-    #             grid_representation[y][x] = 'H'
-    #         elif isinstance(obj, Road):
-    #             grid_representation[y][x] = 'R'
-    #         elif isinstance(obj, Tree):
-    #             grid_representation[y][x] = 'T'
-    #         elif isinstance(obj, Store):
-    #             grid_representation[y][x] = 'S'
-    #         elif isinstance(obj, Energy):
-    #             grid_representation[y][x] = 'W'
-
-    #     for row in grid_representation:
-    #         print(" ".join(row))
-
     def draw_game_over(self):
         font = pygame.font.Font(None, 170)
         font2 = pygame.font.Font(None, 50)
@@ -645,13 +625,3 @@ class Game:
         text2 = font2.render('You have destroyed the climate!', 1, self.COLORS['game_over_text'])
         self.window.blit(text, (self.width // 2 - text.get_width() // 2, self.height // 2 - text.get_height() // 2))
         self.window.blit(text2, (self.width // 2 - text2.get_width() // 2, self.height // 2 + text.get_height() // 2))
-
-    # def print_roads(self):
-    #     for row in range(self.height // self.grid_size):
-    #         for col in range(self.width // self.grid_size):
-    #             road_present = any(
-    #                 isinstance(obj, Road) and obj.x // self.grid_size == col and obj.y // self.grid_size == row
-    #                 for obj in self.game_state.placed_objects
-    #             )
-    #             print("R" if road_present else ".", end=" ")
-    #         print()

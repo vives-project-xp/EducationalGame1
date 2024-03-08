@@ -4,6 +4,7 @@ from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
 from resolution import Resolution
+from ownUIelements import Slider
 import datetime
 import os
 import sys
@@ -19,6 +20,12 @@ os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 programIcon = pygame.image.load('./assets/logo/JOXEC.png')
 pygame.display.set_icon(programIcon)
+
+
+pygame.mixer.init()
+sound = pygame.mixer.Sound('./Sounds/AmbientLoop1.mp3')
+sound.set_volume(0.5)
+sound.play()
 
 FPS = 60
 
@@ -60,7 +67,7 @@ def main(window, gamestate):
 
 def login_screen(window):
     def start_game(username):
-        if username and username != "Enter username":
+        if username:
             gamestate = Gamestate()
             gamestate.username = username
             gamestate.load_gamestate() 
@@ -99,7 +106,7 @@ def menu_screen(window):
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if button_x <= mouse_x <= button_x + button_width and button_y <= mouse_y <= button_y + button_height:
                     pygame.time.delay(1000)
-                    login_screen(window)  # call login_screen() instead of main()
+                    login_screen(window) 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     resolutionWindow(window, main, res)
@@ -136,8 +143,22 @@ def resolutionWindow(window, main_function, resolution, gamestate):
     menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER)  # Add Save button
     menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER)
 
-    menu.mainloop(window)
+    # slider = Slider(100, 100, 200, 0, 1)
 
+    # running = True
+    # while running:
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT:
+    #             running = False
+    # #         slider.handle_event(event)
+
+    #     window.fill((0, 0, 0))
+    #     slider.draw(window)
+    #     pygame.display.flip()
+
+    menu.mainloop(window)
 
 if __name__ == "__main__":
     menu_screen(window)
+
+
