@@ -1,10 +1,9 @@
 import pygame
+from object import Object
 
-class House:
+class House(Object):
     def __init__(self, x, y, cell_size, level=1, upgrade_cost=1000):
-        self.x = x
-        self.y = y
-        self.level = level
+        super().__init__(x, y, level)
         self.inhabitants = 0 
         self.upgrade_cost = upgrade_cost
         self.ecoscore = -1

@@ -1,10 +1,9 @@
 import pygame
+from object import Object
 
-class Store:
+class Store(Object):
     def __init__(self, x, y, cell_size, level=1, upgrade_cost=3000):
-        self.x = x
-        self.y = y
-        self.level = level
+        super().__init__(x, y, level)
         self.upgrade_cost = upgrade_cost
         self.ecoscore_bonus = -5
         self.images = [f'./assets/resources/buildings/stores/store{i}.png' for i in range(1, 5)]
