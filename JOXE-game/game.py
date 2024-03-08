@@ -29,7 +29,7 @@ class Game:
         'energy': './assets/resources/buildings/energy/windmills/windmill.png',
         'upgrade': './assets/resources/icons/upgrade.png',
         'remove': './assets/resources/icons/remove.png',
-        'store': './assets/resources/buildings/stores/store.png',
+        'store': './assets/resources/buildings/stores/store1.png',
     }
 
     COSTS = {
@@ -45,7 +45,7 @@ class Game:
         'road': './assets/resources/road/road.png',
         'energy': './assets/resources/buildings/energy/windmills/windmill.png',
         'tree': './assets/resources/nature/tree1.png',
-        'store': './assets/resources/buildings/stores/store.png'
+        'store': './assets/resources/buildings/stores/store1.png'
     }
 
     ECO_SCORE_BONUS = {

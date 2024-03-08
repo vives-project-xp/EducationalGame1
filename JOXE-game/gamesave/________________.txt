@@ -1,32 +1,24 @@
-Amount of Citizens: 0
-Amount of Houses: 0
-Money: 998640
-Climate Score: 24
-Current Date: 2022-01-03
+Amount of Citizens: 17
+Amount of Houses: 2
+Money: 969420
+Climate Score: 43
+Current Date: 2022-01-10
 Placed Objects:
-Road- 0(650-350)cornerroad
-Road- 0(710-350)road
-Road- 0(770-350)road
-Road- 0(830-350)road
-Road- 0(890-350)road
-Road- 0(950-350)road
-Road- 0(1010-350)road
-Road- 0(1070-350)road
-Road- 0(1130-350)cornerroad
-Road- 0(650-410)v-road
-Road- 0(650-470)v-road
-Road- 0(650-530)v-road
-Road- 0(650-590)v-road
-Road- 0(1130-650)cornerroad
-Road- 0(1070-650)road
-Road- 0(1010-650)road
-Road- 0(950-650)road
-Road- 0(890-650)road
-Road- 0(830-650)road
-Road- 0(770-650)road
-Road- 0(710-650)road
-Road- 0(650-650)cornerroad
-Road- 0(1130-590)v-road
-Road- 0(1130-530)v-road
-Road- 0(1130-470)v-road
-Road- 0(1130-410)v-road
+Road- 0(590-410)cornerroad
+Road- 0(650-410)road
+Road- 0(710-410)road
+Road- 0(770-410)cornerroad
+Road- 0(590-470)v-road
+Road- 0(590-530)v-road
+Road- 0(590-590)cornerroad
+Road- 0(770-590)cornerroad
+Road- 0(710-590)road
+Road- 0(650-590)road
+Road- 0(770-530)v-road
+Road- 0(770-470)v-road
+Store- 3(600-300)
+Store- 1(660-300)
+House- 1(480-420)
+House- 3(480-480)
+Tree- 0(600-480)
+Energy- 1(660-480)

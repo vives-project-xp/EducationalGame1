@@ -33,7 +33,7 @@ class Gamestate:
             for obj in self.placed_objects:
                 file.write(f"{obj.__class__.__name__}")
                 file.write(f"- {obj.level}")
-                file.write(f"({obj.x}-{obj.y})")
+                file.write(f"({obj.x}-{obj.y}\n)")
                 if obj.__class__.__name__ == "Road":
                     file.write(f"{obj.type}\n")
 
