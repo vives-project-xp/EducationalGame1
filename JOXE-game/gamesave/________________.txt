@@ -1,8 +1,8 @@
 Amount of Citizens: 4
 Amount of Houses: 1
-Money: 993630
+Money: 994790
 Climate Score: 55
-Current Date: 2022-01-04
+Current Date: 2022-01-15
 Placed Objects:
 Road- 0(530-350)cornerroad|0
 Road- 0(590-350)road|0
