@@ -64,7 +64,6 @@ class Game:
         self.height = self.res.height
         self.grid_size = grid_size
         self.game_state = gamestate
-        # self.car = Car(grid_size, self.game_state.placed_objects)
         self.font = pygame.font.Font(None, 36)
         self.grid = Grid(window, grid_size, self.game_state, self.font)
         self.selected_cell = None
@@ -724,6 +723,7 @@ class Game:
             if pygame.mouse.get_pressed()[0]:
                 self.game_state.restart()
                 self.game_over_timer_start = None
+                self.grid.update_date()
 
         #quit button
         pygame.draw.rect(self.window, self.COLORS['white'], (self.width // 2 - 100, self.height // 2 + 300, 200, 50))

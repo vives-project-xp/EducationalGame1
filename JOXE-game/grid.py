@@ -36,6 +36,9 @@ class Grid:
         self.draw_game_state()
         self.draw_objects()
 
+    def update_date(self):
+        self.current_date = self.game_state.current_date
+
     def draw_background(self):
         background_image = pygame.image.load('./assets/resources/background/grass.jpg')
         background_image = pygame.transform.scale(background_image, (self.width, self.height))
