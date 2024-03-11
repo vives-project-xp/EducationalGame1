@@ -1,7 +1,7 @@
 ## Setup:
 1. Place the main gameboard in the middle of the table and scatter the building pieces in a neat circle around the gameboard (Building Circle). 
 2. Each player may pick a color and take all game pieces of that color and keep them in their player area, visible to all other players, there are no hidden items in this game.
-3. Place one of the colored cube pieces from each player on the Pops tracker and the other on the Crisis tracker, both starting with a value of 0. 
+3. Place one of the colored cube pieces from each player on the Pops tracker ( and the other on the Crisis tracker), both starting with a value of 0. 
 4. Shuffle the Land tiles and then place them in the brown blind bag.
 5. Shuffle the Disaster cards, then place them face down within reach.
 6. Place the money tokens in a handy spot and within reach of all players.
@@ -14,6 +14,7 @@
 The player who at the end of the game has the highest Pop score wins the game.\
 The player who at the end of the game has the highest amount of Pollution tokens loses the game (even if they had the highest Pop score) and gets to clean up the board or set it up for the next round.\
 If two or more players have the same Pop score, count the amount of Nature tiles they control, the player who controls the most then wins.\
+If all pollution tokens have been taken so that none remain, everyone loses the game.
 (Note: The player who controls the most adjacent Nature tiles at the end of the game may add 10 Pops.)
 
 ## Play the Game:
@@ -43,15 +44,15 @@ You may immediately place any (nature) tile from the Building Circle on the Land
 
 ### End Your Turn:
 When you can take no further actions, your turn ends.\
-Move your colored cube on the Population and Crisis tracker to reflect the changes that occured by your actions.\
+Move your colored cube on the Population (and Crisis tracker) to reflect the changes that occured by your actions.\
 The amount of spaces for the Pops tracker is increased by the amount of (pop symbol) noted on your new building.\
 The amount of spaces for the Crisis tracker is increased by the amount of (crisis symbol) noted on your new building.\
 Note: this may leave you with a negative number in which case you do not lower your Crisis Score but instead get to discard Pollution tokens equal to the negative amount.\
 The next clockwise player now starts their turn.
 
-## Crisis Tracker:
+(## Crisis Tracker:
 Each player has their colored cube on the Crisis tracker to keep score of how many pollution tokens they must take each turn. 
-Whenever a player buys or loses a building that has a (crisis symbol) score, increase (when bought) or decrease (when removed from the board) the overall Crisis score.\
+Whenever a player buys or loses a building that has a (crisis symbol) score, increase (when bought) or decrease (when removed from the board) the overall Crisis score.\)
 
 ## Pollution Containers:
 The green, yellow and red containers hold different amounts of pollution tokens and can be stacked on top of each other.
@@ -66,7 +67,7 @@ The game continues until:
 - All tiles have been bought from the Building circle.
 - If no room is available to place any building tiles and no Land Expansions can be bought.
 - No pollution tokens remain, the planet is beyond saving and everyone loses.
-
+When the game ends, check with the Winning/Losing chapter to determin a winner.
 
 
 
