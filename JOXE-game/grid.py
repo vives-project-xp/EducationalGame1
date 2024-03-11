@@ -65,7 +65,7 @@ class Grid:
         MARGIN = self.height / 43.2
         padding = self.width / 192
         resize_value = self.grid_size / 60
-        box_height = 0.047 * self.height
+        box_height = 0.037 * self.height
         box_width = 0.09375 * self.width
         start_x = 10
         paddY = 40 * resize_value
@@ -84,7 +84,7 @@ class Grid:
         money_text = font.render(f"{self.game_state.money}", True, (0, 0, 0))
 
         # Draw the boxes around the logos and the text with proportional adjustment
-        pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding, box_width, box_height), 2)
+        pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding, box_width, box_height + 2 * padding), 2)
         pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + box_height + MARGIN, box_width, box_height + 2 * padding), 2)
         pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + 2 * box_height + 2 * MARGIN, box_width, box_height + 2 * padding), 2)
         pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + 3 * box_height + 3 * MARGIN, box_width, box_height + 2 * padding), 2)
