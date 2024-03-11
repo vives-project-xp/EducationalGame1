@@ -31,7 +31,7 @@ FPS = 60
 
 def main(window, gamestate):
     clock = pygame.time.Clock()
-    game = Game(window, WIDTH, HEIGHT, res.GRID_SIZE, gamestate)
+    game = Game(window, res.GRID_SIZE, gamestate)
     tracker = Tracker(game)
 
     run = True

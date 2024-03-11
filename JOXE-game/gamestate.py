@@ -135,3 +135,11 @@ class Gamestate:
 
     def get_citizen_count(self):
         return self.amountOfCitizens
+    
+    def restart(self):
+        self.amountOfCitizens = 0
+        self.amountOfHouses = 0
+        self.money = 1000000
+        self.climateScore = 50
+        self.placed_objects = []
+        self.current_date = datetime.datetime(2022, 1, 1)
