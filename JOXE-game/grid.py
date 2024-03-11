@@ -93,7 +93,7 @@ class Grid:
         self.window.blit(self.money_logo, (start_x + (self.width / 192), 10 + 4 * box_height + 4 * MARGIN))
 
         # Draw the text onto the window with proportional adjustment
-        self.window.blit(city_name_text, (start_x + self.city_name_logo.get_width() - (25 * resize_value) + 2 * padding * resize_value, 10))
+        self.window.blit(city_name_text, (start_x + 10, 10))
         self.window.blit(date_text, (start_x + padding + paddY, 10 + box_height + MARGIN))
         self.window.blit(citizens_text, (start_x + padding + paddY, 10 + 2 * box_height + 2 * MARGIN))
         self.window.blit(houses_text, (start_x + padding + paddY, 10 + 3 * box_height + 3 * MARGIN))
