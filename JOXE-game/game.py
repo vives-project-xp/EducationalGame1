@@ -258,7 +258,7 @@ class Game:
     def upgrade_house(self, house):
         new_image = pygame.image.load(f'./assets/resources/houses/house{house.level}.png')
         house.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
-        additional_inhabitants = random.randint(3, 8)
+        additional_inhabitants = random.randint(house.level, house.level * 3)
         self.game_state.add_citizen(additional_inhabitants)
         house.inhabitants += additional_inhabitants
 
@@ -266,7 +266,6 @@ class Game:
         new_image = pygame.image.load(f'./assets/resources/buildings/stores/store{store.level}.png')
         store.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
 
-    #also only checks house
     def handle_remove_button_click(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
@@ -358,7 +357,6 @@ class Game:
             self.menu_bar_visible = False
 
     def place_new_house(self):
-        # Play the placing house sound
         self.placing_house_sound.play()
 
         if self.game_state.money >= 1000:

@@ -30,6 +30,11 @@ class Tracker:
         self.update_tree_ecoscore(current_time)
         self.update_store_cost(current_time)
         self.update_store_ecoscore(current_time)
+        self.auto_deduct_ecoscore(current_time)
+
+    def auto_deduct_ecoscore(self, current_time):
+        if current_time - self.last_update_times['ecoscore_deduction'] >= 60000:
+            self.game.game_state.remove_climate_score(1)
 
     def update_money(self, current_time):
         if current_time - self.last_update_times['money'] >= 1000:
