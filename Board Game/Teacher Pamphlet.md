@@ -8,13 +8,13 @@ Of course, you are still free to alter and add/remove parts of these lesson plan
 The only preparation you will need is to read this manual and the Player Rules so you can explain it to your students, please make sure not to skip this step.
 
 On its own, this game and this manual will provide a single lesson plan of 1hour with a few ideas on how to keep it running beyond that.\
-We also recommend you take a look at our webpage () once you are finished with this booklet.\ 
+We also recommend you take a look at our webpage () once you are finished with this pamphlet. 
 There you will find 5 extra missions that each will have a lesson plan attached to it like this one.\
-These are meant as follow-up material that builds on the main game, we recommend you have at least played the base game at least once before trying any of these special missions.
+These are meant as follow-up content that builds on the main game, we recommend you have at least played the base game at least once before trying any of these special missions.
 
 ## Lesson Plan
 ### Overview
-- **Grade Level:** Middle School (14+)
+- **Grade Level:** High School (14+)
 - **Subject:** Environmental Science
 - **Duration:** 60 minutes
 
@@ -83,4 +83,8 @@ These are meant as follow-up material that builds on the main game, we recommend
 
 
 ## Special Missions
+Here is a brief description of the available missions that can be found online at ().
+
+### Mission 1: Waste Disposal
+
 

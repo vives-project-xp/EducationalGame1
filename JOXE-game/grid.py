@@ -63,17 +63,21 @@ class Grid:
         padding = 10
         resize_value = self.grid_size / 60
         box_height = max(self.citizens_logo.get_height(), self.font.get_height())
-        max_text_width = self.font.size('999999999')[0]
+        max_text_width = self.font.size('999999999')[0] 
         box_width = self.citizens_logo.get_width() + max_text_width + 2 * padding
         start_x = 10
         paddY = 40 * resize_value
 
+        # Change font size based on window
+        font_size = int(self.height / 30)
+        font = pygame.font.Font(None, font_size)
+
         # Render the game state parameters
-        city_name_text = self.font.render(f"{self.game_state.username}", True, (0, 0, 0))
-        date_text = self.font.render(f"{self.current_date.strftime('%d/%m/%Y')}", True, (0, 0, 0))
-        citizens_text = self.font.render(f"{self.game_state.amountOfCitizens}", True, (0, 0, 0))
-        houses_text = self.font.render(f"{self.game_state.amountOfHouses}", True, (0, 0, 0))
-        money_text = self.font.render(f"{self.game_state.money}", True, (0, 0, 0))
+        city_name_text = font.render(f"{self.game_state.username}", True, (0, 0, 0))
+        date_text = font.render(f"{self.current_date.strftime('%d/%m/%Y')}", True, (0, 0, 0))
+        citizens_text = font.render(f"{self.game_state.amountOfCitizens}", True, (0, 0, 0))
+        houses_text = font.render(f"{self.game_state.amountOfHouses}", True, (0, 0, 0))
+        money_text = font.render(f"{self.game_state.money}", True, (0, 0, 0))
 
         # Draw the boxes around the logos and the text with proportional adjustment
         pygame.draw.rect(self.window, (0, 0, 0), (start_x, 10 - padding, box_width * resize_value, box_height + 2 * padding), 2)

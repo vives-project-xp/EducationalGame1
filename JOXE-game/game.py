@@ -77,6 +77,7 @@ class Game:
         self.energy_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['energy']), (80, 80))
         self.store_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['store']), (80, 80))
 
+        
     # Methods to draw the game
 
     def draw(self):
