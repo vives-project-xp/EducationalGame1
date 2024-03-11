@@ -4,6 +4,7 @@ from house import House
 from energy import Energy
 from tree import Tree
 from store import Store
+from factory import Factory
 from resolution import Resolution
 import datetime
 
@@ -85,6 +86,8 @@ class Gamestate:
                     obj = Tree(x, y, self.res.GRID_SIZE, level)
                 elif obj_name == "Store":
                     obj = Store(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*3000)
+                elif obj_name == "Factory":
+                    obj = Factory(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*50000)
                 else:
                     continue
 
