@@ -1,15 +1,20 @@
-Amount of Citizens: 4
-Amount of Houses: 1
-Money: 994790
-Climate Score: 55
-Current Date: 2022-01-15
+Amount of Citizens: 26
+Amount of Houses: 3
+Money: 2640
+Climate Score: 49
+Current Date: 2022-03-30
 Placed Objects:
-Road- 0(530-350)cornerroad|0
-Road- 0(590-350)road|0
-Road- 0(650-350)road|0
-Road- 0(530-410)v-road|0
-Road- 0(530-470)v-road|0
-House- 1(480-240)
-Energy- 1(540-240)
-Store- 1(600-240)
-Tree- 0(420-300)
+Road- 0(1070-710)road|0
+Road- 0(1130-710)road|0
+Road- 0(1190-710)road|0
+Road- 0(1250-710)road|0
+House- 3(1020-600)
+Tree- 0(1080-600)
+Tree- 0(1140-600)
+House- 1(1200-600)
+House- 1(1260-600)
+Store- 1(960-600)
+Tree- 0(900-600)
+Road- 0(1010-710)road|0
+Road- 0(950-710)road|0
+Road- 0(1310-710)road|0

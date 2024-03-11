@@ -11,7 +11,7 @@ class Gamestate:
     def __init__(self):
         self.amountOfCitizens = 0
         self.amountOfHouses = 0
-        self.money = 1000000
+        self.money = 1000
         self.climateScore = 50
         self.placed_objects = []
         self.username = ""
