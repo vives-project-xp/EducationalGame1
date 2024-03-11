@@ -20,7 +20,7 @@ class Gamestate:
         self.current_date = datetime.datetime(2022, 1, 1)
         self.res = Resolution()
         self.cell_size = self.res.GRID_SIZE
-        self.citizen_happiness = 100
+        self.citizen_happiness = 50
 
     def save_gamestate(self):
         save_folder = "gamesave/"
