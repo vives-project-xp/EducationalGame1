@@ -57,7 +57,7 @@ class Game:
         'store': -5
     }
 
-    def __init__(self, window, width, height, grid_size, gamestate=None):
+    def __init__(self, window, grid_size, gamestate=None):
         self.res = Resolution()
         self.window = window
         self.width = self.res.width
@@ -145,10 +145,6 @@ class Game:
 
                 if elapsed_time >= self.game_over_timer_duration:
                     self.draw_game_over()
-                    pygame.display.update()
-                    pygame.time.wait(3000)
-                    pygame.quit()
-                    sys.exit()
             else:
                 self.draw_game_over()
 
@@ -719,3 +715,23 @@ class Game:
         text2 = font2.render('You have destroyed the climate!', 1, self.COLORS['game_over_text'])
         self.window.blit(text, (self.width // 2 - text.get_width() // 2, self.height // 2 - text.get_height() // 2))
         self.window.blit(text2, (self.width // 2 - text2.get_width() // 2, self.height // 2 + text.get_height() // 2))
+        #play again button
+        pygame.draw.rect(self.window, self.COLORS['white'], (self.width // 2 - 100, self.height // 2 + 200, 200, 50))
+        font3 = pygame.font.Font(None, 36)
+        text3 = font3.render('Play Again', 1, self.COLORS['game_over_text'])
+        self.window.blit(text3, (self.width // 2 - text3.get_width() // 2, self.height // 2 + 200 + 10))
+        if self.width // 2 - 100 <= pygame.mouse.get_pos()[0] <= self.width // 2 + 100 and self.height // 2 + 200 <= pygame.mouse.get_pos()[1] <= self.height // 2 + 250:
+            if pygame.mouse.get_pressed()[0]:
+                self.game_state.restart()
+                self.game_over_timer_start = None
+
+        #quit button
+        pygame.draw.rect(self.window, self.COLORS['white'], (self.width // 2 - 100, self.height // 2 + 300, 200, 50))
+        text4 = font3.render('Quit', 1, self.COLORS['game_over_text'])
+        self.window.blit(text4, (self.width // 2 - text4.get_width() // 2, self.height // 2 + 300 + 10))
+        if self.width // 2 - 100 <= pygame.mouse.get_pos()[0] <= self.width // 2 + 100 and self.height // 2 + 300 <= pygame.mouse.get_pos()[1] <= self.height // 2 + 350:
+            if pygame.mouse.get_pressed()[0]:
+                pygame.quit()
+                sys.exit()
+
+
