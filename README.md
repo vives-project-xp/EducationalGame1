@@ -37,13 +37,17 @@ More information about the PC-game can be found [here](./Game%20Storyboard/mainG
 Our goal is for a grid-based puzzle game similar to existing games like _Cathedral_, _Patchwork_ and _My City_.
 During the game the 2-4 players will be able to place tiles in various shapes and sizes on a grid in which they must balance the size of their population and Climate Impact.
 The game runs until all tiles have filled up the board or until no tiles are left at which point a winner is calculated by the points they acrued during the game. 
+For the educationaml part, aside from its themes, the box will be provided with a teacher pamphlet  that will provide guidance and a ready-to-go lesson plan. 
+5 additional lesson plans will be made available on the website and will be themed around the same amount of missions.
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/145467433/bd7829dd-8a6e-48d4-9290-1be017d6b48b)
 
 
 ## Webpage:
 The project will also contain a website to connect the PC-version and board game version with each other. There will also be added information about both products will also be displayed to present them in an interesting way to potential users.
 
-A Tutorial video on how to play and a downloadable manual will also be provided here. Missions will be available via the webpage in which the players will get to play with an altered ruleset or start with a prewritten board state to overcome these challenges. Once a player did enough missions a download code will be provided to make it possible to download the online version.
+A Tutorial video on how to play and a downloadable manual will also be provided here. Missions will be available via the webpage in which the players will get to play with an altered ruleset or start with a prewritten board state to overcome these challenges. These will be provided with lesson plans to provide content for teachers who want to use the board game to talk about climate change in a strucured and safe enviroment for teenagers. 
+
+Once a player did enough missions a download code will be provided to make it possible to download the online version.
 
 Possible expansion: missions for the PC-version (trivia quiz) that will unlock coins or give other advantages in the PC-version.
 
