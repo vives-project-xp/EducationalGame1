@@ -136,7 +136,7 @@ class Game:
                 pygame.draw.rect(self.window, self.COLORS['yellow'],
                                  (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
         # GAME OVER
-        if self.game_state.climateScore <= 0:
+        if self.game_state.climateScore <= 0 & pygame.time.get_ticks() > 10000:
             self.draw_game_over() 
             pygame.display.update()
             pygame.time.wait(3000)

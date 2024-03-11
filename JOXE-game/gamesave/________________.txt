@@ -1,8 +1,8 @@
-Amount of Citizens: 0
-Amount of Houses: 0
-Money: 958110
-Climate Score: 17.910000000003738
-Current Date: 2022-01-27
+Amount of Citizens: 75
+Amount of Houses: 4
+Money: 536950
+Climate Score: 99.99
+Current Date: 2022-04-20
 Placed Objects:
 Road- 0(50-950)cornerroad|90
 Road- 0(110-950)road|0
@@ -52,5 +52,41 @@ Road- 0(50-170)v-road|0
 Road- 0(50-110)v-road|0
 Road- 0(50-50)v-road|0
 Factory- 1(240-360)
-Park- 1(420-360)
-Park- 1(480-360)
+Park- 2(420-360)
+Park- 2(480-360)
+Factory- 1(240-420)
+Park- 2(420-420)
+Park- 2(480-420)
+Park- 2(420-480)
+Park- 2(480-480)
+Park- 2(420-540)
+Park- 2(480-540)
+Park- 2(420-600)
+Park- 2(480-600)
+Park- 2(540-360)
+Park- 2(540-420)
+Park- 2(540-480)
+Park- 2(540-540)
+Park- 2(540-600)
+Factory- 1(300-360)
+Factory- 1(300-420)
+Factory- 1(240-480)
+Factory- 1(300-480)
+Factory- 1(240-540)
+Factory- 1(240-600)
+Factory- 1(300-600)
+Factory- 1(180-540)
+Factory- 1(180-480)
+Factory- 1(180-420)
+Factory- 1(180-360)
+Factory- 1(180-600)
+Park- 2(600-360)
+Factory- 1(300-540)
+Park- 2(600-420)
+Park- 2(600-480)
+Park- 2(600-540)
+Park- 2(600-600)
+House- 4(720-840)
+House- 4(780-840)
+House- 4(840-840)
+House- 4(900-840)
