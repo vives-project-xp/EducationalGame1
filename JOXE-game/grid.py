@@ -1,8 +1,5 @@
 import pygame
-from house import House
 from road import Road
-from resolution import Resolution
-import datetime
 
 class Grid:
     def __init__(self, window, grid_size, game_state, font):

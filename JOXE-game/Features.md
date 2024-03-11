@@ -22,8 +22,4 @@
 | Factory asset  |✅| 
 | Park asset     |✅| 
 | New Task       |❌| 
-<<<<<<< HEAD
-| New Task       |❌| 
-=======
 | Trivia         |✅| 
->>>>>>> e34d510cff96ae3477206d27781f8c28cd5eaf8e

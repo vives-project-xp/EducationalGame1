@@ -20,6 +20,7 @@ class Gamestate:
         self.current_date = datetime.datetime(2022, 1, 1)
         self.res = Resolution()
         self.cell_size = self.res.GRID_SIZE
+        self.citizen_happiness = 100
 
     def save_gamestate(self):
         save_folder = "gamesave/"
@@ -31,6 +32,7 @@ class Gamestate:
             file.write(f"Money: {self.money}\n")
             file.write(f"Climate Score: {self.climateScore}\n")
             file.write(f"Current Date: {self.current_date.strftime('%Y-%m-%d')}\n")
+            file.write(f"citizen_happiness: {self.citizen_happiness}\n")
             file.write("Placed Objects:\n")
             for obj in self.placed_objects:
                 file.write(f"{obj.__class__.__name__}")
@@ -53,9 +55,10 @@ class Gamestate:
             self.money = int(lines[2].split(": ")[1])
             self.climateScore = float(lines[3].split(": ")[1])
             self.current_date = datetime.datetime.strptime(lines[4].split(": ")[1].strip(), '%Y-%m-%d')
+            self.citizen_happiness = int(lines[5].split(": ")[1])
 
             # Inside the load_gamestate method
-            for line in lines[6:]:
+            for line in lines[7:]:
                 obj_data = line.strip().split('(')
                 obj_name, level = obj_data[0].split('-')
                 obj_name = obj_name.strip()

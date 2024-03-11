@@ -12,12 +12,10 @@ class Road(Object):
         self.set_type('road')
 
     def draw(self, window):
-        # Draw the road image at the given coordinates
         window.blit(self.image, (self.x, self.y))
 
     def set_type(self, road_type):
         self.type = road_type
-        # Update the road image based on the new type
         self.update_image()
 
     def update_image(self):

@@ -1,5 +1,4 @@
 import pygame
-import random
 from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
@@ -8,7 +7,6 @@ from ownUIelements import Slider
 import datetime
 import os
 import sys
-from pygame import mixer
 import pygame_menu
 
 pygame.init()
@@ -32,7 +30,7 @@ FPS = 60
 def main(window, gamestate):
     clock = pygame.time.Clock()
     game = Game(window, res.GRID_SIZE, gamestate)
-    tracker = Tracker(game)
+    tracker = Tracker(game, gamestate)
 
     run = True
     while run:
@@ -81,7 +79,7 @@ def login_screen(window):
 
     menu.add.label('City name:')
     
-    username_input = menu.add.text_input('', default='................', maxchar=10)
+    username_input = menu.add.text_input('', default='..........', maxchar=10)
     
     menu.add.button('Play', lambda: start_game(username_input.get_value()))
     menu.add.button('Quit', pygame_menu.events.EXIT)
@@ -142,7 +140,7 @@ def resolutionWindow(window, main_function, resolution, gamestate):
     for res_option in ['1920x1080', '1920x1000', '1152x600', '800x600', '640x480']:
         menu.add.button(res_option, set_res, res_option)
 
-    menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER)  # Add Save button
+    menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER)  
     menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER)
 
     # slider = Slider(100, 100, 200, 0, 1)
@@ -152,7 +150,7 @@ def resolutionWindow(window, main_function, resolution, gamestate):
     #     for event in pygame.event.get():
     #         if event.type == pygame.QUIT:
     #             running = False
-    # #         slider.handle_event(event)
+    #         slider.handle_event(event)
 
     #     window.fill((0, 0, 0))
     #     slider.draw(window)

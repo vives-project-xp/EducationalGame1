@@ -5,10 +5,14 @@ from energy import Energy
 from store import Store
 from park import Park
 from factory import Factory
+from gamestate import Gamestate
 
 class Tracker:
-    def __init__(self, game):
+    def __init__(self, game, game_state):
         self.game = game
+        self.game_state = game_state
+        self.money_multiplier = self.game_state.citizen_happiness / 50
+        self.ecoscore_multiplier = self.game_state.citizen_happiness / 50
         self.last_update_times = {
             'money': pygame.time.get_ticks(),
             'ecoscore_deduction': pygame.time.get_ticks(),
@@ -50,6 +54,7 @@ class Tracker:
     def update_money(self, current_time):
         if current_time - self.last_update_times['money'] >= 1000:
             money_to_add = max(10, self.game.game_state.get_citizen_count() * 10)
+            money_to_add *= self.money_multiplier
             self.game.game_state.add_money(money_to_add)
             self.total_money_gain += money_to_add
             self.last_update_times['money'] = current_time
@@ -75,8 +80,9 @@ class Tracker:
         if (current_time - self.last_update_times['windmill_cost'] >= 60000):  # 1 minute = 60000 milliseconds
             for obj in self.game.game_state.placed_objects:
                 if isinstance(obj, Energy):
-                    self.game.game_state.remove_money(300)
-                    self.total_money_gain -= 300
+                    cost = 300 * self.money_multiplier
+                    self.game.game_state.remove_money(cost)
+                    self.total_money_gain -= cost
             self.last_update_times['windmill_cost'] = current_time
 
     def update_tree_ecoscore(self, current_time):
@@ -91,8 +97,9 @@ class Tracker:
         if current_time - self.last_update_times['store_cost'] >= 60000:
             for obj in self.game.game_state.placed_objects:
                 if isinstance(obj, Store):
-                    self.game.game_state.add_money(100)
-                    self.total_money_gain += 100
+                    cost = 100 * self.money_multiplier
+                    self.game.game_state.add_money(cost)
+                    self.total_money_gain += cost
             self.last_update_times['store_cost'] = current_time
 
     def update_store_ecoscore(self, current_time):
@@ -107,8 +114,9 @@ class Tracker:
         if current_time - self.last_update_times['factory_cost'] >= 60000:
             for obj in self.game.game_state.placed_objects:
                 if isinstance(obj, Factory):
-                    self.game.game_state.add_money(500)
-                    self.total_money_gain += 500
+                    cost = 500 * self.money_multiplier
+                    self.game.game_state.add_money(cost)
+                    self.total_money_gain += cost
             self.last_update_times['factory_cost'] = current_time
 
     def update_factory_ecoscore(self, current_time):
@@ -123,8 +131,9 @@ class Tracker:
         if current_time - self.last_update_times['park_cost'] >= 60000:
             for obj in self.game.game_state.placed_objects:
                 if isinstance(obj, Park):
-                    self.game.game_state.remove_money(500)
-                    self.total_money_gain -= 500
+                    cost = 500 * self.money_multiplier
+                    self.game.game_state.remove_money(cost)
+                    self.total_money_gain -= cost
             self.last_update_times['park_cost'] = current_time
 
     def update_park_ecoscore(self, current_time):
