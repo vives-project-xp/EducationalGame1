@@ -1,8 +1,38 @@
+<<<<<<< HEAD
 Amount of Citizens: 75
 Amount of Houses: 4
 Money: 536950
 Climate Score: 99.99
 Current Date: 2022-04-20
+=======
+<<<<<<< HEAD
+Amount of Citizens: 26
+Amount of Houses: 3
+Money: 2640
+Climate Score: 49
+Current Date: 2022-03-30
+Placed Objects:
+Road- 0(1070-710)road|0
+Road- 0(1130-710)road|0
+Road- 0(1190-710)road|0
+Road- 0(1250-710)road|0
+House- 3(1020-600)
+Tree- 0(1080-600)
+Tree- 0(1140-600)
+House- 1(1200-600)
+House- 1(1260-600)
+Store- 1(960-600)
+Tree- 0(900-600)
+Road- 0(1010-710)road|0
+Road- 0(950-710)road|0
+Road- 0(1310-710)road|0
+=======
+Amount of Citizens: 0
+Amount of Houses: 0
+Money: 958110
+Climate Score: 17.910000000003738
+Current Date: 2022-01-27
+>>>>>>> 223784407dbdcf29b01a074691fdd20364ff0379
 Placed Objects:
 Road- 0(50-950)cornerroad|90
 Road- 0(110-950)road|0
@@ -52,6 +82,7 @@ Road- 0(50-170)v-road|0
 Road- 0(50-110)v-road|0
 Road- 0(50-50)v-road|0
 Factory- 1(240-360)
+<<<<<<< HEAD
 Park- 2(420-360)
 Park- 2(480-360)
 Factory- 1(240-420)
@@ -90,3 +121,8 @@ House- 4(720-840)
 House- 4(780-840)
 House- 4(840-840)
 House- 4(900-840)
+=======
+Park- 1(420-360)
+Park- 1(480-360)
+>>>>>>> 2016eaa48e3ff9f9f76da31d0f2eb2a6a0ff05c7
+>>>>>>> 223784407dbdcf29b01a074691fdd20364ff0379
