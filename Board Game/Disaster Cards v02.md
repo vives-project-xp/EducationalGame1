@@ -2,7 +2,7 @@
 - **Flood**:
   Remove one of your tiles and any one adjacent tile from another player (if there are any) fom the board and place them back in the Building Circle.
 - **Plague**:
-  You lose 1 Pop, choose clockwise or counter-clockwise, the first player sitting in the direction you chose loses 2 Pops, the next player 3 and so on.
+  Choose clockwise or counter-clockwise, the first player sitting in the direction you chose loses 1 Pop, the next player 2 and so on until you lose Pops in this manner.
 - **Starvation**:
   You and one other player of your choice lose 1 Pop for each Residential Tile you control.
 - **Revolution**:
