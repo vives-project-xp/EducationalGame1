@@ -79,13 +79,15 @@ def login_screen(window):
     window_width, window_height = window.get_size()
     menu = pygame_menu.Menu('Login', window_width, window_height, theme=pygame_menu.themes.THEME_BLUE)
 
-    #textblock asking city name
     menu.add.label('City name:')
-    username_input = menu.add.text_input('', default='................')
+    
+    username_input = menu.add.text_input('', default='................', maxchar=10)
+    
     menu.add.button('Play', lambda: start_game(username_input.get_value()))
     menu.add.button('Quit', pygame_menu.events.EXIT)
 
     menu.mainloop(window)
+
 
 def menu_screen(window):
     background = pygame.image.load('./assets/resources/background/bg2.png')
