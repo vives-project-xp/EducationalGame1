@@ -18,7 +18,7 @@ The Moral: you may be able to shift trash around (like is done to many poorer so
 ### Setup:
 ### Rules Changes:
 Whenever a player gains a pollution token they may pay the next player up to an equal amount in money tokens to make them take the pollution instead. 
-That player then is allowed to pay twice the money they gained from this to move this pollution to the next player. This continues until no one can pay this any longer.
+That player then is allowed to pay twice the original sum to move this pollution to the next player. This continues until no one can pay this any longer.
 Players get to discard one pollution token per nature tile they own at the end of their turn. Keep these pollution tokens seperate as they will count towards your end score.
 
 ### End of game:
