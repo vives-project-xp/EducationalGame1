@@ -59,14 +59,15 @@ class Grid:
                 self.window.blit(obj.image, (obj.x, obj.y))
 
     def draw_game_state(self):
-        MARGIN = 25
-        padding = 10
+        MARGIN = self.height / 43.2
+        padding = self.width / 192
         resize_value = self.grid_size / 60
         box_height = 0.047 * self.height
-        max_text_width = self.font.size('999999999')[0] 
         box_width = 0.09375 * self.width
         start_x = 10
         paddY = 40 * resize_value
+        box_center_x = start_x + box_width // 2
+        box_center_y = box_height // 2
 
         # Change font size based on window
         font_size = int(self.height / 30)
@@ -81,10 +82,10 @@ class Grid:
 
         # Draw the boxes around the logos and the text with proportional adjustment
         pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding, box_width, box_height), 2)
-        pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + box_height + MARGIN, box_width * resize_value, box_height + 2 * padding * resize_value), 2)
-        pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + 2 * box_height + 2 * MARGIN, box_width * resize_value, box_height + 2 * padding * resize_value), 2)
-        pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + 3 * box_height + 3 * MARGIN, box_width * resize_value, box_height + 2 * padding * resize_value), 2)
-        pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + 4 * box_height + 4 * MARGIN, box_width * resize_value, box_height + 2 * padding * resize_value), 2)
+        pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + box_height + MARGIN, box_width, box_height + 2 * padding), 2)
+        pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + 2 * box_height + 2 * MARGIN, box_width, box_height + 2 * padding), 2)
+        pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + 3 * box_height + 3 * MARGIN, box_width, box_height + 2 * padding), 2)
+        pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + 4 * box_height + 4 * MARGIN, box_width, box_height + 2 * padding), 2)
 
         # Draw the logos onto the window with proportional adjustment
         self.window.blit(self.city_name_logo, (start_x + (self.width / 192), 10 + box_height + MARGIN))
@@ -93,7 +94,7 @@ class Grid:
         self.window.blit(self.money_logo, (start_x + (self.width / 192), 10 + 4 * box_height + 4 * MARGIN))
 
         # Draw the text onto the window with proportional adjustment
-        self.window.blit(city_name_text, (start_x + self.city_name_logo.get_width() - (25 * resize_value) + 2 * padding * resize_value, 10))
+        self.window.blit(city_name_text, (start_x + padding, padding))
         self.window.blit(date_text, (start_x + padding + paddY, 10 + box_height + MARGIN))
         self.window.blit(citizens_text, (start_x + padding + paddY, 10 + 2 * box_height + 2 * MARGIN))
         self.window.blit(houses_text, (start_x + padding + paddY, 10 + 3 * box_height + 3 * MARGIN))
