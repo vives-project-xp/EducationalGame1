@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Amount of Citizens: 0
 Amount of Houses: 0
 Money: 989830
@@ -6,3 +7,133 @@ Current Date: 2022-01-06
 Placed Objects:
 Tree- 0(600-600)
 Factory- 1(900-660)
+=======
+<<<<<<< HEAD
+Amount of Citizens: 75
+Amount of Houses: 4
+Money: 536950
+Climate Score: 99.99
+Current Date: 2022-04-20
+=======
+<<<<<<< HEAD
+Amount of Citizens: 26
+Amount of Houses: 3
+Money: 2640
+Climate Score: 49
+Current Date: 2022-03-30
+Placed Objects:
+Road- 0(1070-710)road|0
+Road- 0(1130-710)road|0
+Road- 0(1190-710)road|0
+Road- 0(1250-710)road|0
+House- 3(1020-600)
+Tree- 0(1080-600)
+Tree- 0(1140-600)
+House- 1(1200-600)
+House- 1(1260-600)
+Store- 1(960-600)
+Tree- 0(900-600)
+Road- 0(1010-710)road|0
+Road- 0(950-710)road|0
+Road- 0(1310-710)road|0
+=======
+Amount of Citizens: 0
+Amount of Houses: 0
+Money: 958110
+Climate Score: 17.910000000003738
+Current Date: 2022-01-27
+>>>>>>> 223784407dbdcf29b01a074691fdd20364ff0379
+Placed Objects:
+Road- 0(50-950)cornerroad|90
+Road- 0(110-950)road|0
+Road- 0(170-950)road|0
+Road- 0(230-950)road|0
+Road- 0(290-950)road|0
+Road- 0(350-950)road|0
+Road- 0(410-950)road|0
+Road- 0(470-950)road|0
+Road- 0(530-950)road|0
+Road- 0(590-950)road|0
+Road- 0(650-950)road|0
+Road- 0(710-950)road|0
+Road- 0(770-950)road|0
+Road- 0(830-950)road|0
+Road- 0(890-950)road|0
+Road- 0(950-950)road|0
+Road- 0(1010-950)road|0
+Road- 0(1070-950)road|0
+Road- 0(1130-950)road|0
+Road- 0(1190-950)road|0
+Road- 0(1250-950)road|0
+Road- 0(1310-950)road|0
+Road- 0(1370-950)road|0
+Road- 0(1430-950)road|0
+Road- 0(1490-950)road|0
+Road- 0(1550-950)road|0
+Road- 0(1610-950)road|0
+Road- 0(1670-950)road|0
+Road- 0(1730-950)road|0
+Road- 0(1790-950)road|0
+Road- 0(1850-950)road|0
+Road- 0(1910-950)road|0
+Road- 0(50-890)v-road|0
+Road- 0(50-830)v-road|0
+Road- 0(50-770)v-road|0
+Road- 0(50-710)v-road|0
+Road- 0(50-650)v-road|0
+Road- 0(50-590)v-road|0
+Road- 0(50-530)v-road|0
+Road- 0(50-470)v-road|0
+Road- 0(50-410)v-road|0
+Road- 0(50-350)v-road|0
+Road- 0(50-290)v-road|0
+Road- 0(50-230)v-road|0
+Road- 0(50-170)v-road|0
+Road- 0(50-110)v-road|0
+Road- 0(50-50)v-road|0
+Factory- 1(240-360)
+<<<<<<< HEAD
+Park- 2(420-360)
+Park- 2(480-360)
+Factory- 1(240-420)
+Park- 2(420-420)
+Park- 2(480-420)
+Park- 2(420-480)
+Park- 2(480-480)
+Park- 2(420-540)
+Park- 2(480-540)
+Park- 2(420-600)
+Park- 2(480-600)
+Park- 2(540-360)
+Park- 2(540-420)
+Park- 2(540-480)
+Park- 2(540-540)
+Park- 2(540-600)
+Factory- 1(300-360)
+Factory- 1(300-420)
+Factory- 1(240-480)
+Factory- 1(300-480)
+Factory- 1(240-540)
+Factory- 1(240-600)
+Factory- 1(300-600)
+Factory- 1(180-540)
+Factory- 1(180-480)
+Factory- 1(180-420)
+Factory- 1(180-360)
+Factory- 1(180-600)
+Park- 2(600-360)
+Factory- 1(300-540)
+Park- 2(600-420)
+Park- 2(600-480)
+Park- 2(600-540)
+Park- 2(600-600)
+House- 4(720-840)
+House- 4(780-840)
+House- 4(840-840)
+House- 4(900-840)
+=======
+Park- 1(420-360)
+Park- 1(480-360)
+>>>>>>> 2016eaa48e3ff9f9f76da31d0f2eb2a6a0ff05c7
+>>>>>>> 223784407dbdcf29b01a074691fdd20364ff0379
+>>>>>>> 20141f4c93363ad4cf96cdabbaf3e58b7d06ea7b

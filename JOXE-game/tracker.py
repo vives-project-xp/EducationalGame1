@@ -131,8 +131,8 @@ class Tracker:
         if current_time - self.last_update_times['park_ecoscore'] >= 600:
             for obj in self.game.game_state.placed_objects:
                 if isinstance(obj, Park):
-                    self.game.game_state.add_climate_score(0.1)
-                    self.total_ecoscore_change += 0.1
+                    self.game.game_state.add_climate_score(0.1 * obj.level)
+                    self.total_ecoscore_change += 0.1 * obj.level
             self.last_update_times['park_ecoscore'] = current_time
 
     def get_averages(self):
