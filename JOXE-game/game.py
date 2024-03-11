@@ -77,6 +77,8 @@ class Game:
         self.game_over_timer_duration = 3000 
         self.game_over_timer_start = None
         self.game_over_displayed = False
+        self.asset_width = 0.042 * self.width
+        self.asset_height = 0.075 * self.height
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
@@ -90,9 +92,27 @@ class Game:
         self.draw_selected_cell_outline()
         self.draw_game_elements()
         self.draw_object_level()
+        self.update_image_size()
         # self.car.update()
         # self.car.draw(self.window)
         pygame.display.update()
+
+    def update_image_size(self):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, House):
+                obj.update_image_size(self.grid_size)
+            elif isinstance(obj, Store):
+                obj.update_image_size(self.grid_size)
+            elif isinstance(obj, Road):
+                obj.update_image_size(self.grid_size)
+            elif isinstance(obj, Factory):
+                obj.update_image_size(self.grid_size)
+            elif isinstance(obj, Park):
+                obj.update_image_size(self.grid_size)
+            elif isinstance(obj, Tree):
+                obj.update_image_size(self.grid_size)
+            elif isinstance(obj, Energy):
+                obj.update_image_size(self.grid_size)
 
     def draw_averages(self, average_money_gain, average_ecoscore_change):
         square_width, square_height = 100, 30
@@ -447,7 +467,7 @@ class Game:
         self.placing_house_sound.play()
 
         if self.game_state.money >= 1000:
-            house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+            house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size) 
             self.game_state.placed_objects.append(house)
             self.game_state.remove_money(1000)
             add_citizen = random.randint(3, 6)
