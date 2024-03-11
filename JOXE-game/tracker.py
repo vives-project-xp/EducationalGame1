@@ -20,7 +20,7 @@ class Tracker:
             'factory_cost': pygame.time.get_ticks(),
             'factory_ecoscore': pygame.time.get_ticks(),
             'park_ecoscore': pygame.time.get_ticks(),
-            'park_cost': pygame.time.get_ticks()
+            'park_cost': pygame.time.get_ticks(),
         }
         self.total_money_gain = 0
         self.total_ecoscore_change = 0

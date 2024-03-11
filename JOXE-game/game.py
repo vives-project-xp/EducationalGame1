@@ -1,21 +1,17 @@
 from grid import Grid
-from gamestate import Gamestate
 from house import House
 from road import Road
 from energy import Energy
 from tree import Tree
 from resolution import Resolution
 from factory import Factory
-# from car import Car
 from store import Store
 from park import Park
 import pygame
 from trivia import Trivia
 from pygame import mixer
-import os
 import sys
 import random
-import datetime
 
 class Game:
     COLORS = {
@@ -79,6 +75,8 @@ class Game:
         self.occupied_cells = set()
         self.averagestatfont = pygame.font.Font(None, 16)
         self.placing_house_sound = mixer.Sound('Sounds/Placing house SFX.mp3')
+        self.game_over_timer = None
+        self.game_over_displayed = False
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
@@ -135,8 +133,7 @@ class Game:
             if self.selected_cell:
                 pygame.draw.rect(self.window, self.COLORS['yellow'],
                                  (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
-        # GAME OVER
-        if self.game_state.climateScore <= 0 & pygame.time.get_ticks() > 10000:
+        if self.game_state.climateScore <= 0:
             self.draw_game_over() 
             pygame.display.update()
             pygame.time.wait(3000)
