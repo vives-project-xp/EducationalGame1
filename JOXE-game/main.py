@@ -22,10 +22,10 @@ programIcon = pygame.image.load('./assets/logo/JOXEC.png')
 pygame.display.set_icon(programIcon)
 
 
-pygame.mixer.init()
-sound = pygame.mixer.Sound('./Sounds/AmbientLoop1.mp3')
-sound.set_volume(0.5)
-sound.play()
+# pygame.mixer.init()
+# sound = pygame.mixer.Sound('./Sounds/AmbientLoop1.mp3')
+# sound.set_volume(0.5)
+# sound.play()
 
 FPS = 60
 

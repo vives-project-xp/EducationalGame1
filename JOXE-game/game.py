@@ -5,8 +5,10 @@ from road import Road
 from energy import Energy
 from tree import Tree
 from resolution import Resolution
+from factory import Factory
 # from car import Car
 from store import Store
+from park import Park
 import pygame
 from trivia import Trivia
 from pygame import mixer
@@ -30,6 +32,8 @@ class Game:
         'upgrade': './assets/resources/icons/upgrade.png',
         'remove': './assets/resources/icons/remove.png',
         'store': './assets/resources/buildings/stores/store1.png',
+        'factory': './assets/resources/buildings/factory/tempfac1.png',
+        'park': './assets/resources/nature/park/park1.png',
     }
 
     COSTS = {
@@ -38,6 +42,8 @@ class Game:
         'energy': 2000,
         'store': 3000,
         'tree': 250,
+        'factory': 10000,
+        'park': 3000,
     }
 
     BUILDING_IMAGES = {
@@ -45,7 +51,9 @@ class Game:
         'road': './assets/resources/road/road.png',
         'energy': './assets/resources/buildings/energy/windmills/windmill.png',
         'tree': './assets/resources/nature/tree1.png',
-        'store': './assets/resources/buildings/stores/store1.png'
+        'store': './assets/resources/buildings/stores/store1.png',
+        'factory': './assets/resources/buildings/factory/tempfac1.png',
+        'park': './assets/resources/nature/park/park1.png',
     }
 
     ECO_SCORE_BONUS = {
@@ -76,9 +84,8 @@ class Game:
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
         self.energy_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['energy']), (80, 80))
         self.store_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['store']), (80, 80))
-
-        
-    # Methods to draw the game
+        self.factory_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['factory']), (80, 80))
+        self.tree_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['tree']), (80, 80))
 
     def draw(self):
         self.grid.draw_grid()
@@ -93,7 +100,7 @@ class Game:
         square_width, square_height = 100, 30
         square_x = self.width - square_width
         square_y = self.height - square_height
-        square_color = (255, 255, 255)  # white
+        square_color = (255, 255, 255) 
 
         pygame.draw.rect(self.window, square_color, (square_x, square_y, square_width, square_height))
 
@@ -152,11 +159,15 @@ class Game:
                         (280, self.height - 75))
         self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['tree']), (80, 80)),
                         (370, self.height - 75))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['factory']), (80, 80)),
+                        (460, self.height - 75))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['park']), (80, 80)),
+                        (550, self.height - 75))
         #BUILDING
 
     def draw_building_costs(self):
         font = pygame.font.Font(None, 24)
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree']): #BUILDING
+        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'park']): #BUILDING
             cost_text = font.render(f"${self.COSTS.get(building_type, 0)}", True, self.COLORS['white'])
             self.window.blit(cost_text, (60 + i * 90, self.height - 70))
 
@@ -166,6 +177,12 @@ class Game:
                 level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                 self.window.blit(level_text, (obj.x, obj.y))
             elif isinstance(obj, Store):
+                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                self.window.blit(level_text, (obj.x, obj.y))
+            elif isinstance(obj, Factory):
+                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                self.window.blit(level_text, (obj.x, obj.y))
+            elif isinstance(obj, Park):
                 level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                 self.window.blit(level_text, (obj.x, obj.y))
 
@@ -213,6 +230,10 @@ class Game:
                 return True
             elif isinstance(obj, Road) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
+            elif isinstance(obj, Factory) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+                return True
+            elif isinstance(obj, Park) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+                return True
         return False
 
     # Is button clicked methods
@@ -238,6 +259,12 @@ class Game:
     
     def is_tree_icon_clicked(self, x, y):
         return self.height - 80 <= y <= self.height - 10 and 370 <= x <= 450 
+    
+    def is_factory_icon_clicked(self, x, y):
+        return self.height - 80 <= y <= self.height - 10 and 460 <= x <= 540
+    
+    def is_park_icon_clicked(self, x, y):
+        return self.height - 80 <= y <= self.height - 10 and 550 <= x <= 630
 
     #ALSO ONLY CHECKS HOUSE
     def handle_upgrade_button_click(self):
@@ -252,6 +279,16 @@ class Game:
                     self.game_state.remove_money(obj.upgrade_cost)
                     obj.upgrade()
                     self.upgrade_store(obj)
+            elif isinstance(obj, Factory) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 10:
+                    self.game_state.remove_money(obj.upgrade_cost)
+                    obj.upgrade()
+                    self.upgrade_factory(obj)
+            elif isinstance(obj, Park) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 10:
+                    self.game_state.remove_money(obj.upgrade_cost)
+                    obj.upgrade()
+                    self.upgrade_park(obj)
                 else:
                     print("Not enough money to upgrade the house.")
                 break
@@ -259,7 +296,7 @@ class Game:
     def upgrade_house(self, house):
         new_image = pygame.image.load(f'./assets/resources/houses/house{house.level}.png')
         house.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
-        additional_inhabitants = random.randint(3, 8)
+        additional_inhabitants = random.randint(house.level, house.level * 3)
         self.game_state.add_citizen(additional_inhabitants)
         house.inhabitants += additional_inhabitants
 
@@ -267,7 +304,14 @@ class Game:
         new_image = pygame.image.load(f'./assets/resources/buildings/stores/store{store.level}.png')
         store.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
 
-    #also only checks house
+    def upgrade_factory(self, factory):
+        new_image = pygame.image.load(f'./assets/resources/buildings/factory/tempfac{factory.level}.png')
+        factory.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+
+    def upgrade_park(self, park):
+        new_image = pygame.image.load(f'./assets/resources/nature/park/park{park.level}.png')
+        park.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+
     def handle_remove_button_click(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
@@ -278,6 +322,12 @@ class Game:
                 break
             elif isinstance(obj, Road) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 self.remove_road(obj)
+                break
+            elif isinstance(obj, Factory) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                self.remove_factory(obj)
+                break
+            elif isinstance(obj, Park) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                self.remove_park(obj)
                 break
 
     def remove_house(self, house):
@@ -292,6 +342,12 @@ class Game:
         self.game_state.placed_objects.remove(road)
         self.occupied_cells.remove((road.x, road.y))
 
+    def remove_factory(self, factory):
+        self.game_state.placed_objects.remove(factory)
+    
+    def remove_park(self, park):
+        self.game_state.placed_objects.remove(park)
+
     def handle_menu_bar_click(self, x, y):
         if self.is_house_icon_clicked(x, y):
             self.handle_house_icon_click()
@@ -302,7 +358,11 @@ class Game:
         elif self.is_tree_icon_clicked(x, y):
             self.handle_tree_icon_click()  
         elif self.is_store_icon_clicked(x, y):  
-            self.handle_store_icon_click()      
+            self.handle_store_icon_click()    
+        elif self.is_factory_icon_clicked(x, y):
+            self.handle_factory_icon_click()  
+        elif self.is_park_icon_clicked(x, y):
+            self.handle_park_icon_click()
         else:
             self.menu_bar_visible = False
             self.selected_cell = None
@@ -345,6 +405,26 @@ class Game:
             print("Not enough money to place a tree.")
         self.menu_bar_visible = False
 
+    def handle_factory_icon_click(self):
+        if self.selected_cell is not None and self.game_state.money >= self.COSTS['factory']:
+            factory = Factory(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+            self.game_state.placed_objects.append(factory)
+            self.game_state.remove_money(self.COSTS['factory'])
+            self.selected_cell = None
+        else:
+            print("Not enough money to place a factory.")
+        self.menu_bar_visible = False
+
+    def handle_park_icon_click(self):
+        if self.selected_cell is not None and self.game_state.money >= self.COSTS['park']:
+            park = Park(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+            self.game_state.placed_objects.append(park)
+            self.game_state.remove_money(self.COSTS['park'])
+            self.selected_cell = None
+        else:
+            print("Not enough money to place a park.")
+        self.menu_bar_visible = False   
+
     def handle_house_icon_click(self):
         if self.selected_cell is not None:
             for obj in self.game_state.placed_objects:
@@ -359,7 +439,6 @@ class Game:
             self.menu_bar_visible = False
 
     def place_new_house(self):
-        # Play the placing house sound
         self.placing_house_sound.play()
 
         if self.game_state.money >= 1000:
@@ -577,6 +656,10 @@ class Game:
         upgrade_cost = self.get_upgrade_cost(House)
         if upgrade_cost is None:
             upgrade_cost = self.get_upgrade_cost(Store)
+        if upgrade_cost is None:
+            upgrade_cost = self.get_upgrade_cost(Factory)
+        if upgrade_cost is None:
+            upgrade_cost = self.get_upgrade_cost(Park)
 
     # Check if upgrade_cost is not None before comparing it with an integer
         if upgrade_cost is not None and upgrade_cost >= 1000000000:

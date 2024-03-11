@@ -4,6 +4,8 @@ from house import House
 from energy import Energy
 from tree import Tree
 from store import Store
+from factory import Factory
+from park import Park
 from resolution import Resolution
 import datetime
 
@@ -49,7 +51,7 @@ class Gamestate:
             self.amountOfCitizens = int(lines[0].split(": ")[1])
             self.amountOfHouses = int(lines[1].split(": ")[1])
             self.money = int(lines[2].split(": ")[1])
-            self.climateScore = int(lines[3].split(": ")[1])
+            self.climateScore = float(lines[3].split(": ")[1])
             self.current_date = datetime.datetime.strptime(lines[4].split(": ")[1].strip(), '%Y-%m-%d')
 
             # Inside the load_gamestate method
@@ -85,6 +87,10 @@ class Gamestate:
                     obj = Tree(x, y, self.res.GRID_SIZE, level)
                 elif obj_name == "Store":
                     obj = Store(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*3000)
+                elif obj_name == "Factory":
+                    obj = Factory(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*50000)
+                elif obj_name == "Park":
+                    obj = Park(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*5000)
                 else:
                     continue
 
