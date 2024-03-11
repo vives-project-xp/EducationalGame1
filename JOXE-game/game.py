@@ -339,19 +339,24 @@ class Game:
         self.game_state.placed_objects.remove(house)
         self.game_state.remove_citizen(house.inhabitants)
         self.game_state.remove_house(1)
+        self.game_state.remove_citizen_happiness(3)
 
     def remove_store(self, store):
         self.game_state.placed_objects.remove(store)
+        self.game_state.remove_citizen_happiness(5)
 
     def remove_road(self, road):
         self.game_state.placed_objects.remove(road)
         self.occupied_cells.remove((road.x, road.y))
+        self.game_state.add_citizen_happiness(1)
 
     def remove_factory(self, factory):
         self.game_state.placed_objects.remove(factory)
+        self.game_state.add_citizen_happiness(10)
     
     def remove_park(self, park):
         self.game_state.placed_objects.remove(park)
+        self.game_state.remove_citizen_happiness(15)
 
     def handle_menu_bar_click(self, x, y):
         if self.is_house_icon_clicked(x, y):
@@ -391,6 +396,7 @@ class Game:
             self.game_state.placed_objects.append(store)
             self.game_state.remove_money(self.COSTS['store'])
             self.game_state.add_climate_score(self.ECO_SCORE_BONUS['store'])
+            self.game_state.add_citizen_happiness(5)
         else:
             print("Not enough money to place a new store.")
 
@@ -401,7 +407,6 @@ class Game:
             self.game_state.remove_money(self.COSTS['tree'])
             self.game_state.add_climate_score(self.ECO_SCORE_BONUS['tree']) 
             self.selected_cell = None
-
         else:
             print("Not enough money to place a tree.")
         self.menu_bar_visible = False
@@ -417,6 +422,7 @@ class Game:
             self.game_state.placed_objects.append(factory)
             self.game_state.remove_money(self.COSTS['factory'])
             self.selected_cell = None
+            self.game_state.remove_citizen_happiness(25)
         else:
             print("Not enough money to place a factory.")
         self.menu_bar_visible = False
@@ -425,6 +431,7 @@ class Game:
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['park']:
             park = Park(self.selected_cell[0], self.selected_cell[1], self.grid_size)
             self.game_state.placed_objects.append(park)
+            self.game_state.add_citizen_happiness(15)
             self.game_state.remove_money(self.COSTS['park'])
             self.selected_cell = None
         else:
@@ -455,6 +462,7 @@ class Game:
             self.game_state.add_citizen(add_citizen)
             house.add_inhabitant(add_citizen)
             self.game_state.add_house(1)
+            self.game_state.add_citizen_happiness(1)
         else:
             print("Not enough money to place a new house.")
             
