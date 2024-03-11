@@ -144,6 +144,7 @@ class Game:
 
                 if elapsed_time >= self.game_over_timer_duration:
                     self.draw_game_over()
+                    self.game_over_timer_start = None
             else:
                 self.draw_game_over()
 
