@@ -37,6 +37,8 @@ More information about the PC-game can be found [here](./Game%20Storyboard/mainG
 Our goal is for a grid-based puzzle game similar to existing games like _Cathedral_, _Patchwork_ and _My City_.
 During the game the 2-4 players will be able to place tiles in various shapes and sizes on a grid in which they must balance the size of their population and Climate Impact.
 The game runs until all tiles have filled up the board or until no tiles are left at which point a winner is calculated by the points they acrued during the game. 
+![image](https://github.com/vives-project-xp/EducationalGame1/assets/145467433/bd7829dd-8a6e-48d4-9290-1be017d6b48b)
+
 
 ## Webpage:
 The project will also contain a website to connect the PC-version and board game version with each other. There will also be added information about both products will also be displayed to present them in an interesting way to potential users.
