@@ -14,7 +14,7 @@ These are meant as follow-up material that builds on the main game, we recommend
 
 ## Lesson Plan
 ### Overview
-- **Grade Level:** Middle School (14+)
+- **Grade Level:** High School (14+)
 - **Subject:** Environmental Science
 - **Duration:** 60 minutes
 
