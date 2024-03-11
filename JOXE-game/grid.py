@@ -78,8 +78,8 @@ class Grid:
         date_text = font.render(f"{self.current_date.strftime('%d/%m/%Y')}", True, (0, 0, 0))
         citizens_text = font.render(f"{self.game_state.amountOfCitizens}", True, (0, 0, 0))
         houses_text = font.render(f"{self.game_state.amountOfHouses}", True, (0, 0, 0))
-        money_text = font.render(f"{self.game_state.money}", True, (0, 0, 0))
-        happiness_text = font.render(f"{self.game_state.citizen_happiness}", True, (0, 0, 0))
+        money_text = font.render(f"{int(self.game_state.money)}", True, (0, 0, 0))
+        happiness_text = font.render(f"{int(self.game_state.citizen_happiness)}", True, (0, 0, 0))
 
         # Draw the boxes around the logos and the text with proportional adjustment
         pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding, box_width, box_height + 2 * padding), 2)
@@ -97,13 +97,13 @@ class Grid:
 
         # Draw the text onto the window with proportional adjustment
         self.window.blit(city_name_text, (start_x + padding, padding))
-        # Center the texts in the middle of the boxes
-        self.window.blit(date_text, (start_x + box_center_x - date_text.get_width() // 2, box_center_y + paddY))
-        self.window.blit(citizens_text, (start_x + box_center_x - citizens_text.get_width() // 2, box_center_y + paddY))
-        self.window.blit(houses_text, (start_x + box_center_x - houses_text.get_width() // 2, box_center_y + paddY + box_height + MARGIN))
-        self.window.blit(money_text, (start_x + box_center_x - money_text.get_width() // 2, box_center_y + paddY + 2 * box_height + 2 * MARGIN))
-        self.window.blit(happiness_text, (start_x + box_center_x - happiness_text.get_width() // 2, box_center_y + paddY + 3 * box_height + 3 * MARGIN))
-
+        # Center the texts in the middle of the boxes, horizontally and vertically
+        self.window.blit(date_text, (start_x + box_width // 2 - date_text.get_width() // 2, 10 + box_height + 2 * MARGIN - font_size // 2))
+        self.window.blit(citizens_text, (start_x + box_width // 2 - citizens_text.get_width() // 2, 10 + 2 * box_height + 3 * MARGIN - font_size // 2))
+        self.window.blit(houses_text, (start_x + box_width // 2 - houses_text.get_width() // 2, 10 + 3 * box_height + 4 * MARGIN - font_size // 2))
+        self.window.blit(money_text, (start_x + box_width // 2 - money_text.get_width() // 2, 10 + 4 * box_height + 5 * MARGIN - font_size // 2))
+        self.window.blit(happiness_text, (start_x + box_width // 2 - happiness_text.get_width() // 2, 10 + 5 * box_height + 6 * MARGIN - font_size // 2))
+        
         # Calculate the starting x position for the climate bar with proportional adjustment
         climate_bar_start_x = (self.width - (4 * box_width + 3 * MARGIN)) // 2
 
