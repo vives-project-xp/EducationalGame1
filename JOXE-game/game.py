@@ -1,21 +1,17 @@
 from grid import Grid
-from gamestate import Gamestate
 from house import House
 from road import Road
 from energy import Energy
 from tree import Tree
 from resolution import Resolution
 from factory import Factory
-# from car import Car
 from store import Store
 from park import Park
 import pygame
 from trivia import Trivia
 from pygame import mixer
-import os
 import sys
 import random
-import datetime
 
 class Game:
     COLORS = {
@@ -79,6 +75,9 @@ class Game:
         self.occupied_cells = set()
         self.averagestatfont = pygame.font.Font(None, 16)
         self.placing_house_sound = mixer.Sound('Sounds/Placing house SFX.mp3')
+        self.game_over_timer_duration = 3000 
+        self.game_over_timer_start = None
+        self.game_over_displayed = False
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
@@ -134,14 +133,24 @@ class Game:
             self.draw_menu_bar()
             if self.selected_cell:
                 pygame.draw.rect(self.window, self.COLORS['yellow'],
-                                 (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
-        # GAME OVER
-        if self.game_state.climateScore <= 0 & pygame.time.get_ticks() > 10000:
-            self.draw_game_over() 
-            pygame.display.update()
-            pygame.time.wait(3000)
-            pygame.quit()
-            sys.exit()
+                                (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
+
+        if self.game_state.climateScore <= 0:
+            if not self.game_over_displayed:
+                if self.game_over_timer_start is None:
+                    self.game_over_timer_start = pygame.time.get_ticks()
+
+                current_time = pygame.time.get_ticks()
+                elapsed_time = current_time - self.game_over_timer_start
+
+                if elapsed_time >= self.game_over_timer_duration:
+                    self.draw_game_over()
+                    pygame.display.update()
+                    pygame.time.wait(3000)
+                    pygame.quit()
+                    sys.exit()
+            else:
+                self.draw_game_over()
 
     def draw_menu_bar(self):
         pygame.draw.rect(self.window, self.COLORS['menu_background'], (0, self.height - 80, self.width, 80))

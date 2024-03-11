@@ -2,10 +2,10 @@
 |----------------|---|
 | House Upgrades |✅| 
 | House Remove   |✅| 
-| Windmill Up    |❌| 
+| Windmill Up    |✅| 
 | Remove Road    |❌| 
 | Remove Tree    |❌| 
-| Remove Windmill|❌| 
+| Remove Windmill|✅| 
 | Auto Road place|✅| 
 | Date Counter   |✅| 
 | Education?     |❌| 
@@ -15,8 +15,15 @@
 | Events?        |❌| 
 | UI rework      |❌| 
 | Title screen   |✅| 
-| Fix house order|❌| 
+| Fix house order|✅| 
 | New assets?    |❌| 
-| Sound          |❌| 
+| Sound          |✅| 
+| Trivia         |❌| 
+| Factory asset  |✅| 
+| Park asset     |✅| 
 | New Task       |❌| 
+<<<<<<< HEAD
+| New Task       |❌| 
+=======
 | Trivia         |✅| 
+>>>>>>> e34d510cff96ae3477206d27781f8c28cd5eaf8e
