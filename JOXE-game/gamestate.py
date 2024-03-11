@@ -27,12 +27,12 @@ class Gamestate:
         filename = f"{save_folder}{self.username.replace('.', '_')}.txt"
 
         with open(filename, 'w') as file:
-            file.write(f"Amount of Citizens: {self.amountOfCitizens}\n")
-            file.write(f"Amount of Houses: {self.amountOfHouses}\n")
-            file.write(f"Money: {self.money}\n")
-            file.write(f"Climate Score: {self.climateScore}\n")
+            file.write(f"Amount of Citizens: {int(self.amountOfCitizens)}\n")
+            file.write(f"Amount of Houses: {int(self.amountOfHouses)}\n")
+            file.write(f"Money: {int(self.money)}\n")
+            file.write(f"Climate Score: {int(self.climateScore)}\n")
             file.write(f"Current Date: {self.current_date.strftime('%Y-%m-%d')}\n")
-            file.write(f"citizen_happiness: {self.citizen_happiness}\n")
+            file.write(f"citizen_happiness: {int(self.citizen_happiness)}\n")
             file.write("Placed Objects:\n")
             for obj in self.placed_objects:
                 file.write(f"{obj.__class__.__name__}")
@@ -138,6 +138,18 @@ class Gamestate:
 
     def get_citizen_count(self):
         return self.amountOfCitizens
+    
+    def add_citizen_happiness(self, amount):
+        if self.citizen_happiness + amount <= 100:
+            self.citizen_happiness += amount
+        else:
+            self.citizen_happiness = 100
+
+    def remove_citizen_happiness(self, amount):
+        if self.citizen_happiness - amount >= 1:
+            self.citizen_happiness -= amount
+        else:
+            self.citizen_happiness = 1
     
     def restart(self):
         self.amountOfCitizens = 0
