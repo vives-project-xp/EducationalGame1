@@ -19,4 +19,4 @@
 | New assets?    |❌| 
 | Sound          |❌| 
 | New Task       |❌| 
-| Trivia         |❌| 
+| Trivia         |✅| 

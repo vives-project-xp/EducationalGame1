@@ -400,9 +400,11 @@ class Game:
         else:
             print("Not enough money to place a tree.")
         self.menu_bar_visible = False
-        # Display trivia popup
-        trivia = Trivia(self.window)
-        trivia.show_trivia()   
+        
+        # Display trivia popup with 40 percent spawn chance
+        if random.randint(1, 100) <= 40:
+            trivia = Trivia(self.window)
+            trivia.show_trivia()   
 
     def handle_factory_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['factory']:
