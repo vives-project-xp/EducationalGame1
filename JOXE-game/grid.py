@@ -58,6 +58,19 @@ class Grid:
             else:
                 self.window.blit(obj.image, (obj.x, obj.y))
 
+    def draw_rounded_rect(surface, rect, color, corner_radius):
+        """ Draw a rectangle with rounded corners """
+        if rect.width < 2 * corner_radius or rect.height < 2 * corner_radius:
+            raise ValueError(f"Both width (rect.width) and height (rect.height) must be larger or equal to 2*corner_radius (2*{corner_radius}).")
+
+        pygame.draw.circle(surface, color, (rect.left + corner_radius, rect.top + corner_radius), corner_radius)
+        pygame.draw.circle(surface, color, (rect.right - corner_radius - 1, rect.top + corner_radius), corner_radius)
+        pygame.draw.circle(surface, color, (rect.left + corner_radius, rect.bottom - corner_radius - 1), corner_radius)
+        pygame.draw.circle(surface, color, (rect.right - corner_radius - 1, rect.bottom - corner_radius - 1), corner_radius)
+
+        pygame.draw.rect(surface, color, rect.inflate(-2*corner_radius, 0))
+        pygame.draw.rect(surface, color, rect.inflate(0, -2*corner_radius))
+
     def draw_game_state(self):
         MARGIN = self.height / 40.2
         padding = self.width / 192
@@ -90,19 +103,19 @@ class Grid:
         pygame.draw.rect(self.window, (21,73,0), (start_x, 10 - padding + 5 * box_height + 5 * MARGIN, box_width, box_height + 2 * padding), 2)
 
         # Draw the logos onto the window with proportional adjustment
-        self.window.blit(self.city_name_logo, (start_x + (self.width / 192), 10 + box_height + MARGIN))
-        self.window.blit(self.citizens_logo, (start_x + (self.width / 192), 10 + 2 * box_height + 2 * MARGIN))
-        self.window.blit(self.houses_logo, (start_x + (self.width / 192), 10 + 3 * box_height + 3 * MARGIN))
-        self.window.blit(self.money_logo, (start_x + (self.width / 192), 10 + 4 * box_height + 4 * MARGIN))
+        self.window.blit(self.city_name_logo, (start_x + (self.width / 192), 10 + box_height + 1.2 * MARGIN))
+        self.window.blit(self.citizens_logo, (start_x + (self.width / 192), 10 + 2 * box_height + 2.2 * MARGIN))
+        self.window.blit(self.houses_logo, (start_x + (self.width / 192), 10 + 3 * box_height + 3.2 * MARGIN))
+        self.window.blit(self.money_logo, (start_x + (self.width / 192), 10 + 4 * box_height + 4.2 * MARGIN))
 
         # Draw the text onto the window with proportional adjustment
-        self.window.blit(city_name_text, (start_x + padding, padding))
+        self.window.blit(city_name_text, (start_x + 2 * padding, padding))
         # Center the texts in the middle of the boxes, horizontally and vertically
-        self.window.blit(date_text, (start_x + box_width // 2 - date_text.get_width() // 2, 10 + box_height + 2 * MARGIN - font_size // 2))
-        self.window.blit(citizens_text, (start_x + box_width // 2 - citizens_text.get_width() // 2, 10 + 2 * box_height + 3 * MARGIN - font_size // 2))
-        self.window.blit(houses_text, (start_x + box_width // 2 - houses_text.get_width() // 2, 10 + 3 * box_height + 4 * MARGIN - font_size // 2))
-        self.window.blit(money_text, (start_x + box_width // 2 - money_text.get_width() // 2, 10 + 4 * box_height + 5 * MARGIN - font_size // 2))
-        self.window.blit(happiness_text, (start_x + box_width // 2 - happiness_text.get_width() // 2, 10 + 5 * box_height + 6 * MARGIN - font_size // 2))
+        self.window.blit(date_text, ( 3 * start_x + box_width // 2 - date_text.get_width() // 2, 10 + box_height + 2 * MARGIN - font_size // 2))
+        self.window.blit(citizens_text, ( 3 * start_x + box_width // 2 - citizens_text.get_width() // 2, 10 + 2 * box_height + 3 * MARGIN - font_size // 2))
+        self.window.blit(houses_text, (3 * start_x + box_width // 2 - houses_text.get_width() // 2, 10 + 3 * box_height + 4 * MARGIN - font_size // 2))
+        self.window.blit(money_text, (3 * start_x + box_width // 2 - money_text.get_width() // 2, 10 + 4 * box_height + 5 * MARGIN - font_size // 2))
+        self.window.blit(happiness_text, (3 * start_x + box_width // 2 - happiness_text.get_width() // 2, 10 + 5 * box_height + 6 * MARGIN - font_size // 2))
         
         # Calculate the starting x position for the climate bar with proportional adjustment
         climate_bar_start_x = (self.width - (4 * box_width + 3 * MARGIN)) // 2
@@ -111,8 +124,8 @@ class Grid:
         adjust_y = 10  # Adjust this value as needed
 
         # Draw the climate score bar at the top with proportional adjustment
-        pygame.draw.rect(self.window, (0, 0, 0), (climate_bar_start_x, adjust_y, 4 * box_width * resize_value + 3 * MARGIN, box_height), 2)
-        pygame.draw.rect(self.window, (0, 0, 0), (climate_bar_start_x + padding * resize_value, adjust_y + padding // 2, 4 * box_width * resize_value + 3 * MARGIN - 2 * padding, box_height - padding), 2)
+        pygame.draw.rect(self.window, (0, 0, 0), (climate_bar_start_x, adjust_y, 4 * box_width + 3 * MARGIN, box_height), 2)
+        pygame.draw.rect(self.window, (0, 0, 0), (climate_bar_start_x + padding, adjust_y + padding // 2, 4 * box_width + 3 * MARGIN - 2 * padding, box_height - padding), 2)
 
         # Set the color based on the climate score
         if self.game_state.climateScore >= 30:
@@ -121,7 +134,7 @@ class Grid:
             score_color = (255, 0, 0)  # Red
 
         # Draw the score bar with the chosen color at the top with proportional adjustment
-        pygame.draw.rect(self.window, score_color, (climate_bar_start_x + padding * resize_value, adjust_y + padding // 2, (4 * box_width * resize_value + 3 * MARGIN - 2 * padding) * self.game_state.climateScore // 100, box_height - padding))
+        pygame.draw.rect(self.window, score_color, (climate_bar_start_x + padding, adjust_y + padding // 2, (4 * box_width + 3 * MARGIN - 2 * padding) * self.game_state.climateScore // 100, box_height - padding))
 
         # Add date to gamestate variable
         self.game_state.current_date = self.current_date
