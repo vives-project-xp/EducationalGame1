@@ -100,7 +100,7 @@ class Game:
     def update_image_size(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House):
-                obj.update_image_size(self.grid_size)
+                obj.update_position(self.grid_size)
             # elif isinstance(obj, Store):
             #     obj.update_image_size(self.grid_size)
             # elif isinstance(obj, Road):

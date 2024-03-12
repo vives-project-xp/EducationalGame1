@@ -1,0 +1,10 @@
+Amount of Citizens: 14
+Amount of Houses: 3
+Money: 99967
+Climate Score: 39
+Current Date: 2022-01-14
+citizen_happiness: 53
+Placed Objects:
+House- 1(480.0-300.0)
+House- 1(60.0-60.0)
+House- 1(1620.0-720.0)
