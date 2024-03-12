@@ -1,0 +1,21 @@
+Amount of Citizens: 6
+Amount of Houses: 1
+Money: 98634
+Climate Score: 33
+Current Date: 2022-01-05
+citizen_happiness: 51
+Placed Objects:
+Road- 0(770-590)road|0
+Road- 0(830-590)road|0
+Road- 0(890-590)road|0
+Road- 0(950-590)road|0
+Road- 0(1010-590)road|0
+Road- 0(1070-590)road|0
+Road- 0(1130-590)road|0
+Road- 0(1190-590)road|0
+Road- 0(1250-590)road|0
+Road- 0(1310-590)road|0
+Road- 0(1370-590)road|0
+Road- 0(1430-590)road|0
+Road- 0(1490-590)road|0
+House- 1(1380.0-480.0)
