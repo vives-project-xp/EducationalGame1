@@ -3,7 +3,7 @@ from object import Object
 
 class Road(Object):
     def __init__(self, x, y, grid_size, level=0, rotation=0):
-        super().__init__(x-10, y-10, level)
+        super().__init__(x-10, y-10, level, grid_size)
         self.grid_size = grid_size
         self.type = None
         self.scale = 1.28  #1.28

@@ -66,7 +66,7 @@ class Gamestate:
                 coords = obj_data[1].split(')')[0]
                 coordinates = coords.split('-')
                 if len(coordinates) == 2:
-                    x, y = map(int, map(str.strip, coordinates))
+                    x, y = map(int, map(float, map(str.strip, coordinates)))
                 else:
                     print(f"Error: Invalid coordinates - {coords}")
                     continue

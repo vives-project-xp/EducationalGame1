@@ -3,9 +3,8 @@ from object import Object
 
 class House(Object):
     def __init__(self, x, y, cell_size, level=1, upgrade_cost=1000):
-        super().__init__(x, y, level)
+        super().__init__(x, y, level, cell_size)
         self.inhabitants = 0 
-        self.cell_size = cell_size
         self.upgrade_cost = upgrade_cost
         self.ecoscore = -1
         self.images = [f'./assets/resources/houses/house{i}.png' for i in range(1, 10)]
