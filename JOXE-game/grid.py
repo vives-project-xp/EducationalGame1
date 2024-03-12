@@ -84,19 +84,21 @@ class Grid:
 
         # Change font size based on window
         font_size = int(self.height / 35)
-        font = pygame.font.Font(None, font_size)
+        #font = pygame.font.Font(None, font_size)
+        # use public pixel font
+        font = pygame.font.Font('freesansbold.ttf', font_size)
 
         # Render the game state parameters
-        city_name_text = font.render(f"{self.game_state.username}", True, (0, 0, 0))
-        date_text = font.render(f"{self.current_date.strftime('%d/%m/%Y')}", True, (0, 0, 0))
-        citizens_text = font.render(f"{self.game_state.amountOfCitizens}", True, (0, 0, 0))
-        houses_text = font.render(f"{self.game_state.amountOfHouses}", True, (0, 0, 0))
-        money_text = font.render(f"{int(self.game_state.money)}", True, (0, 0, 0))
-        happiness_text = font.render(f"{int(self.game_state.citizen_happiness)}", True, (0, 0, 0))
+        city_name_text = font.render(f"{self.game_state.username}", True, (255, 255, 255))
+        date_text = font.render(f"{self.current_date.strftime('%d/%m/%Y')}", True, (255, 255, 255))
+        citizens_text = font.render(f"{self.game_state.amountOfCitizens}", True, (255, 255, 255))
+        houses_text = font.render(f"{self.game_state.amountOfHouses}", True, (255, 255, 255))
+        money_text = font.render(f"{int(self.game_state.money)}", True, (255, 255, 255))
+        happiness_text = font.render(f"{int(self.game_state.citizen_happiness)}", True, (255, 255, 255))
 
         # Load the image
         box_image = pygame.image.load('./assets/resources/icons/box1.png')
-        box1_width = int(self.width / 6.4)
+        box1_width = int(self.width / 7.8)
 
         original_width, original_height = box_image.get_size()
         aspect_ratio = original_height / original_width
