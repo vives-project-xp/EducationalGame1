@@ -1,9 +1,9 @@
 Amount of Citizens: 115
 Amount of Houses: 9
-Money: 20075
-Climate Score: 99
-Current Date: 2022-11-20
-citizen_happiness: 86
+Money: 33921
+Climate Score: 100
+Current Date: 2022-11-23
+citizen_happiness: 87
 Placed Objects:
 House- 4(120.0-540.0)
 Tree- 0(180-540)
