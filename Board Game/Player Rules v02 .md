@@ -74,8 +74,11 @@ Simplification:
 No money, players just get to pick to go for land or building.
 No Crisis, everything is handled through pollution tokens.
 Pops remain and Pollution remain.
+No trackers, instead use containers with set amount of tokens.
 
 Complexities:
-Add more of a puzzle element.
+Add more of a puzzle element. 
+Maybe add time as an element?
+Make 'disaster cards' related to Pop.
 
 
