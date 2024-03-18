@@ -173,7 +173,6 @@ class Game:
     def draw_menu_bar(self):
         menu_bar_height = self.window.get_height() * 0.2
         menu_bar_y = int(0.8 * self.window.get_height())
-        print(self.width, self.height)
         pygame.draw.rect(self.window, self.COLORS['menu_background'], (0, menu_bar_y, self.window.get_width(), menu_bar_height))
         self.draw_building_icons(menu_bar_y, menu_bar_height)
         self.draw_building_costs(menu_bar_y)
@@ -266,10 +265,10 @@ class Game:
             self.selected_cell[0] + 50 <= x <= self.selected_cell[0] + 90
     
     def is_house_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 10 <= x <= 90
+         return self.height - 80 <= y <= self.height - 10 and 10 <= x <= 10 + 64
 
     def is_road_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 100 <= x <= 180
+         return self.height - 80 <= y <= self.height - 10 and 100 <= x <= 100 + 64
 
     def is_energy_icon_clicked(self, x, y):
         return self.height - 80 <= y <= self.height - 10 and 190 <= x <= 270

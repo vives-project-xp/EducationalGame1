@@ -143,8 +143,6 @@ def resolutionWindow(window, main_function, resolution, gamestate):
     menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER)  
     menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER)
 
-    print(f"New window size: {window.get_size()}")
-
     # slider = Slider(100, 100, 200, 0, 1)
 
     # running = True
