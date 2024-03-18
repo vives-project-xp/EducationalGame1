@@ -104,8 +104,8 @@ def menu_screen(window):
 
     button_width, button_height = play_button.get_rect().size
 
-    btn_x = (WIDTH - button_width) / 2
-    btn_y = (HEIGHT - button_height) / 2
+    button_x = (WIDTH - button_width) / 2
+    button_y = (HEIGHT - button_height) / 2
 
     running = True
     while running:
