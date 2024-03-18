@@ -16,10 +16,6 @@ class House(Object):
         self.cell_size = new_cell_size
         self.update_image_size(new_cell_size)
 
-    def update_image_size(self, cell_size):
-        self.image = self.load_image(self.images[self.level - 1], cell_size, cell_size)
-        
-
     def load_image(self, image_path, width, height):
         image = pygame.image.load(image_path)
         image = pygame.transform.scale(image, (width, height))
