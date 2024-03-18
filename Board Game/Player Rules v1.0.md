@@ -1,14 +1,14 @@
 ## Setup:
 1. Place the main gameboard in the middle of the table and scatter the building pieces in a neat circle around the gameboard (Building Circle). 
 2. Each player may pick a color and take all game pieces of that color and keep them in their player area, visible to all other players.
-3. Place one of the colored cube pieces from each player on the Pops tracker ( and the other on the Crisis tracker), both starting with a value of 0. 
-4. Shuffle the Land tiles and then place them in the brown blind bag.
-5. Shuffle the Disaster cards, then place them face down within reach.
-6. Place the money tokens in a handy spot and within reach of all players.
-7. Every player starts with 5 money tokens.
-8. Fill each container with their corresponding amount of pollution tokens then stack them on top of each other.
+3. Shuffle the Land tiles and then place them in the brown blind bag.
+4. Shuffle the Disaster cards, then place them face down within reach.
+5. Place a random Disaster card at the bottom of each Pollution and Population container.
+6. Fill the Pollution containers with their corresponding amount of pollution tokens then stack them on top of each other.
    Red is on the bottom and holds 5 tokens. Yellow sits on top of red and below green and holds 10 pollution tokens. Green sits on top of both and holds 15 tokens.
-9. Place the Auction token on the Building Circle in between two buildings in front of the player who wears the most green, they get to start the game.
+7. Fill the Population container with their corresponding amount of population tokens then stack them on top of each other.
+   Red is on the bottom and holds 5 tokens. Yellow sits on top of red and below green and holds 10 pollution tokens. Green sits on top of both and holds 15 tokens.
+8. Place the Auction token on the Building Circle in between two buildings in front of the player who wears the most green, they get to start the game.
 
 ## Winning/ Losing:
 The player who at the end of the game has the highest Pop score wins the game.\
@@ -22,21 +22,16 @@ The players take turns in a clockwise rotation with the player that is currently
 
 
 ### Start your turn/ Upkeep:
-Collect an amount of Money tokens equal to your Population Score.\
-Collect an amount of Pollution tokens equal to your Crisis score.
+
 
 ### Actions:
 Only one action may be taken during your turn, unless otherwise specified in the action.
-#### Get Corrupt:
-You may take Pollution tokens up to a maximum of 5 to immediately gain the same amount of Money from the bank. You may still Buy a Building or Buy a Land Expansion.
 #### Buy a Building:
 The Auction token determines which building tiles can be bought during your turn.\
-Starting from the Auction token, the 3 pieces in front of the token (clockwise) are available for purchase. \
-Each tile has a price printed on it which must be paid to the bank to obtain the Building.\
+Starting from the Auction token, the 3 pieces in front of the token (clockwise) are available for placement. \
 Move the Auction token to where the bought building was laying and place your new Building on the board.\
 Make sure the Building Tile does not overlap with any Blockers. (Shaded red)
 #### Buy a Land Expansion:
-Pay 5 Money to the bank to draw and place an Land Expansion tile. \
 Reach into the brown blind bag and pull out 1 tile. \
 You must immediately place this tile with one edge (fully or partially) touching the gameboard or another Land Expansion tile.\
 Note: You choose the orientation and which side of the tile is used.\
@@ -44,15 +39,18 @@ You may immediately place any (nature) tile from the Building Circle on the Land
 
 ### End Your Turn:
 When you can take no further actions, your turn ends.\
-Move your colored cube on the Population (and Crisis tracker) to reflect the changes that occured by your actions.\
-The amount of spaces for the Pops tracker is increased by the amount of (pop symbol) noted on your new building.\
-The amount of spaces for the Crisis tracker is increased by the amount of (crisis symbol) noted on your new building.\
-Note: this may leave you with a negative number in which case you do not lower your Crisis Score but instead get to discard Pollution tokens equal to the negative amount.\
+Take the amount of Population tokens and Pollution tokens from their containers marked on the building you just bought.
 The next clockwise player now starts their turn.
+#### Not enough tokens:
+If not enough tokens are in a container, take the card from the bottom, read it and perform the action described on it. 
+Then, place the empty container to the side together with the card so the next player can continue taking tokens from the one below.
+#### Not enough containers:
+Down to the last container? Emptying the last container either ends the game (see 'When does the game end') or has no special effect. 
+These tokens are finite and shouldn't be refilled.
 
-(## Crisis Tracker:
-Each player has their colored cube on the Crisis tracker to keep score of how many pollution tokens they must take each turn. 
-Whenever a player buys or loses a building that has a (crisis symbol) score, increase (when bought) or decrease (when removed from the board) the overall Crisis score.\)
+## Population Containers:
+The green, yellow and red containers hold different amounts of pollution tokens and can be stacked on top of each other.
+Red is on the bottom with the yellow above that and the green one on top. 
 
 ## Pollution Containers:
 The green, yellow and red containers hold different amounts of pollution tokens and can be stacked on top of each other.
@@ -68,6 +66,7 @@ The game continues until:
 - If no room is available to place any building tiles and no Land Expansions can be bought.
 - No pollution tokens remain, the planet is beyond saving and everyone loses.
 When the game ends, check with the Winning/Losing chapter to determin a winner.
+Note: the game doesn't end when all population tokens have been taken but does if all pollution 
 
 
 Simplification:
