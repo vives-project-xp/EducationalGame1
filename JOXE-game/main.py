@@ -34,21 +34,6 @@ def main(window, gamestate):
 
     run = True
     while run:
-        clock.tick(FPS)
-        game.draw()
-        tracker.update()
-        average_money_gain, average_ecoscore_change = tracker.get_averages()
-        game.draw_averages(average_money_gain, average_ecoscore_change)
-        pygame.display.update()
-
-        elapsed_time = pygame.time.get_ticks() - game.grid.start_time
-        game.grid.total_elapsed_time += elapsed_time
-        game.grid.start_time = pygame.time.get_ticks()
-
-        if game.grid.total_elapsed_time >= 2000:
-            game.grid.current_date += datetime.timedelta(days=1)
-            game.grid.total_elapsed_time -= 2000
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -59,6 +44,27 @@ def main(window, gamestate):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     resolutionWindow(window, main, res, gamestate)
+
+        if gamestate.game_over:
+            game.draw_game_over()
+            pygame.display.update()
+            continue
+
+        clock.tick(FPS)
+        game.draw()
+        tracker.update()
+        average_money_gain, average_ecoscore_change = tracker.get_averages()
+        game.draw_averages(average_money_gain, average_ecoscore_change)
+
+        elapsed_time = pygame.time.get_ticks() - game.grid.start_time
+        game.grid.total_elapsed_time += elapsed_time
+        game.grid.start_time = pygame.time.get_ticks()
+
+        if game.grid.total_elapsed_time >= 2000:
+            game.grid.current_date += datetime.timedelta(days=1)
+            game.grid.total_elapsed_time -= 2000
+
+        pygame.display.update()
 
     pygame.quit()
     sys.exit()
@@ -139,26 +145,13 @@ def resolutionWindow(window, main_function, resolution, gamestate):
     window_width, window_height = window.get_size()
     menu = pygame_menu.Menu('Resolution', window_width, window_height, theme=pygame_menu.themes.THEME_BLUE)
 
-    for res_option in ['1920x1080', '1920x1000', '1152x600', '800x416', '640x333']:
+    for res_option in ['19200x10800','1920x1080', '1920x1000', '1152x600', '800x416', '640x333']:
         menu.add.button(res_option, set_res, res_option)
 
     menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER)  
     menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER)
 
-    # slider = Slider(100, 100, 200, 0, 1)
-
-    # running = True
-    # while running:
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT:
-    #             running = False
-    #         slider.handle_event(event)
-
-    #     window.fill((0, 0, 0))
-    #     slider.draw(window)
-    #     pygame.display.flip()
-
     menu.mainloop(window)
-
+                
 if __name__ == "__main__":
     menu_screen(window)

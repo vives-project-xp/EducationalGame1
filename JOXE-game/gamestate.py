@@ -13,7 +13,7 @@ class Gamestate:
     def __init__(self):
         self.amountOfCitizens = 0
         self.amountOfHouses = 0
-        self.money = 100000
+        self.money = 1000
         self.climateScore = 50
         self.placed_objects = []
         self.username = ""
@@ -21,6 +21,7 @@ class Gamestate:
         self.res = Resolution()
         self.cell_size = self.res.GRID_SIZE
         self.citizen_happiness = 50
+        self.game_over = False
 
     def save_gamestate(self):
         save_folder = "gamesave/"

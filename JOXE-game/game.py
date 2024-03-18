@@ -17,7 +17,7 @@ class Game:
     COLORS = {
         'white': (255, 255, 255),
         'yellow': (255, 255, 0),
-        'menu_background': (2, 230, 230),
+        'menu_background': (230, 230, 230),
         'game_over_text': (255, 0, 0),
     }
 
@@ -80,10 +80,14 @@ class Game:
         self.game_over_displayed = False
         self.asset_width = 0.042 * self.width
         self.asset_height = 0.075 * self.height
+<<<<<<< HEAD
         self.icon_size = int(self.window.get_height() * 0.2 * 0.8)
         self.icon_y = int(0.8 * self.window.get_height()) + int(self.window.get_height() * 0.2 * 0.1) 
         self.menu_bar_height = self.window.get_height() * 0.2
         self.pixel_font = pygame.font.Font("./src/Grand9K Pixel.ttf", 16)
+=======
+        self.game_over = False
+>>>>>>> 61845745fd1e5675ba7aa29850fadbb1481571c4
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
@@ -98,8 +102,6 @@ class Game:
         self.draw_game_elements()
         self.draw_object_level()
         self.update_image_size()
-        # self.car.update()
-        # self.car.draw(self.window)
         pygame.display.update()
 
     def update_image_size(self):
@@ -168,34 +170,38 @@ class Game:
                 elapsed_time = current_time - self.game_over_timer_start
 
                 if elapsed_time >= self.game_over_timer_duration:
-                    self.draw_game_over()
+                    self.game_state.game_over = True
                     self.game_over_timer_start = None
             else:
-                self.draw_game_over()
+                self.game_state.game_over = True
 
-    # Drawing shop menu at the screen bottom
     def draw_menu_bar(self):
-        
-        menu_bar_y = int(0.8 * self.window.get_height())
-        pygame.draw.rect(self.window, self.COLORS['menu_background'], (0, menu_bar_y, self.window.get_width(), self.menu_bar_height))
-        self.draw_building_icons(menu_bar_y, self.menu_bar_height)
-        self.draw_building_costs(menu_bar_y)
+        pygame.draw.rect(self.window, self.COLORS['menu_background'], (0, self.height - 80, self.width, 80))
+        self.draw_building_icons()
+        self.draw_building_costs()
 
-    def draw_building_icons(self, menu_bar_y, menu_bar_height):
-        icon_size = int(menu_bar_height * 0.8) 
-        icon_y = menu_bar_y + int(menu_bar_height * 0.1)  # Centered in the menu bar
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'park']):
-            self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES[building_type]), (icon_size, icon_size)),
-                             (10 + i * (icon_size + 10), icon_y))
+    def draw_building_icons(self):
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80)),
+                        (10, self.height - 75))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80)),
+                        (100, self.height - 75))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['energy']), (80, 80)),
+                        (190, self.height - 80))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['store']), (80, 80)),
+                        (280, self.height - 75))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['tree']), (80, 80)),
+                        (370, self.height - 75))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['factory']), (80, 80)),
+                        (460, self.height - 75))
+        self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['park']), (80, 80)),
+                        (550, self.height - 75))
+        #BUILDING
 
-    def draw_building_costs(self, menu_bar_y):
-        icon_size = int(self.menu_bar_height * 0.8)  # 80% of the menu bar height
-        font_size = int(icon_size * 0.33) 
-        font = pygame.font.Font(None, font_size)
-        icon_size = int(self.menu_bar_height * 0.8)  # 80% of the menu bar height
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'park']):
+    def draw_building_costs(self):
+        font = pygame.font.Font(None, 24)
+        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'park']): #BUILDING
             cost_text = font.render(f"${self.COSTS.get(building_type, 0)}", True, self.COLORS['white'])
-            self.window.blit(cost_text, (10 + i * (icon_size + 10), menu_bar_y + 5))
+            self.window.blit(cost_text, (60 + i * 90, self.height - 70))
 
     def draw_object_level(self):
         for obj in self.game_state.placed_objects:
@@ -272,25 +278,25 @@ class Game:
             self.selected_cell[0] + 50 <= x <= self.selected_cell[0] + 90
     
     def is_house_icon_clicked(self, x, y):
-        return self.icon_y - 80 <= y <= self.icon_y + self.icon_size and 10 <= x <= 10 + self.icon_size
+        return self.height - 80 <= y <= self.height - 10 and 10 <= x <= 90
 
     def is_road_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + self.icon_size + 10 <= x <= 10 + 2 * self.icon_size + 10
+        return self.height - 80 <= y <= self.height - 10 and 100 <= x <= 180
 
     def is_energy_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 2 * self.icon_size + 20 <= x <= 10 + 3 * self.icon_size + 20
-
+        return self.height - 80 <= y <= self.height - 10 and 190 <= x <= 270
+    
     def is_store_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 3 * self.icon_size + 30 <= x <= 10 + 4 * self.icon_size + 30
-
+        return self.height - 80 <= y <= self.height - 10 and 280 <= x <= 360
+    
     def is_tree_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 4 * self.icon_size + 40 <= x <= 10 + 5 * self.icon_size + 40
-
+        return self.height - 80 <= y <= self.height - 10 and 370 <= x <= 450 
+    
     def is_factory_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 5 * self.icon_size + 50 <= x <= 10 + 6 * self.icon_size + 50
-
+        return self.height - 80 <= y <= self.height - 10 and 460 <= x <= 540
+    
     def is_park_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 6 * self.icon_size + 60 <= x <= 10 + 7 * self.icon_size + 60
+        return self.height - 80 <= y <= self.height - 10 and 550 <= x <= 630
 
     #ALSO ONLY CHECKS HOUSE
     def handle_upgrade_button_click(self):
@@ -684,10 +690,6 @@ class Game:
         # Draw the house menu background
         pygame.draw.rect(self.window, (230, 230, 230), (menu_x, menu_y, 160, 50))  # Lower the height of the menu
 
-        # Draw the border of the menu
-        border_width = 2  # You can change this to make the border thicker or thinner
-        pygame.draw.rect(self.window, (0, 0, 0), (menu_x, menu_y, 160, 50), border_width)
-
         # Draw the upgrade and remove buttons
         font = pygame.font.Font(None, 24)  # Create a font object
 
@@ -710,16 +712,37 @@ class Game:
         else:
             upgrade_cost_text = str(upgrade_cost)
 
-        # Check if there's enough money for the upgrade
-        if self.game_state.money < upgrade_cost:
-            text_color = (255, 0, 0)  
-        else:
-            text_color = (0, 0, 0)  
+        text_color = (0, 0, 0)
+        if upgrade_cost is not None:
+            if self.game_state.money < upgrade_cost:
+                text_color = (255, 0, 0)
+            else:
+                text_color = (0, 0, 0)
 
         upgrade_text = font.render(upgrade_cost_text, True, text_color)  # Create a Surface with the upgrade text
         self.window.blit(upgrade_icon, (menu_x + 10, menu_y + 10))  # Draw the upgrade icon
         self.window.blit(upgrade_text, (menu_x + 40, menu_y + 16))  # Draw the upgrade text
         self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))  # Draw the remove icon
+
+    def draw_building_clicked_menu_remove_only(self):
+        # Load the remove icon
+        remove_icon = pygame.image.load('./assets/resources/icons/remove.png')
+
+        # Resize the icon
+        icon_width = 30
+        icon_height = 30
+        remove_icon = pygame.transform.scale(remove_icon, (icon_width, icon_height))
+
+        # Calculate the position of the menu
+        menu_x = self.selected_cell[0] - 80 + self.grid_size // 2
+        menu_y = self.selected_cell[1] + self.grid_size
+
+        # Draw the menu background
+        pygame.draw.rect(self.window, (230, 230, 230), (menu_x, menu_y, 160, 50))
+
+        # Draw the remove button
+        self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))
+
 
     def get_upgrade_cost(self, object_type):
         for obj in self.game_state.placed_objects:

@@ -11,5 +11,10 @@ class Tree(Object):
     def draw(self, window):
         window.blit(self.image, (self.x * self.grid_size, self.y * self.grid_size))
 
+    def catch_fire(self):
+        self.image = pygame.image.load('./assets/resources/nature/fire.png')
+        self.image = pygame.transform.scale(self.image, (self.grid_size, self.grid_size))
+
     def update(self):
         pass
+
