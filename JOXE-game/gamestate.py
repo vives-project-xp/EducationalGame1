@@ -21,6 +21,7 @@ class Gamestate:
         self.res = Resolution()
         self.cell_size = self.res.GRID_SIZE
         self.citizen_happiness = 50
+        self.game_over = False
 
     def save_gamestate(self):
         save_folder = "gamesave/"
