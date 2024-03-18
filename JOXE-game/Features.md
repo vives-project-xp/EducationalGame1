@@ -21,5 +21,6 @@
 | Trivia         |❌| 
 | Factory asset  |✅| 
 | Park asset     |✅| 
-| New Task       |❌| 
 | Trivia         |✅| 
+| Build next street |❌|
+| Click next to trivia to close |✅|

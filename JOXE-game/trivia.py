@@ -21,8 +21,10 @@ class Trivia:
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if close_button_rect.collidepoint(pygame.mouse.get_pos()):
+                    # if close button is pressed or the user clicks outside the popup, close the popup
+                    if close_button_rect.collidepoint(pygame.mouse.get_pos()) or not close_button_rect.collidepoint(pygame.mouse.get_pos()):
                         return
+                    
 
     # Load trivia from json file
     def load_trivia(self):
