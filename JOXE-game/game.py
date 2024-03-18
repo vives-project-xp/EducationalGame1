@@ -74,6 +74,7 @@ class Game:
         self.occupied_cells = set()
         self.averagestatfont = pygame.font.Font(None, 16)
         self.placing_house_sound = mixer.Sound('Sounds/Placing house SFX.mp3')
+        self.last_upgrade_click = pygame.time.get_ticks()
         self.game_over_timer_duration = 3000 
         self.game_over_timer_start = None
         self.game_over_displayed = False
@@ -101,14 +102,14 @@ class Game:
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House):
                 obj.update_position(self.grid_size)
-            # elif isinstance(obj, Store):
-            #     obj.update_image_size(self.grid_size)
+            elif isinstance(obj, Store):
+                obj.update_image_size(self.grid_size)
             # elif isinstance(obj, Road):
             #     obj.update_image_size(self.grid_size)
-            # elif isinstance(obj, Factory):
-            #     obj.update_image_size(self.grid_size)
-            # elif isinstance(obj, Park):
-            #     obj.update_image_size(self.grid_size)
+            elif isinstance(obj, Factory):
+                obj.update_image_size(self.grid_size)
+            elif isinstance(obj, Park):
+                obj.update_image_size(self.grid_size)
             # elif isinstance(obj, Tree):
             #     obj.update_image_size(self.grid_size)
             # elif isinstance(obj, Energy):
@@ -677,6 +678,10 @@ class Game:
         # Draw the house menu background
         pygame.draw.rect(self.window, (230, 230, 230), (menu_x, menu_y, 160, 50))  # Lower the height of the menu
 
+        # Draw the border of the menu
+        border_width = 2  # You can change this to make the border thicker or thinner
+        pygame.draw.rect(self.window, (0, 0, 0), (menu_x, menu_y, 160, 50), border_width)
+
         # Draw the upgrade and remove buttons
         font = pygame.font.Font(None, 24)  # Create a font object
 
@@ -689,7 +694,7 @@ class Game:
         if upgrade_cost is None:
             upgrade_cost = self.get_upgrade_cost(Park)
 
-    # Check if upgrade_cost is not None before comparing it with an integer
+        # Check if upgrade_cost is not None before comparing it with an integer
         if upgrade_cost is not None and upgrade_cost >= 1000000000:
             upgrade_cost_text = f'{upgrade_cost / 1000000000:.2f}B'
         elif upgrade_cost is not None and upgrade_cost >= 1000000:
@@ -699,7 +704,13 @@ class Game:
         else:
             upgrade_cost_text = str(upgrade_cost)
 
-        upgrade_text = font.render(upgrade_cost_text, True, (0, 0, 0))  # Create a Surface with the upgrade text
+        # Check if there's enough money for the upgrade
+        if self.game_state.money < upgrade_cost:
+            text_color = (255, 0, 0)  
+        else:
+            text_color = (0, 0, 0)  
+
+        upgrade_text = font.render(upgrade_cost_text, True, text_color)  # Create a Surface with the upgrade text
         self.window.blit(upgrade_icon, (menu_x + 10, menu_y + 10))  # Draw the upgrade icon
         self.window.blit(upgrade_text, (menu_x + 40, menu_y + 16))  # Draw the upgrade text
         self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))  # Draw the remove icon

@@ -1,8 +1,19 @@
-Amount of Citizens: 4
+Amount of Citizens: 3
 Amount of Houses: 1
-Money: 99010
-Climate Score: 50
-Current Date: 2022-01-01
-citizen_happiness: 51
+Money: 80740
+Climate Score: 48
+Current Date: 2022-01-07
+citizen_happiness: 46
 Placed Objects:
-House- 1(900.0-600.0)
+House- 1(960.0-660.0)
+Energy- 1(1020-660)
+Store- 1(1080-660)
+Tree- 0(1140-660)
+Factory- 1(1200-660)
+Park- 1(1260-660)
+Road- 0(1010-770)road|0
+Road- 0(1070-770)road|0
+Road- 0(1130-770)road|0
+Road- 0(1190-770)road|0
+Road- 0(1250-770)road|0
+Road- 0(1310-770)road|0
