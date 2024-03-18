@@ -80,6 +80,7 @@ class Game:
         self.game_over_displayed = False
         self.asset_width = 0.042 * self.width
         self.asset_height = 0.075 * self.height
+        self.game_over = False
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
