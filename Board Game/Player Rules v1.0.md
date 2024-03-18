@@ -1,3 +1,5 @@
+https://www.figma.com/file/1Fv1JQIdHkU5jpeHDC4Fex/Board-Game?type=design&node-id=0%3A1&mode=design&t=YH2yxHkoRzkmZKog-1 
+
 ## Setup:
 1. Place the main gameboard in the middle of the table and scatter the building pieces in a neat circle around the gameboard (Building Circle). 
 2. Each player may pick a color and take all game pieces of that color and keep them in their player area, visible to all other players.
