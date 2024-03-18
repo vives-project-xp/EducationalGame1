@@ -125,10 +125,10 @@ def resolutionWindow(window, main_function, resolution, gamestate):
         width, height = map(int, resolution_str.split('x'))
         resolution.set_resolution(width, height)
         window = pygame.display.set_mode((width, height))
-        resolutionWindow(window, main_function, resolution, gamestate)
+        resolutionWindow(window, main, resolution, gamestate)
 
     def back_to_game():
-        main_function(window, gamestate)
+        main_function(window, gamestate)    
 
     def save_gamestate():
         gamestate.save_gamestate()
@@ -142,6 +142,8 @@ def resolutionWindow(window, main_function, resolution, gamestate):
 
     menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER)  
     menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER)
+
+    print(f"New window size: {window.get_size()}")
 
     # slider = Slider(100, 100, 200, 0, 1)
 
