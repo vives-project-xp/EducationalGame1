@@ -80,6 +80,8 @@ class Game:
         self.game_over_displayed = False
         self.asset_width = 0.042 * self.width
         self.asset_height = 0.075 * self.height
+        self.icon_size = int(self.window.get_height() * 0.2 * 0.8)
+        self.icon_y = int(0.8 * self.window.get_height()) + int(self.window.get_height() * 0.2 * 0.1) 
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
@@ -265,7 +267,7 @@ class Game:
             self.selected_cell[0] + 50 <= x <= self.selected_cell[0] + 90
     
     def is_house_icon_clicked(self, x, y):
-         return self.height - 80 <= y <= self.height - 10 and 10 <= x <= 10 + 64
+        return self.icon_y - 80 <= y <= self.icon_y + self.icon_size and 10 <= x <= 10 + self.icon_size
 
     def is_road_icon_clicked(self, x, y):
          return self.height - 80 <= y <= self.height - 10 and 100 <= x <= 100 + 64
