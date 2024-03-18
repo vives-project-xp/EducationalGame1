@@ -82,6 +82,7 @@ class Game:
         self.asset_height = 0.075 * self.height
         self.icon_size = int(self.window.get_height() * 0.2 * 0.8)
         self.icon_y = int(0.8 * self.window.get_height()) + int(self.window.get_height() * 0.2 * 0.1) 
+        self.menu_bar_height = self.window.get_height() * 0.2
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
@@ -173,24 +174,27 @@ class Game:
 
     # Drawing shop menu at the screen bottom
     def draw_menu_bar(self):
-        menu_bar_height = self.window.get_height() * 0.2
+        
         menu_bar_y = int(0.8 * self.window.get_height())
-        pygame.draw.rect(self.window, self.COLORS['menu_background'], (0, menu_bar_y, self.window.get_width(), menu_bar_height))
-        self.draw_building_icons(menu_bar_y, menu_bar_height)
+        pygame.draw.rect(self.window, self.COLORS['menu_background'], (0, menu_bar_y, self.window.get_width(), self.menu_bar_height))
+        self.draw_building_icons(menu_bar_y, self.menu_bar_height)
         self.draw_building_costs(menu_bar_y)
 
     def draw_building_icons(self, menu_bar_y, menu_bar_height):
-        icon_size = int(menu_bar_height * 0.8)  # 80% of the menu bar height
+        icon_size = int(menu_bar_height * 0.8) 
         icon_y = menu_bar_y + int(menu_bar_height * 0.1)  # Centered in the menu bar
         for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'park']):
             self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES[building_type]), (icon_size, icon_size)),
                              (10 + i * (icon_size + 10), icon_y))
 
     def draw_building_costs(self, menu_bar_y):
-        font = pygame.font.Font(None, 24)
+        icon_size = int(self.menu_bar_height * 0.8)  # 80% of the menu bar height
+        font_size = int(icon_size * 0.33) 
+        font = pygame.font.Font(None, font_size)
+        icon_size = int(self.menu_bar_height * 0.8)  # 80% of the menu bar height
         for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'park']):
             cost_text = font.render(f"${self.COSTS.get(building_type, 0)}", True, self.COLORS['white'])
-            self.window.blit(cost_text, (60 + i * 90, menu_bar_y + 5))
+            self.window.blit(cost_text, (10 + i * (icon_size + 10), menu_bar_y + 5))
 
     def draw_object_level(self):
         for obj in self.game_state.placed_objects:
@@ -270,22 +274,22 @@ class Game:
         return self.icon_y - 80 <= y <= self.icon_y + self.icon_size and 10 <= x <= 10 + self.icon_size
 
     def is_road_icon_clicked(self, x, y):
-         return self.height - 80 <= y <= self.height - 10 and 100 <= x <= 100 + 64
+        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + self.icon_size + 10 <= x <= 10 + 2 * self.icon_size + 10
 
     def is_energy_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 190 <= x <= 270
-    
+        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 2 * self.icon_size + 20 <= x <= 10 + 3 * self.icon_size + 20
+
     def is_store_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 280 <= x <= 360
-    
+        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 3 * self.icon_size + 30 <= x <= 10 + 4 * self.icon_size + 30
+
     def is_tree_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 370 <= x <= 450 
-    
+        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 4 * self.icon_size + 40 <= x <= 10 + 5 * self.icon_size + 40
+
     def is_factory_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 460 <= x <= 540
-    
+        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 5 * self.icon_size + 50 <= x <= 10 + 6 * self.icon_size + 50
+
     def is_park_icon_clicked(self, x, y):
-        return self.height - 80 <= y <= self.height - 10 and 550 <= x <= 630
+        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 6 * self.icon_size + 60 <= x <= 10 + 7 * self.icon_size + 60
 
     #ALSO ONLY CHECKS HOUSE
     def handle_upgrade_button_click(self):
