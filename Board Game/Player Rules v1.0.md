@@ -1,6 +1,4 @@
-[https://www.figma.com/file/1Fv1JQIdHkU5jpeHDC4Fex/Board-Game?type=design&node-id=0%3A1&mode=design&t=YH2yxHkoRzkmZKog-1 
-](https://www.canva.com/design/DAF_3JvLFFg/6zrEteo_Q1HoqwItIETYww/edit?utm_content=DAF_3JvLFFg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
-
+https://www.canva.com/design/DAF_3JvLFFg/6zrEteo_Q1HoqwItIETYww/edit?utm_content=DAF_3JvLFFg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton 
 
 ## Setup:
 1. Place the main gameboard in the middle of the table and scatter the building pieces in a neat circle around the gameboard (Building Circle). 
