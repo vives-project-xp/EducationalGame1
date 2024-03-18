@@ -107,12 +107,12 @@ class Grid:
         self.box_image = pygame.transform.scale(box_image, (box1_width, new_height))
         
         # Draw the images in place of the boxes
-        self.window.blit(self.box_image, (start_x, 10 - padding))
-        self.window.blit(self.box_image, (start_x, 10 - padding + box_height + MARGIN))
-        self.window.blit(self.box_image, (start_x, 10 - padding + 2 * box_height + 2 * MARGIN))
-        self.window.blit(self.box_image, (start_x, 10 - padding + 3 * box_height + 3 * MARGIN))
-        self.window.blit(self.box_image, (start_x, 10 - padding + 4 * box_height + 4 * MARGIN))
-        self.window.blit(self.box_image, (start_x, 10 - padding + 5 * box_height + 5 * MARGIN))
+        self.window.blit(self.box_image, (start_x, 15 - padding))
+        self.window.blit(self.box_image, (start_x, 15 - padding + box_height + MARGIN))
+        self.window.blit(self.box_image, (start_x, 15 - padding + 2 * box_height + 2 * MARGIN))
+        self.window.blit(self.box_image, (start_x, 15 - padding + 3 * box_height + 3 * MARGIN))
+        self.window.blit(self.box_image, (start_x, 15 - padding + 4 * box_height + 4 * MARGIN))
+        self.window.blit(self.box_image, (start_x, 15 - padding + 5 * box_height + 5 * MARGIN))
 
         # # Draw the logos onto the window with proportional adjustment
         self.window.blit(self.city_name_logo, (start_x + (self.width / 192), 10 + box_height + 1.2 * MARGIN))
