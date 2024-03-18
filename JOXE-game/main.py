@@ -149,7 +149,7 @@ def resolutionWindow(window, main_function, resolution, gamestate):
     window_width, window_height = window.get_size()
     menu = pygame_menu.Menu('Resolution', window_width, window_height, theme=pygame_menu.themes.THEME_BLUE)
 
-    for res_option in ['19200x10800','1920x1080', '1920x1000', '1152x600', '800x416', '640x333']:
+    for res_option in ['1920x1080', '1920x1000', '1152x600', '800x416', '640x333']:
         menu.add.button(res_option, set_res, res_option)
 
     menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER)  
