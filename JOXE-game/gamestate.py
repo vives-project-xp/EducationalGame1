@@ -159,3 +159,4 @@ class Gamestate:
         self.climateScore = 50
         self.placed_objects = []
         self.current_date = datetime.datetime(2022, 1, 1)
+        self.citizen_happiness = 50

@@ -38,8 +38,14 @@ def main(window, gamestate):
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                game.handle_click(x, y)
+                x, y = event.pos
+                if gamestate.game_over:
+                    if game.width // 2 - 100 <= x <= game.width // 2 + 100 and game.height // 2 + 200 <= y <= game.height // 2 + 250:
+                        game.game_state.restart()
+                        game.game_over_timer_start = None
+                        game.grid.update_date()
+                else:
+                    game.handle_click(x, y)
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -47,22 +53,20 @@ def main(window, gamestate):
 
         if gamestate.game_over:
             game.draw_game_over()
-            pygame.display.update()
-            continue
+        else:
+            clock.tick(FPS)
+            game.draw()
+            tracker.update()
+            average_money_gain, average_ecoscore_change = tracker.get_averages()
+            game.draw_averages(average_money_gain, average_ecoscore_change)
 
-        clock.tick(FPS)
-        game.draw()
-        tracker.update()
-        average_money_gain, average_ecoscore_change = tracker.get_averages()
-        game.draw_averages(average_money_gain, average_ecoscore_change)
+            elapsed_time = pygame.time.get_ticks() - game.grid.start_time
+            game.grid.total_elapsed_time += elapsed_time
+            game.grid.start_time = pygame.time.get_ticks()
 
-        elapsed_time = pygame.time.get_ticks() - game.grid.start_time
-        game.grid.total_elapsed_time += elapsed_time
-        game.grid.start_time = pygame.time.get_ticks()
-
-        if game.grid.total_elapsed_time >= 2000:
-            game.grid.current_date += datetime.timedelta(days=1)
-            game.grid.total_elapsed_time -= 2000
+            if game.grid.total_elapsed_time >= 2000:
+                game.grid.current_date += datetime.timedelta(days=1)
+                game.grid.total_elapsed_time -= 2000
 
         pygame.display.update()
 
