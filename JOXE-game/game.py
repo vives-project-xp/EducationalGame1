@@ -80,6 +80,7 @@ class Game:
         self.game_over_displayed = False
         self.asset_width = 0.042 * self.width
         self.asset_height = 0.075 * self.height
+        self.game_over = False
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
@@ -162,10 +163,10 @@ class Game:
                 elapsed_time = current_time - self.game_over_timer_start
 
                 if elapsed_time >= self.game_over_timer_duration:
-                    self.draw_game_over()
+                    self.game_state.game_over = True
                     self.game_over_timer_start = None
             else:
-                self.draw_game_over()
+                self.game_state.game_over = True
 
     def draw_menu_bar(self):
         pygame.draw.rect(self.window, self.COLORS['menu_background'], (0, self.height - 80, self.width, 80))
@@ -756,6 +757,8 @@ class Game:
         self.window.blit(text3, (self.width // 2 - text3.get_width() // 2, self.height // 2 + 200 + 10))
         if self.width // 2 - 100 <= pygame.mouse.get_pos()[0] <= self.width // 2 + 100 and self.height // 2 + 200 <= pygame.mouse.get_pos()[1] <= self.height // 2 + 250:
             if pygame.mouse.get_pressed()[0]:
+                self.game_state.game_over = False
+                self.game_over = False
                 self.game_state.restart()
                 self.game_over_timer_start = None
                 self.grid.update_date()
