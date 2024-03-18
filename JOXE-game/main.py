@@ -104,8 +104,8 @@ def menu_screen(window):
 
     button_width, button_height = play_button.get_rect().size
 
-    button_x = (WIDTH - button_width) / 2
-    button_y = (HEIGHT - button_height) / 2
+    btn_x = (WIDTH - button_width) / 2
+    btn_y = (HEIGHT - button_height) / 2
 
     running = True
     while running:
@@ -116,7 +116,8 @@ def menu_screen(window):
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if button_hover:
+                mouse_x, mouse_y = pygame.mouse.get_pos()
+                if button_x <= mouse_x <= button_x + button_width and button_y <= mouse_y <= button_y + button_height:
                     pygame.time.delay(1000)
                     login_screen(window) 
             if event.type == pygame.KEYDOWN:
@@ -124,7 +125,7 @@ def menu_screen(window):
                     resolutionWindow(window, main, res)
 
         window.blit(background, (0, 0))
-        window.blit(play_button, (button_x, button_y - 10 if button_hover else button_y))
+        window.blit(play_button, (button_x, button_y))
 
         pygame.display.flip()
 
