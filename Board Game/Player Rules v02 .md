@@ -1,6 +1,6 @@
 ## Setup:
 1. Place the main gameboard in the middle of the table and scatter the building pieces in a neat circle around the gameboard (Building Circle). 
-2. Each player may pick a color and take all game pieces of that color and keep them in their player area, visible to all other players, there are no hidden items in this game.
+2. Each player may pick a color and take all game pieces of that color and keep them in their player area, visible to all other players.
 3. Place one of the colored cube pieces from each player on the Pops tracker ( and the other on the Crisis tracker), both starting with a value of 0. 
 4. Shuffle the Land tiles and then place them in the brown blind bag.
 5. Shuffle the Disaster cards, then place them face down within reach.
@@ -69,5 +69,13 @@ The game continues until:
 - No pollution tokens remain, the planet is beyond saving and everyone loses.
 When the game ends, check with the Winning/Losing chapter to determin a winner.
 
+
+Simplification:
+No money, players just get to pick to go for land or building.
+No Crisis, everything is handled through pollution tokens.
+Pops remain and Pollution remain.
+
+Complexities:
+Add more of a puzzle element.
 
 
