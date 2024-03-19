@@ -17,18 +17,10 @@ class Grid:
 
         # Load the logos
         citizens_logo = pygame.image.load('./assets/resources/icons/person.png')
-        money_logo = pygame.image.load('./assets/resources/icons/money.png')
         climate_score_logo = pygame.image.load('./assets/resources/icons/climate.png')
-        happy_logo = pygame.image.load('./assets/resources/icons/happy.png')
 
         # Calculate the new width and height
         new_width = int(self.box_width / 7)
-        original_width, original_height = money_logo.get_size()
-        aspect_ratio = original_height / original_width
-        new_height = int(new_width * aspect_ratio)
-
-        # Scale the money logo
-        self.money_logo = pygame.transform.scale(money_logo, (new_width, new_height))
 
         # Calculate the new width and height for other logos
         original_width, original_height = citizens_logo.get_size()
@@ -43,13 +35,6 @@ class Grid:
         new_height = int(new_width * aspect_ratio)
 
         self.city_name_logo = pygame.transform.scale(climate_score_logo, (new_width, new_height))
-
-        # scale the happy logo
-        original_width, original_height = happy_logo.get_size()
-        aspect_ratio = original_height / original_width
-        new_height = int(new_width * aspect_ratio)
-
-        self.happy_logo = pygame.transform.scale(happy_logo, (new_width, new_height))
 
     def draw_grid(self):
         self.draw_background()
@@ -119,26 +104,30 @@ class Grid:
 
         # Load the image
         box_image = pygame.image.load('./assets/resources/icons/box1.png')
-        box1_width = int(self.width / 7.8)
+        money_box = pygame.image.load('./assets/resources/icons/MoneyBox.png')
+        happy_box = pygame.image.load('./assets/resources/icons/Happybox.png')
+        name_box = pygame.image.load('./assets/resources/icons/CityNameBox.png')
+        box1_width = int(self.width / 9.8)
 
         original_width, original_height = box_image.get_size()
         aspect_ratio = original_height / original_width
         new_height = int(self.box_width * aspect_ratio)
 
         self.box_image = pygame.transform.scale(box_image, (box1_width, new_height))
-        
+        self.money_box = pygame.transform.scale(money_box, (box1_width, new_height))
+        self.happy_box = pygame.transform.scale(happy_box, (box1_width, new_height))
+        self.name_box = pygame.transform.scale(name_box, (box1_width, new_height))
+
         # Draw the images in place of the boxes
-        self.window.blit(self.box_image, (start_x, 15 - padding))
+        self.window.blit(self.name_box, (start_x, 15 - padding))
         self.window.blit(self.box_image, (start_x, 15 - padding + self.box_height + MARGIN))
         self.window.blit(self.box_image, (start_x, 15 - padding + 2 * self.box_height + 2 * MARGIN))
-        self.window.blit(self.box_image, (start_x, 15 - padding + 3 * self.box_height + 3 * MARGIN))
-        self.window.blit(self.box_image, (start_x, 15 - padding + 4 * self.box_height + 4 * MARGIN))
+        self.window.blit(self.money_box, (start_x, 15 - padding + 3 * self.box_height + 3 * MARGIN))
+        self.window.blit(self.happy_box, (start_x, 15 - padding + 4 * self.box_height + 4 * MARGIN))
 
         # # Draw the logos onto the window with proportional adjustment
         self.window.blit(self.city_name_logo, (start_x + (self.width / 192) + 15, 10 + self.box_height + 1.2 * MARGIN + 5))
         self.window.blit(self.citizens_logo, (start_x + (self.width / 192)+ 15, 10 + 2 * self.box_height + 2.2 * MARGIN + 5))
-        self.window.blit(self.money_logo, (start_x + (self.width / 192)+ 15, 10 + 3 * self.box_height + 3.2 * MARGIN + 5))
-        self.window.blit(self.happy_logo, (start_x + (self.width / 192)+ 15, 10 + 4 * self.box_height + 4.2 * MARGIN + 5))
 
         # Draw the text onto the window with proportional adjustment
         self.window.blit(city_name_text, (start_x + 2 * padding, padding))
