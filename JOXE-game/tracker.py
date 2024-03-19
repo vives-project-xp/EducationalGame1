@@ -10,8 +10,8 @@ class Tracker:
     def __init__(self, game, game_state):
         self.game = game
         self.game_state = game_state
-        self.money_multiplier = self.game_state.citizen_happiness / 50
-        self.ecoscore_multiplier = self.game_state.citizen_happiness / 50
+        self.money_multiplier = min(max(self.game_state.citizen_happiness / 50, 0.5), 2)
+        self.ecoscore_multiplier = min(max(self.game_state.citizen_happiness / 50, 0.5), 2)
         self.last_update_times = {
             'money': pygame.time.get_ticks(),
             'ecoscore_deduction': pygame.time.get_ticks(),
