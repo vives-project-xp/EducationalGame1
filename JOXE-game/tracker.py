@@ -10,8 +10,8 @@ class Tracker:
     def __init__(self, game, game_state):
         self.game = game
         self.game_state = game_state
-        self.money_multiplier = max(self.game_state.citizen_happiness / 50,0.5)
-        self.ecoscore_multiplier = max(self.game_state.citizen_happiness / 50,0.5)
+        self.money_multiplier = min(max(self.game_state.citizen_happiness / 50, 0.5), 2)
+        self.ecoscore_multiplier = min(max(self.game_state.citizen_happiness / 50, 0.5), 2)
         self.last_update_times = {
             'money': pygame.time.get_ticks(),
             'ecoscore_deduction': pygame.time.get_ticks(),
@@ -47,9 +47,7 @@ class Tracker:
 
     def auto_deduct_ecoscore(self, current_time):
         if current_time - self.last_update_times['ecoscore_deduction'] >= 2000:
-            print(self.ecoscore_multiplier)
             auto_deduct_eco = 0.01 / self.ecoscore_multiplier
-            print(auto_deduct_eco)
             self.game.game_state.remove_climate_score(auto_deduct_eco)
             self.total_ecoscore_change -= auto_deduct_eco
 
