@@ -106,6 +106,8 @@ class Grid:
         box_image = pygame.image.load('./assets/resources/icons/box1.png')
         money_box = pygame.image.load('./assets/resources/icons/MoneyBox.png')
         happy_box = pygame.image.load('./assets/resources/icons/Happybox.png')
+        angry_box = pygame.image.load('./assets/resources/icons/AngryBox.png')
+        nothappy_box = pygame.image.load('./assets/resources/icons/NotHappyBox.png')
         name_box = pygame.image.load('./assets/resources/icons/CityNameBox.png')
         box1_width = int(self.width / 9.8)
 
@@ -116,6 +118,8 @@ class Grid:
         self.box_image = pygame.transform.scale(box_image, (box1_width, new_height))
         self.money_box = pygame.transform.scale(money_box, (box1_width, new_height))
         self.happy_box = pygame.transform.scale(happy_box, (box1_width, new_height))
+        self.angry_box = pygame.transform.scale(angry_box, (box1_width, new_height))
+        self.nothappy_box = pygame.transform.scale(nothappy_box, (box1_width, new_height))
         self.name_box = pygame.transform.scale(name_box, (box1_width, new_height))
 
         # Draw the images in place of the boxes
@@ -123,7 +127,12 @@ class Grid:
         self.window.blit(self.box_image, (start_x, 15 - padding + self.box_height + MARGIN))
         self.window.blit(self.box_image, (start_x, 15 - padding + 2 * self.box_height + 2 * MARGIN))
         self.window.blit(self.money_box, (start_x, 15 - padding + 3 * self.box_height + 3 * MARGIN))
-        self.window.blit(self.happy_box, (start_x, 15 - padding + 4 * self.box_height + 4 * MARGIN))
+        if self.game_state.citizen_happiness < 30:
+            self.window.blit(self.angry_box, (start_x, 15 - padding + 4 * self.box_height + 4 * MARGIN))
+        elif self.game_state.citizen_happiness < 70:
+            self.window.blit(self.nothappy_box, (start_x, 15 - padding + 4 * self.box_height + 4 * MARGIN))
+        else:
+            self.window.blit(self.happy_box, (start_x, 15 - padding + 4 * self.box_height + 4 * MARGIN))
 
         # # Draw the logos onto the window with proportional adjustment
         self.window.blit(self.city_name_logo, (start_x + (self.width / 192) + 15, 10 + self.box_height + 1.2 * MARGIN + 5))
