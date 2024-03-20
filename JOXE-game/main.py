@@ -20,6 +20,7 @@ programIcon = pygame.image.load('./assets/logo/JOXEC.png')
 pygame.display.set_icon(programIcon)
 
 
+# Soundtrack
 # pygame.mixer.init()
 # sound = pygame.mixer.Sound('./Sounds/AmbientLoop1.mp3')
 # sound.set_volume(0.5)
@@ -59,7 +60,6 @@ def main(window, gamestate):
             tracker.update()
             average_money_gain, average_ecoscore_change = tracker.get_averages()
             game.draw_averages(average_money_gain, average_ecoscore_change)
-
             elapsed_time = pygame.time.get_ticks() - game.grid.start_time
             game.grid.total_elapsed_time += elapsed_time
             game.grid.start_time = pygame.time.get_ticks()

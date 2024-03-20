@@ -118,19 +118,23 @@ class Game:
             # elif isinstance(obj, Energy):
             #     obj.update_image_size(self.grid_size)
 
+    # Drawing averages menu at bottom right corner
     def draw_averages(self, average_money_gain, average_ecoscore_change):
-        square_width, square_height = 100, 30
-        square_x = self.width - square_width
-        square_y = self.height - square_height
-        square_color = (255, 255, 255) 
+        square_width, square_height = self.window.get_width() / 20 , self.window.get_height() / 20
+        square_x = self.window.get_width() - square_width
+        square_y = self.window.get_height() - square_height
+        square_color = (255, 255, 255) # Todo: pixel background
 
         pygame.draw.rect(self.window, square_color, (square_x, square_y, square_width, square_height))
 
         formatted_money_gain = self.format_number(average_money_gain)
         formatted_ecoscore_change = self.format_number(average_ecoscore_change)
 
-        money_text = self.averagestatfont.render(f"$/m:   {formatted_money_gain}", True, (0, 0, 0))
-        ecoscore_text = self.averagestatfont.render(f"CO2/m: {formatted_ecoscore_change}", True, (0, 0, 0))
+        font_size = max(int(square_height / 2.5), 10) 
+        sizedfont = pygame.font.Font(None, font_size)
+
+        money_text = sizedfont.render(f"$/m:   {formatted_money_gain}", True, (0, 0, 0))
+        ecoscore_text = sizedfont.render(f"CO2/m: {formatted_ecoscore_change}", True, (0, 0, 0))
 
         self.window.blit(money_text, (square_x + 12, square_y + 7))
         self.window.blit(ecoscore_text, (square_x + 12, square_y + 17))

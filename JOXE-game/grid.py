@@ -18,6 +18,8 @@ class Grid:
         # Load the logos
         citizens_logo = pygame.image.load('./assets/resources/icons/person.png')
         climate_score_logo = pygame.image.load('./assets/resources/icons/climate.png')
+        background_image = pygame.image.load('./assets/resources/background/grass.jpg')
+        self.background_image = pygame.transform.scale(background_image, (self.width, self.height))
 
         # Calculate the new width and height
         new_width = int(self.box_width / 7)
@@ -46,9 +48,7 @@ class Grid:
         self.current_date = self.game_state.current_date
 
     def draw_background(self):
-        background_image = pygame.image.load('./assets/resources/background/grass.jpg')
-        background_image = pygame.transform.scale(background_image, (self.width, self.height))
-        self.window.blit(background_image, (0, 0))
+        self.window.blit(self.background_image, (0, 0))
 
     def get_all_cells(self):
         return [obj for obj in self.game_state.placed_objects if isinstance(obj, Road)]
