@@ -83,16 +83,10 @@ class Grid:
     def draw_game_state(self):
         MARGIN = self.height / 40.2
         padding = self.width / 192
-        resize_value = self.grid_size / 60
         start_x = 10
-        paddY = 40 * resize_value
-        box_center_x = start_x + self.box_width // 2
-        box_center_y = self.box_height // 2
 
         # Change font size based on window
-        font_size = int(self.height / 45)
-        #font = pygame.font.Font(None, font_size)
-        # use public pixel font
+        font_size = int(self.height / 50)
         font = pygame.font.Font(self.pixel_font, font_size)
 
         # Render the game state parameters
@@ -139,12 +133,12 @@ class Grid:
         self.window.blit(self.citizens_logo, (start_x + (self.width / 192)+ 15, 10 + 2 * self.box_height + 2.2 * MARGIN + 5))
 
         # Draw the text onto the window with proportional adjustment
-        self.window.blit(city_name_text, (start_x + 2 * padding, padding))
+        self.window.blit(city_name_text, (3 * start_x + self.box_width // 2 - city_name_text.get_width() // 2, self.box_height - font_size // 2))
 
         # Center the texts in the middle of the boxes, horizontally and vertically
         self.window.blit(date_text, ( 3 * start_x + self.box_width // 2 - date_text.get_width() // 2, 10 + self.box_height + 2 * MARGIN - font_size // 2))
         self.window.blit(citizens_text, ( 3 * start_x + self.box_width // 2 - citizens_text.get_width() // 2, 10 + 2 * self.box_height + 3 * MARGIN - font_size // 2))
-        self.window.blit(money_text, (3 * start_x + self.box_width // 2 - money_text.get_width() // 2, 10 + 3 * self.box_height + 4 * MARGIN - font_size // 2))
+        self.window.blit(money_text, (4 * start_x + self.box_width // 2 - money_text.get_width() // 2, 10 + 3 * self.box_height + 4 * MARGIN - font_size // 2))
         self.window.blit(happiness_text, (3 * start_x + self.box_width // 2 - happiness_text.get_width() // 2, 10 + 4 * self.box_height + 5 * MARGIN - font_size // 2))
         
         # Calculate the starting x position for the climate bar with proportional adjustment

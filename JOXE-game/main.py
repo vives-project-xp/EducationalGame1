@@ -82,12 +82,15 @@ def login_screen(window):
             print(f"Starting game for user {username}")
             main(window, gamestate)
         else:
-            print("Please enter a username.")
+            print("Please enter a username!")
+            menu.add.label('Please enter a username.', font_name='./src/Grand9K Pixel.ttf')
+            menu.draw(window)
+            pygame.display.update()
 
     window_width, window_height = window.get_size()
     
     # Create a custom theme
-    mytheme = pygame_menu.themes.Theme(
+    blackTheme = pygame_menu.themes.Theme(
         widget_font='./src/Grand9K Pixel.ttf',
         background_color=(0, 0, 0),  # Black
         widget_font_color=(255, 255, 255),  # White
@@ -98,7 +101,7 @@ def login_screen(window):
         selection_color=(255, 255, 255)  # White
     )
 
-    menu = pygame_menu.Menu('', window_width, window_height, theme=mytheme)
+    menu = pygame_menu.Menu('', window_width, window_height, theme=blackTheme)
 
 
     menu.add.label('Welcome to JOXE!', font_name='./src/Grand9K Pixel.ttf', font_size=80)
@@ -112,7 +115,6 @@ def login_screen(window):
     menu.add.button('Quit', pygame_menu.events.EXIT, font_name='./src/Grand9K Pixel.ttf')
 
     menu.mainloop(window)
-
 
 def menu_screen(window):
     background = pygame.image.load('./assets/resources/background/bg2.png')
@@ -170,13 +172,26 @@ def resolutionWindow(window, main_function, resolution, gamestate):
         back_to_game()
 
     window_width, window_height = window.get_size()
-    menu = pygame_menu.Menu('Resolution', window_width, window_height, theme=pygame_menu.themes.THEME_BLUE)
+    blackTheme = pygame_menu.themes.Theme(
+        widget_font='./src/Grand9K Pixel.ttf',
+        background_color=(0, 0, 0),  # Black
+        widget_font_color=(255, 255, 255),  # White
+        widget_font_size=32,
+        widget_selection_effect=pygame_menu.widgets.LeftArrowSelection(
+            arrow_right_margin=5
+        ),
+        selection_color=(255, 255, 255)  # White
+    )
 
+    menu = pygame_menu.Menu('', window_width, window_height, theme=blackTheme)
+
+    menu.add.label('Resolution', font_name='./src/Grand9K Pixel.ttf', font_size=80)
+    menu.add.vertical_margin(80)
     for res_option in ['1920x1080', '1920x1000', '1152x600', '800x416', '640x333']:
-        menu.add.button(res_option, set_res, res_option)
+        menu.add.button(res_option, set_res, res_option, font_name='./src/Grand9K Pixel.ttf')
 
-    menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER)  
-    menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER)
+    menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf')  
+    menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf')
 
     menu.mainloop(window)
                 

@@ -1,0 +1,16 @@
+Amount of Citizens: 0
+Amount of Houses: 0
+Money: 990710
+Climate Score: 74
+Current Date: 2022-01-12
+citizen_happiness: 70
+Placed Objects:
+Park- 1(840-480)
+Store- 1(660-600)
+Tree- 0(480-660)
+Energy- 1(540-420)
+Tree- 0(660-420)
+Tree- 0(780-660)
+Tree- 0(960-660)
+Tree- 0(1080-600)
+Tree- 0(1020-540)
