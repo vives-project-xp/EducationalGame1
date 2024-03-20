@@ -85,14 +85,31 @@ def login_screen(window):
             print("Please enter a username.")
 
     window_width, window_height = window.get_size()
-    menu = pygame_menu.Menu('Login', window_width, window_height, theme=pygame_menu.themes.THEME_BLUE)
+    
+    # Create a custom theme
+    mytheme = pygame_menu.themes.Theme(
+        widget_font='./src/Grand9K Pixel.ttf',
+        background_color=(0, 0, 0),  # Black
+        widget_font_color=(255, 255, 255),  # White
+        widget_font_size=32,
+        widget_selection_effect=pygame_menu.widgets.LeftArrowSelection(
+            arrow_right_margin=5
+        ),
+        selection_color=(255, 255, 255)  # White
+    )
 
-    menu.add.label('City name:')
+    menu = pygame_menu.Menu('', window_width, window_height, theme=mytheme)
+
+
+    menu.add.label('Welcome to JOXE!', font_name='./src/Grand9K Pixel.ttf', font_size=80)
+    menu.add.vertical_margin(80) 
+    menu.add.label('Please enter a city name:', font_name='./src/Grand9K Pixel.ttf')
     
-    username_input = menu.add.text_input('', default='..........', maxchar=10)
-    
-    menu.add.button('Play', lambda: start_game(username_input.get_value()))
-    menu.add.button('Quit', pygame_menu.events.EXIT)
+    username_input = menu.add.text_input('', default='..........', maxchar=10, font_name='./src/Grand9K Pixel.ttf', width=200)
+    menu.add.vertical_margin(10) 
+    menu.add.button('Play', lambda: start_game(username_input.get_value()), font_name='./src/Grand9K Pixel.ttf')
+    menu.add.vertical_margin(10) 
+    menu.add.button('Quit', pygame_menu.events.EXIT, font_name='./src/Grand9K Pixel.ttf')
 
     menu.mainloop(window)
 
