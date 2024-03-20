@@ -101,6 +101,8 @@ def menu_screen(window):
     background = pygame.image.load('./assets/resources/background/bg2.png')
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     play_button = pygame.image.load('./assets/resources/background/play.png')
+    pixel_font_path = "./src/Grand9K Pixel.ttf"
+    pixel_font = pygame.font.Font(pixel_font_path, 70)
 
     button_width, button_height = play_button.get_rect().size
 
@@ -117,6 +119,10 @@ def menu_screen(window):
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if button_hover:
+                    loading_text = pixel_font.render("Loading...", True, (255, 255, 255))
+                    window.blit(loading_text, (WIDTH - loading_text.get_width() - 10 , HEIGHT - loading_text.get_height() - 10 ))
+                    pygame.display.flip()
+
                     pygame.time.delay(1000)
                     login_screen(window) 
             if event.type == pygame.KEYDOWN:
