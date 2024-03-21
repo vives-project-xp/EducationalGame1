@@ -18,7 +18,7 @@ class Grid:
         # Load the logos
         citizens_logo = pygame.image.load('./assets/resources/icons/person.png')
         climate_score_logo = pygame.image.load('./assets/resources/icons/climate.png')
-        background_image = pygame.image.load('./assets/resources/background/grass.jpg')
+        background_image = pygame.image.load('./assets/resources/background/grass2.png')
         self.background_image = pygame.transform.scale(background_image, (self.width, self.height))
 
         # Calculate the new width and height
