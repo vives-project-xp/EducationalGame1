@@ -1,9 +1,9 @@
 Amount of Citizens: 209
 Amount of Houses: 10
-Money: 14324
+Money: 187871
 Climate Score: 99
-Current Date: 2022-07-14
-citizen_happiness: 1
+Current Date: 2022-11-17
+citizen_happiness: 78
 Placed Objects:
 House- 4(360.0-420.0)
 House- 4(420.0-420.0)
@@ -17,7 +17,7 @@ House- 4(600.0-420.0)
 House- 4(720.0-420.0)
 House- 4(780.0-420.0)
 Energy- 1(960-420)
-Park- 1(900-420)
+Park- 2(900-420)
 Tree- 0(1200-420)
 Tree- 0(1380-420)
 Tree- 0(1560-420)
@@ -146,8 +146,17 @@ House- 4(60.0-420.0)
 House- 4(180.0-420.0)
 Park- 2(1200-60)
 Park- 2(1500-60)
-Factory- 2(1860-720)
+Factory- 3(1860-720)
 Factory- 2(1800-720)
-Factory- 1(1740-720)
+Factory- 2(1740-720)
 Factory- 1(1680-720)
 Factory- 1(1620-720)
+Energy- 1(1140-60)
+Energy- 1(1080-60)
+Energy- 1(1020-60)
+Energy- 1(960-60)
+Park- 2(1560-60)
+Park- 2(1620-60)
+Park- 2(1680-60)
+Park- 2(1740-60)
+Energy- 1(900-60)
