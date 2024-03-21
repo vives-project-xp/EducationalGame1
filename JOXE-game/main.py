@@ -37,7 +37,7 @@ def main(window, gamestate):
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
+                confirm_menu(window, main, gamestate)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = event.pos
                 if gamestate.game_over:
@@ -192,6 +192,43 @@ def resolutionWindow(window, main_function, resolution, gamestate):
 
     menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf')  
     menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf')
+
+    menu.mainloop(window)
+
+# Confirm menu that appears when pressing close button
+def confirm_menu(window, main_function, gamestate):
+    window_width, window_height = window.get_size()
+    blackTheme = pygame_menu.themes.Theme(
+        widget_font='./src/Grand9K Pixel.ttf',
+        background_color=(0, 0, 0), 
+        widget_font_color=(255, 255, 255), 
+        widget_font_size=32,
+        widget_selection_effect=pygame_menu.widgets.LeftArrowSelection(
+            arrow_right_margin=5
+        ),
+        selection_color=(255, 255, 255)  # White
+    )
+
+    menu = pygame_menu.Menu('', window_width, window_height, theme=blackTheme)
+
+    menu.add.label('We are sad to see you go :(', font_name='./src/Grand9K Pixel.ttf', font_size=100)
+    menu.add.vertical_margin(80)
+    menu.add.label('Do you want to save the game?', font_name='./src/Grand9K Pixel.ttf', font_size=50)
+    menu.add.vertical_margin(40)
+
+    def save_gamestate():
+        gamestate.save_gamestate()
+        pygame.quit()
+
+    menu.add.button('Yes, save', save_gamestate, font_name='./src/Grand9K Pixel.ttf')
+
+    def go_back():
+        main_function(window, gamestate)
+    
+    menu.add.vertical_margin(10)
+    menu.add.button('No, continue game', go_back, font_name='./src/Grand9K Pixel.ttf')
+    menu.add.vertical_margin(10)
+    menu.add.button('No, quit without saving', pygame_menu.events.EXIT, font_name='./src/Grand9K Pixel.ttf')
 
     menu.mainloop(window)
                 
