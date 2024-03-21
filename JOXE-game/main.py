@@ -165,11 +165,7 @@ def resolutionWindow(window, main_function, resolution, gamestate):
         resolutionWindow(window, main, resolution, gamestate)
 
     def back_to_game():
-        main_function(window, gamestate)    
-
-    def save_gamestate():
-        gamestate.save_gamestate()
-        back_to_game()
+        main_function(window, gamestate)   
 
     window_width, window_height = window.get_size()
     blackTheme = pygame_menu.themes.Theme(
@@ -190,7 +186,6 @@ def resolutionWindow(window, main_function, resolution, gamestate):
     for res_option in ['1920x1080', '1920x1000', '1152x600', '800x416', '640x333']:
         menu.add.button(res_option, set_res, res_option, font_name='./src/Grand9K Pixel.ttf')
 
-    menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf')  
     menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf')
 
     menu.mainloop(window)
