@@ -227,7 +227,9 @@ class Game:
             self.clicked_menu_visible = True
             return
         
-        self.menu_bar_visible = True
+        if not self.is_tree_in_cell(grid_x, grid_y):
+            self.menu_bar_visible = True
+        
         self.selected_cell = (grid_x * self.grid_size, grid_y * self.grid_size)
         print(f"Clicked on cell ({grid_x}, {grid_y})")
 
@@ -288,6 +290,13 @@ class Game:
     
     def is_park_icon_clicked(self, x, y):
         return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 6 * self.icon_size + 60 <= x <= 10 + 7 * self.icon_size + 60
+
+    # Check if there's a tree in the cell
+    def is_tree_in_cell(self, x, y):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Tree) and obj.x == x * self.grid_size and obj.y == y * self.grid_size:
+                return True
+        return False
 
     #ALSO ONLY CHECKS HOUSE
     def handle_upgrade_button_click(self):
