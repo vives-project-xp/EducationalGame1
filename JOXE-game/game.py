@@ -152,8 +152,13 @@ class Game:
         if self.selected_cell:
             pygame.draw.rect(self.window, self.COLORS['white'],
                              (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
-            if self.clicked_menu_visible:
+            
+            if self.clicked_menu_visible and not self.is_road_in_cell(self.selected_cell[0] // self.grid_size, self.selected_cell[1] // self.grid_size):
                 self.draw_building_clicked_menu()
+                print("big menu")
+            elif self.clicked_menu_visible and self.is_road_in_cell(self.selected_cell[0] // self.grid_size, self.selected_cell[1] // self.grid_size):
+                print("small menu")
+                self.draw_building_clicked_menu_remove_only()
 
     def draw_game_elements(self):
         if self.menu_bar_visible:
@@ -227,7 +232,9 @@ class Game:
             self.clicked_menu_visible = True
             return
         
-        self.menu_bar_visible = True
+        if not self.is_tree_in_cell(grid_x, grid_y):
+            self.menu_bar_visible = True
+        
         self.selected_cell = (grid_x * self.grid_size, grid_y * self.grid_size)
         print(f"Clicked on cell ({grid_x}, {grid_y})")
 
@@ -289,6 +296,19 @@ class Game:
     def is_park_icon_clicked(self, x, y):
         return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 6 * self.icon_size + 60 <= x <= 10 + 7 * self.icon_size + 60
 
+    # Check if there's a tree in the cell
+    def is_tree_in_cell(self, x, y):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Tree) and obj.x == x * self.grid_size and obj.y == y * self.grid_size:
+                return True
+        return False
+    
+    def is_road_in_cell(self, x, y):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Road) and obj.x == x * self.grid_size and obj.y == y * self.grid_size:
+                return True
+        return False
+
     #ALSO ONLY CHECKS HOUSE
     def handle_upgrade_button_click(self):
         for obj in self.game_state.placed_objects:
@@ -341,6 +361,7 @@ class Game:
                 self.remove_house(obj)
                 break
             elif isinstance(obj, Store) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                print("Removing store")
                 self.remove_store(obj)
                 break
             elif isinstance(obj, Road) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
