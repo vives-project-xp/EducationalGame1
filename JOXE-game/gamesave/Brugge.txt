@@ -1,9 +1,9 @@
-Amount of Citizens: 209
-Amount of Houses: 10
-Money: 187871
+Amount of Citizens: 259
+Amount of Houses: 12
+Money: 460482
 Climate Score: 99
-Current Date: 2022-11-17
-citizen_happiness: 78
+Current Date: 2023-01-25
+citizen_happiness: 89
 Placed Objects:
 House- 4(360.0-420.0)
 House- 4(420.0-420.0)
@@ -160,3 +160,8 @@ Park- 2(1620-60)
 Park- 2(1680-60)
 Park- 2(1740-60)
 Energy- 1(900-60)
+House- 4(1260.0-420.0)
+House- 4(1320.0-420.0)
+Store- 1(324-288)
+Hospital- 2(600-60)
+Hospital- 2(660-60)

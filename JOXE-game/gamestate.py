@@ -6,6 +6,7 @@ from tree import Tree
 from store import Store
 from factory import Factory
 from park import Park
+from hospital import Hospital
 from resolution import Resolution
 import datetime
 
@@ -95,6 +96,8 @@ class Gamestate:
                     obj = Factory(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*50000)
                 elif obj_name == "Park":
                     obj = Park(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*5000)
+                elif obj_name == "Hospital":
+                    obj = Hospital(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*15000)
                 else:
                     continue
 

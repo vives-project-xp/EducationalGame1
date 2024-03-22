@@ -5,6 +5,7 @@ from energy import Energy
 from store import Store
 from park import Park
 from factory import Factory
+from hospital import Hospital
 
 class Tracker:
     def __init__(self, game, game_state):
@@ -24,6 +25,8 @@ class Tracker:
             'factory_ecoscore': pygame.time.get_ticks(),
             'park_ecoscore': pygame.time.get_ticks(),
             'park_cost': pygame.time.get_ticks(),
+            'hospital_cost': pygame.time.get_ticks(),
+            'hospital_ecoscore': pygame.time.get_ticks(),
         }
         self.total_money_gain = 0
         self.total_ecoscore_change = 0
@@ -44,6 +47,8 @@ class Tracker:
         self.update_factory_ecoscore(current_time)
         self.update_park_cost(current_time)
         self.update_park_ecoscore(current_time)
+        self.update_hospital_cost(current_time)
+        self.update_hospital_ecoscore(current_time)
 
     def auto_deduct_ecoscore(self, current_time):
         if current_time - self.last_update_times['ecoscore_deduction'] >= 2000:
@@ -154,6 +159,25 @@ class Tracker:
                     self.total_ecoscore_change += (climate_score_deduction * obj.level)
                     self.game_state.add_citizen_happiness(0.01)
             self.last_update_times['park_ecoscore'] = current_time
+
+    def update_hospital_cost(self, current_time):
+        if current_time - self.last_update_times['hospital_cost'] >= 60000:
+            for obj in self.game.game_state.placed_objects:
+                if isinstance(obj, Hospital):
+                    cost = 1500 / self.money_multiplier
+                    self.game.game_state.remove_money(cost)
+                    self.total_money_gain -= cost
+            self.last_update_times['hospital_cost'] = current_time
+
+    def update_hospital_ecoscore(self, current_time):
+        if current_time - self.last_update_times['hospital_ecoscore'] >= 60000:
+            for obj in self.game.game_state.placed_objects:
+                if isinstance(obj, Hospital):
+                    climate_score_deduction = 3 / self.ecoscore_multiplier
+                    self.game.game_state.remove_climate_score(climate_score_deduction * obj.level)
+                    self.total_ecoscore_change += (climate_score_deduction * obj.level)
+                    self.game_state.add_citizen_happiness(25)
+            self.last_update_times['hospital_ecoscore'] = current_time
 
     def get_averages(self):
         elapsed_minutes = (pygame.time.get_ticks() - self.start_time) / 60000
