@@ -14,9 +14,23 @@ res = Resolution()
 
 WIDTH, HEIGHT = res.width, res.height
 
+# Get the directory of the script or the temporary directory
+if getattr(sys, 'frozen', False):
+    # If the script is running as a PyInstaller bundle (i.e., it's frozen),
+    # use the directory of the executable as the base directory
+    base_dir = sys._MEIPASS
+else:
+    # If the script is not running as a PyInstaller bundle (i.e., it's not frozen),
+    # use the directory of the script as the base directory
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the file path
+icon_path = os.path.join(base_dir, 'assets', 'logo', 'JOXEC.png')
+
+
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))
-programIcon = pygame.image.load('./assets/logo/JOXEC.png')
+programIcon = pygame.image.load(icon_path)
 pygame.display.set_icon(programIcon)
 
 
@@ -212,7 +226,7 @@ def confirm_menu(window, main_function, gamestate):
 
     menu = pygame_menu.Menu('', window_width, window_height, theme=blackTheme)
 
-    menu.add.label('We are sad to see you go :(', font_name='./src/Grand9K Pixel.ttf', font_size=100)
+    menu.add.label("We 're sad to see you go :(", font_name='./src/Grand9K Pixel.ttf', font_size=100)
     menu.add.vertical_margin(80)
     menu.add.label('Do you want to save the game?', font_name='./src/Grand9K Pixel.ttf', font_size=50)
     menu.add.vertical_margin(40)

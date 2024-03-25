@@ -163,9 +163,7 @@ class Game:
             
             if self.clicked_menu_visible and not self.is_road_in_cell(self.selected_cell[0] // self.grid_size, self.selected_cell[1] // self.grid_size):
                 self.draw_building_clicked_menu()
-                print("big menu")
             elif self.clicked_menu_visible and self.is_road_in_cell(self.selected_cell[0] // self.grid_size, self.selected_cell[1] // self.grid_size):
-                print("small menu")
                 self.draw_building_clicked_menu_remove_only()
 
     def draw_game_elements(self):
@@ -381,26 +379,49 @@ class Game:
         hospital.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
 
     def handle_remove_button_click(self):
+        # Print the coordinates of the selected cell
+        print("Selected cell:", self.selected_cell)
+
+        # Find the object at the selected cell
+        selected_object = None
         for obj in self.game_state.placed_objects:
-            if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                self.remove_house(obj)
-                break
-            elif isinstance(obj, Store) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+            # Print the coordinates of the object
+            print("Object coordinates:", (obj.x, obj.y))
+            if isinstance(obj, Road):
+                obj.x == self.selected_cell[0] + 50 and obj.y == self.selected_cell[1] + 50
+                print("selected cell2:", (obj.x, obj.y))
+                selected_object = obj
+            else:
+                if obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                    selected_object = obj
+                    break
+
+        if selected_object is not None:
+            # Print the class name of the selected object
+            print("Selected object class:", selected_object.__class__.__name__)
+
+            # Now you can proceed with removing the selected object
+            if isinstance(selected_object, House):
+                print("Removing house")
+                self.remove_house(selected_object)
+            elif isinstance(selected_object, Store):
                 print("Removing store")
-                self.remove_store(obj)
-                break
-            elif isinstance(obj, Road) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                self.remove_road(obj)
-                break
-            elif isinstance(obj, Factory) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                self.remove_factory(obj)
-                break
-            elif isinstance(obj, Park) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                self.remove_park(obj)
-                break
-            elif isinstance(obj, Hospital) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                self.remove_hospital(obj)
-                break
+                self.remove_store(selected_object)
+            elif isinstance(selected_object, Road):
+                print("Removing road")
+                self.remove_road(selected_object)
+            elif isinstance(selected_object, Factory):
+                print("Removing factory")
+                self.remove_factory(selected_object)
+            elif isinstance(selected_object, Park):
+                print("Removing park")
+                self.remove_park(selected_object)
+            elif isinstance(selected_object, Hospital):
+                print("Removing hospital")
+                self.remove_hospital(selected_object)
+        else:
+            print("No object found at the selected cell.")
+
 
     def remove_house(self, house):
         self.game_state.placed_objects.remove(house)
@@ -413,8 +434,11 @@ class Game:
         self.game_state.remove_citizen_happiness(5)
 
     def remove_road(self, road):
+        if (road.x, road.y) in self.occupied_cells:
+            self.occupied_cells.remove((road.x, road.y))
+        else:
+            print(f"Coordinates {(road.x, road.y)} not found in occupied cells.")
         self.game_state.placed_objects.remove(road)
-        self.occupied_cells.remove((road.x, road.y))
         self.game_state.add_citizen_happiness(1)
 
     def remove_factory(self, factory):
@@ -658,9 +682,11 @@ class Game:
         road = Road(x, y, self.grid_size)
         road.set_type('road')
         self.game_state.placed_objects.append(road)
+        for obj in self.game_state.placed_objects:
+            print(obj.x, obj.y)
         self.game_state.remove_money(50)
         self.game_state.remove_climate_score(1)
-        self.occupied_cells.add((x, y))
+        self.occupied_cells.add((x - 60, y - 60))
 
         # Check for nearby roads to connect
         self.connect_nearby_roads(x, y)
