@@ -32,5 +32,4 @@ class House(Object):
     def upgrade(self):
         if self.level < 9:
             self.level += 1
-            for i in range(self.level):
-                self.upgrade_cost = (5**i)*1000
+            self.upgrade_cost = (5**self.level)*1000

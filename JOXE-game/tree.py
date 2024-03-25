@@ -6,6 +6,7 @@ class Tree(Object):
         super().__init__(x, y, level, cell_size)
         self.grid_size = cell_size
         self.upgrade_cost = upgrade_cost
+        self.effect_range = 1
         self.images = [f'./assets/resources/nature/tree/tree{i}.png' for i in range(1, 4)]
         self.image = self.load_image(self.images[self.level - 1], cell_size, cell_size)
 
@@ -17,13 +18,14 @@ class Tree(Object):
     def draw(self, window):
         window.blit(self.image, (self.x * self.grid_size, self.y * self.grid_size))
 
+    def higher_effect_range(self, amount):
+        self.effect_range += amount
+
     def catch_fire(self):
         self.image = self.load_image('./assets/resources/nature/fire.png', self.grid_size, self.grid_size)
 
     def upgrade(self):
-        if self.level < 3:
+        if self.level <= 3:
             self.level += 1
-            self.image = self.load_image(self.images[self.level], self.grid_size, self.grid_size)
-
-    def update(self):
-        pass
+            self.image = self.load_image(self.images[self.level-1], self.grid_size, self.grid_size)
+            self.upgrade_cost = (5**self.level)*200

@@ -388,6 +388,7 @@ class Game:
     def upgrade_tree(self, tree):
         new_image = pygame.image.load(f'./assets/resources/nature/tree/tree{tree.level}.png')
         tree.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+        tree.higher_effect_range(1)
 
     def handle_remove_button_click(self):
         # Print the coordinates of the selected cell
@@ -819,6 +820,9 @@ class Game:
             if isinstance(obj, Factory) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 effect_range = obj.effect_range
                 pygame.draw.rect(self.window, (255, 255, 0), (obj.x - (effect_range*self.res.GRID_SIZE), obj.y - (effect_range*self.res.GRID_SIZE), self.grid_size + (effect_range*self.res.GRID_SIZE) * 2, self.grid_size + (effect_range*self.res.GRID_SIZE) * 2), 2)
+            if isinstance(obj, Tree) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                effect_range = obj.effect_range
+                pygame.draw.rect(self.window, (180, 255, 180), (obj.x - (effect_range*self.res.GRID_SIZE), obj.y - (effect_range*self.res.GRID_SIZE), self.grid_size + (effect_range*self.res.GRID_SIZE) * 2, self.grid_size + (effect_range*self.res.GRID_SIZE) * 2), 2)
 
     def draw_building_clicked_menu_remove_only(self):
         # Load the remove icon
