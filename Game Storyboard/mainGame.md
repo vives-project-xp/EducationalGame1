@@ -27,25 +27,8 @@ All the assets are visualized in the table below:
 
 | Category         | Asset                        | Price | Eco-Score Effect                               |
 |------------------|------------------------------|-------|-------------------------------------------------|
-| Buildings        | House                        | $50   | todo                                            |
-| Buildings        | Apartment Building           | $150  | todo                                            |
-| Buildings        | Office Building              | $250  | todo                                            |
-| Buildings        | Shop                         | $400  | todo                                            |
-| Energy Sources   | Solar Panel                  | $100  | todo                                            |
-| Energy Sources   | Wind Turbine                 | $150  | todo                                            |
-| Energy Sources   | Coal Power Plant             | $300  | todo                                            |
-| Energy Sources   | Nuclear Power Plant          | $500  | todo                                            |
-| Nature Objects   | Trees                        | $10   | todo                                            |
-| Nature Objects   | Bushes                       | $5    | todo                                            |
-| Nature Objects   | Park                         | $1000 | todo                                            |
-| Nature Objects   | Gardens                      | $100  | todo                                            |
-| Transportation   | Road                         | $10   | If there are too many, score decreases; otherwise, it doesn't change. |
-| Transportation   | Bicycle Lane                 | $50   | Increase                                        |
-| Transportation   | Electric Vehicle Charging Station | $200 | Increase                                        |
-| Transportation   | Bus Stop                     | $100  | Increase                                        |
-| Transportation   | Highway Expansion            | $300  | Decrease                                        |
+| Buildings        | House                        | $1000 | -1                                              |
 
-Most assets can be upgraded, resulting in more money that can be collected.
 
 ## Info-button
 
@@ -53,9 +36,11 @@ The info button (the button with the question mark) shows a popup on the screen 
 
 ## Game start
 
-- Coins at start: $500.
+- Coins at start: $1000.
 - People at start: 0.
 - Eco-score at start: 50.
+- Happiness at start: 50.
+- Date stars at: 01-01-2022
 - The game starts with an empty grid.
 
 ## Climate trivia
