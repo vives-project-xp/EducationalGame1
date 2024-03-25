@@ -7,7 +7,7 @@ class Hospital(Object):
         self.upgrade_cost = upgrade_cost
         self.ecoscore = -1
         # Range of the hospital
-        self.effect_range = 5
+        self.effect_range = 3
         self.images = [f'./assets/resources/buildings/hospital/hospital{i}.png' for i in range(1, 10)]
         self.image = self.load_image(self.images[self.level - 1], cell_size, cell_size)
 
@@ -20,6 +20,9 @@ class Hospital(Object):
         # Adjust the position so the house is centered at (x, y)
         pos = (self.x - self.image.get_width() // 2, self.y - self.image.get_height() // 2)
         surface.blit(self.image, pos)
+
+    def higher_effect_range(self, amount):
+        self.effect_range += amount
 
     def add_inhabitant(self, amount):
         self.inhabitants += amount

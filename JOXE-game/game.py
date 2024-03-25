@@ -374,10 +374,12 @@ class Game:
     def upgrade_factory(self, factory):
         new_image = pygame.image.load(f'./assets/resources/buildings/factory/tempfac{factory.level}.png')
         factory.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+        factory.lower_effect_range(1)
 
     def upgrade_hospital(self, hospital):
         new_image = pygame.image.load(f'./assets/resources/buildings/hospital/hospital{hospital.level}.png')
         hospital.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+        hospital.higher_effect_range(1)
 
     def upgrade_energy(self, windmill):
         new_image = pygame.image.load(f'./assets/resources/buildings/energy/windmills/windmill{windmill.level}.png')
@@ -813,7 +815,10 @@ class Game:
         for obj in self.game_state.placed_objects:
             if isinstance(obj, Hospital) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 effect_range = obj.effect_range
-                pygame.draw.rect(self.window, (255, 0, 0), (obj.x - (effect_range*self.res.GRID_SIZE), obj.y - (effect_range*self.res.GRID_SIZE), self.grid_size + (effect_range*self.res.GRID_SIZE) * 2, self.grid_size + (effect_range*self.res.GRID_SIZE) * 2), 2)
+                pygame.draw.rect(self.window, (180, 255, 180), (obj.x - (effect_range*self.res.GRID_SIZE), obj.y - (effect_range*self.res.GRID_SIZE), self.grid_size + (effect_range*self.res.GRID_SIZE) * 2, self.grid_size + (effect_range*self.res.GRID_SIZE) * 2), 2)
+            if isinstance(obj, Factory) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                effect_range = obj.effect_range
+                pygame.draw.rect(self.window, (255, 255, 0), (obj.x - (effect_range*self.res.GRID_SIZE), obj.y - (effect_range*self.res.GRID_SIZE), self.grid_size + (effect_range*self.res.GRID_SIZE) * 2, self.grid_size + (effect_range*self.res.GRID_SIZE) * 2), 2)
 
     def draw_building_clicked_menu_remove_only(self):
         # Load the remove icon
