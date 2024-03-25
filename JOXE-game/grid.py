@@ -160,5 +160,12 @@ class Grid:
         # Draw the score bar with the chosen color at the top with proportional adjustment
         pygame.draw.rect(self.window, score_color, (climate_bar_start_x + padding, adjust_y + padding // 2, (4 * self.box_width + 3 * MARGIN - 2 * padding) * self.game_state.climateScore // 100, self.box_height - padding))
 
+        
+        move_up_pixels = self.height / 200
+
+        # Draw the climate_score text in the middle of the bar, no decimals
+        climate_score_text = font.render(f"{int(self.game_state.climateScore)}%", True, (255, 255, 255))
+        self.window.blit(climate_score_text, (climate_bar_start_x + 2 * self.box_width + MARGIN, adjust_y + self.box_height // 2 - font_size // 2 - move_up_pixels))
+
         # Add date to gamestate variable
         self.game_state.current_date = self.current_date
