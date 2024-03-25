@@ -6,7 +6,6 @@ from tree import Tree
 from resolution import Resolution
 from factory import Factory
 from store import Store
-from park import Park
 from hospital import Hospital
 import pygame
 from trivia import Trivia
@@ -30,7 +29,6 @@ class Game:
         'remove': './assets/resources/icons/remove.png',
         'store': './assets/resources/buildings/stores/store1.png',
         'factory': './assets/resources/buildings/factory/tempfac1.png',
-        'park': './assets/resources/nature/park/park1.png',
         'hospital': './assets/resources/buildings/hospital/hospital1.png',
     }
 
@@ -41,7 +39,6 @@ class Game:
         'store': 3000,
         'tree': 250,
         'factory': 10000,
-        'park': 3000,
         'hospital': 15000,
     }
 
@@ -52,7 +49,6 @@ class Game:
         'tree': './assets/resources/nature/tree1.png',
         'store': './assets/resources/buildings/stores/store1.png',
         'factory': './assets/resources/buildings/factory/tempfac1.png',
-        'park': './assets/resources/nature/park/park1.png',
         'hospital': './assets/resources/buildings/hospital/hospital1.png',
     }
 
@@ -96,7 +92,6 @@ class Game:
         self.store_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['store']), (80, 80))
         self.factory_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['factory']), (80, 80))
         self.tree_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['tree']), (80, 80))
-        self.park_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['park']), (80, 80))
         self.hospital_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['hospital']), (80, 80))
 
     def draw(self):
@@ -116,8 +111,6 @@ class Game:
             # elif isinstance(obj, Road):
             #     obj.update_position(self.grid_size)
             elif isinstance(obj, Factory):
-                obj.update_position(self.grid_size)
-            elif isinstance(obj, Park):
                 obj.update_position(self.grid_size)
             # elif isinstance(obj, Tree):
             #     obj.update_position(self.grid_size)
@@ -195,13 +188,13 @@ class Game:
 
     def draw_building_icons(self, menu_bar_y, menu_bar_height):
         icon_y = menu_bar_y + int(menu_bar_height * 0.1)  # Centered in the menu bar
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'park', 'hospital']): #BUILDING
+        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital']): #BUILDING
             self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES[building_type]), (self.icon_size, self.icon_size)),
                              (10 + i * (self.icon_size + 10), icon_y))
 
     def draw_building_costs(self, menu_bar_y):
         font = pygame.font.Font(None, 24)
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'park', 'hospital']): #BUILDING
+        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital']): #BUILDING
             cost_text = font.render(f"${self.COSTS.get(building_type, 0)}", True, self.COLORS['white'])
             self.window.blit(cost_text, (10 + i * (self.icon_size + 10), menu_bar_y + 5))
 
@@ -215,9 +208,6 @@ class Game:
                     level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                     self.window.blit(level_text, (obj.x, obj.y))
                 elif isinstance(obj, Factory):
-                    level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                    self.window.blit(level_text, (obj.x, obj.y))
-                elif isinstance(obj, Park):
                     level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                     self.window.blit(level_text, (obj.x, obj.y))
                 elif isinstance(obj, Hospital):
@@ -272,8 +262,6 @@ class Game:
                 return True
             elif isinstance(obj, Factory) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
-            elif isinstance(obj, Park) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
-                return True
             elif isinstance(obj, Hospital) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
             elif isinstance(obj, Tree) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
@@ -309,9 +297,6 @@ class Game:
     def is_factory_icon_clicked(self, x, y):
         return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 5 * self.icon_size + 50 <= x <= 10 + 6 * self.icon_size + 50
     
-    def is_park_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 6 * self.icon_size + 60 <= x <= 10 + 7 * self.icon_size + 60
-    
     def is_hospital_icon_clicked(self, x, y):
         return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 7 * self.icon_size + 70 <= x <= 10 + 8 * self.icon_size + 70
 
@@ -345,11 +330,6 @@ class Game:
                     self.game_state.remove_money(obj.upgrade_cost)
                     obj.upgrade()
                     self.upgrade_factory(obj)
-            elif isinstance(obj, Park) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 10:
-                    self.game_state.remove_money(obj.upgrade_cost)
-                    obj.upgrade()
-                    self.upgrade_park(obj)
             elif isinstance(obj, Hospital) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 10:
                     self.game_state.remove_money(obj.upgrade_cost)
@@ -378,10 +358,6 @@ class Game:
     def upgrade_factory(self, factory):
         new_image = pygame.image.load(f'./assets/resources/buildings/factory/tempfac{factory.level}.png')
         factory.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
-
-    def upgrade_park(self, park):
-        new_image = pygame.image.load(f'./assets/resources/nature/park/park{park.level}.png')
-        park.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
 
     def upgrade_hospital(self, hospital):
         new_image = pygame.image.load(f'./assets/resources/buildings/hospital/hospital{hospital.level}.png')
@@ -418,8 +394,6 @@ class Game:
                 self.remove_road(selected_object)
             elif isinstance(selected_object, Factory):
                 self.remove_factory(selected_object)
-            elif isinstance(selected_object, Park):
-                self.remove_park(selected_object)
             elif isinstance(selected_object, Hospital):
                 self.remove_hospital(selected_object)
             elif isinstance(selected_object, Tree):
@@ -451,10 +425,6 @@ class Game:
     def remove_factory(self, factory):
         self.game_state.placed_objects.remove(factory)
         self.game_state.add_citizen_happiness(10)
-    
-    def remove_park(self, park):
-        self.game_state.placed_objects.remove(park)
-        self.game_state.remove_citizen_happiness(15)
 
     def remove_hospital(self, hospital):
         self.game_state.placed_objects.remove(hospital)
@@ -477,8 +447,6 @@ class Game:
             self.handle_store_icon_click()    
         elif self.is_factory_icon_clicked(x, y):
             self.handle_factory_icon_click()  
-        elif self.is_park_icon_clicked(x, y):
-            self.handle_park_icon_click()
         elif self.is_hospital_icon_clicked(x, y):
             self.handle_hospital_icon_click()
         else:
@@ -552,17 +520,6 @@ class Game:
         else:
             print("Not enough money to place a factory.")
         self.menu_bar_visible = False
-
-    def handle_park_icon_click(self):
-        if self.selected_cell is not None and self.game_state.money >= self.COSTS['park']:
-            park = Park(self.selected_cell[0], self.selected_cell[1], self.grid_size)
-            self.game_state.placed_objects.append(park)
-            self.game_state.add_citizen_happiness(15)
-            self.game_state.remove_money(self.COSTS['park'])
-            self.selected_cell = None
-        else:
-            print("Not enough money to place a park.")
-        self.menu_bar_visible = False   
 
     def handle_house_icon_click(self):
         if self.selected_cell is not None:
@@ -804,8 +761,6 @@ class Game:
             upgrade_cost = self.get_upgrade_cost(Store)
         if upgrade_cost is None:
             upgrade_cost = self.get_upgrade_cost(Factory)
-        if upgrade_cost is None:
-            upgrade_cost = self.get_upgrade_cost(Park)
         if upgrade_cost is None:
             upgrade_cost = self.get_upgrade_cost(Hospital)
         if upgrade_cost is None:
