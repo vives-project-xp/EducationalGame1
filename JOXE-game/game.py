@@ -47,7 +47,7 @@ class Game:
         'house': './assets/resources/houses/house1.png',
         'road': './assets/resources/road/road.png',
         'energy': './assets/resources/buildings/energy/windmills/windmill.png',
-        'tree': './assets/resources/nature/tree1.png',
+        'tree': './assets/resources/nature/tree/tree1.png',
         'store': './assets/resources/buildings/stores/store1.png',
         'factory': './assets/resources/buildings/factory/tempfac1.png',
         'hospital': './assets/resources/buildings/hospital/hospital1.png',
@@ -195,7 +195,6 @@ class Game:
 
     def draw_building_costs(self, menu_bar_y):
         font = pygame.font.Font(None, 24)
-<<<<<<< HEAD
         for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'park', 'hospital']): #BUILDING
             cost = self.COSTS.get(building_type, 0)
             if self.game_state.money < cost: 
@@ -203,10 +202,6 @@ class Game:
             else:
                 color = self.COLORS['white'] 
             cost_text = font.render(f"${cost}", True, color)
-=======
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital']): #BUILDING
-            cost_text = font.render(f"${self.COSTS.get(building_type, 0)}", True, self.COLORS['white'])
->>>>>>> 4381b37c72252ea6e783af7f9d2f8150f6aaf611
             self.window.blit(cost_text, (10 + i * (self.icon_size + 10), menu_bar_y + 5))
 
     def draw_object_level(self):
