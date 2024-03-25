@@ -46,7 +46,7 @@ class Game:
         'house': './assets/resources/houses/house1.png',
         'road': './assets/resources/road/road.png',
         'energy': './assets/resources/buildings/energy/windmills/windmill.png',
-        'tree': './assets/resources/nature/tree1.png',
+        'tree': './assets/resources/nature/tree/tree1.png',
         'store': './assets/resources/buildings/stores/store1.png',
         'factory': './assets/resources/buildings/factory/tempfac1.png',
         'hospital': './assets/resources/buildings/hospital/hospital1.png',
@@ -112,8 +112,8 @@ class Game:
             #     obj.update_position(self.grid_size)
             elif isinstance(obj, Factory):
                 obj.update_position(self.grid_size)
-            # elif isinstance(obj, Tree):
-            #     obj.update_position(self.grid_size)
+            elif isinstance(obj, Tree):
+                obj.update_position(self.grid_size)
             elif isinstance(obj, Energy):
                 obj.update_position(self.grid_size)
             elif isinstance(obj, Hospital):
@@ -124,7 +124,7 @@ class Game:
         square_width, square_height = self.window.get_width() / 20 , self.window.get_height() / 20
         square_x = self.window.get_width() - square_width
         square_y = self.window.get_height() - square_height
-        square_color = (255, 255, 255) # Todo: pixel background
+        square_color = (255, 255, 255) 
 
         pygame.draw.rect(self.window, square_color, (square_x, square_y, square_width, square_height))
 
@@ -213,7 +213,12 @@ class Game:
                 elif isinstance(obj, Hospital):
                     level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                     self.window.blit(level_text, (obj.x, obj.y))
-            
+                elif isinstance(obj, Energy):
+                    level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                    self.window.blit(level_text, (obj.x, obj.y))
+                elif isinstance(obj, Tree):
+                    level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                    self.window.blit(level_text, (obj.x, obj.y))
 
     # Handle methods
     def handle_click(self, x, y):
@@ -340,6 +345,11 @@ class Game:
                     self.game_state.remove_money(obj.upgrade_cost)
                     obj.upgrade()
                     self.upgrade_energy(obj)
+            elif isinstance(obj, Tree) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 3:
+                    self.game_state.remove_money(obj.upgrade_cost)
+                    obj.upgrade()
+                    self.upgrade_tree(obj)
                 else:
                     print("Not enough money to upgrade the house.")
                 break
@@ -366,6 +376,10 @@ class Game:
     def upgrade_energy(self, windmill):
         new_image = pygame.image.load(f'./assets/resources/buildings/energy/windmills/windmill{windmill.level}.png')
         windmill.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+
+    def upgrade_tree(self, tree):
+        new_image = pygame.image.load(f'./assets/resources/nature/tree/tree{tree.level}.png')
+        tree.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
 
     def handle_remove_button_click(self):
         # Print the coordinates of the selected cell
@@ -765,6 +779,8 @@ class Game:
             upgrade_cost = self.get_upgrade_cost(Hospital)
         if upgrade_cost is None:
             upgrade_cost = self.get_upgrade_cost(Energy)
+        if upgrade_cost is None:
+            upgrade_cost = self.get_upgrade_cost(Tree)
 
         # Check if upgrade_cost is not None before comparing it with an integer
         if upgrade_cost is not None and upgrade_cost >= 1000000000:
