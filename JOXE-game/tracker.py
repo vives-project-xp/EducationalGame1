@@ -3,7 +3,6 @@ from house import House
 from tree import Tree
 from energy import Energy
 from store import Store
-from park import Park
 from factory import Factory
 from hospital import Hospital
 
@@ -23,8 +22,6 @@ class Tracker:
             'store_ecoscore': pygame.time.get_ticks(),
             'factory_cost': pygame.time.get_ticks(),
             'factory_ecoscore': pygame.time.get_ticks(),
-            'park_ecoscore': pygame.time.get_ticks(),
-            'park_cost': pygame.time.get_ticks(),
             'hospital_cost': pygame.time.get_ticks(),
             'hospital_ecoscore': pygame.time.get_ticks(),
         }
@@ -45,8 +42,6 @@ class Tracker:
         self.auto_deduct_ecoscore(current_time)
         self.update_factory_cost(current_time)
         self.update_factory_ecoscore(current_time)
-        self.update_park_cost(current_time)
-        self.update_park_ecoscore(current_time)
         self.update_hospital_cost(current_time)
         self.update_hospital_ecoscore(current_time)
 
@@ -140,25 +135,6 @@ class Tracker:
                     self.total_ecoscore_change -= climate_score_deduction
                     self.game_state.remove_citizen_happiness(3)
             self.last_update_times['factory_ecoscore'] = current_time
-
-    def update_park_cost(self, current_time):
-        if current_time - self.last_update_times['park_cost'] >= 60000:
-            for obj in self.game.game_state.placed_objects:
-                if isinstance(obj, Park):
-                    cost = 500 / self.money_multiplier
-                    self.game.game_state.remove_money(cost)
-                    self.total_money_gain -= cost
-            self.last_update_times['park_cost'] = current_time
-
-    def update_park_ecoscore(self, current_time):
-        if current_time - self.last_update_times['park_ecoscore'] >= 600:
-            for obj in self.game.game_state.placed_objects:
-                if isinstance(obj, Park):
-                    climate_score_deduction = 0.1 * self.ecoscore_multiplier
-                    self.game.game_state.add_climate_score(climate_score_deduction * obj.level)
-                    self.total_ecoscore_change += (climate_score_deduction * obj.level)
-                    self.game_state.add_citizen_happiness(0.01)
-            self.last_update_times['park_ecoscore'] = current_time
 
     def update_hospital_cost(self, current_time):
         if current_time - self.last_update_times['hospital_cost'] >= 60000:
