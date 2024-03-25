@@ -5,7 +5,6 @@ from energy import Energy
 from tree import Tree
 from store import Store
 from factory import Factory
-from park import Park
 from hospital import Hospital
 from resolution import Resolution
 import datetime
@@ -14,7 +13,7 @@ class Gamestate:
     def __init__(self):
         self.amountOfCitizens = 0
         self.amountOfHouses = 0
-        self.money = 1000
+        self.money = 1000000
         self.climateScore = 50
         self.placed_objects = []
 

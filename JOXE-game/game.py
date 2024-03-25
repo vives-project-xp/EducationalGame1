@@ -23,7 +23,7 @@ class Game:
     }
 
     ICON_PATHS = {
-        'house': './assets/resources/houses/house1.png',
+        'house': './assets/resources/houses/house11.png',
         'road': './assets/resources/road/road.png',
         'energy': './assets/resources/buildings/energy/windmills/windmill.png',
         'upgrade': './assets/resources/icons/upgrade.png',
@@ -44,7 +44,7 @@ class Game:
     }
 
     BUILDING_IMAGES = {
-        'house': './assets/resources/houses/house1.png',
+        'house': './assets/resources/houses/house11.png',
         'road': './assets/resources/road/road.png',
         'energy': './assets/resources/buildings/energy/windmills/windmill.png',
         'tree': './assets/resources/nature/tree/tree1.png',
@@ -361,7 +361,7 @@ class Game:
                 break
 
     def upgrade_house(self, house):
-        new_image = pygame.image.load(f'./assets/resources/houses/house{house.level}.png')
+        new_image = pygame.image.load(f'./assets/resources/houses/house{house.version}{house.level}.png')
         house.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
         additional_inhabitants = random.randint(house.level, house.level * 3)
         self.game_state.add_citizen(additional_inhabitants)
@@ -558,7 +558,9 @@ class Game:
         self.placing_house_sound.play()
 
         if self.game_state.money >= 1000:
-            house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size) 
+            #place random version of house
+            ran_version = random.randint(1, 2)
+            house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size, version=ran_version) 
             self.game_state.placed_objects.append(house)
             self.game_state.remove_money(1000)
             add_citizen = random.randint(3, 6)

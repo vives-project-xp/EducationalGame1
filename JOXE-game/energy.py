@@ -13,13 +13,7 @@ class Energy(Object):
         image = pygame.image.load(image_path)
         image = pygame.transform.scale(image, (width, height))
         return image
-
-    def update_position(self, new_grid_size):
-        self.x = self.x / self.grid_size * new_grid_size
-        self.y = self.y / self.grid_size * new_grid_size
-        self.grid_size = new_grid_size
-        self.image = self.load_image(self.images[self.level - 1], new_grid_size, new_grid_size)
-
+    
     def draw(self, window):
         window.blit(self.image, (self.x * self.grid_size, self.y * self.grid_size))
 

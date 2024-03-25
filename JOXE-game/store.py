@@ -13,12 +13,6 @@ class Store(Object):
         image = pygame.image.load(image_path)
         image = pygame.transform.scale(image, (width, height))
         return image
-    
-    def update_position(self, new_cell_size):
-        self.x = self.x / self.cell_size * new_cell_size
-        self.y = self.y / self.cell_size * new_cell_size
-        self.cell_size = new_cell_size
-        self.update_image_size(new_cell_size)
 
     def draw(self, surface):
         pos = (self.x - self.image.get_width() // 2, self.y - self.image.get_height() // 2)

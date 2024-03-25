@@ -18,12 +18,6 @@ class Road(Object):
         self.type = road_type
         self.update_image()
 
-    def update_position(self, new_cell_size):
-        self.x = self.x / self.cell_size * new_cell_size
-        self.y = self.y / self.cell_size * new_cell_size
-        self.cell_size = new_cell_size
-        self.update_image_size(new_cell_size)
-
     def update_image(self):
         # Load the road image based on its type
         road_image_path = f'./assets/resources/road/{self.type}.png'
