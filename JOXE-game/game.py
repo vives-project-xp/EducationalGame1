@@ -223,24 +223,7 @@ class Game:
                 elif isinstance(obj, Hospital):
                     level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                     self.window.blit(level_text, (obj.x, obj.y))
-            if isinstance(obj, House):
-                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                self.window.blit(level_text, (obj.x, obj.y))
-            elif isinstance(obj, Store):
-                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                self.window.blit(level_text, (obj.x, obj.y))
-            elif isinstance(obj, Factory):
-                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                self.window.blit(level_text, (obj.x, obj.y))
-            elif isinstance(obj, Park):
-                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                self.window.blit(level_text, (obj.x, obj.y))
-            elif isinstance(obj, Hospital):
-                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                self.window.blit(level_text, (obj.x, obj.y))
-            elif isinstance(obj, Energy):
-                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                self.window.blit(level_text, (obj.x, obj.y))
+            
 
     # Handle methods
     def handle_click(self, x, y):
