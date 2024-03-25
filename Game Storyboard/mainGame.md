@@ -63,7 +63,6 @@ All trivia about climate that is shown during gameplay is listed below, along wi
 
 ## Additional functionality (todo)
 - Adding hotels, appartments and skyscraper buildings
-- Add the co2 climate score in the middle of the bar
 - Behind the fixed UI elements you shouldn't be able to build
 - Adding max upgrades for all assets
 - Creating different houses (randomly chosen or choose in shop under house tab)
