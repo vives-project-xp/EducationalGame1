@@ -41,7 +41,9 @@ You may immediately place any (nature) tile from the Building Circle on the Land
 
 ### End Your Turn:
 When you can take no further actions, your turn ends.\
-Take the amount of Population tokens and Pollution tokens from their containers marked on the building you just bought.
+Take or return the amount of Population tokens and Pollution tokens from their containers marked on the building you just bought.
+Note: if you return any tokens, you may only return these to their according color container. 
+_Example Red Pollution Tokens only get to be returned to the red container, green Population tokens can only be returned to the green container._
 The next clockwise player now starts their turn.
 #### Not enough tokens:
 If not enough tokens are in a container, take the card from the bottom, read it and perform the action described on it. 
@@ -54,7 +56,7 @@ These tokens are finite and shouldn't be refilled.
 Each Building Tile is provided with two numbers: Population and Pollution. These values determine how many of these tokens you get to collect or return at the end of your turn. 
 Some building may have a colored edge which provides bonusses or penalties depending on what tile is touching that edge there.
 On a green flank, the player that placed this building gets to either discard a pollution token or gain a population token. The next clockwise player that owns an adjacent building gets the result of the option that wasn't chosen. 
-On a red flank, the player that placed this building chooses to either lose a population token or gain a pollution token. The next clockwise player that owns an adjacent building gets the result of the option that wasn't chosen. 
+On a red flank, the player that placed this building chooses to either lose a population token or gain a pollution token. The next clockwise player that owns an adjacent building gets the result of the option that wasn't chosen.\
 _Example: Xander places his building with a red and green edge on the board. The green edge touches two seperate tiles, one from Jasper and one from Esteban. The red edge touches a tile Olivier controls. For the green edge, Xander choses to take an extra Population and since Esteban is the next clockwise player that owns an adjacent tile, Estaban gets to discard a Pollution token. On the red edge, Xander chooses to gain a Pollution which means Olivier loses a Population._
 
 
