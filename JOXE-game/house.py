@@ -7,6 +7,7 @@ class House(Object):
         self.inhabitants = 0 
         self.version = version
         self.upgrade_cost = upgrade_cost
+        self.inhab_happiness = 0
         self.ecoscore = -1
         self.images = [f'./assets/resources/houses/house{self.version}{i}.png' for i in range(1, 10)]
         self.image = self.load_image(self.images[self.level - 1], cell_size, cell_size)

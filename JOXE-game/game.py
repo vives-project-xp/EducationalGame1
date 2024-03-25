@@ -195,7 +195,7 @@ class Game:
 
     def draw_building_costs(self, menu_bar_y):
         font = pygame.font.Font(None, 24)
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'park', 'hospital']): #BUILDING
+        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital']): #BUILDING
             cost = self.COSTS.get(building_type, 0)
             if self.game_state.money < cost: 
                 color = self.COLORS['red']
@@ -309,7 +309,7 @@ class Game:
         return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 5 * self.icon_size + 50 <= x <= 10 + 6 * self.icon_size + 50
     
     def is_hospital_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 7 * self.icon_size + 70 <= x <= 10 + 8 * self.icon_size + 70
+        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 6 * self.icon_size + 60 <= x <= 10 + 7 * self.icon_size + 60
 
     # Check if there's a tree in the cell
     def is_tree_in_cell(self, x, y):
@@ -514,10 +514,7 @@ class Game:
         
     def handle_hospital_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['hospital']:
-            hospital = Hospital(self.selected_cell[0], self.selected_cell[1], self.grid_size)
-            self.game_state.placed_objects.append(hospital)
-            self.game_state.remove_money(self.COSTS['hospital'])
-            self.selected_cell = None
+            self.place_new_hospital()
         else:
             print("Not enough money to place a hospital.")
         self.menu_bar_visible = False
@@ -526,7 +523,7 @@ class Game:
         hospital = Hospital(self.selected_cell[0], self.selected_cell[1], self.grid_size)
         self.game_state.placed_objects.append(hospital)
         self.game_state.remove_money(self.COSTS['hospital'])
-        self.game_state.add_climate_score(self.ECO_SCORE_BONUS['hospital'])
+        self.game_state.remove_climate_score(5)
         self.game_state.add_citizen_happiness(5)
         self.selected_cell = None
 

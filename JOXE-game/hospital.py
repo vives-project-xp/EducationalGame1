@@ -6,6 +6,8 @@ class Hospital(Object):
         super().__init__(x, y, level, cell_size)
         self.upgrade_cost = upgrade_cost
         self.ecoscore = -1
+        # Range of the hospital
+        self.effect_range = 5
         self.images = [f'./assets/resources/buildings/hospital/hospital{i}.png' for i in range(1, 10)]
         self.image = self.load_image(self.images[self.level - 1], cell_size, cell_size)
 
