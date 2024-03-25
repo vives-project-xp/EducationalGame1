@@ -559,7 +559,7 @@ class Game:
 
         if self.game_state.money >= 1000:
             #place random version of house
-            ran_version = random.randint(1, 2)
+            ran_version = random.randint(1, 4)
             house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size, version=ran_version) 
             self.game_state.placed_objects.append(house)
             self.game_state.remove_money(1000)
