@@ -21,7 +21,6 @@ class Store(Object):
         self.update_image_size(new_cell_size)
 
     def draw(self, surface):
-        # Adjust the position so the store is centered at (x, y)
         pos = (self.x - self.image.get_width() // 2, self.y - self.image.get_height() // 2)
         surface.blit(self.image, pos)
 
