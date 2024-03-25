@@ -17,6 +17,7 @@ class Game:
     COLORS = {
         'white': (255, 255, 255),
         'yellow': (255, 255, 0),
+        'red': (255, 0, 0),
         'menu_background': (230, 230, 230),
         'game_over_text': (255, 0, 0),
     }
@@ -194,8 +195,13 @@ class Game:
 
     def draw_building_costs(self, menu_bar_y):
         font = pygame.font.Font(None, 24)
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital']): #BUILDING
-            cost_text = font.render(f"${self.COSTS.get(building_type, 0)}", True, self.COLORS['white'])
+        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'park', 'hospital']): #BUILDING
+            cost = self.COSTS.get(building_type, 0)
+            if self.game_state.money < cost: 
+                color = self.COLORS['red']
+            else:
+                color = self.COLORS['white'] 
+            cost_text = font.render(f"${cost}", True, color)
             self.window.blit(cost_text, (10 + i * (self.icon_size + 10), menu_bar_y + 5))
 
     def draw_object_level(self):

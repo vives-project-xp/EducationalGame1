@@ -2,6 +2,11 @@ import pygame
 from object import Object
 
 class Tree(Object):
+    def init(self, x, y, grid_size, level=0):
+        super().init(x, y, level, grid_size)
+        self.grid_size = grid_size
+        self.images = [f'./assets/resources/nature/tree/tree{i}.png' for i in range(1, 3)]
+        self.image = self.load_image(self.images[self.level], grid_size, grid_size)
     def __init__(self, x, y, cell_size, level=1, upgrade_cost=1000):
         super().__init__(x, y, level, cell_size)
         self.grid_size = cell_size
@@ -29,6 +34,7 @@ class Tree(Object):
     def upgrade(self):
         if self.level < 3:
             self.level += 1
-            self.image = self.load_image(self.images[self.level - 1], self.grid_size, self.grid_size)
-            for i in range(self.level):
-                self.upgrade_cost = (5**i)*1000
+            self.image = self.load_image(self.images[self.level], self.grid_size, self.grid_size)
+
+    def update(self):
+        pass
