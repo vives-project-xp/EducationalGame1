@@ -207,21 +207,22 @@ class Game:
 
     def draw_object_level(self):
         for obj in self.game_state.placed_objects:
-            if isinstance(obj, House):
-                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                self.window.blit(level_text, (obj.x, obj.y))
-            elif isinstance(obj, Store):
-                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                self.window.blit(level_text, (obj.x, obj.y))
-            elif isinstance(obj, Factory):
-                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                self.window.blit(level_text, (obj.x, obj.y))
-            elif isinstance(obj, Park):
-                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                self.window.blit(level_text, (obj.x, obj.y))
-            elif isinstance(obj, Hospital):
-                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
-                self.window.blit(level_text, (obj.x, obj.y))
+            if self.selected_cell is not None:
+                if isinstance(obj, House):
+                    level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                    self.window.blit(level_text, (obj.x, obj.y))
+                elif isinstance(obj, Store):
+                    level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                    self.window.blit(level_text, (obj.x, obj.y))
+                elif isinstance(obj, Factory):
+                    level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                    self.window.blit(level_text, (obj.x, obj.y))
+                elif isinstance(obj, Park):
+                    level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                    self.window.blit(level_text, (obj.x, obj.y))
+                elif isinstance(obj, Hospital):
+                    level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                    self.window.blit(level_text, (obj.x, obj.y))
 
     # Handle methods
     def handle_click(self, x, y):
@@ -434,10 +435,6 @@ class Game:
         self.game_state.remove_citizen_happiness(5)
 
     def remove_road(self, road):
-        if (road.x, road.y) in self.occupied_cells:
-            self.occupied_cells.remove((road.x, road.y))
-        else:
-            print(f"Coordinates {(road.x, road.y)} not found in occupied cells.")
         self.game_state.placed_objects.remove(road)
         self.game_state.add_citizen_happiness(1)
 
