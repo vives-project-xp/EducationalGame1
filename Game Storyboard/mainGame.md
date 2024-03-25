@@ -27,7 +27,12 @@ All the assets are visualized in the table below:
 
 | Category         | Asset                        | Price | Eco-Score Effect                               |
 |------------------|------------------------------|-------|-------------------------------------------------|
-| Buildings        | House                        | $1000 | -1                                              |
+| Buildings        | House                        | $1000 | tbd                                             |
+| Buildings        | Store                        | $3000 | tbd                                             |
+| Special          | Hospital                     | $15000| tbd                                             |
+| Nature           | Tree/park                    | $250  | tbd                                             |
+| Energy           | Windmill                     | $2000 | tbd                                             |
+| Energy           | Factory                      | $10000| tbd                                             |
 
 
 ## Info-button
