@@ -809,6 +809,12 @@ class Game:
         self.window.blit(upgrade_text, (menu_x + 40, menu_y + 16))  # Draw the upgrade text
         self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))  # Draw the remove icon
 
+        #if the building is a hospital draw a square around the cells using effect_range from hospital class
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Hospital) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                effect_range = obj.effect_range
+                pygame.draw.rect(self.window, (255, 0, 0), (obj.x - (effect_range*self.res.GRID_SIZE), obj.y - (effect_range*self.res.GRID_SIZE), self.grid_size + (effect_range*self.res.GRID_SIZE) * 2, self.grid_size + (effect_range*self.res.GRID_SIZE) * 2), 2)
+
     def draw_building_clicked_menu_remove_only(self):
         # Load the remove icon
         remove_icon = pygame.image.load('./assets/resources/icons/remove.png')
