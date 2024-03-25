@@ -115,16 +115,16 @@ class Game:
                 obj.update_image_size(self.grid_size)
             # elif isinstance(obj, Road):
             #     obj.update_image_size(self.grid_size)
-            elif isinstance(obj, Factory):
-                obj.update_image_size(self.grid_size)
-            elif isinstance(obj, Park):
-                obj.update_image_size(self.grid_size)
+            # elif isinstance(obj, Factory):
+            #     obj.update_image_size(self.grid_size)
+            # elif isinstance(obj, Park):
+            #     obj.update_image_size(self.grid_size)
             # elif isinstance(obj, Tree):
             #     obj.update_image_size(self.grid_size)
             # elif isinstance(obj, Energy):
             #     obj.update_image_size(self.grid_size)
-            elif isinstance(obj, Hospital):
-                obj.update_image_size(self.grid_size)
+            # elif isinstance(obj, Hospital):
+            #     obj.update_image_size(self.grid_size)
 
     # Drawing averages menu at bottom right corner
     def draw_averages(self, average_money_gain, average_ecoscore_change):

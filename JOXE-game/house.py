@@ -22,7 +22,6 @@ class House(Object):
         return image
 
     def draw(self, surface):
-        # Adjust the position so the house is centered at (x, y)
         pos = (self.x - self.image.get_width() // 2, self.y - self.image.get_height() // 2)
         surface.blit(self.image, pos)
 
