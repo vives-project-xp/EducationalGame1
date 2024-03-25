@@ -77,7 +77,6 @@ All trivia about climate that is shown during gameplay is listed below, along wi
 | More trivia yet to be added                                                             | TODO                                |
 
 ## Additional functionality (todo)
-- In game bar: red values if you can't buy the building
 - Parks should be upgrades for the tree asset
 - Adding hotels, appartments and skyscraper buildings
 - Add the co2 climate score in the middle of the bar
