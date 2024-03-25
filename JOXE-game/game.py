@@ -112,19 +112,19 @@ class Game:
             if isinstance(obj, House):
                 obj.update_position(self.grid_size)
             elif isinstance(obj, Store):
-                obj.update_image_size(self.grid_size)
+                obj.update_position(self.grid_size)
             # elif isinstance(obj, Road):
-            #     obj.update_image_size(self.grid_size)
-            # elif isinstance(obj, Factory):
-            #     obj.update_image_size(self.grid_size)
-            # elif isinstance(obj, Park):
-            #     obj.update_image_size(self.grid_size)
+            #     obj.update_position(self.grid_size)
+            elif isinstance(obj, Factory):
+                obj.update_position(self.grid_size)
+            elif isinstance(obj, Park):
+                obj.update_position(self.grid_size)
             # elif isinstance(obj, Tree):
-            #     obj.update_image_size(self.grid_size)
-            # elif isinstance(obj, Energy):
-            #     obj.update_image_size(self.grid_size)
-            # elif isinstance(obj, Hospital):
-            #     obj.update_image_size(self.grid_size)
+            #     obj.update_position(self.grid_size)
+            elif isinstance(obj, Energy):
+                obj.update_position(self.grid_size)
+            elif isinstance(obj, Hospital):
+                obj.update_position(self.grid_size)
 
     # Drawing averages menu at bottom right corner
     def draw_averages(self, average_money_gain, average_ecoscore_change):
@@ -222,6 +222,9 @@ class Game:
             elif isinstance(obj, Hospital):
                 level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                 self.window.blit(level_text, (obj.x, obj.y))
+            elif isinstance(obj, Energy):
+                level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
+                self.window.blit(level_text, (obj.x, obj.y))
 
     # Handle methods
     def handle_click(self, x, y):
@@ -260,7 +263,6 @@ class Game:
         grid_y = y // self.grid_size
         return grid_x, grid_y
 
-    # IS BUILDING PRESENT BUT ONLY HOUSE GETS CHECKED
     def is_building_already_present(self, grid_x, grid_y):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
@@ -276,6 +278,8 @@ class Game:
             elif isinstance(obj, Hospital) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
             elif isinstance(obj, Tree) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+                return True
+            elif isinstance(obj, Energy) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
         return False
 
@@ -325,7 +329,6 @@ class Game:
                 return True
         return False
 
-    #ALSO ONLY CHECKS HOUSE
     def handle_upgrade_button_click(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
@@ -353,6 +356,11 @@ class Game:
                     self.game_state.remove_money(obj.upgrade_cost)
                     obj.upgrade()
                     self.upgrade_hospital(obj)
+            elif isinstance(obj, Energy) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < 4:
+                    self.game_state.remove_money(obj.upgrade_cost)
+                    obj.upgrade()
+                    self.upgrade_energy(obj)
                 else:
                     print("Not enough money to upgrade the house.")
                 break
@@ -379,6 +387,10 @@ class Game:
     def upgrade_hospital(self, hospital):
         new_image = pygame.image.load(f'./assets/resources/buildings/hospital/hospital{hospital.level}.png')
         hospital.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+
+    def upgrade_energy(self, windmill):
+        new_image = pygame.image.load(f'./assets/resources/buildings/energy/windmills/windmill{windmill.level}.png')
+        windmill.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
 
     def handle_remove_button_click(self):
         # Print the coordinates of the selected cell
@@ -413,6 +425,8 @@ class Game:
                 self.remove_hospital(selected_object)
             elif isinstance(selected_object, Tree):
                 self.remove_tree(selected_object)
+            elif isinstance(selected_object, Energy):
+                self.remove_energy(selected_object)
         else:
             print("No object found at the selected cell.")
 
@@ -450,6 +464,10 @@ class Game:
     def remove_hospital(self, hospital):
         self.game_state.placed_objects.remove(hospital)
         self.game_state.remove_citizen_happiness(5)
+
+    def remove_energy(self, energy):
+        self.game_state.placed_objects.remove(energy)
+        self.game_state.remove_climate_score(5)
 
     def handle_menu_bar_click(self, x, y):
         if self.is_house_icon_clicked(x, y):
@@ -795,6 +813,8 @@ class Game:
             upgrade_cost = self.get_upgrade_cost(Park)
         if upgrade_cost is None:
             upgrade_cost = self.get_upgrade_cost(Hospital)
+        if upgrade_cost is None:
+            upgrade_cost = self.get_upgrade_cost(Energy)
 
         # Check if upgrade_cost is not None before comparing it with an integer
         if upgrade_cost is not None and upgrade_cost >= 1000000000:

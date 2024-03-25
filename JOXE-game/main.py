@@ -14,19 +14,13 @@ res = Resolution()
 
 WIDTH, HEIGHT = res.width, res.height
 
-# Get the directory of the script or the temporary directory
 if getattr(sys, 'frozen', False):
-    # If the script is running as a PyInstaller bundle (i.e., it's frozen),
-    # use the directory of the executable as the base directory
     base_dir = sys._MEIPASS
 else:
-    # If the script is not running as a PyInstaller bundle (i.e., it's not frozen),
-    # use the directory of the script as the base directory
     base_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Construct the file path
 icon_path = os.path.join(base_dir, 'assets', 'logo', 'JOXEC.png')
-
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 31)
 window = pygame.display.set_mode((WIDTH, HEIGHT))

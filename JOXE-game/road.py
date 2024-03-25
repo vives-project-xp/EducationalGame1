@@ -8,7 +8,6 @@ class Road(Object):
         self.type = None
         self.scale = 1.28 
         self.rotation = rotation
-        print(self.x, self.y)
         
         self.set_type('road')
 
@@ -18,6 +17,12 @@ class Road(Object):
     def set_type(self, road_type):
         self.type = road_type
         self.update_image()
+
+    def update_position(self, new_cell_size):
+        self.x = self.x / self.cell_size * new_cell_size
+        self.y = self.y / self.cell_size * new_cell_size
+        self.cell_size = new_cell_size
+        self.update_image_size(new_cell_size)
 
     def update_image(self):
         # Load the road image based on its type
