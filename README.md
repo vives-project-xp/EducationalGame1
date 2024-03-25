@@ -23,7 +23,8 @@ To sum up in broad terms:
 - Autodesk Fusion 360 is used for creating 3d-printable STL-files which may be used later in our project for creating tokens for the board game.
 - Hobbymaterials like exacto knives, glue, acrylics and cardboard are used for the Board Game.
 
-Much more **Documentation** can be found in the Documentation-folder like meeting notes, UML diagram for the PC game and our Work Breakdown Structure.
+Much more **Documentation** can be found in the [Documentation-folder](./Documentation)
+ like meeting notes, UML diagram for the PC game and our Work Breakdown Structure.
 
 ## PC-version:
 Our goal is for a 2D, top down citybuilder similar to existing games like the _Cities-series_ as well as _Clash of Clans_. 
