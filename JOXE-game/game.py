@@ -275,6 +275,8 @@ class Game:
                 return True
             elif isinstance(obj, Hospital) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
+            elif isinstance(obj, Tree) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+                return True
         return False
 
     # Is button clicked methods
@@ -397,28 +399,20 @@ class Game:
                     break
 
         if selected_object is not None:
-            # Print the class name of the selected object
-            print("Selected object class:", selected_object.__class__.__name__)
-
-            # Now you can proceed with removing the selected object
             if isinstance(selected_object, House):
-                print("Removing house")
                 self.remove_house(selected_object)
             elif isinstance(selected_object, Store):
-                print("Removing store")
                 self.remove_store(selected_object)
             elif isinstance(selected_object, Road):
-                print("Removing road")
                 self.remove_road(selected_object)
             elif isinstance(selected_object, Factory):
-                print("Removing factory")
                 self.remove_factory(selected_object)
             elif isinstance(selected_object, Park):
-                print("Removing park")
                 self.remove_park(selected_object)
             elif isinstance(selected_object, Hospital):
-                print("Removing hospital")
                 self.remove_hospital(selected_object)
+            elif isinstance(selected_object, Tree):
+                self.remove_tree(selected_object)
         else:
             print("No object found at the selected cell.")
 
@@ -432,6 +426,10 @@ class Game:
     def remove_store(self, store):
         self.game_state.placed_objects.remove(store)
         self.game_state.remove_citizen_happiness(5)
+
+    def remove_tree(self, tree):
+        self.game_state.placed_objects.remove(tree)
+        self.game_state.remove_climate_score(2)
 
     def remove_road(self, road):
         if (road.x, road.y) in self.occupied_cells:

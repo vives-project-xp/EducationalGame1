@@ -6,8 +6,9 @@ class Road(Object):
         super().__init__(x-10, y-10, level, grid_size)
         self.grid_size = grid_size
         self.type = None
-        self.scale = 1.28  #1.28
+        self.scale = 1.28 
         self.rotation = rotation
+        print(self.x, self.y)
         
         self.set_type('road')
 
@@ -35,12 +36,3 @@ class Road(Object):
     def set_rotation(self, rotation):
         self.rotation = rotation
         self.image = pygame.transform.rotate(self.image, rotation)
-
-    
-
-
-        
-
-
-
-
