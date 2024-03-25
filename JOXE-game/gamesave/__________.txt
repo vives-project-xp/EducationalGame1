@@ -1,6 +1,6 @@
 Amount of Citizens: 0
 Amount of Houses: 0
-Money: 1000070
+Money: 1000080
 Climate Score: 48
 Current Date: 2022-01-04
 citizen_happiness: 50
