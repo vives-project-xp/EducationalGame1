@@ -6,6 +6,7 @@ from zobjectfiles.tree import Tree
 from zobjectfiles.factory import Factory
 from zobjectfiles.store import Store
 from zobjectfiles.hospital import Hospital
+from zobjectfiles.firestation import Firestation
 from resolution import Resolution
 from trivia import Trivia
 import pygame, sys, random
@@ -28,6 +29,7 @@ class Game:
         'tree': 250,
         'factory': 10000,
         'hospital': 15000,
+        'firestation': 20000,
     }
 
     BUILDING_IMAGES = {
@@ -38,6 +40,7 @@ class Game:
         'store': './assets/resources/buildings/stores/store1.png',
         'factory': './assets/resources/buildings/factory/tempfac1.png',
         'hospital': './assets/resources/buildings/hospital/hospital1.png',
+        'firestation': './assets/resources/buildings/firestation/firestation1.png',
     }
 
     ECO_SCORE_BONUS = {
@@ -97,6 +100,8 @@ class Game:
             elif isinstance(obj, Energy):
                 obj.update_position(self.grid_size)
             elif isinstance(obj, Hospital):
+                obj.update_position(self.grid_size)
+            elif isinstance(obj, Firestation):
                 obj.update_position(self.grid_size)
 
     def draw_averages(self, average_money_gain, average_ecoscore_change):
@@ -165,13 +170,13 @@ class Game:
 
     def draw_building_icons(self, menu_bar_y, menu_bar_height):
         icon_y = menu_bar_y + int(menu_bar_height * 0.1)  # Centered in the menu bar
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital']): #BUILDING
+        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital', 'firestation']): #BUILDING
             self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES[building_type]), (self.icon_size, self.icon_size)),
                              (10 + i * (self.icon_size + 10), icon_y))
 
     def draw_building_costs(self, menu_bar_y):
         font = pygame.font.Font(None, 24)
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital']): #BUILDING
+        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital', 'firestation']): #BUILDING
             cost = self.COSTS.get(building_type, 0)
             if self.game_state.money < cost: 
                 color = self.COLORS['red']
@@ -183,7 +188,7 @@ class Game:
     def draw_object_level(self):
         if self.selected_cell is not None:
             for obj in self.game_state.placed_objects:
-                if isinstance(obj, (House, Store, Factory, Hospital, Energy, Tree)):
+                if isinstance(obj, (House, Store, Factory, Hospital, Energy, Tree, Firestation)):
                     level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                     self.window.blit(level_text, (obj.x, obj.y))
 
@@ -225,7 +230,7 @@ class Game:
 
     def is_building_already_present(self, grid_x, grid_y):
         for obj in self.game_state.placed_objects:
-            if isinstance(obj, (House, Store, Road, Factory, Hospital, Tree, Energy)) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+            if isinstance(obj, (House, Store, Road, Factory, Hospital, Tree, Energy, Firestation)) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
         return False
 
@@ -258,6 +263,9 @@ class Game:
     def is_hospital_icon_clicked(self, x, y):
         return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 6 * self.icon_size + 60 <= x <= 10 + 7 * self.icon_size + 60
 
+    def is_firestation_icon_clicked(self, x, y):
+        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 7 * self.icon_size + 70 <= x <= 10 + 8 * self.icon_size + 70
+    
     # Check if there's a tree in the cell
     def is_tree_in_cell(self, x, y):
         for obj in self.game_state.placed_objects:
@@ -274,8 +282,9 @@ class Game:
     def handle_upgrade_button_click(self):
         for obj in self.game_state.placed_objects:
             if obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                max_level = 10 if isinstance(obj, (House, Store, Factory, Hospital)) else 4 if isinstance(obj, Energy) else 3 if isinstance(obj, Tree) else 0
-                upgrade_method = self.upgrade_house if isinstance(obj, House) else self.upgrade_store if isinstance(obj, Store) else self.upgrade_factory if isinstance(obj, Factory) else self.upgrade_hospital if isinstance(obj, Hospital) else self.upgrade_energy if isinstance(obj, Energy) else self.upgrade_tree if isinstance(obj, Tree) else None
+                max_level = 10 if isinstance(obj, (House, Store, Factory, Hospital, Firestation)) else 4 if isinstance(obj, Energy) else 3 if isinstance(obj, Tree) else 0
+                # add new building here
+                upgrade_method = self.upgrade_house if isinstance(obj, House) else self.upgrade_store if isinstance(obj, Store) else self.upgrade_factory if isinstance(obj, Factory) else self.upgrade_hospital if isinstance(obj, Hospital) else self.upgrade_energy if isinstance(obj, Energy) else self.upgrade_tree if isinstance(obj, Tree) else self.upgrade_firestation if isinstance(obj, Firestation) else None
                 if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < max_level:
                     self.game_state.remove_money(obj.upgrade_cost)
                     obj.upgrade()
@@ -305,6 +314,11 @@ class Game:
         hospital.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
         hospital.higher_effect_range(1)
 
+    def upgrade_firestation(self, firestation):
+        new_image = pygame.image.load(f'./assets/resources/buildings/firestation/firestation{firestation.level}.png')
+        firestation.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+        firestation.higher_effect_range(1)
+
     def upgrade_energy(self, windmill):
         new_image = pygame.image.load(f'./assets/resources/buildings/energy/windmills/windmill{windmill.level}.png')
         windmill.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
@@ -330,7 +344,8 @@ class Game:
                     break
 
         if selected_object is not None:
-            remove_method = self.remove_house if isinstance(selected_object, House) else self.remove_store if isinstance(selected_object, Store) else self.remove_road if isinstance(selected_object, Road) else self.remove_factory if isinstance(selected_object, Factory) else self.remove_hospital if isinstance(selected_object, Hospital) else self.remove_tree if isinstance(selected_object, Tree) else self.remove_energy if isinstance(selected_object, Energy) else None
+            #add new object here as well
+            remove_method = self.remove_house if isinstance(selected_object, House) else self.remove_store if isinstance(selected_object, Store) else self.remove_road if isinstance(selected_object, Road) else self.remove_factory if isinstance(selected_object, Factory) else self.remove_hospital if isinstance(selected_object, Hospital) else self.remove_tree if isinstance(selected_object, Tree) else self.remove_energy if isinstance(selected_object, Energy) else self.remove_firestation if isinstance(selected_object, Firestation) else None
             remove_method(selected_object)
         else:
             print("No object found at the selected cell.")
@@ -367,6 +382,10 @@ class Game:
         self.remove_effect_happiness_hospital(hospital)
         self.game_state.placed_objects.remove(hospital)
 
+    def remove_firestation(self, firestation):
+        self.remove_effect_happiness_firestation(firestation)
+        self.game_state.placed_objects.remove(firestation)
+
     def remove_energy(self, energy):
         self.game_state.placed_objects.remove(energy)
         self.game_state.remove_climate_score(5)
@@ -386,6 +405,8 @@ class Game:
             self.handle_factory_icon_click()  
         elif self.is_hospital_icon_clicked(x, y):
             self.handle_hospital_icon_click()
+        elif self.is_firestation_icon_clicked(x, y):
+            self.handle_firestation_icon_click()
         else:
             self.menu_bar_visible = False
             self.selected_cell = None
@@ -438,6 +459,20 @@ class Game:
         hospital = Hospital(self.selected_cell[0], self.selected_cell[1], self.grid_size)
         self.game_state.placed_objects.append(hospital)
         self.game_state.remove_money(self.COSTS['hospital'])
+        self.game_state.remove_climate_score(5)
+        self.selected_cell = None
+
+    def handle_firestation_icon_click(self):
+        if self.selected_cell is not None and self.game_state.money >= self.COSTS['firestation']:
+            self.place_new_firestation()
+        else:
+            print("Not enough money to place a firestation.")
+        self.menu_bar_visible = False
+
+    def place_new_firestation(self):
+        firestation = Firestation(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+        self.game_state.placed_objects.append(firestation)
+        self.game_state.remove_money(self.COSTS['firestation'])
         self.game_state.remove_climate_score(5)
         self.selected_cell = None
 
@@ -498,6 +533,24 @@ class Game:
             if isinstance(house, House):
                 if removed_factory.x - effect_range*self.res.GRID_SIZE <= house.x <= removed_factory.x + effect_range*self.res.GRID_SIZE and removed_factory.y - effect_range*self.res.GRID_SIZE <= house.y <= removed_factory.y + effect_range*self.res.GRID_SIZE:
                     house.add_happiness(3)
+                print("House happiness:", house.inhab_happiness)
+
+    def update_effect_happiness_firestation(self):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Firestation):
+                effect_range = obj.effect_range
+                for house in self.game_state.placed_objects:
+                    if isinstance(house, House):
+                        if obj.x - effect_range*self.res.GRID_SIZE <= house.x <= obj.x + effect_range*self.res.GRID_SIZE and obj.y - effect_range*self.res.GRID_SIZE <= house.y <= obj.y + effect_range*self.res.GRID_SIZE:
+                            house.add_happiness(2)
+                        print("House happiness:", house.inhab_happiness)
+
+    def remove_effect_happiness_firestation(self, removed_firestation):
+        effect_range = removed_firestation.effect_range
+        for house in self.game_state.placed_objects:
+            if isinstance(house, House):
+                if removed_firestation.x - effect_range*self.res.GRID_SIZE <= house.x <= removed_firestation.x + effect_range*self.res.GRID_SIZE and removed_firestation.y - effect_range*self.res.GRID_SIZE <= house.y <= removed_firestation.y + effect_range*self.res.GRID_SIZE:
+                    house.remove_happiness(2)
                 print("House happiness:", house.inhab_happiness)
 
     def handle_factory_icon_click(self):
@@ -745,6 +798,8 @@ class Game:
             upgrade_cost = self.get_upgrade_cost(Energy)
         if upgrade_cost is None:
             upgrade_cost = self.get_upgrade_cost(Tree)
+        if upgrade_cost is None:
+            upgrade_cost = self.get_upgrade_cost(Firestation)
 
         # Check if upgrade_cost is not None before comparing it with an integer
         if upgrade_cost is not None and upgrade_cost >= 1000000000:
@@ -794,6 +849,9 @@ class Game:
             if isinstance(obj, Tree) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 effect_range = obj.effect_range
                 pygame.draw.rect(self.window, (180, 255, 180), (obj.x - (effect_range*self.res.GRID_SIZE), obj.y - (effect_range*self.res.GRID_SIZE), self.grid_size + (effect_range*self.res.GRID_SIZE) * 2, self.grid_size + (effect_range*self.res.GRID_SIZE) * 2), 2)
+            if isinstance(obj, Firestation) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                effect_range = obj.effect_range
+                pygame.draw.rect(self.window, (255, 0, 0), (obj.x - (effect_range*self.res.GRID_SIZE), obj.y - (effect_range*self.res.GRID_SIZE), self.grid_size + (effect_range*self.res.GRID_SIZE) * 2, self.grid_size + (effect_range*self.res.GRID_SIZE) * 2), 2)
 
     def get_upgrade_cost(self, object_type):
         for obj in self.game_state.placed_objects:
