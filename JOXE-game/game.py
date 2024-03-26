@@ -532,16 +532,38 @@ class Game:
         self.selected_cell = None
 
     def update_effect_happiness(self):
+        self.update_effect_happiness_hospital()
+        self.update_effect_happiness_tree()
         self.update_effect_happiness_factory()
 
-    def update_effect_happiness_factory(self):
+    def update_effect_happiness_hospital(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, Hospital):
                 effect_range = obj.effect_range
                 for house in self.game_state.placed_objects:
                     if isinstance(house, House):
                         if obj.x - effect_range*self.res.GRID_SIZE <= house.x <= obj.x + effect_range*self.res.GRID_SIZE and obj.y - effect_range*self.res.GRID_SIZE <= house.y <= obj.y + effect_range*self.res.GRID_SIZE:
-                            house.update_happiness(1)
+                            house.add_happiness(1)
+                        print("House happiness:", house.inhab_happiness)
+
+    def update_effect_happiness_tree(self):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Tree):
+                effect_range = obj.effect_range
+                for house in self.game_state.placed_objects:
+                    if isinstance(house, House):
+                        if obj.x - effect_range*self.res.GRID_SIZE <= house.x <= obj.x + effect_range*self.res.GRID_SIZE and obj.y - effect_range*self.res.GRID_SIZE <= house.y <= obj.y + effect_range*self.res.GRID_SIZE:
+                            house.add_happiness(1)
+                        print("House happiness:", house.inhab_happiness)
+
+    def update_effect_happiness_factory(self):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Factory):
+                effect_range = obj.effect_range
+                for house in self.game_state.placed_objects:
+                    if isinstance(house, House):
+                        if obj.x - effect_range*self.res.GRID_SIZE <= house.x <= obj.x + effect_range*self.res.GRID_SIZE and obj.y - effect_range*self.res.GRID_SIZE <= house.y <= obj.y + effect_range*self.res.GRID_SIZE:
+                            house.remove_happiness(3)
                         print("House happiness:", house.inhab_happiness)
 
     def handle_factory_icon_click(self):

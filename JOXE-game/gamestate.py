@@ -87,15 +87,13 @@ class Gamestate:
                 elif obj_name == "House":
                     obj = House(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*1000)
                 elif obj_name == "Energy":
-                    obj = Energy(x, y, self.res.GRID_SIZE, level)
+                    obj = Energy(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*5000)
                 elif obj_name == "Tree":
-                    obj = Tree(x, y, self.res.GRID_SIZE, level)
+                    obj = Tree(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*1000)
                 elif obj_name == "Store":
                     obj = Store(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*3000)
                 elif obj_name == "Factory":
                     obj = Factory(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*50000)
-                elif obj_name == "Park":
-                    obj = Park(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*5000)
                 elif obj_name == "Hospital":
                     obj = Hospital(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*15000)
                 else:

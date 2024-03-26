@@ -29,8 +29,14 @@ class House(Object):
     def add_inhabitant(self, amount):
         self.inhabitants += amount
 
-    def update_happiness(self, amount):
+    def add_happiness(self, amount):
         self.inhab_happiness += amount
+
+    def remove_happiness(self, amount):
+        if self.inhab_happiness - amount < 0:
+            self.inhab_happiness = 0
+        else:
+            self.inhab_happiness -= amount
     
     def upgrade(self):
         if self.level < 9:
