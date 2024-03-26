@@ -848,7 +848,18 @@ class Game:
         self.window.blit(upgrade_text, (menu_x + 40, menu_y + 16))  # Draw the upgrade text
         self.window.blit(remove_icon, (menu_x + 110, menu_y + 10))  # Draw the remove icon
 
-        #if the building is a hospital draw a square around the cells using effect_range from hospital class
+        self.draw_effect_range()
+        self.draw_house_happiness(menu_x, menu_y)
+        
+    def draw_house_happiness(self, menu_x, menu_y):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                if obj.inhab_happiness > 0:
+                    happiness_icon = pygame.image.load('./assets/resources/icons/happyhouse.png')
+                    happiness_icon = pygame.transform.scale(happiness_icon, (30, 30))
+                    self.window.blit(happiness_icon, (menu_x + 65, menu_y - 100))
+
+    def draw_effect_range(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, Hospital) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 effect_range = obj.effect_range
