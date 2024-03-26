@@ -1,12 +1,12 @@
 from grid import Grid
-from house import House
-from road import Road
-from energy import Energy
-from tree import Tree
+from zobjectfiles.house import House
+from zobjectfiles.road import Road
+from zobjectfiles.energy import Energy
+from zobjectfiles.tree import Tree
+from zobjectfiles.factory import Factory
+from zobjectfiles.store import Store
+from zobjectfiles.hospital import Hospital
 from resolution import Resolution
-from factory import Factory
-from store import Store
-from hospital import Hospital
 from trivia import Trivia
 import pygame, sys, random
 from pygame import mixer
@@ -186,7 +186,6 @@ class Game:
                     level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                     self.window.blit(level_text, (obj.x, obj.y))
 
-    # Handle methods
     def handle_click(self, x, y):
         grid_x, grid_y = self.get_grid_coordinates(x, y)
 
@@ -229,7 +228,6 @@ class Game:
                 return True
         return False
 
-    # Is button clicked methods
     def is_upgrade_button_clicked(self, x, y):
         return self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30 and \
             self.selected_cell[0] - 50 <= x <= self.selected_cell[0] + 40
@@ -316,13 +314,10 @@ class Game:
         tree.higher_effect_range(1)
 
     def handle_remove_button_click(self):
-        # Print the coordinates of the selected cell
         print("Selected cell:", self.selected_cell)
 
-        # Find the object at the selected cell
         selected_object = None
         for obj in self.game_state.placed_objects:
-            # Print the coordinates of the object
             print("Object coordinates:", (obj.x, obj.y))
             if isinstance(obj, Road):
                 obj.x == self.selected_cell[0] + 50 and obj.y == self.selected_cell[1] + 50
@@ -426,7 +421,6 @@ class Game:
             print("Not enough money to place a tree.")
         self.menu_bar_visible = False
         
-        # Display trivia popup with 40 percent spawn chance
         if random.randint(1, 100) <= 40:
             trivia = Trivia(self.window)
             trivia.show_trivia()   
@@ -533,7 +527,6 @@ class Game:
         self.placing_house_sound.play()
 
         if self.game_state.money >= 1000:
-            #place random version of house
             ran_version = random.randint(1, 4)
             house = House(self.selected_cell[0], self.selected_cell[1], self.grid_size, version=ran_version) 
             self.game_state.placed_objects.append(house)
@@ -554,7 +547,6 @@ class Game:
 
     def handle_road_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= 50:
-            # Set road placement in progress and store the starting position
             self.road_placement_in_progress = True
             self.road_start_position = self.selected_cell
             self.menu_bar_visible = False
@@ -572,9 +564,9 @@ class Game:
                 for nx, ny in neighbors:
                     neighbor = self.get_cell_at_location(nx, ny)
                     if neighbor is not None and neighbor.type in ['road', 'v-road', '+-road', 'cornerroad', 't-road' ]: 
-                        if nx != x:  # Horizontal road
+                        if nx != x:  
                             horizontal_neighbors += 1
-                        if ny != y:  # Vertical road
+                        if ny != y:  
                             vertical_neighbors += 1
                 if horizontal_neighbors == 2 and vertical_neighbors == 1 or horizontal_neighbors == 1 and vertical_neighbors == 2:
                     cell.set_type('t-road')
@@ -637,7 +629,6 @@ class Game:
             print("Not enough money to place a road.")
 
     def place_road_at_location(self, x, y):
-        # Check if a road is already present at the target grid cell
         if self.is_building_already_present(x // self.grid_size, y // self.grid_size):
             return None
             
@@ -653,10 +644,8 @@ class Game:
         self.game_state.remove_climate_score(1)
         self.occupied_cells.add((x - 60, y - 60))
 
-        # Check for nearby roads to connect
         self.connect_nearby_roads(x, y)
 
-        # Return the road object
         return road
  
     def connect_nearby_roads(self, x, y):
@@ -679,7 +668,6 @@ class Game:
                     self.check_adjacent_roads(x, y, cell_x, cell_y)
                     return
 
-        # No nearby roads, use default horizontal road image
         self.set_road_image(x, y, 'road.png')
 
     def set_road_image(self, x, y, image_path):
@@ -689,11 +677,8 @@ class Game:
                 if image_path == 'v-road.png' or image_path == 'cornerroad.png':
                     new_image = pygame.image.load(image_path)
                 else:
-                    # Load the original image
                     original_image = pygame.image.load(image_path)
-                    # Create a new surface with the desired size
                     new_image = pygame.Surface((self.grid_size, self.grid_size), pygame.SRCALPHA)
-                    # Blit the original image onto the new surface
                     new_image.blit(original_image, (0, 0))
                 obj.image = new_image
 
@@ -738,14 +723,11 @@ class Game:
         upgrade_icon = pygame.transform.scale(upgrade_icon, (icon_width, icon_height))
         remove_icon = pygame.transform.scale(remove_icon, (icon_width, icon_height))
 
-        # Calculate the position of the menu
-        menu_x = self.selected_cell[0] - 80 + self.grid_size // 2  # Center the menu below the house
+        menu_x = self.selected_cell[0] - 80 + self.grid_size // 2  
         menu_y = self.selected_cell[1] + self.grid_size
 
-        # Draw the house menu background
-        pygame.draw.rect(self.window, (230, 230, 230), (menu_x, menu_y, 160, 50))  # Lower the height of the menu
+        pygame.draw.rect(self.window, (230, 230, 230), (menu_x, menu_y, 160, 50))  
 
-        # Draw the border of the menu
         border_width = 2  # You can change this to make the border thicker or thinner
         pygame.draw.rect(self.window, (0, 0, 0), (menu_x, menu_y, 160, 50), border_width)
 

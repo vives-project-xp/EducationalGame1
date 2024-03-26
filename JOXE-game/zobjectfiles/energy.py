@@ -1,5 +1,5 @@
 import pygame
-from object import Object
+from zobjectfiles.object import Object
 
 class Energy(Object):
     def __init__(self, x, y, grid_size, level=1, upgrade_cost=10000):

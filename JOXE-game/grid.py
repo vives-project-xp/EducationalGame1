@@ -1,5 +1,5 @@
 import pygame
-from road import Road
+from zobjectfiles.road import Road
 
 class Grid:
     def __init__(self, window, grid_size, game_state, font):

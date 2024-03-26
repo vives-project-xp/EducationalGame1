@@ -1,5 +1,5 @@
 import pygame
-from object import Object
+from zobjectfiles.object import Object
 
 class Tree(Object):
     def __init__(self, x, y, cell_size, level=1, upgrade_cost=1000):

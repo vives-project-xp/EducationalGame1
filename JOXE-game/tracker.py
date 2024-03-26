@@ -1,10 +1,10 @@
 import pygame
-from house import House
-from tree import Tree
-from energy import Energy
-from store import Store
-from factory import Factory
-from hospital import Hospital
+from zobjectfiles.house import House
+from zobjectfiles.tree import Tree
+from zobjectfiles.energy import Energy
+from zobjectfiles.store import Store
+from zobjectfiles.factory import Factory
+from zobjectfiles.hospital import Hospital
 
 class Tracker:
     def __init__(self, game, game_state):

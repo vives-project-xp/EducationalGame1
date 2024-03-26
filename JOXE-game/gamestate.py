@@ -1,11 +1,11 @@
 import os
-from road import Road
-from house import House
-from energy import Energy
-from tree import Tree
-from store import Store
-from factory import Factory
-from hospital import Hospital
+from zobjectfiles.road import Road
+from zobjectfiles.house import House
+from zobjectfiles.energy import Energy
+from zobjectfiles.tree import Tree
+from zobjectfiles.store import Store
+from zobjectfiles.factory import Factory
+from zobjectfiles.hospital import Hospital
 from resolution import Resolution
 import datetime
 
