@@ -439,6 +439,7 @@ class Game:
         self.game_state.remove_citizen_happiness(5)
 
     def remove_tree(self, tree):
+        self.remove_effect_happiness_tree(tree) 
         self.game_state.placed_objects.remove(tree)
         self.game_state.remove_climate_score(2)
 
@@ -447,10 +448,12 @@ class Game:
         self.game_state.add_citizen_happiness(1)
 
     def remove_factory(self, factory):
+        self.remove_effect_happiness_factory(factory)
         self.game_state.placed_objects.remove(factory)
         self.game_state.add_citizen_happiness(10)
 
     def remove_hospital(self, hospital):
+        self.remove_effect_happiness_hospital(hospital)
         self.game_state.placed_objects.remove(hospital)
         self.game_state.remove_citizen_happiness(5)
 
@@ -546,6 +549,14 @@ class Game:
                             house.add_happiness(1)
                         print("House happiness:", house.inhab_happiness)
 
+    def remove_effect_happiness_hospital(self, removed_hospital):
+        effect_range = removed_hospital.effect_range
+        for house in self.game_state.placed_objects:
+            if isinstance(house, House):
+                if removed_hospital.x - effect_range*self.res.GRID_SIZE <= house.x <= removed_hospital.x + effect_range*self.res.GRID_SIZE and removed_hospital.y - effect_range*self.res.GRID_SIZE <= house.y <= removed_hospital.y + effect_range*self.res.GRID_SIZE:
+                    house.remove_happiness(1)
+                print("House happiness:", house.inhab_happiness)
+
     def update_effect_happiness_tree(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, Tree):
@@ -556,6 +567,14 @@ class Game:
                             house.add_happiness(1)
                         print("House happiness:", house.inhab_happiness)
 
+    def remove_effect_happiness_tree(self, removed_tree):
+        effect_range = removed_tree.effect_range
+        for house in self.game_state.placed_objects:
+            if isinstance(house, House):
+                if removed_tree.x - effect_range*self.res.GRID_SIZE <= house.x <= removed_tree.x + effect_range*self.res.GRID_SIZE and removed_tree.y - effect_range*self.res.GRID_SIZE <= house.y <= removed_tree.y + effect_range*self.res.GRID_SIZE:
+                    house.remove_happiness(1)
+                print("House happiness:", house.inhab_happiness)
+
     def update_effect_happiness_factory(self):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, Factory):
@@ -565,6 +584,14 @@ class Game:
                         if obj.x - effect_range*self.res.GRID_SIZE <= house.x <= obj.x + effect_range*self.res.GRID_SIZE and obj.y - effect_range*self.res.GRID_SIZE <= house.y <= obj.y + effect_range*self.res.GRID_SIZE:
                             house.remove_happiness(3)
                         print("House happiness:", house.inhab_happiness)
+
+    def remove_effect_happiness_factory(self, removed_factory):
+        effect_range = removed_factory.effect_range
+        for house in self.game_state.placed_objects:
+            if isinstance(house, House):
+                if removed_factory.x - effect_range*self.res.GRID_SIZE <= house.x <= removed_factory.x + effect_range*self.res.GRID_SIZE and removed_factory.y - effect_range*self.res.GRID_SIZE <= house.y <= removed_factory.y + effect_range*self.res.GRID_SIZE:
+                    house.add_happiness(3)
+                print("House happiness:", house.inhab_happiness)
 
     def handle_factory_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['factory']:
@@ -856,6 +883,10 @@ class Game:
             if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 if obj.inhab_happiness > 0:
                     happiness_icon = pygame.image.load('./assets/resources/icons/happyhouse.png')
+                    happiness_icon = pygame.transform.scale(happiness_icon, (30, 30))
+                    self.window.blit(happiness_icon, (menu_x + 65, menu_y - 100))
+                elif obj.inhab_happiness <= 0:
+                    happiness_icon = pygame.image.load('./assets/resources/icons/sadhouse.png')
                     happiness_icon = pygame.transform.scale(happiness_icon, (30, 30))
                     self.window.blit(happiness_icon, (menu_x + 65, menu_y - 100))
 
