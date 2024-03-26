@@ -70,8 +70,8 @@ All trivia about climate that is shown during gameplay is listed below, along wi
 - Adding hotels, appartments and skyscraper buildings
 - Behind the fixed UI elements you shouldn't be able to build
 - Adding max upgrades for all assets
-- Creating different houses (randomly chosen or choose in shop under house tab)
-- House happiness?
+- Creating different houses (randomly chosen or choose in shop under house tab) 
+- House happiness? (in progress --> Esteban)
 - In shop add the prefab stats on mouseover
 - Dead end streat should stop
 - For prefabs at the bottom, show upgrade menu at the top (same for left and right)
@@ -79,7 +79,7 @@ All trivia about climate that is shown during gameplay is listed below, along wi
 - Auto save?
 - Prefab mountain, river, ... on map?
 - GAME IS TOO EASY
-- Effective range for buildings (where do they affect the happines?)
+- Effective range for buildings (where do they affect the happines?)(in progress --> Esteban)
 - (If you place multiple parks besides eachother, you create one big park)
 - Statues (very expensive)
 - Trivia RESIZE!
