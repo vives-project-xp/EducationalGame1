@@ -141,17 +141,8 @@ class Gamestate:
     def get_citizen_count(self):
         return self.amountOfCitizens
     
-    def add_citizen_happiness(self, amount):
-        if self.citizen_happiness + amount <= 100:
-            self.citizen_happiness += amount
-        else:
-            self.citizen_happiness = 100
-
-    def remove_citizen_happiness(self, amount):
-        if self.citizen_happiness - amount >= 1:
-            self.citizen_happiness -= amount
-        else:
-            self.citizen_happiness = 1
+    def update_city_happiness(self, new_happiness):
+        self.citizen_happiness = new_happiness
     
     def restart(self):
         self.amountOfCitizens = 0

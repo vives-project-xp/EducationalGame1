@@ -79,6 +79,7 @@ class Game:
         self.draw_object_level()
         self.update_image_size()
         self.update_effect_happiness()
+        self.citizen_happiness_update()
         pygame.display.update()
 
     def update_image_size(self):
@@ -334,16 +335,21 @@ class Game:
         else:
             print("No object found at the selected cell.")
 
+    def citizen_happiness_update(self):
+        total_happiness = 0
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, House):
+                total_happiness += obj.inhab_happiness
+        self.game_state.update_city_happiness(total_happiness)
+        print("Total happiness:", total_happiness)
 
     def remove_house(self, house):
         self.game_state.placed_objects.remove(house)
         self.game_state.remove_citizen(house.inhabitants)
         self.game_state.remove_house(1)
-        self.game_state.remove_citizen_happiness(3)
 
     def remove_store(self, store):
         self.game_state.placed_objects.remove(store)
-        self.game_state.remove_citizen_happiness(5)
 
     def remove_tree(self, tree):
         self.remove_effect_happiness_tree(tree) 
@@ -352,17 +358,14 @@ class Game:
 
     def remove_road(self, road):
         self.game_state.placed_objects.remove(road)
-        self.game_state.add_citizen_happiness(1)
 
     def remove_factory(self, factory):
         self.remove_effect_happiness_factory(factory)
         self.game_state.placed_objects.remove(factory)
-        self.game_state.add_citizen_happiness(10)
 
     def remove_hospital(self, hospital):
         self.remove_effect_happiness_hospital(hospital)
         self.game_state.placed_objects.remove(hospital)
-        self.game_state.remove_citizen_happiness(5)
 
     def remove_energy(self, energy):
         self.game_state.placed_objects.remove(energy)
@@ -406,7 +409,6 @@ class Game:
             self.game_state.placed_objects.append(store)
             self.game_state.remove_money(self.COSTS['store'])
             self.game_state.add_climate_score(self.ECO_SCORE_BONUS['store'])
-            self.game_state.add_citizen_happiness(5)
         else:
             print("Not enough money to place a new store.")
 
@@ -437,7 +439,6 @@ class Game:
         self.game_state.placed_objects.append(hospital)
         self.game_state.remove_money(self.COSTS['hospital'])
         self.game_state.remove_climate_score(5)
-        self.game_state.add_citizen_happiness(5)
         self.selected_cell = None
 
     def update_effect_happiness(self):
@@ -505,7 +506,6 @@ class Game:
             self.game_state.placed_objects.append(factory)
             self.game_state.remove_money(self.COSTS['factory'])
             self.selected_cell = None
-            self.game_state.remove_citizen_happiness(25)
         else:
             print("Not enough money to place a factory.")
         self.menu_bar_visible = False
@@ -535,7 +535,6 @@ class Game:
             self.game_state.add_citizen(add_citizen)
             house.add_inhabitant(add_citizen)
             self.game_state.add_house(1)
-            self.game_state.add_citizen_happiness(1)
         else:
             print("Not enough money to place a new house.")
             
