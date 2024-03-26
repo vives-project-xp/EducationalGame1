@@ -30,11 +30,16 @@ class House(Object):
         self.inhabitants += amount
 
     def add_happiness(self, amount):
-        self.inhab_happiness += amount
+        max = 5
+        if self.inhab_happiness + amount > max:
+            self.inhab_happiness = max
+        else:
+            self.inhab_happiness += amount
 
     def remove_happiness(self, amount):
-        if self.inhab_happiness - amount < 0:
-            self.inhab_happiness = 0
+        min = 0
+        if self.inhab_happiness - amount < min:
+            self.inhab_happiness = min
         else:
             self.inhab_happiness -= amount
     

@@ -68,7 +68,7 @@ class Game:
         self.icon_size = int(self.window.get_height() * 0.2 * 0.8)
         self.icon_y = int(0.8 * self.window.get_height()) + int(self.window.get_height() * 0.2 * 0.1) 
         self.menu_bar_height = self.window.get_height() * 0.2
-        self.icon_size = int(self.menu_bar_height * 0.8) 
+        self.icon_size = int(self.menu_bar_height * 0.8)
 
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
 
@@ -775,11 +775,11 @@ class Game:
     def draw_house_happiness(self, menu_x, menu_y):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                if obj.inhab_happiness > 0:
+                if obj.inhab_happiness > 1:
                     happiness_icon = pygame.image.load('./assets/resources/icons/happyhouse.png')
                     happiness_icon = pygame.transform.scale(happiness_icon, (30, 30))
                     self.window.blit(happiness_icon, (menu_x + 65, menu_y - 100))
-                elif obj.inhab_happiness <= 0:
+                elif obj.inhab_happiness <= 1:
                     happiness_icon = pygame.image.load('./assets/resources/icons/sadhouse.png')
                     happiness_icon = pygame.transform.scale(happiness_icon, (30, 30))
                     self.window.blit(happiness_icon, (menu_x + 65, menu_y - 100))
