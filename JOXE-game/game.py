@@ -101,6 +101,7 @@ class Game:
         self.draw_game_elements()
         self.draw_object_level()
         self.update_image_size()
+        self.update_effect_happiness()
         pygame.display.update()
 
     def update_image_size(self):
@@ -529,6 +530,19 @@ class Game:
         self.game_state.remove_climate_score(5)
         self.game_state.add_citizen_happiness(5)
         self.selected_cell = None
+
+    def update_effect_happiness(self):
+        self.update_effect_happiness_factory()
+
+    def update_effect_happiness_factory(self):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Hospital):
+                effect_range = obj.effect_range
+                for house in self.game_state.placed_objects:
+                    if isinstance(house, House):
+                        if obj.x - effect_range*self.res.GRID_SIZE <= house.x <= obj.x + effect_range*self.res.GRID_SIZE and obj.y - effect_range*self.res.GRID_SIZE <= house.y <= obj.y + effect_range*self.res.GRID_SIZE:
+                            house.update_happiness(1)
+                        print("House happiness:", house.inhab_happiness)
 
     def handle_factory_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['factory']:
