@@ -1,5 +1,5 @@
 import pygame
-from object import Object
+from zobjectfiles.object import Object
 
 class Store(Object):
     def __init__(self, x, y, cell_size, level=1, upgrade_cost=3000):
@@ -13,12 +13,6 @@ class Store(Object):
         image = pygame.image.load(image_path)
         image = pygame.transform.scale(image, (width, height))
         return image
-    
-    def update_position(self, new_cell_size):
-        self.x = self.x / self.cell_size * new_cell_size
-        self.y = self.y / self.cell_size * new_cell_size
-        self.cell_size = new_cell_size
-        self.update_image_size(new_cell_size)
 
     def draw(self, surface):
         pos = (self.x - self.image.get_width() // 2, self.y - self.image.get_height() // 2)

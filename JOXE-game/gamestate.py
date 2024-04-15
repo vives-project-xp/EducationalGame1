@@ -1,12 +1,12 @@
 import os
-from road import Road
-from house import House
-from energy import Energy
-from tree import Tree
-from store import Store
-from factory import Factory
-from park import Park
-from hospital import Hospital
+from zobjectfiles.road import Road
+from zobjectfiles.house import House
+from zobjectfiles.energy import Energy
+from zobjectfiles.tree import Tree
+from zobjectfiles.store import Store
+from zobjectfiles.factory import Factory
+from zobjectfiles.hospital import Hospital
+from zobjectfiles.firestation import Firestation
 from resolution import Resolution
 import datetime
 
@@ -41,6 +41,8 @@ class Gamestate:
                 file.write(f"{obj.__class__.__name__}")
                 file.write(f"- {obj.level}")
                 file.write(f"({obj.x}-{obj.y})")
+                if obj.__class__.__name__ == "House":
+                    file.write(f"- {obj.version}")
                 if obj.__class__.__name__ == "Road":
                     file.write(f"{obj.type}|{obj.rotation}\n")
                 else:
@@ -60,7 +62,6 @@ class Gamestate:
             self.current_date = datetime.datetime.strptime(lines[4].split(": ")[1].strip(), '%Y-%m-%d')
             self.citizen_happiness = int(lines[5].split(": ")[1])
 
-            # Inside the load_gamestate method
             for line in lines[7:]:
                 obj_data = line.strip().split('(')
                 obj_name, level = obj_data[0].split('-')
@@ -81,29 +82,31 @@ class Gamestate:
                     rotation = int(rotation.strip())
                     road_type = road_type.strip()
                     obj = Road(x+10, y+10, self.res.GRID_SIZE, level, rotation)
-                    #update image
                     obj.set_type(road_type)
                     obj.update_image()
                     
                 elif obj_name == "House":
-                    obj = House(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*1000)
+                    version_data = obj_data[1].split(')')[1]
+                    version = int(version_data.replace('-', '').strip()) if version_data else 1
+                    obj = House(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*1000, version=version)
                 elif obj_name == "Energy":
-                    obj = Energy(x, y, self.res.GRID_SIZE, level)
+                    obj = Energy(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*5000)
                 elif obj_name == "Tree":
-                    obj = Tree(x, y, self.res.GRID_SIZE, level)
+                    obj = Tree(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*1000)
                 elif obj_name == "Store":
                     obj = Store(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*3000)
                 elif obj_name == "Factory":
                     obj = Factory(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*50000)
-                elif obj_name == "Park":
-                    obj = Park(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*5000)
                 elif obj_name == "Hospital":
                     obj = Hospital(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*15000)
+                    obj.gamestate_update_effect_range()
+                elif obj_name == "Firestation":
+                    obj = Firestation(x, y, self.res.GRID_SIZE, level, upgrade_cost= (5**(level-1))*15000)
+                    obj.gamestate_update_effect_range()
                 else:
                     continue
 
                 self.placed_objects.append(obj)
-
 
     def add_object(self, obj):
         self.placed_objects.append(obj)
@@ -144,17 +147,8 @@ class Gamestate:
     def get_citizen_count(self):
         return self.amountOfCitizens
     
-    def add_citizen_happiness(self, amount):
-        if self.citizen_happiness + amount <= 100:
-            self.citizen_happiness += amount
-        else:
-            self.citizen_happiness = 100
-
-    def remove_citizen_happiness(self, amount):
-        if self.citizen_happiness - amount >= 1:
-            self.citizen_happiness -= amount
-        else:
-            self.citizen_happiness = 1
+    def update_city_happiness(self, new_happiness):
+        self.citizen_happiness = new_happiness
     
     def restart(self):
         self.amountOfCitizens = 0

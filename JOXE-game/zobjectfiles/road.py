@@ -1,5 +1,5 @@
 import pygame
-from object import Object
+from zobjectfiles.object import Object
 
 class Road(Object):
     def __init__(self, x, y, grid_size, level=0, rotation=0):
@@ -18,24 +18,14 @@ class Road(Object):
         self.type = road_type
         self.update_image()
 
-    def update_position(self, new_cell_size):
-        self.x = self.x / self.cell_size * new_cell_size
-        self.y = self.y / self.cell_size * new_cell_size
-        self.cell_size = new_cell_size
-        self.update_image_size(new_cell_size)
-
     def update_image(self):
-        # Load the road image based on its type
         road_image_path = f'./assets/resources/road/{self.type}.png'
         image = pygame.image.load(road_image_path)
 
-        # Calculate new size
         new_size = (int(self.grid_size * (self.scale + 0.1)), int(self.grid_size * (self.scale + 0.11)))
 
-        # Scale the image
         self.image = pygame.transform.scale(image, new_size)
 
-        # Apply rotation
         self.image = pygame.transform.rotate(self.image, self.rotation)
 
     def set_rotation(self, rotation):
