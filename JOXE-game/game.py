@@ -11,12 +11,7 @@ from resolution import Resolution
 from trivia import Trivia
 import pygame, sys, random
 from pygame import mixer
-<<<<<<< HEAD
-import sys
-import random
 import time
-=======
->>>>>>> bcb09c76913c83997fa9bc472ca9c5f5f2dabaa9
 
 class Game:
     COLORS = {
@@ -77,12 +72,7 @@ class Game:
         self.icon_size = int(self.window.get_height() * 0.2 * 0.8)
         self.icon_y = int(0.8 * self.window.get_height()) + int(self.window.get_height() * 0.2 * 0.1) 
         self.menu_bar_height = self.window.get_height() * 0.2
-<<<<<<< HEAD
-        self.icon_size = int(self.menu_bar_height * 0.8) 
-        self.warning_popup = False
-=======
         self.icon_size = int(self.menu_bar_height * 0.8)
->>>>>>> bcb09c76913c83997fa9bc472ca9c5f5f2dabaa9
 
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
 
@@ -180,13 +170,8 @@ class Game:
         self.draw_building_costs(menu_bar_y)
 
     def draw_building_icons(self, menu_bar_y, menu_bar_height):
-<<<<<<< HEAD
         icon_y = menu_bar_y + int(menu_bar_height * 0.1)
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital']): #BUILDING
-=======
-        icon_y = menu_bar_y + int(menu_bar_height * 0.1)  # Centered in the menu bar
         for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital', 'firestation']): #BUILDING
->>>>>>> bcb09c76913c83997fa9bc472ca9c5f5f2dabaa9
             self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES[building_type]), (self.icon_size, self.icon_size)),
                              (10 + i * (self.icon_size + 10), icon_y))
 
@@ -470,16 +455,9 @@ class Game:
             print("Not enough money to place a tree.")
         self.menu_bar_visible = False
         
-<<<<<<< HEAD
-        # Display trivia popup with 40 percent spawn chance
-        # if random.randint(1, 100) <= 40:
-        trivia = Trivia(self.window, self.game_state)
-        trivia.show_trivia()   
-=======
         if random.randint(1, 100) <= 40:
-            trivia = Trivia(self.window)
+            trivia = Trivia(self.window, self.game_state)
             trivia.show_trivia()   
->>>>>>> bcb09c76913c83997fa9bc472ca9c5f5f2dabaa9
         
     def handle_hospital_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['hospital']:

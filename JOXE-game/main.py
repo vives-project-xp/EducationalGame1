@@ -3,7 +3,6 @@ from game import Game
 from gamestate import Gamestate
 from tracker import Tracker
 from resolution import Resolution
-from ownUIelements import Slider
 import datetime
 import os
 import sys
