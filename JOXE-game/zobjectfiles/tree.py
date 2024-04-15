@@ -3,7 +3,7 @@ from zobjectfiles.object import Object
 
 class Tree(Object):
     def __init__(self, x, y, cell_size, level=1, upgrade_cost=1000):
-        super().__init__(x, y, level, cell_size)
+        super().__init__(x, y, level, cell_size, 1)
         self.grid_size = cell_size
         self.upgrade_cost = upgrade_cost
         self.effect_range = 1

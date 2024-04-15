@@ -3,7 +3,7 @@ from zobjectfiles.object import Object
 
 class Energy(Object):
     def __init__(self, x, y, grid_size, level=1, upgrade_cost=10000):
-        super().__init__(x, y, level, grid_size)
+        super().__init__(x, y, level, grid_size, 3, 300)
         self.upgrade_cost = upgrade_cost
         self.grid_size = grid_size
         self.images = [f'./assets/resources/buildings/energy/windmills/windmill{i}.png' for i in range(1, 5)]

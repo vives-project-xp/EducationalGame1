@@ -3,7 +3,7 @@ from zobjectfiles.object import Object
 
 class House(Object):
     def __init__(self, x, y, cell_size, level=1, upgrade_cost=1000, version=1):
-        super().__init__(x, y, level, cell_size)
+        super().__init__(x, y, level, cell_size, 1, 0)
         self.inhabitants = 0 
         self.version = version
         self.upgrade_cost = upgrade_cost

@@ -1,10 +1,12 @@
 import pygame   
 
 class Object:
-    def __init__(self, x, y, level, cell_size):
+    def __init__(self, x, y, level, cell_size, eco_change=0, money_change=0):
         self.x = x
         self.y = y
         self.level = level
+        self.eco_change = eco_change
+        self.money_change = money_change
         self.cell_size = cell_size
 
     def update_image_size(self, cell_size):

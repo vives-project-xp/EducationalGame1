@@ -3,7 +3,7 @@ from zobjectfiles.object import Object
 
 class Hospital(Object):
     def __init__(self, x, y, cell_size, level=1, upgrade_cost=75000):
-        super().__init__(x, y, level, cell_size)
+        super().__init__(x, y, level, cell_size, 3, 1500)
         self.upgrade_cost = upgrade_cost
         self.ecoscore = -1
         # Range of the hospital
