@@ -19,6 +19,8 @@ https://www.canva.com/design/DAF_3hoMmls/RSs-cmKISVcsZCr41iM4_A/edit?utm_content
 **Disaster Cards:**
 https://www.canva.com/design/DAGCeY7P3PM/O3G1yhGfBC1DE5zgvkaGAQ/edit?utm_content=DAGCeY7P3PM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton \
 
+**Building Tiles:**
+https://www.canva.com/design/DAGAgvM-UtE/wPcAF6jyOMJ2Npwq9uyRKw/edit?utm_content=DAGAgvM-UtE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton \
 
 **Box art:**
 https://www.canva.com/design/DAGCdigSoLw/wXGR4IJ9WrZjzJYyYBqm5A/edit?utm_content=DAGCdigSoLw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
