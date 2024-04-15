@@ -11,6 +11,8 @@ from resolution import Resolution
 from trivia import Trivia
 import pygame, sys, random
 from pygame import mixer
+import sys
+import random
 import time
 
 class Game:
@@ -72,7 +74,9 @@ class Game:
         self.icon_size = int(self.window.get_height() * 0.2 * 0.8)
         self.icon_y = int(0.8 * self.window.get_height()) + int(self.window.get_height() * 0.2 * 0.1) 
         self.menu_bar_height = self.window.get_height() * 0.2
-        self.icon_size = int(self.menu_bar_height * 0.8)
+
+        self.icon_size = int(self.menu_bar_height * 0.8) 
+        self.warning_popup = False
 
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
 
@@ -170,7 +174,7 @@ class Game:
         self.draw_building_costs(menu_bar_y)
 
     def draw_building_icons(self, menu_bar_y, menu_bar_height):
-        icon_y = menu_bar_y + int(menu_bar_height * 0.1)
+        icon_y = menu_bar_y + int(menu_bar_height * 0.1)  # Centered in the menu bar
         for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital', 'firestation']): #BUILDING
             self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES[building_type]), (self.icon_size, self.icon_size)),
                              (10 + i * (self.icon_size + 10), icon_y))
@@ -455,9 +459,10 @@ class Game:
             print("Not enough money to place a tree.")
         self.menu_bar_visible = False
         
-        if random.randint(1, 100) <= 40:
-            trivia = Trivia(self.window, self.game_state)
-            trivia.show_trivia()   
+        # Display trivia popup with 40 percent spawn chance
+        # if random.randint(1, 100) <= 40:
+        trivia = Trivia(self.window, self.game_state)
+        trivia.show_trivia()   
         
     def handle_hospital_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['hospital']:
