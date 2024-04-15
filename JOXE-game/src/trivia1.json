@@ -1,0 +1,26 @@
+[
+    {
+        "question": "How much degrees has the average surface temperature of the planet risen in the last 200 years?",
+        "answers": ["2°C", "6°C", "8°C", "20°C"],
+        "correct": "2°C",
+        "solution": "The planet’s average surface temperature has risen about 2°C since the late 19th century, a change driven largely by increased carbon dioxide emissions into the atmosphere and other human activities. This is according to an investigation from NASA."
+    },
+    {
+        "question": "What is the capital of Germany?",
+        "answers": ["Paris", "London", "Berlin", "Madrid"],
+        "correct": "Berlin",
+        "solution": "Berlin is the capital of Germany."
+    },
+    {
+        "question": "What is the capital of Spain?",
+        "answers": ["Paris", "London", "Berlin", "Madrid"],
+        "correct": "Madrid",
+        "solution": "Madrid is the capital of Spain."
+    },
+    {
+        "question": "What is the capital of the United Kingdom?",
+        "answers": ["Paris", "London", "Berlin", "Madrid"],
+        "correct": "London",
+        "solution": "London is the capital of the United Kingdom."
+    }
+]

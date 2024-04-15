@@ -9,36 +9,56 @@ WIDTH, HEIGHT = res.width, res.height
 
 class Trivia:
 
-    def __init__(self, window):
+    def __init__(self, window, game_state):
         self.window = window
         self.trivia_list = self.load_trivia()
         self.trivia = self.get_random_trivia(self.trivia_list)
+        self.game_state = game_state
 
     def show_trivia(self):
         self.trivia = self.get_random_trivia(self.trivia_list)
-        close_button_rect = self.show_trivia_popup(self.trivia)
+        close_button_rect, answer_buttons = self.show_trivia_popup(self.trivia)
 
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # if close button is pressed or the user clicks outside the popup, close the popup
-                    if close_button_rect.collidepoint(pygame.mouse.get_pos()) or not close_button_rect.collidepoint(pygame.mouse.get_pos()):
+                    if close_button_rect.collidepoint(pygame.mouse.get_pos()): # or not close_button_rect.collidepoint(pygame.mouse.get_pos()):
                         return
-                    
+                    # if an answer button is clicked, check if it's the correct answer
+                    for i, answer_button in enumerate(answer_buttons):
+                        if answer_button.collidepoint(pygame.mouse.get_pos()):
+                            selected_answer = self.trivia['answers'][i]
+                            if selected_answer == self.trivia['correct']:
+                                self.game_state.add_money(100000)
+                                print("True")
+                                # self.show_solution_text(self.trivia['solution']) 
+                            return
+                        else:
+                            print("False")
+
+            # Draw a white border around the answer button that the mouse is hovering on
+            mouse_pos = pygame.mouse.get_pos()
+            for answer_button in answer_buttons:
+                if answer_button.collidepoint(mouse_pos):
+                    pygame.draw.rect(self.window, (255, 255, 255), answer_button, 1)
+                else:
+                    pygame.draw.rect(self.window, (0, 0, 0), answer_button, 1)
+
+            pygame.display.update()      
 
     # Load trivia from json file
     def load_trivia(self):
-        with open('src/trivia.json') as f:
+        with open('src/trivia1.json') as f:
             trivia_list = json.load(f)
         return trivia_list
 
     # Function to get a random trivia
     def get_random_trivia(self, trivia_list):
-        return random.choice(trivia_list)['fact']
+        return random.choice(trivia_list)
 
     # Function to show trivia popup
     def show_trivia_popup( self, trivia):
-        trivia_text = str(trivia)
 
         # Define popup properties
         popup_width = WIDTH // 3
@@ -80,22 +100,27 @@ class Trivia:
         title_rect = title_rendered.get_rect(center=(popup_x + popup_width // 2, popup_y + 30))
         self.window.blit(title_rendered, title_rect)
 
-        # Render trivia text
-        font = pygame.font.Font(None, 26)
-        # max width from text should be popup width - 20 (10 padding on each side) and text should be inside the popup, one multiple lines if necessary
-        text_surface = pygame.Surface((popup_width - 20, popup_height - 20))
-        text_lines = self.wrap_text(trivia_text, text_surface.get_width(), font)
-        y_offset = image_y + 120
-        for line in text_lines:
-            text_rendered = font.render(line, True, (255, 255, 255))
-            text_rect = text_rendered.get_rect(topleft=(image_x + mayor_image.get_width() + 10, y_offset))
-            self.window.blit(text_rendered, text_rect)
-            y_offset += text_rect.height + 5
+        # Render trivia question 
+        question_font = pygame.font.Font(None, 26)
+        question_text = trivia['question']
+        question_rendered = question_font.render(question_text, True, (255, 255, 255))
+        question_rect = question_rendered.get_rect(topleft=(image_x + mayor_image.get_width() + 10, image_y + 120))
+        self.window.blit(question_rendered, question_rect)
+
+        # Render answer options as buttons
+        answer_font = pygame.font.Font(None, 20)
+        answer_buttons = []
+        for i, answer in enumerate(trivia['answers']):
+            answer_text = answer
+            answer_rendered = answer_font.render(answer_text, True, (255, 255, 255))
+            answer_rect = answer_rendered.get_rect(topleft=(image_x + mayor_image.get_width() + 10, question_rect.bottom + 20 + i * 30))
+            answer_buttons.append(answer_rect)
+            self.window.blit(answer_rendered, answer_rect)
 
         # Update the display
         pygame.display.update()
 
-        return close_button_rect
+        return close_button_rect, answer_buttons
 
     # Function to wrap text to fit within a specified width
     def wrap_text(self, text, width, font):
@@ -112,3 +137,4 @@ class Trivia:
                 current_line = word + ' '
         lines.append(current_line)
         return lines
+    

@@ -12,6 +12,7 @@ from trivia import Trivia
 from pygame import mixer
 import sys
 import random
+import time
 
 class Game:
     COLORS = {
@@ -86,6 +87,7 @@ class Game:
         self.icon_y = int(0.8 * self.window.get_height()) + int(self.window.get_height() * 0.2 * 0.1) 
         self.menu_bar_height = self.window.get_height() * 0.2
         self.icon_size = int(self.menu_bar_height * 0.8) 
+        self.warning_popup = False
 
         self.house_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['house']), (80, 80))
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
@@ -188,7 +190,7 @@ class Game:
         self.draw_building_costs(menu_bar_y)
 
     def draw_building_icons(self, menu_bar_y, menu_bar_height):
-        icon_y = menu_bar_y + int(menu_bar_height * 0.1)  # Centered in the menu bar
+        icon_y = menu_bar_y + int(menu_bar_height * 0.1)
         for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital']): #BUILDING
             self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES[building_type]), (self.icon_size, self.icon_size)),
                              (10 + i * (self.icon_size + 10), icon_y))
@@ -204,6 +206,16 @@ class Game:
             cost_text = font.render(f"${cost}", True, color)
             self.window.blit(cost_text, (10 + i * (self.icon_size + 10), menu_bar_y + 5))
 
+    # If the player has not enough money to place a building, place a warning popup
+    def draw_warning_popup(self):
+        if self.warning_popup:
+            if time.time() - self.last_upgrade_click > 3:
+                self.warning_popup = False
+            else:
+                warning_text = self.font.render("Not enough money to place this building", True, self.COLORS['red'])
+                self.window.blit(warning_text, (self.window.get_width() // 2 - 200, self.window.get_height() // 2))
+
+         
     def draw_object_level(self):
         for obj in self.game_state.placed_objects:
             if self.selected_cell is not None:
@@ -508,9 +520,9 @@ class Game:
         self.menu_bar_visible = False
         
         # Display trivia popup with 40 percent spawn chance
-        if random.randint(1, 100) <= 40:
-            trivia = Trivia(self.window)
-            trivia.show_trivia()   
+        # if random.randint(1, 100) <= 40:
+        trivia = Trivia(self.window, self.game_state)
+        trivia.show_trivia()   
         
     def handle_hospital_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['hospital']:
@@ -538,6 +550,7 @@ class Game:
             self.selected_cell = None
             self.game_state.remove_citizen_happiness(25)
         else:
+            self.draw_warning_popup()
             print("Not enough money to place a factory.")
         self.menu_bar_visible = False
 
@@ -551,6 +564,9 @@ class Game:
             else:
                 if self.game_state.money >= 1000:
                     self.place_new_house()
+                else: 
+                    self.draw_warning_popup()
+                    print("Not enough money to place a new house.")
                 self.selected_cell = None
             self.menu_bar_visible = False
 
