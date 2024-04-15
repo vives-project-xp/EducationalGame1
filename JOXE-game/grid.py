@@ -1,5 +1,6 @@
 import pygame
 from zobjectfiles.road import Road
+from zobjectfiles.empty import Empty
 
 class Grid:
     def __init__(self, window, grid_size, game_state, font):
@@ -43,6 +44,15 @@ class Grid:
         self.draw_grid_lines()
         self.draw_game_state()
         self.draw_objects()
+        self.add_empty_objects_behind_ui()
+
+    def add_empty_objects_behind_ui(self):
+        for x in range(0, 4):
+            for y in range(0, 5):
+                self.game_state.placed_objects.append(Empty(x* self.grid_size , y* self.grid_size, self.grid_size))
+        for x2 in range(9, 23):
+            self.game_state.placed_objects.append(Empty(x2* self.grid_size , 0, self.grid_size))
+
 
     def update_date(self):
         self.current_date = self.game_state.current_date
@@ -61,7 +71,6 @@ class Grid:
 
     def draw_objects(self):
         for obj in self.game_state.placed_objects:
-            # Roads should be displayed one cell above and to the left
             if isinstance(obj, Road):
                 self.window.blit(obj.image, (obj.x - self.grid_size, obj.y - self.grid_size))
             else:

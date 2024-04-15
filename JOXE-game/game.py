@@ -7,6 +7,7 @@ from zobjectfiles.factory import Factory
 from zobjectfiles.store import Store
 from zobjectfiles.hospital import Hospital
 from zobjectfiles.firestation import Firestation
+from zobjectfiles.empty import Empty
 from resolution import Resolution
 from trivia import Trivia
 import pygame, sys, random
@@ -141,10 +142,19 @@ class Game:
     def draw_selected_cell_outline(self):
         if self.selected_cell:
             pygame.draw.rect(self.window, self.COLORS['white'],
-                             (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
+                            (self.selected_cell[0], self.selected_cell[1], self.grid_size, self.grid_size), 2)
             
-            if self.clicked_menu_visible and not self.is_road_in_cell(self.selected_cell[0] // self.grid_size, self.selected_cell[1] // self.grid_size):
+            # Get the object in the selected cell
+            obj_in_cell = self.get_object_in_cell(self.selected_cell[0] // self.grid_size, self.selected_cell[1] // self.grid_size)
+
+            if self.clicked_menu_visible and not self.is_road_in_cell(self.selected_cell[0] // self.grid_size, self.selected_cell[1] // self.grid_size) and not isinstance(obj_in_cell, Empty):
                 self.draw_building_clicked_menu()
+
+    def get_object_in_cell(self, x, y):
+        for obj in self.game_state.placed_objects:
+            if obj.x == x * self.grid_size and obj.y == y * self.grid_size:
+                return obj
+        return None
 
     def draw_game_elements(self):
         if self.menu_bar_visible:
@@ -245,7 +255,7 @@ class Game:
 
     def is_building_already_present(self, grid_x, grid_y):
         for obj in self.game_state.placed_objects:
-            if isinstance(obj, (House, Store, Road, Factory, Hospital, Tree, Energy, Firestation)) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+            if isinstance(obj, (House, Store, Road, Factory, Hospital, Tree, Energy, Firestation, Empty)) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
         return False
 
@@ -300,13 +310,16 @@ class Game:
                 max_level = 10 if isinstance(obj, (House, Store, Factory, Hospital, Firestation)) else 4 if isinstance(obj, Energy) else 3 if isinstance(obj, Tree) else 0
                 # add new building here
                 upgrade_method = self.upgrade_house if isinstance(obj, House) else self.upgrade_store if isinstance(obj, Store) else self.upgrade_factory if isinstance(obj, Factory) else self.upgrade_hospital if isinstance(obj, Hospital) else self.upgrade_energy if isinstance(obj, Energy) else self.upgrade_tree if isinstance(obj, Tree) else self.upgrade_firestation if isinstance(obj, Firestation) else None
-                if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < max_level:
-                    self.game_state.remove_money(obj.upgrade_cost)
-                    obj.upgrade()
-                    upgrade_method(obj)
+                if isinstance(obj, Empty):
+                    return
                 else:
-                    print("Not enough money to upgrade the house.")
-                break
+                    if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < max_level:
+                        self.game_state.remove_money(obj.upgrade_cost)
+                        obj.upgrade()
+                        upgrade_method(obj)
+                    else:
+                        print("Not enough money to upgrade the house.")
+                    break
 
     def upgrade_house(self, house):
         new_image = pygame.image.load(f'./assets/resources/houses/house{house.version}{house.level}.png')
@@ -359,9 +372,11 @@ class Game:
                     break
 
         if selected_object is not None:
-            #add new object here as well
-            remove_method = self.remove_house if isinstance(selected_object, House) else self.remove_store if isinstance(selected_object, Store) else self.remove_road if isinstance(selected_object, Road) else self.remove_factory if isinstance(selected_object, Factory) else self.remove_hospital if isinstance(selected_object, Hospital) else self.remove_tree if isinstance(selected_object, Tree) else self.remove_energy if isinstance(selected_object, Energy) else self.remove_firestation if isinstance(selected_object, Firestation) else None
-            remove_method(selected_object)
+            if isinstance(selected_object, Empty):
+                return
+            else:
+                remove_method = self.remove_house if isinstance(selected_object, House) else self.remove_store if isinstance(selected_object, Store) else self.remove_road if isinstance(selected_object, Road) else self.remove_factory if isinstance(selected_object, Factory) else self.remove_hospital if isinstance(selected_object, Hospital) else self.remove_tree if isinstance(selected_object, Tree) else self.remove_energy if isinstance(selected_object, Energy) else self.remove_firestation if isinstance(selected_object, Firestation) else None
+                remove_method(selected_object)
         else:
             print("No object found at the selected cell.")
 
