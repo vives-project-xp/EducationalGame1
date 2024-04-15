@@ -607,47 +607,71 @@ class Game:
 
     def update_road_images(self):
         for cell in self.grid.get_all_cells():
-            if cell.type in ['road', 'v-road', '+-road', 'cornerroad', 't-road']:
+            if cell.type in ['road', 'v-road', '+-road', 'cornerroad', 't-road', 'endroad']:
                 x, y = cell.x, cell.y
                 neighbors = [(x, y - self.grid_size), (x, y + self.grid_size), 
                             (x - self.grid_size, y), (x + self.grid_size, y)]
-                horizontal_neighbors = 0
-                vertical_neighbors = 0
-                for nx, ny in neighbors:
-                    neighbor = self.get_cell_at_location(nx, ny)
-                    if neighbor is not None and neighbor.type in ['road', 'v-road', '+-road', 'cornerroad', 't-road' ]: 
-                        if nx != x:  
-                            horizontal_neighbors += 1
-                        if ny != y:  
-                            vertical_neighbors += 1
-                if horizontal_neighbors == 2 and vertical_neighbors == 1 or horizontal_neighbors == 1 and vertical_neighbors == 2:
-                    cell.set_type('t-road')
-                    if self.get_cell_at_location(x, y + self.grid_size) is None:  # No cell at the top
-                        cell.set_rotation(180)
-                    elif self.get_cell_at_location(x, y - self.grid_size) is None:  # No cell at the bottom
-                        cell.set_rotation(0)
-                    elif self.get_cell_at_location(x - self.grid_size, y) is None:  # No cell at the left
+                neighbor_count = sum(1 for nx, ny in neighbors if self.get_cell_at_location(nx, ny) and self.get_cell_at_location(nx, ny).type in ['road', 'v-road', '+-road', 'cornerroad', 't-road', 'endroad'])
+                if neighbor_count == 1:
+                    cell.set_type('endroad')
+                    if self.get_cell_at_location(x, y - self.grid_size):
                         cell.set_rotation(90)
-                    elif self.get_cell_at_location(x + self.grid_size, y) is None:  # No cell at the right
+                    elif self.get_cell_at_location(x, y + self.grid_size):
                         cell.set_rotation(270)
-                    cell.update_image()
-                elif horizontal_neighbors == 2 and vertical_neighbors == 2:
-                    cell.set_type('+-road')
-                elif vertical_neighbors == 2 or vertical_neighbors == 1 and horizontal_neighbors == 0:
-                    cell.set_type('v-road')
-                elif horizontal_neighbors == 2 or horizontal_neighbors == 1 and vertical_neighbors == 0:
-                    cell.set_type('road')
-                elif horizontal_neighbors == 1 and vertical_neighbors == 1:
-                    cell.set_type('cornerroad')
-                    if self.get_cell_at_location(x, y - self.grid_size) is not None and self.get_cell_at_location(x + self.grid_size, y) is not None:
-                        cell.set_rotation(90)
-                    elif self.get_cell_at_location(x, y + self.grid_size) is not None and self.get_cell_at_location(x + self.grid_size, y) is not None:
-                        cell.set_rotation(0)
-                    elif self.get_cell_at_location(x, y + self.grid_size) is not None and self.get_cell_at_location(x - self.grid_size, y) is not None:
-                        cell.set_rotation(270)
-                    elif self.get_cell_at_location(x, y - self.grid_size) is not None and self.get_cell_at_location(x - self.grid_size, y) is not None:
+                    elif self.get_cell_at_location(x - self.grid_size, y):
                         cell.set_rotation(180)
+                    elif self.get_cell_at_location(x + self.grid_size, y): 
+                        cell.set_rotation(0)
                     cell.update_image()
+                elif neighbor_count == 2:
+                    horizontal_neighbors = 0
+                    vertical_neighbors = 0
+                    for nx, ny in neighbors:
+                        neighbor = self.get_cell_at_location(nx, ny)
+                        if neighbor is not None and neighbor.type in ['road', 'v-road', '+-road', 'cornerroad', 't-road', 'endroad' ]: 
+                            if nx != x:  
+                                horizontal_neighbors += 1
+                            if ny != y:  
+                                vertical_neighbors += 1
+                    if horizontal_neighbors == 2 and vertical_neighbors == 1 or horizontal_neighbors == 1 and vertical_neighbors == 2:
+                        cell.set_type('t-road')
+                        if self.get_cell_at_location(x, y + self.grid_size) is None:  # No cell at the top
+                            cell.set_rotation(180)
+                        elif self.get_cell_at_location(x, y - self.grid_size) is None:  # No cell at the bottom
+                            cell.set_rotation(0)
+                        elif self.get_cell_at_location(x - self.grid_size, y) is None:  # No cell at the left
+                            cell.set_rotation(90)
+                        elif self.get_cell_at_location(x + self.grid_size, y) is None:  # No cell at the right
+                            cell.set_rotation(270)
+                        cell.update_image()
+                    elif horizontal_neighbors == 2 and vertical_neighbors == 2:
+                        cell.set_type('+-road')
+                    elif vertical_neighbors == 2 or vertical_neighbors == 1 and horizontal_neighbors == 0:
+                        cell.set_type('v-road')
+                    elif horizontal_neighbors == 2 or horizontal_neighbors == 1 and vertical_neighbors == 0:
+                        cell.set_type('road')
+                    elif horizontal_neighbors == 1 and vertical_neighbors == 1:
+                        cell.set_type('cornerroad')
+                        if self.get_cell_at_location(x, y - self.grid_size) is not None and self.get_cell_at_location(x + self.grid_size, y) is not None:
+                            cell.set_rotation(90)
+                        elif self.get_cell_at_location(x, y + self.grid_size) is not None and self.get_cell_at_location(x + self.grid_size, y) is not None:
+                            cell.set_rotation(0)
+                        elif self.get_cell_at_location(x, y + self.grid_size) is not None and self.get_cell_at_location(x - self.grid_size, y) is not None:
+                            cell.set_rotation(270)
+                        elif self.get_cell_at_location(x, y - self.grid_size) is not None and self.get_cell_at_location(x - self.grid_size, y) is not None:
+                            cell.set_rotation(180)
+                        cell.update_image()
+                    elif horizontal_neighbors + vertical_neighbors == 1:
+                        cell.set_type('endroad')
+                        if self.get_cell_at_location(x, y - self.grid_size) is None:
+                            cell.set_rotation(0)
+                        elif self.get_cell_at_location(x, y + self.grid_size) is None:
+                            cell.set_rotation(180)
+                        elif self.get_cell_at_location(x - self.grid_size, y) is None:
+                            cell.set_rotation(270)
+                        elif self.get_cell_at_location(x + self.grid_size, y) is None:
+                            cell.set_rotation(90)
+                        cell.update_image()
 
     def handle_road_placement(self, x, y):
         if self.game_state.money >= 50:

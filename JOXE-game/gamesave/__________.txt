@@ -1,0 +1,26 @@
+Amount of Citizens: 30
+Amount of Houses: 7
+Money: 1470
+Climate Score: 30
+Current Date: 2022-04-10
+citizen_happiness: 35
+Placed Objects:
+House- 1(480.0-360.0)- 4
+Tree- 1(540.0-360.0)
+House- 1(420.0-360.0)- 3
+Tree- 1(360.0-360.0)
+House- 1(300.0-360.0)- 2
+House- 1(600.0-360.0)- 3
+Tree- 2(720.0-360.0)
+House- 1(660.0-360.0)- 3
+House- 2(780.0-360.0)- 1
+Tree- 2(900.0-360.0)
+Energy- 1(1380.0-180.0)
+Tree- 2(1080.0-360.0)
+Tree- 1(1260.0-360.0)
+Tree- 1(1440.0-360.0)
+Tree- 1(1620.0-360.0)
+Tree- 1(1800.0-360.0)
+House- 1(840.0-360.0)- 4
+Tree- 2(1080.0-300.0)
+Tree- 1(1080.0-240.0)
