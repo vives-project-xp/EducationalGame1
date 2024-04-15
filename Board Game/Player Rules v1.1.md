@@ -1,4 +1,5 @@
-https://www.canva.com/design/DAF_3JvLFFg/6zrEteo_Q1HoqwItIETYww/edit?utm_content=DAF_3JvLFFg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton 
+[https://www.canva.com/design/DAF_3JvLFFg/6zrEteo_Q1HoqwItIETYww/edit?utm_content=DAF_3JvLFFg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton ](https://www.canva.com/design/DAGCd8SMCpI/OyDgdQZuNf2-KDjgbWZ4mQ/edit?utm_content=DAGCd8SMCpI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton) 
+
 
 ## Setup:
 1. Place the main gameboard in the middle of the table and scatter the building pieces in a neat circle around the gameboard (Building Circle). 
