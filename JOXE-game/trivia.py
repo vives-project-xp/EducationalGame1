@@ -61,8 +61,8 @@ class Trivia:
     def show_trivia_popup( self, trivia):
 
         # Define popup properties
-        popup_width = WIDTH // 3
-        popup_height = HEIGHT // 3
+        popup_width = WIDTH // 1.5
+        popup_height = HEIGHT // 1.5
         popup_x = (WIDTH - popup_width) // 2
         popup_y = (HEIGHT - popup_height) // 2
 

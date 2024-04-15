@@ -6,21 +6,27 @@
         "solution": "The planet’s average surface temperature has risen about 2°C since the late 19th century, a change driven largely by increased carbon dioxide emissions into the atmosphere and other human activities. This is according to an investigation from NASA."
     },
     {
-        "question": "What is the capital of Germany?",
-        "answers": ["Paris", "London", "Berlin", "Madrid"],
-        "correct": "Berlin",
-        "solution": "Berlin is the capital of Germany."
+        "question": "Which of the following is a greenhouse gas (GHG)?",
+        "answers": ["CO2", "CH4", "Water Vapor", "All of the above"],
+        "correct": "All of the above",
+        "solution": "Greenhouse gasses may be a result of natural occurrence or human activity. These gasses include carbon dioxide (CO2), methane (CH4), water vapor, nitrous oxide (N2O) and ozone (O3)."
     },
     {
-        "question": "What is the capital of Spain?",
-        "answers": ["Paris", "London", "Berlin", "Madrid"],
-        "correct": "Madrid",
-        "solution": "Madrid is the capital of Spain."
+        "question": "What was agreed to in the “Paris Agreement” that came out of COP-21, held in Paris in 2015?",
+        "answers": ["To protect biodiversity and end the deforestation of the world's rainforests", "To keep global temperature rise well below 2℃ pre-industrial levels and to pursue a path to limit warming to 1.5℃", "To limit sea level rise to 3 feet above current levels", "To pursue a goal of 100% clean, renewable energy"],
+        "correct": "To keep global temperature rise well below 2℃ pre-industrial levels and to pursue a path to limit warming to 1.5℃",
+        "solution": "The Paris Agreement is an international treaty on climate change. It aims to keep the overall increase in global temperatures below 2 degrees Celsius, with the hope of limiting it to 1.5 degrees Celsius."
     },
     {
-        "question": "What is the capital of the United Kingdom?",
-        "answers": ["Paris", "London", "Berlin", "Madrid"],
-        "correct": "London",
-        "solution": "London is the capital of the United Kingdom."
+        "question": "What percentage of the global greenhouse gas emissions does the transportation sector emit?",
+        "answers": ["1%", "20%", "33%", "70%"],
+        "correct": "20%",
+        "solution": "Transportation is the fastest growing source of emissions worldwide, and now accounts for 20% of global greenhouse gas emissions - behind only the power sector."
+    },
+    {
+        "question": "What is the main source of energy in the world?",
+        "answers": ["Coal", "Oil", "Natural Gas", "Renewable Energy"],
+        "correct": "Oil",
+        "solution": "Oil is the world's primary source of energy, accounting for 33% of the total energy supply. It is followed by coal (27%) and natural gas (24%)."
     }
 ]
