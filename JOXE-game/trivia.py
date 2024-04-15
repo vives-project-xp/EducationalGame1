@@ -11,9 +11,11 @@ class Trivia:
 
     def __init__(self, window, game_state):
         self.window = window
+        self.width, self.height = window.get_size()
         self.trivia_list = self.load_trivia()
         self.trivia = self.get_random_trivia(self.trivia_list)
         self.game_state = game_state
+        self.pixel_font = "./src/Grand9K Pixel.ttf"
 
     def show_trivia(self):
         self.trivia = self.get_random_trivia(self.trivia_list)
@@ -61,10 +63,10 @@ class Trivia:
     def show_trivia_popup( self, trivia):
 
         # Define popup properties
-        popup_width = WIDTH // 1.5
-        popup_height = HEIGHT // 1.5
-        popup_x = (WIDTH - popup_width) // 2
-        popup_y = (HEIGHT - popup_height) // 2
+        popup_width = self.width // 1.5
+        popup_height = self.height // 1.5
+        popup_x = (self.width - popup_width) // 2
+        popup_y = (self.height - popup_height) // 2
 
         # Create popup (a rectangle with white background and black border)
         popup_rect = pygame.Rect(popup_x, popup_y, popup_width, popup_height)
@@ -87,35 +89,58 @@ class Trivia:
                         
         # Load the image
         mayor_image = pygame.image.load('./assets/resources/characters/Mayor.png')
-        mayor_image = pygame.transform.scale(mayor_image, (36 * 5.5, 55 * 5.5))
+        image_width = int(popup_width // 5)
+        image_height = int(image_width * (55 / 36))
+
+        # If the calculated height is greater than the desired maximum height
+        if image_height > popup_height // 3:
+            image_height = int(popup_height // 3)
+            image_width = int(image_height * (36 / 55)) 
+
+        mayor_image = pygame.transform.scale(mayor_image, (image_width, image_height))
 
         # Draw the image onto the popup
         image_x = popup_x + 20  
         image_y = popup_y + 10  
         self.window.blit(mayor_image, (image_x, image_y))
         
-        title_font = pygame.font.Font(None, 36)
-        title_text = "Did you know?"
+        title_font = pygame.font.Font(self.pixel_font, self.width // 30)
+        title_text = "Do you know?"
         title_rendered = title_font.render(title_text, True, (255, 255, 255))
         title_rect = title_rendered.get_rect(center=(popup_x + popup_width // 2, popup_y + 30))
         self.window.blit(title_rendered, title_rect)
 
         # Render trivia question 
-        question_font = pygame.font.Font(None, 26)
+        question_font = pygame.font.Font(None, self.width // 50)
         question_text = trivia['question']
-        question_rendered = question_font.render(question_text, True, (255, 255, 255))
-        question_rect = question_rendered.get_rect(topleft=(image_x + mayor_image.get_width() + 10, image_y + 120))
-        self.window.blit(question_rendered, question_rect)
+        wrapped_question_text = self.wrap_text(question_text, popup_width - image_width - 40, question_font)  # Wrap the text
+        question_y = image_y + 120
+        for line in wrapped_question_text:
+            question_rendered = question_font.render(line, True, (255, 255, 255))
+            question_rect = question_rendered.get_rect(topleft=(image_x + mayor_image.get_width() + 10, question_y))
+            self.window.blit(question_rendered, question_rect)
+            question_y += question_font.get_height()  # Move the y-coordinate for the next line
 
         # Render answer options as buttons
-        answer_font = pygame.font.Font(None, 20)
+        answer_font = pygame.font.Font(None, self.width // 60)
         answer_buttons = []
+        answer_y = question_rect.bottom + 20
         for i, answer in enumerate(trivia['answers']):
             answer_text = answer
-            answer_rendered = answer_font.render(answer_text, True, (255, 255, 255))
-            answer_rect = answer_rendered.get_rect(topleft=(image_x + mayor_image.get_width() + 10, question_rect.bottom + 20 + i * 30))
-            answer_buttons.append(answer_rect)
-            self.window.blit(answer_rendered, answer_rect)
+            wrapped_answer_text = self.wrap_text(answer_text, popup_width - image_width - 40, answer_font)  # Wrap the text
+            answer_start_y = answer_y  # Save the starting y-coordinate of the answer
+            max_width = 0  # Variable to store the maximum width of the rendered lines
+            for line in wrapped_answer_text:
+                answer_rendered = answer_font.render(line, True, (255, 255, 255))
+                answer_rect = answer_rendered.get_rect(topleft=(image_x + mayor_image.get_width() + 10, answer_y))
+                self.window.blit(answer_rendered, answer_rect)
+                answer_y += answer_font.get_height()  # Move the y-coordinate for the next line
+                if answer_rect.width > max_width:  # If the width of the rendered line is greater than max_width
+                    max_width = answer_rect.width  # Update max_width
+            # Create a rectangle that encompasses all the lines of the answer
+            answer_button = pygame.Rect(answer_rect.left, answer_start_y, max_width, answer_y - answer_start_y)
+            answer_buttons.append(answer_button)
+            answer_y += 10  # Add some space between answers
 
         # Update the display
         pygame.display.update()
