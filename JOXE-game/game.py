@@ -623,7 +623,7 @@ class Game:
                     elif self.get_cell_at_location(x + self.grid_size, y): 
                         cell.set_rotation(0)
                     cell.update_image()
-                elif neighbor_count == 2:
+                else:
                     horizontal_neighbors = 0
                     vertical_neighbors = 0
                     for nx, ny in neighbors:
