@@ -14,7 +14,7 @@
    Each player must choose one of their tiles, if it is adjacent to another player's tile, they lose 2 Pop. If it is not, they lose 1 Pop.
 
   
-##Natural Disasters:
+## Natural Disasters:
 - **Flood**:
   Remove one of your tiles and any one adjacent tile from another player (if there are any) fom the board and place them back in the Building Circle.
 - **Forest Fire**:
