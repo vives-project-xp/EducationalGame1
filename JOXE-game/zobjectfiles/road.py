@@ -19,17 +19,13 @@ class Road(Object):
         self.update_image()
 
     def update_image(self):
-        # Load the road image based on its type
         road_image_path = f'./assets/resources/road/{self.type}.png'
         image = pygame.image.load(road_image_path)
 
-        # Calculate new size
         new_size = (int(self.grid_size * (self.scale + 0.1)), int(self.grid_size * (self.scale + 0.11)))
 
-        # Scale the image
         self.image = pygame.transform.scale(image, new_size)
 
-        # Apply rotation
         self.image = pygame.transform.rotate(self.image, self.rotation)
 
     def set_rotation(self, rotation):
