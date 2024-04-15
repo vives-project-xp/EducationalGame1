@@ -1,9 +1,9 @@
 [
     {
         "question": "How much degrees has the average surface temperature of the planet risen in the last 200 years?",
-        "answers": ["2°C", "6°C", "8°C", "20°C"],
-        "correct": "2°C",
-        "solution": "The planet’s average surface temperature has risen about 2°C since the late 19th century, a change driven largely by increased carbon dioxide emissions into the atmosphere and other human activities. This is according to an investigation from NASA."
+        "answers": ["2", "6", "8", "20"],
+        "correct": "2",
+        "solution": "The planet’s average surface temperature has risen about 2 degrees since the late 19th century, a change driven largely by increased carbon dioxide emissions into the atmosphere and other human activities. This is according to an investigation from NASA."
     },
     {
         "question": "Which of the following is a greenhouse gas (GHG)?",
@@ -13,8 +13,8 @@
     },
     {
         "question": "What was agreed to in the “Paris Agreement” that came out of COP-21, held in Paris in 2015?",
-        "answers": ["To protect biodiversity and end the deforestation of the world's rainforests", "To keep global temperature rise well below 2℃ pre-industrial levels and to pursue a path to limit warming to 1.5℃", "To limit sea level rise to 3 feet above current levels", "To pursue a goal of 100% clean, renewable energy"],
-        "correct": "To keep global temperature rise well below 2℃ pre-industrial levels and to pursue a path to limit warming to 1.5℃",
+        "answers": ["To protect biodiversity and end the deforestation of the world's rainforests", "To keep global temperature rise well below 2 degrees pre-industrial levels and to pursue a path to limit warming to 1.5 degrees", "To limit sea level rise to 3 feet above current levels", "To pursue a goal of 100% clean, renewable energy"],
+        "correct": "To keep global temperature rise well below 2 degrees pre-industrial levels and to pursue a path to limit warming to 1.5 degrees",
         "solution": "The Paris Agreement is an international treaty on climate change. It aims to keep the overall increase in global temperatures below 2 degrees Celsius, with the hope of limiting it to 1.5 degrees Celsius."
     },
     {

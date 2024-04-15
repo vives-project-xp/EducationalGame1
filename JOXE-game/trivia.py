@@ -49,7 +49,7 @@ class Trivia:
 
     # Load trivia from json file
     def load_trivia(self):
-        with open('src/trivia1.json') as f:
+        with open('src/trivia1.json', 'r', encoding='utf-8') as f:
             trivia_list = json.load(f)
         return trivia_list
 
