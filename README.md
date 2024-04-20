@@ -9,8 +9,8 @@ On each of these platform we aim to inform our users and incorporate themes conc
 
 Our team consist of 4 students from Vives Brugge:
 - Esteban (Scrummaster and Main Game Developer)
-- Xander (Web Developer and Asset Designer)
-- Jasper (Sound Engineer and all-rounder)
+- Xander (Web Developer and all-rounder)
+- Jasper (Sound Engineer and Asset Designer)
 - Olivier (Board Game Developer and Administration)
 
 - Project owner is Vives, guided by our teacher Ronny Mees.
