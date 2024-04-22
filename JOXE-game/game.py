@@ -794,8 +794,9 @@ class Game:
 
         self.window.blit(under_construction_image, image_position)
 
+        pygame.time.delay(10)
         pygame.display.update()
-        pygame.time.delay(100)  
+        
  
     def connect_nearby_roads(self, x, y):
         nearby_cells = [
