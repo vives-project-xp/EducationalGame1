@@ -262,7 +262,7 @@ class Game:
     def is_upgrade_button_clicked(self, x, y):
         menu_x, menu_y = self.get_menu_position()
         return menu_y <= y <= menu_y + 30 and \
-            menu_x <= x <= menu_x + 60
+            menu_x <= x <= menu_x + 80
 
     def is_remove_button_clicked(self, x, y):
         menu_x, menu_y = self.get_menu_position()
