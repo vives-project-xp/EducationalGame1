@@ -58,5 +58,11 @@
         "answers": ["Utilize public transit", "Consume less meat products", "Vote for political candidates who will advocate for climate-related legislation and policy improvements", "All of the above"],
         "correct": "All of the above",
         "solution": "All of these actions help minimize your own carbon footprint. By taking public transport, less cars will be on the road emitting GHG. Most of the world’s land is set aside for livestock, so by consuming less, less resources get used up in meat’s production. Along with these important steps, we also suggest adding your voice to the issues surrounding climate change, supporting clean energy and taking personal actions to reduce your impact on the planet."
+    },
+    {
+        "question": "Scientists measure changes in sea temperature by the decades. About how much have sea temperatures increased every decade since the 20th century?",
+        "answers": ["0.05 Degrees Fahrenheit", "0.10 Degrees Fahrenheit", "0.14 Degrees Fahrenheit", "0.30 Degrees Fahrenheit"],
+        "correct": "0.14 Degrees Fahrenheit",
+        "solution": "From 1901 until 2020, sea surface temperatures increased an average rate of 0.14 degrees Fahrenheit per decade. The consistent rise in temperatures has been devastating on marine ecosystems. In 2023, scientists observed an increase in surface temperatures of 1.78°F in July."
     }
 ]
