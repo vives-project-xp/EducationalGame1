@@ -7,7 +7,6 @@ import datetime
 import os
 import sys
 import pygame_menu
-from pygame_menu.widgets import TextInput
 
 pygame.init()
 res = Resolution()
@@ -28,7 +27,7 @@ programIcon = pygame.image.load(icon_path)
 pygame.display.set_icon(programIcon)
 
 
-# Soundtrack
+# # Soundtrack
 # pygame.mixer.init()
 # sound = pygame.mixer.Sound('./Sounds/AmbientLoop1.mp3')
 # sound.set_volume(0.5)

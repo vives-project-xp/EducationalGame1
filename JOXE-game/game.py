@@ -68,6 +68,7 @@ class Game:
         self.road_start_position = (0, 0)
         self.occupied_cells = set()
         self.placing_house_sound = mixer.Sound('Sounds/Placing house SFX.mp3')
+        self.placesound = pygame.mixer.Sound('./Sounds/Place.mp3')
         self.game_over_timer_duration = 3000 
         self.game_over_timer_start = None
         self.game_over_displayed = False
@@ -316,6 +317,10 @@ class Game:
                     return
                 else:
                     if self.game_state.money - obj.upgrade_cost >= 0 and obj.level < max_level:
+                        pygame.mixer.init()
+                        levelupsound = pygame.mixer.Sound('./Sounds/Levelup.mp3')
+                        levelupsound.set_volume(0.5)
+                        levelupsound.play()
                         self.game_state.remove_money(obj.upgrade_cost)
                         obj.upgrade()
                         upgrade_method(obj)
@@ -460,6 +465,8 @@ class Game:
         if self.game_state.money >= self.COSTS['store']:
             store = Store(self.selected_cell[0], self.selected_cell[1], self.grid_size)
             self.game_state.placed_objects.append(store)
+            self.placesound.set_volume(0.5)
+            self.placesound.play()
             self.game_state.remove_money(self.COSTS['store'])
             self.game_state.add_climate_score(self.ECO_SCORE_BONUS['store'])
         else:
@@ -480,6 +487,8 @@ class Game:
         # if random.randint(1, 100) <= 40:
         trivia = Trivia(self.window, self.game_state)
         trivia.show_trivia()   
+        self.placesound.set_volume(0.5)
+        self.placesound.play()
         
     def handle_hospital_icon_click(self):
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['hospital']:
@@ -491,6 +500,8 @@ class Game:
     def place_new_hospital(self):
         hospital = Hospital(self.selected_cell[0], self.selected_cell[1], self.grid_size)
         self.game_state.placed_objects.append(hospital)
+        self.placesound.set_volume(0.5)
+        self.placesound.play()
         self.game_state.remove_money(self.COSTS['hospital'])
         self.game_state.remove_climate_score(5)
         self.selected_cell = None
@@ -505,6 +516,8 @@ class Game:
     def place_new_firestation(self):
         firestation = Firestation(self.selected_cell[0], self.selected_cell[1], self.grid_size)
         self.game_state.placed_objects.append(firestation)
+        self.placesound.set_volume(0.5)
+        self.placesound.play()
         self.game_state.remove_money(self.COSTS['firestation'])
         self.game_state.remove_climate_score(5)
         self.selected_cell = None
@@ -590,6 +603,9 @@ class Game:
         if self.selected_cell is not None and self.game_state.money >= self.COSTS['factory']:
             factory = Factory(self.selected_cell[0], self.selected_cell[1], self.grid_size)
             self.game_state.placed_objects.append(factory)
+            placesound = pygame.mixer.Sound('./Sounds/Place.mp3')
+            placesound.set_volume(0.5)
+            placesound.play()
             self.game_state.remove_money(self.COSTS['factory'])
             self.selected_cell = None
         else:
@@ -750,6 +766,22 @@ class Game:
 
         road = Road(x, y, self.grid_size)
         road.set_type('road')
+        self.placesound.set_volume(0.5)
+        self.placesound.play()
+
+        # Create a font object
+        font = pygame.font.Font(None, 24)
+        # Create a Surface with the text
+        text_surface = font.render('Building...', True, (255, 255, 255))
+        # Draw the text at the desired location
+        self.window.blit(text_surface, (x, y))
+
+        # Update the screen to show the text
+        pygame.display.update()
+
+        # Add a delay to ensure the text is visible for a certain amount of time
+        pygame.time.delay(1000)  # Delay for 1000 milliseconds (1 second)
+
         self.game_state.placed_objects.append(road)
         for obj in self.game_state.placed_objects:
             print(obj.x, obj.y)
@@ -818,6 +850,9 @@ class Game:
         if self.selected_cell is not None and self.game_state.money >= 2000:
             energy = Energy(self.selected_cell[0], self.selected_cell[1], self.grid_size)
             self.game_state.placed_objects.append(energy)
+            placesound = pygame.mixer.Sound('./Sounds/Place.mp3')
+            placesound.set_volume(0.5)
+            placesound.play()
             self.game_state.remove_money(2000)
             self.game_state.add_climate_score(10)
             self.selected_cell = None
