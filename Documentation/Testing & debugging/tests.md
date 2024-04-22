@@ -4,7 +4,7 @@
 |---------------------------|-------------------------------------------------------------|----------------------------------------------------------|
 | No Username Test          | 1. Open the login screen.<br>2. Try to log in without entering a username. | Ensure a warning is displayed indicating that a username is required. |
 | Buttons Test              | 1. Check if all buttons on the login screen work correctly. | Ensure each button performs the correct action (e.g., login, register, cancel). |
-| Invalid Credentials Test | 1. Enter a valid username but an invalid password.<br>2. Attempt to log in. | Ensure a message is displayed indicating incorrect credentials. |
+| Invalid Credentials Test | 1. Enter a valid username but an invalid length or character.<br>2. Attempt to log in. | Ensure a message is displayed indicating incorrect credentials. |
 
 ### Roads:
 | Test Name                    | Steps                                                       | Expected Result                                         |
