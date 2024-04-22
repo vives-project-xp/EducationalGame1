@@ -16,7 +16,7 @@ De enige voorbereiding die je zal moeten doen is dit en het Regelboekje lezen op
 
 Op zichzelf bevat dit spel en boekje 1 lesplan van 50min met een paar ideetjes over hoe je het kan uitbreiden naar meer.\
 We raden je ook zeker aan om eens te kijken op onze webpagina () wanneer je klaar bent met dit boekje te lezen.\
-Daar zijn nog 5 extra missies te vinden met elk hun eigen lessenplan aan verbonden, zoals deze.\
+Daar zijn nog 5 extra missies te vinden met elk hun eigen lessenplan aan verbonden, zoals deze maar dan in het engels.\
 Deze zijn bedoeld als extra leerstof die verderbouwt op het basisspel, we raden je aan op zen minst eenmaal het basisspel gespeeld te hebben vooraleer je hier aan begint.\
 
 ## Lessen Plan
