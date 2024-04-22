@@ -310,7 +310,7 @@ class Game:
     def handle_upgrade_button_click(self):
         for obj in self.game_state.placed_objects:
             if obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                max_level = 10 if isinstance(obj, (House, Store, Factory, Hospital, Firestation)) else 4 if isinstance(obj, Energy) else 3 if isinstance(obj, Tree) else 0
+                max_level = 10 if isinstance(obj, (Store, Factory, Hospital, Firestation)) else 4 if isinstance(obj, (Energy, House)) else 3 if isinstance(obj, Tree) else 0
                 # add new building here
                 upgrade_method = self.upgrade_house if isinstance(obj, House) else self.upgrade_store if isinstance(obj, Store) else self.upgrade_factory if isinstance(obj, Factory) else self.upgrade_hospital if isinstance(obj, Hospital) else self.upgrade_energy if isinstance(obj, Energy) else self.upgrade_tree if isinstance(obj, Tree) else self.upgrade_firestation if isinstance(obj, Firestation) else None
                 if isinstance(obj, Empty):
