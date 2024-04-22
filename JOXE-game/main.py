@@ -15,8 +15,15 @@ res = Resolution()
 WIDTH, HEIGHT = res.width, res.height
 
 if getattr(sys, 'frozen', False):
-    base_dir = sys._MEIPASS
+    # If it's a bundled application, check if it's bundled with PyInstaller or cx_Freeze
+    if hasattr(sys, '_MEIPASS'):
+        # Bundled with PyInstaller
+        base_dir = sys._MEIPASS
+    else:
+        # Bundled with cx_Freeze
+        base_dir = os.path.dirname(sys.executable)
 else:
+    # Not a bundled application, so use the script's directory
     base_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Construct the file path
@@ -116,7 +123,7 @@ def login_screen(window):
     menu.add.vertical_margin(80) 
     menu.add.label('Please enter a city name:', font_name='./src/Grand9K Pixel.ttf')
     
-    username_input = menu.add.text_input('', default='..........', maxchar=10, font_name='./src/Grand9K Pixel.ttf', width=200)
+    username_input = menu.add.text_input('', default='', maxchar=10, font_name='./src/Grand9K Pixel.ttf', width=200)
     menu.add.vertical_margin(10) 
     menu.add.button('Play', lambda: start_game(username_input.get_value()), font_name='./src/Grand9K Pixel.ttf')
     menu.add.vertical_margin(10) 
