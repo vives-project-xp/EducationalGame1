@@ -260,12 +260,14 @@ class Game:
         return False
 
     def is_upgrade_button_clicked(self, x, y):
-        return self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30 and \
-            self.selected_cell[0] - 50 <= x <= self.selected_cell[0] + 40
+        menu_x, menu_y = self.get_menu_position()
+        return menu_y <= y <= menu_y + 30 and \
+            menu_x <= x <= menu_x + 40
 
     def is_remove_button_clicked(self, x, y):
-        return self.selected_cell[1] + self.grid_size <= y <= self.selected_cell[1] + self.grid_size + 30 and \
-            self.selected_cell[0] + 50 <= x <= self.selected_cell[0] + 90
+        menu_x, menu_y = self.get_menu_position()
+        return menu_y <= y <= menu_y + 30 and \
+            menu_x + 80 <= x <= menu_x + 120
     
     def is_house_icon_clicked(self, x, y):
         return self.icon_y - 80 <= y <= self.icon_y + self.icon_size and 10 <= x <= 10 + self.icon_size
@@ -823,6 +825,30 @@ class Game:
             print("Not enough money to place an energy building.")
         self.menu_bar_visible = False
 
+    def get_menu_position(self):
+        for x in range(32):
+            for y in range(17):
+                if self.selected_cell[0] == x * self.grid_size and self.selected_cell[1] == y * self.grid_size:
+                    if y == 16:  # If the cell is in the bottom row
+                        menu_x = self.selected_cell[0] + self.grid_size 
+                        menu_y = self.selected_cell[1] - self.grid_size
+                    elif x == 0 and y == 16:  # If the cell is in the bottom left corner
+                        menu_x = self.selected_cell[0] + self.grid_size 
+                        menu_y = self.selected_cell[1] - 80 + self.grid_size // 2
+                    elif x == 31 and y == 0:  # If the cell is in the upper right corner
+                        menu_x = self.selected_cell[0] - 160
+                        menu_y = self.selected_cell[1] + self.grid_size
+                    elif x == 0:  # If the cell is in the leftmost column
+                        menu_x = self.selected_cell[0] + self.grid_size
+                        menu_y = self.selected_cell[1] - 80 + self.grid_size // 2
+                    elif x == 31:  # If the cell is in the rightmost column
+                        menu_x = self.selected_cell[0] - 160
+                        menu_y = self.selected_cell[1] - 80 + self.grid_size // 2
+                    else:
+                        menu_x = self.selected_cell[0] - 80 + self.grid_size // 2  
+                        menu_y = self.selected_cell[1] + self.grid_size
+                    return menu_x, menu_y
+            
     def draw_building_clicked_menu(self):
         # Load the icons
         upgrade_icon = pygame.image.load('./assets/resources/icons/upgrade.png')
@@ -834,12 +860,36 @@ class Game:
         upgrade_icon = pygame.transform.scale(upgrade_icon, (icon_width, icon_height))
         remove_icon = pygame.transform.scale(remove_icon, (icon_width, icon_height))
 
-        menu_x = self.selected_cell[0] - 80 + self.grid_size // 2  
-        menu_y = self.selected_cell[1] + self.grid_size
+        # if selected cell is on the bottom line, place the menu above the grid cell
+        for x in range(32):
+            for y in range(17):
+                if self.selected_cell[0] == x * self.grid_size and self.selected_cell[1] == y * self.grid_size:
+                    if y == 16:  # If the cell is in the bottom row
+                        menu_x = self.selected_cell[0] + self.grid_size 
+                        menu_y = self.selected_cell[1] - self.grid_size
+                    elif x == 0 and y == 16:  # If the cell is in the bottom left corner
+                        menu_x = self.selected_cell[0] + self.grid_size 
+                        menu_y = self.selected_cell[1] - 80 + self.grid_size // 2
+                    elif x == 31 and y == 0:  # If the cell is in the upper right corner
+                        menu_x = self.selected_cell[0] - 160
+                        menu_y = self.selected_cell[1] + self.grid_size
+                    elif x == 0:  # If the cell is in the leftmost column
+                        menu_x = self.selected_cell[0] + self.grid_size
+                        menu_y = self.selected_cell[1] - 80 + self.grid_size // 2
+                    elif x == 31:  # If the cell is in the rightmost column
+                        menu_x = self.selected_cell[0] - 160
+                        menu_y = self.selected_cell[1] - 80 + self.grid_size // 2
+                    else:
+                        menu_x = self.selected_cell[0] - 80 + self.grid_size // 2  
+                        menu_y = self.selected_cell[1] + self.grid_size
+                    break
+            else:
+                continue
+            break
 
         pygame.draw.rect(self.window, (230, 230, 230), (menu_x, menu_y, 160, 50))  
 
-        border_width = 2  # You can change this to make the border thicker or thinner
+        border_width = 2  
         pygame.draw.rect(self.window, (0, 0, 0), (menu_x, menu_y, 160, 50), border_width)
 
         # Draw the upgrade and remove buttons

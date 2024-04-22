@@ -7,6 +7,7 @@ import datetime
 import os
 import sys
 import pygame_menu
+from pygame_menu.widgets import TextInput
 
 pygame.init()
 res = Resolution()
