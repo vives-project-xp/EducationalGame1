@@ -766,21 +766,8 @@ class Game:
 
         road = Road(x, y, self.grid_size)
         road.set_type('road')
-        self.placesound.set_volume(0.5)
-        self.placesound.play()
 
-        # Create a font object
-        font = pygame.font.Font(None, 24)
-        # Create a Surface with the text
-        text_surface = font.render('Building...', True, (255, 255, 255))
-        # Draw the text at the desired location
-        self.window.blit(text_surface, (x, y))
-
-        # Update the screen to show the text
-        pygame.display.update()
-
-        # Add a delay to ensure the text is visible for a certain amount of time
-        pygame.time.delay(1000)  # Delay for 1000 milliseconds (1 second)
+        self.play_place_fx()
 
         self.game_state.placed_objects.append(road)
         for obj in self.game_state.placed_objects:
@@ -792,6 +779,23 @@ class Game:
         self.connect_nearby_roads(x, y)
 
         return road
+    
+    def play_place_fx(self):
+        self.placesound.set_volume(0.5)
+        self.placesound.play()
+
+        under_construction_image = pygame.image.load('assets/underconstruct.png')
+        new_size = (self.window.get_width() // 2, self.window.get_height() // 2)
+        under_construction_image = pygame.transform.scale(under_construction_image, new_size)
+
+        screen_center = (self.window.get_width() // 2, self.window.get_height() // 2)
+        image_position = (screen_center[0] - under_construction_image.get_width() // 2, 
+                        screen_center[1] - under_construction_image.get_height() // 2)
+
+        self.window.blit(under_construction_image, image_position)
+
+        pygame.display.update()
+        pygame.time.delay(100)  
  
     def connect_nearby_roads(self, x, y):
         nearby_cells = [
