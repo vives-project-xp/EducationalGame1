@@ -1,11 +1,17 @@
 <script>
+export default {
+  methods: {
+    downloadGame() {
+      window.location.href = '../resources/exe.win-amd64-3.12';
+    }
+  }
+}
 </script>
 
 <template>
   <main>
     <div class="mainInfo">
-    <h1>Uh oh! Something went wrong...</h1>
-    <p>We're happy to see you want to play our game, but unfortunatly, the game is still under development. Take a look back soon!</p>
+    <button @click="downloadGame">Click here to download the game</button>
     </div>
   </main>
 </template>
