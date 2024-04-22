@@ -116,7 +116,6 @@ def login_screen(window):
 
     menu = pygame_menu.Menu('', window_width, window_height, theme=blackTheme)
 
-
     menu.add.label('Welcome to JOXE!', font_name='./src/Grand9K Pixel.ttf', font_size=80)
     menu.add.vertical_margin(80) 
     menu.add.label('Please enter a city name:', font_name='./src/Grand9K Pixel.ttf')

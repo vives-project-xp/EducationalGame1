@@ -26,10 +26,11 @@ class Trivia:
         self.close_font = pygame.font.Font(None, self.height // 40)
         self.close_text = "Close"
         self.close_text_rendered = self.close_font.render(self.close_text, True, (255, 255, 255))
-        self.close_button_size = self.height // 20
-        self.close_button_x = self.popup_x + (self.popup_width / 2) - (self.close_button_size / 2) 
-        self.close_button_y = self.popup_y + self.popup_height - self.close_button_size  
-        self.close_button_rect = pygame.Rect(self.close_button_x, self.close_button_y, self.close_button_size, self.close_button_size)
+        self.close_button_width = self.width // 10  # Adjust this value to your liking
+        self.close_button_height = self.height // 20
+        self.close_button_x = self.popup_x + (self.popup_width / 2) - (self.close_button_width / 2)
+        self.close_button_y = self.popup_y + self.popup_height - self.close_button_height - self.height // 20
+        self.close_button_rect = pygame.Rect(self.close_button_x, self.close_button_y, self.close_button_width, self.close_button_height)
 
     def show_trivia(self):
         self.trivia = self.get_random_trivia(self.trivia_list)
@@ -50,7 +51,7 @@ class Trivia:
                             selected_answer_index = i
                             answer_selected = True
                             if selected_answer_index == correct_answer_index:
-                                self.game_state.add_money(100000)
+                                self.game_state.add_money(1000)
                                 print("True")
                             else:
                                 print("False")
@@ -68,8 +69,8 @@ class Trivia:
                     # Draw close button (a smaller rectangle in the bottom-middle of the popup)
                     pygame.draw.rect(self.window, (255, 0, 0), close_button_rect)
 
-                    close_text_x = self.close_button_x + (self.close_button_size - self.close_text_rendered.get_width()) / 2
-                    close_text_y = self.close_button_y + (self.close_button_size - self.close_text_rendered.get_height()) / 2
+                    close_text_x = self.close_button_x + (self.close_button_width - self.close_text_rendered.get_width()) / 2
+                    close_text_y = self.close_button_y + (self.close_button_height - self.close_text_rendered.get_height()) / 2
                     self.window.blit(self.close_text_rendered, (close_text_x, close_text_y))
 
                     # Calculate the position of the solution text
