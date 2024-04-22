@@ -262,12 +262,12 @@ class Game:
     def is_upgrade_button_clicked(self, x, y):
         menu_x, menu_y = self.get_menu_position()
         return menu_y <= y <= menu_y + 30 and \
-            menu_x <= x <= menu_x + 40
+            menu_x <= x <= menu_x + 60
 
     def is_remove_button_clicked(self, x, y):
         menu_x, menu_y = self.get_menu_position()
         return menu_y <= y <= menu_y + 30 and \
-            menu_x + 80 <= x <= menu_x + 120
+            menu_x + 100 <= x <= menu_x + 160
     
     def is_house_icon_clicked(self, x, y):
         return self.icon_y - 80 <= y <= self.icon_y + self.icon_size and 10 <= x <= 10 + self.icon_size
