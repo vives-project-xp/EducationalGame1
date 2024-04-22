@@ -44,6 +44,6 @@ class House(Object):
             self.inhab_happiness -= amount
     
     def upgrade(self):
-        if self.level < 9:
+        if self.level < 4:
             self.level += 1
             self.upgrade_cost = (5**self.level)*1000
