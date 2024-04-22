@@ -68,14 +68,11 @@ All trivia about climate that is shown during gameplay is listed below, along wi
 
 ## Additional functionality (todo)
 - Adding hotels, appartments and skyscraper buildings
-- Behind the fixed UI elements you shouldn't be able to build
 - Adding max upgrades for all assets
 - In shop add the prefab stats on mouseover
 - For prefabs at the bottom, show upgrade menu at the top (same for left and right)
 - If you delete a road, update adjacent roads again
 - Auto save?
-- Prefab mountain, river, ... on map?
 - GAME IS TOO EASY
-- (If you place multiple parks besides eachother, you create one big park)
 - Statues (very expensive)
 - .exe on website
