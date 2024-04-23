@@ -224,25 +224,25 @@ def confirm_menu(window, main_function, gamestate):
 
     menu = pygame_menu.Menu('', window_width, window_height, theme=blackTheme)
 
-    menu.add.label("We 're sad to see you go :(", font_name='./src/Grand9K Pixel.ttf', font_size=100)
-    menu.add.vertical_margin(80)
-    menu.add.label('Do you want to save the game?', font_name='./src/Grand9K Pixel.ttf', font_size=50)
-    menu.add.vertical_margin(40)
+    menu.add.label("We 're sad to see you go :(", font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 20)
+    menu.add.vertical_margin(window_height // 20)
+    menu.add.label('Do you want to save the game?', font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 30)
+    menu.add.vertical_margin(window_height // 20)
 
     def save_gamestate():
         gamestate.save_gamestate()
         pygame.quit()
         sys.exit()
 
-    menu.add.button('Yes, save', save_gamestate, font_name='./src/Grand9K Pixel.ttf')
+    menu.add.button('Yes, save', save_gamestate, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 30)
 
     def go_back():
         main_function(window, gamestate)
     
-    menu.add.vertical_margin(10)
-    menu.add.button('No, continue game', go_back, font_name='./src/Grand9K Pixel.ttf')
-    menu.add.vertical_margin(10)
-    menu.add.button('No, quit without saving', pygame_menu.events.EXIT, font_name='./src/Grand9K Pixel.ttf')
+    menu.add.vertical_margin(window_height // 30)
+    menu.add.button('No, continue game', go_back, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 30)
+    menu.add.vertical_margin(window_height // 30)
+    menu.add.button('No, quit without saving', pygame_menu.events.EXIT, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 30)
 
     menu.mainloop(window)
                 
