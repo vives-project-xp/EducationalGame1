@@ -1,3 +1,14 @@
+Schools:
+Jonas Tanghe (Abdijschool Zevenekerken) <administratie@abdijschool.be>
+
+Press division Vives:
+Louise Delputte <louise.delputte@vives.be>
+
+Consultents:
+Elvier Roegiers 
+Colin Bundervoet
+Annelies Crul
+
 Experts:
 Climate Change: Extinction Rebellion (Nederland)
  media@extinctionrebellion.nl

@@ -1,11 +1,11 @@
 **Board Game Box Art:** 
 
 **Player Manual:** 
-https://www.canva.com/design/DAF_3JvLFFg/6zrEteo_Q1HoqwItIETYww/edit?utm_content=DAF_3JvLFFg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton \
+https://www.canva.com/design/DAGDPaPV7-o/GUajg0gmp7WlERp1-XIvTA/edit?utm_content=DAGDPaPV7-o&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton \
 ![Player Manual Cover](image-1.png)
 
 **Teacher Pamphlet:** 
-https://www.canva.com/design/DAGAgJX-vEQ/xmBgojo9V6fxQuz2wHLSLA/edit?utm_content=DAGAgJX-vEQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton \
+https://www.canva.com/design/DAGDPbCgjLU/FcliidmGGssOwTJc2BBOYw/edit?utm_content=DAGDPbCgjLU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton \
 ![Teacher Pamphlet Cover](image.png)
 
 **Main Board:** 
