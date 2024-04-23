@@ -306,7 +306,6 @@ class Game:
             if isinstance(obj, Road) and obj.x == x * self.grid_size and obj.y == y * self.grid_size:
                 return True
         return False
-
     def handle_upgrade_button_click(self):
         for obj in self.game_state.placed_objects:
             if obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
