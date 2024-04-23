@@ -4,7 +4,7 @@ Each one adds mechanics/tiles/tokens and/or cards to the base game.
 Each mission is designed to be part of a lesson plan that any highschool teacher can use to fill at least one hour of class.
 
 ## Mission 1 Waste Disposal:
-In this mission there is a new mechanic that allows you to dispose of pollution tokens.\
+In this mission there is a new mechanic that allows you to shift pollution tokens around.\
 The Moral: you may be able to shift trash around (like is done to many poorer south-east asian countries) and hope other people take care of things but this is not a solution to your problems.
 
 ### Setup:
