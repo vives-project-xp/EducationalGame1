@@ -11,13 +11,13 @@ The Moral: you may be able to shift trash around (like is done to many poorer so
 Normal Setup.
 
 ### Rules Changes:
-Whenever a player gains a pollution token they may pay the next player up to an equal amount in money tokens to make them take the pollution instead. 
-That player then is allowed to pay twice the original sum to move this pollution to the next player. This continues until no one can pay this any longer.
-Players get to discard one pollution token per nature tile they own at the end of their turn. Keep these pollution tokens seperate as they will count towards your end score.
+Whenever a player gets a Pollution Token, they may choose to pass it to the player on their left instead. 
+When they do so, they must give them one of their Population token as compensation.
+That player also gets to pass it along once more but at the cost of 2 Population tokens.
+This can continue until a player decides to keep the Pollution token.
 
 ### End of game:
-The player who cleared the most pollution tokens during the game gains +10 Pops at the end of the game.
-All other rules still apply. 
+Winning and losing as normal.
 
 
 ## Mission 2 Capitalism Rules:
@@ -46,8 +46,17 @@ All other rules still apply.
 In this mission players will build on polluted land, trying to restore it.\
 Moral: Picking up the pieces is difficult and makes us more aware of the mess we make. This will hopefully inspire us to think about the people that will live in the place after you're gone.
 
+### Setup:
+Flip over all Commercial tiles and place 2 of these at random on the main board before starting.
 
-Full board but with extra blocker tiles that need to be removed by paying.
+### Rules Changes:
+new Action:
+You may return a flipped tile back to their original state. This tile then becomes yours.
+
+Whenever a Land Expansion is added, the free tile you would normally get to choos is a flipped tile instead. Place it with al least 1 square on the Land Expansion tile.
+
+### End of game:
+The player with most Commercial buildings wins the game.
 
 ## Mission 4 Vive la Revolution:
 Full board setup with buildings that can be conquered by spending population.
