@@ -1,10 +1,10 @@
 Schools:
 Jonas Tanghe (Abdijschool Zevenekerken) <administratie@abdijschool.be>
 
-Press division Vives:
+Persdienst Vives:
 Louise Delputte <louise.delputte@vives.be>
 
-Consultents:
+Consultants:
 Elvier Roegiers 
 Colin Bundervoet
 Annelies Crul
