@@ -42,6 +42,9 @@ For the educationaml part, aside from its themes, the box will be provided with 
 5 additional lesson plans will be made available on the website and will be themed around the same amount of missions.
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/145467433/bd7829dd-8a6e-48d4-9290-1be017d6b48b)
 
+![Prints 3](https://github.com/vives-project-xp/EducationalGame1/assets/145467433/a8df2e3d-34ae-4b7c-9e54-87132265dff5)
+![Prints 2](https://github.com/vives-project-xp/EducationalGame1/assets/145467433/55809232-4026-4f2f-90ae-4e8e6593c8a5)
+![Prints 1](https://github.com/vives-project-xp/EducationalGame1/assets/145467433/f5e4212d-fb17-45bc-8727-5a6ebb551ccf)
 
 ## Webpage:
 The project will also contain a website to connect the PC-version and board game version with each other. There will also be added information about both products will also be displayed to present them in an interesting way to potential users.
