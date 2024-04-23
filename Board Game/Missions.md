@@ -59,6 +59,21 @@ Whenever a Land Expansion is added, the free tile you would normally get to choo
 The player with most Commercial buildings wins the game.
 
 ## Mission 4 Vive la Revolution:
+In this mission, players fight for control of buildings in the middle of a bloody revolution.
+Moral: This mission is meant for competitive fun, with no real moral but to point out greed.
+
+### Setup:
+Normal setup.
+
+### Rules Changes:
+new Action "Conquer":
+You may steal a building from another player 
+
+Whenever a Land Expansion is added, the free tile you would normally get to choos is a flipped tile instead. Place it with al least 1 square on the Land Expansion tile.
+
+### End of game:
+Tally the amount of squares each player controls, the player with the most squares wins.
+
 Full board setup with buildings that can be conquered by spending population.
 
 ## Mission 5 Shortages:
