@@ -120,11 +120,11 @@ class Game:
         formatted_money_gain = self.format_number(average_money_gain)
         formatted_ecoscore_change = self.format_number(average_ecoscore_change)
 
-        font_size = max(int(square_height / 2.5), 10) 
+        font_size = max(int(square_height / 2.5), 10)
         sizedfont = pygame.font.Font(None, font_size)
 
-        money_text = sizedfont.render(f"$/m:   {formatted_money_gain}", True, (0, 0, 0))
-        ecoscore_text = sizedfont.render(f"CO2/m: {formatted_ecoscore_change}", True, (0, 0, 0))
+        money_text = sizedfont.render(f"$/m:   {formatted_money_gain}", True, (255, 255, 255))
+        ecoscore_text = sizedfont.render(f"CO2/m: {formatted_ecoscore_change}", True, (255, 255, 255))
 
         self.window.blit(money_text, (square_x + 12, square_y + 7))
         self.window.blit(ecoscore_text, (square_x + 12, square_y + 17))
