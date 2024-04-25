@@ -94,5 +94,10 @@
     border-top-right-radius: 80px;
     text-align: center;
     padding: 40px;
+    /* make this menu stick at the bottom of the page, not in the middle if the page doesnt have enough content */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    
     }
 </style>

@@ -8,8 +8,10 @@
     <p>On this page you'll find more about the board and PC-game.</p>
     </div>
     <div class="tutorial">
-    <h2>Tutorial</h2>
-    <p>A tutorial video about the game will appear here.</p>
+    <h2>What?</h2>
+    <p>In this project we aim to create an educational game that consists of 3 large parts: A pc game made with Pygame, a board game version based on the PC game and this website to integrate and provide functionality to both versions.
+      On each of these platform we aim to inform our users and incorporate themes concerning climate change and the reality of its consequences depending on humanity's choices.</p><br>
+      <p></p>
     </div>
     <div class="manual">
     <h2>Manual</h2>

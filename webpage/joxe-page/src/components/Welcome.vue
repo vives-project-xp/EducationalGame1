@@ -23,13 +23,13 @@
 </div>
 <div class="whiteBg">
   <div class="missionsInfo">
-    <h1>Missions</h1>
-    <p>On this site, additional missions for the board game will appear. They will unlock codes which will you make able to play the online game.</p>
+    <h1>Online game</h1>
+    <p>This unique city builder game, made in Python, is the main part of Joxe. During the game the player has to balance the size of their income, population and CO2 emmisions as well as create their own imaginary city on a gridlike structure by building and upgrading structures. The game runs until the grid is fully occupied and upgraded or until the player's CO2 emmision score goes too low at which point they lose.</p>
   </div>
 </div>
 <div class="boardgameInfo">
   <h1>Board Game</h1>
-  <p>There will also be a board game version. Our goal is for a grid-based puzzle game similar to existing games like Cathedral, Patchwork and My City. During the game the 2-4 players will be able to place tiles in various shapes and sizes on a grid in which they must balance the size of their population and Climate Impact. The game runs until all tiles have filled up the board or until no tiles are left at which point a winner is calculated by the points they acrued during the game. A Tutorial video on how to play and a downloadable manual will be provided on the webpage. Missions will also be available via the webpage in which the players will get to play with an altered ruleset or start with a prewritten board state to overcome these challenges.</p>
+  <p>There is also a board game version, an offline version of the pygame. THis is a grid-based puzzle game similar to existing games like Cathedral, Patchwork and My City. During the game the 2-4 players will be able to place tiles in various shapes and sizes on a grid in which they must balance the size of their population and Climate Impact. The game runs until all tiles have filled up the board or until no tiles are left at which point a winner is calculated by the points they acrued during the game. A Tutorial video on how to play and a downloadable manual will be provided on the webpage. Missions will also be available via the webpage in which the players will get to play with an altered ruleset or start with a prewritten board state to overcome these challenges.</p>
 </div>
 </template>
 

@@ -97,8 +97,8 @@ export default {
         <img src="../../img/JOXEC-noBG.png" alt="logo ">
         <div class="carousel-text">
           <h1>Welcome!</h1>
-          <p>JOXE is an upcoming game, online and offline. On this site you'll find
-          more about the board game and additional missions to unlock the online game for free!
+          <p>JOXE is a brand new game, online and offline. On this site you'll find
+          more about the board game and the upcoming additional missions to unlock the online game for free!
           </p>
         </div>
       </div>
@@ -117,7 +117,7 @@ export default {
           <img src="../../img/gameplay.png" alt="gameplay">
           <div class="carousel-text">
           <h1>Shop</h1>
-          <p>Build houses and more to get a higher score.</p>
+          <p>Build houses and more to get a higher score and make the people in your city happier.</p>
         </div>
       </div>
       </div>
