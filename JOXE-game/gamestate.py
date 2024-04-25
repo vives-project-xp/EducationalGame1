@@ -9,6 +9,7 @@ from zobjectfiles.hospital import Hospital
 from zobjectfiles.firestation import Firestation
 from resolution import Resolution
 import datetime
+from tracker import Tracker
 
 class Gamestate:
     def __init__(self):
@@ -24,6 +25,10 @@ class Gamestate:
         self.cell_size = self.res.GRID_SIZE
         self.citizen_happiness = 50
         self.game_over = False
+
+        self.game = None
+
+        self.update_averages()
 
     def save_gamestate(self):
         save_folder = "gamesave/"
@@ -108,6 +113,10 @@ class Gamestate:
 
                 self.placed_objects.append(obj)
 
+    def update_averages(self):
+        tracker = Tracker(self.game, self)
+        self.average_money_gain, self.average_ecoscore_change = tracker.get_averages()
+
     def add_object(self, obj):
         self.placed_objects.append(obj)
 
@@ -128,9 +137,11 @@ class Gamestate:
 
     def add_money(self, amount):
         self.money += amount
+        self.update_averages()
 
     def remove_money(self, amount):
         self.money -= amount
+        self.update_averages()
 
     def add_climate_score(self, amount):
         if self.climateScore + amount <= 100:

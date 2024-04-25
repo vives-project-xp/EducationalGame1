@@ -1,20 +1,25 @@
 import pygame
 from zobjectfiles.road import Road
 from zobjectfiles.empty import Empty
+from tracker import Tracker
 
 class Grid:
-    def __init__(self, window, grid_size, game_state, font):
+    def __init__(self, window, grid_size, game_state, font, game):
         self.window = window
         self.width, self.height = window.get_size()
         self.grid_size = grid_size
         self.game_state = game_state
         self.font = font
+        self.game = game 
         self.start_time = pygame.time.get_ticks()  
         self.total_elapsed_time = 0  
         self.current_date = self.game_state.current_date
         self.box_height = 0.037 * self.height
         self.box_width = 0.09375 * self.width
         self.pixel_font = "./src/Grand9K Pixel.ttf"
+        tracker = Tracker(self.game, self.game_state)
+        self.average_money_gain, self.average_ecoscore_change = tracker.get_averages() 
+        self.cornerBox = pygame.image.load('./assets/resources/icons/cornerBox.png')
 
         # Load the logos
         citizens_logo = pygame.image.load('./assets/resources/icons/person.png')
@@ -124,6 +129,12 @@ class Grid:
         self.angry_box = pygame.transform.scale(angry_box, (box1_width, new_height))
         self.nothappy_box = pygame.transform.scale(nothappy_box, (box1_width, new_height))
         self.name_box = pygame.transform.scale(name_box, (box1_width, new_height))
+        
+        # Draw the corner box
+        square_width, square_height = int(self.width / 60), int(self.height / 37)
+        square_x = self.window.get_width() - 2 * square_width
+        square_y = self.window.get_height() - 2 * square_height
+        self.window.blit(self.cornerBox, (square_x, square_y))
 
         # Draw the images in place of the boxes
         self.window.blit(self.name_box, (start_x, 15 - padding))

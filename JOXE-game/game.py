@@ -1,4 +1,3 @@
-from grid import Grid
 from zobjectfiles.house import House
 from zobjectfiles.road import Road
 from zobjectfiles.energy import Energy
@@ -10,11 +9,13 @@ from zobjectfiles.firestation import Firestation
 from zobjectfiles.empty import Empty
 from resolution import Resolution
 from trivia import Trivia
+from tracker import Tracker
 import pygame, sys, random
 from pygame import mixer
 import sys
 import random
 import time
+from grid import Grid
 
 class Game:
     COLORS = {
@@ -60,7 +61,7 @@ class Game:
         self.grid_size = grid_size
         self.game_state = gamestate
         self.font = pygame.font.Font(None, 36)
-        self.grid = Grid(window, grid_size, self.game_state, self.font)
+        self.grid = Grid(window, grid_size, self.game_state, self.font, self)
         self.selected_cell = None
         self.menu_bar_visible = False
         self.clicked_menu_visible = False
@@ -115,9 +116,6 @@ class Game:
         square_width, square_height = self.window.get_width() / 20 , self.window.get_height() / 20
         square_x = self.window.get_width() - square_width
         square_y = self.window.get_height() - square_height
-        square_color = (255, 255, 255) 
-
-        pygame.draw.rect(self.window, square_color, (square_x, square_y, square_width, square_height))
 
         formatted_money_gain = self.format_number(average_money_gain)
         formatted_ecoscore_change = self.format_number(average_ecoscore_change)
@@ -978,14 +976,34 @@ class Game:
     def draw_house_happiness(self, menu_x, menu_y):
         for obj in self.game_state.placed_objects:
             if isinstance(obj, House) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                # Calculate the x and y coordinates of the happiness icon
+                icon_x = menu_x + 65
+                icon_y = menu_y - 100
+
+                # Adjust the x and y coordinates based on the location of the clicked cell
+                if obj.x == 0:  # If the cell is in the leftmost column
+                    icon_x -= 1.85 * self.grid_size
+                    icon_y += 1.85 * self.grid_size
+                elif obj.x == 0 and obj.y == 16 * self.grid_size:  # If the cell is in the bottom left corner
+                    icon_x -= 1.85 * self.grid_size
+                    icon_y += 1.85 * self.grid_size
+                elif obj.y == 16 * self.grid_size:  # If the cell is in the bottom row
+                    icon_x -= 1.85 * self.grid_size
+                    icon_y += 1.85 * self.grid_size
+                elif obj.y == 0:  # If the cell is in the top row
+                    icon_x += 1.85 * self.grid_size
+                    icon_y += 1.85 * self.grid_size
+                elif obj.x == 31 * self.grid_size:  # If the cell is in the rightmost column
+                    icon_x += 1.85 * self.grid_size
+                    icon_y += 1.85 * self.grid_size
+
+                # Load and draw the happiness icon
                 if obj.inhab_happiness > 1:
                     happiness_icon = pygame.image.load('./assets/resources/icons/happyhouse.png')
-                    happiness_icon = pygame.transform.scale(happiness_icon, (30, 30))
-                    self.window.blit(happiness_icon, (menu_x + 65, menu_y - 100))
-                elif obj.inhab_happiness <= 1:
+                else:
                     happiness_icon = pygame.image.load('./assets/resources/icons/sadhouse.png')
-                    happiness_icon = pygame.transform.scale(happiness_icon, (30, 30))
-                    self.window.blit(happiness_icon, (menu_x + 65, menu_y - 100))
+                happiness_icon = pygame.transform.scale(happiness_icon, (30, 30))
+                self.window.blit(happiness_icon, (icon_x, icon_y))
 
     def draw_effect_range(self):
         for obj in self.game_state.placed_objects:
