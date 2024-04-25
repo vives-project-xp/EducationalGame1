@@ -92,8 +92,8 @@ includefiles = [
 
     ('assets/tutorial/tut1.png', 'assets/tutorial/tut1.png'),
     ('assets/tutorial/tut2.png', 'assets/tutorial/tut2.png'),
+    ('assets/underconstruct.png', 'assets/underconstruct.png'),
 
-    # gamesave
     ('gamesave/dev123.txt', 'gamesave/dev123.txt'),
 
     ('Sounds/AmbientLoop1.mp3', 'Sounds/AmbientLoop1.mp3'),
