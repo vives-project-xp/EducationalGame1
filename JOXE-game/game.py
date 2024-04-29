@@ -899,7 +899,6 @@ class Game:
         upgrade_icon = pygame.transform.scale(upgrade_icon, (icon_width, icon_height))
         remove_icon = pygame.transform.scale(remove_icon, (icon_width, icon_height))
 
-        # if selected cell is on the bottom line, place the menu above the grid cell
         for x in range(32):
             for y in range(17):
                 if self.selected_cell[0] == x * self.grid_size and self.selected_cell[1] == y * self.grid_size:
