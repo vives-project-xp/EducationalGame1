@@ -152,6 +152,10 @@ class Tracker:
 
     def get_averages(self):
         elapsed_minutes = (pygame.time.get_ticks() - self.start_time) / 60000
-        average_money_gain = self.total_money_gain / elapsed_minutes
-        average_ecoscore_change = self.total_ecoscore_change / elapsed_minutes
+        if elapsed_minutes == 0:
+            average_money_gain = 0
+            average_ecoscore_change = 0
+        else:
+            average_money_gain = self.total_money_gain / elapsed_minutes
+            average_ecoscore_change = self.total_ecoscore_change / elapsed_minutes
         return average_money_gain, average_ecoscore_change

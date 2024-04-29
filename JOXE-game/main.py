@@ -71,7 +71,7 @@ def main(window, gamestate):
             clock.tick(FPS)
             game.draw()
             tracker.update()
-            average_money_gain, average_ecoscore_change = tracker.get_averages()
+            average_money_gain, average_ecoscore_change = tracker.get_averages() 
             game.draw_averages(average_money_gain, average_ecoscore_change)
             elapsed_time = pygame.time.get_ticks() - game.grid.start_time
             game.grid.total_elapsed_time += elapsed_time
