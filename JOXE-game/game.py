@@ -22,30 +22,60 @@ class Game:
         'white': (255, 255, 255),
         'yellow': (255, 255, 0),
         'red': (255, 0, 0),
-        'menu_background': (230, 230, 230),
+        'menu_background': (20, 230, 230),
         'game_over_text': (255, 0, 0),
     }
 
+    # COSTS = {
+    #     'house': 1000,
+    #     'road': 50,
+    #     'energy': 2000,
+    #     'store': 3000,
+    #     'tree': 250,
+    #     'factory': 10000,
+    #     'hospital': 15000,
+    #     'firestation': 20000,
+    # }
+
     COSTS = {
-        'house': 1000,
+        'buildings': {
+            'house': 1000,
+            'store': 3000,
+            'factory': 10000,
+            'hospital': 15000,
+            'firestation': 20000,
+        },
         'road': 50,
         'energy': 2000,
-        'store': 3000,
-        'tree': 250,
-        'factory': 10000,
-        'hospital': 15000,
-        'firestation': 20000,
+        'nature': {
+            'tree': 250,
+        },
     }
 
     BUILDING_IMAGES = {
-        'house': './assets/resources/houses/house11.png',
+        'buildings': {
+            'house': './assets/resources/houses/house11.png',
+            'store': './assets/resources/buildings/stores/store1.png',
+            'factory': './assets/resources/buildings/factory/tempfac1.png',
+            'hospital': './assets/resources/buildings/hospital/hospital1.png',
+            'firestation': './assets/resources/buildings/firestation/firestation1.png',
+        },
+        'road': {
+            'road': './assets/resources/road/road.png',
+        },
+        'energy': {
+            'windmill': './assets/resources/buildings/energy/windmills/windmill1.png',
+        },
+        'nature': {
+            'tree': './assets/resources/nature/tree/tree1.png',
+        }
+    }
+
+    CATEGORY_IMAGES = {
+        'buildings': './assets/resources/houses/house11.png',
         'road': './assets/resources/road/road.png',
         'energy': './assets/resources/buildings/energy/windmills/windmill.png',
-        'tree': './assets/resources/nature/tree/tree1.png',
-        'store': './assets/resources/buildings/stores/store1.png',
-        'factory': './assets/resources/buildings/factory/tempfac1.png',
-        'hospital': './assets/resources/buildings/hospital/hospital1.png',
-        'firestation': './assets/resources/buildings/firestation/firestation1.png',
+        'nature': './assets/resources/nature/tree/tree1.png',
     }
 
     ECO_SCORE_BONUS = {
@@ -70,6 +100,7 @@ class Game:
         self.occupied_cells = set()
         self.placing_house_sound = mixer.Sound('Sounds/Placing house SFX.mp3')
         self.placesound = pygame.mixer.Sound('./Sounds/Place.mp3')
+        self.menubar = pygame.image.load('./assets/resources/icons/Menubar.png')
         self.game_over_timer_duration = 3000 
         self.game_over_timer_start = None
         self.game_over_displayed = False
@@ -77,11 +108,15 @@ class Game:
         self.icon_size = int(self.window.get_height() * 0.2 * 0.8)
         self.icon_y = int(0.8 * self.window.get_height()) + int(self.window.get_height() * 0.2 * 0.1) 
         self.menu_bar_height = self.window.get_height() * 0.2
+        self.icon_spacing = self.window.get_width() / (len(self.CATEGORY_IMAGES) + 1)
 
         self.icon_size = int(self.menu_bar_height * 0.8) 
         self.warning_popup = False
 
-        self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']), (80, 80))
+        self.categories = ['buildings', 'road', 'energy', 'nature']
+        self.current_category = None
+
+        self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']['road']), (80, 80))
 
     def draw(self):
         self.grid.draw_grid()
@@ -178,26 +213,48 @@ class Game:
 
     def draw_menu_bar(self):
         menu_bar_y = int(0.8 * self.window.get_height())
-        pygame.draw.rect(self.window, self.COLORS['menu_background'], (0, menu_bar_y, self.window.get_width(), self.menu_bar_height))
-        self.draw_building_icons(menu_bar_y, self.menu_bar_height)
-        self.draw_building_costs(menu_bar_y)
+        self.window.blit(pygame.transform.scale(self.menubar, (self.window.get_width(), self.menu_bar_height)), (0, menu_bar_y))
+        if self.current_category is None:
+            self.draw_category_icons(menu_bar_y, self.menu_bar_height)
+        else:
+            self.draw_building_icons(menu_bar_y, self.menu_bar_height, self.current_category)
+            self.draw_building_costs(menu_bar_y, self.current_category)
 
-    def draw_building_icons(self, menu_bar_y, menu_bar_height):
-        icon_y = menu_bar_y + int(menu_bar_height * 0.1)  # Centered in the menu bar
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital', 'firestation']): #BUILDING
-            self.window.blit(pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES[building_type]), (self.icon_size, self.icon_size)),
-                             (10 + i * (self.icon_size + 10), icon_y))
+    def draw_back_button(self, menu_bar_y, menu_bar_height):
+        back_button_x = self.window.get_width() * 0.05  
+        back_button_y = menu_bar_y + menu_bar_height * 0.05  
+        back_button_image = pygame.image.load('./assets/resources/icons/shop.png')
+        scaled_back_button_image = pygame.transform.scale(back_button_image, (self.icon_size, self.icon_size))
+        self.window.blit(scaled_back_button_image, (back_button_x, back_button_y))
 
-    def draw_building_costs(self, menu_bar_y):
+    def draw_category_icons(self, menu_bar_y, menu_bar_height):
+        icon_y = menu_bar_y + int(menu_bar_height * 0.2)  
+        icon_spacing = self.window.get_width() / (len(self.categories) + 1)
+        for i, category in enumerate(self.categories):
+            self.window.blit(pygame.transform.scale(pygame.image.load(self.CATEGORY_IMAGES[category]), (self.icon_size, self.icon_size)),
+                            ((icon_spacing + i * icon_spacing) * 0.9, icon_y))
+
+    def draw_building_icons(self, menu_bar_y, menu_bar_height, category):
+        icon_y = menu_bar_y + int(menu_bar_height * 0.2)
+        icon_spacing = self.window.get_width() / (len(self.BUILDING_IMAGES[category]) + 1)
+        for i, building_type in enumerate(self.BUILDING_IMAGES[category]):
+            image_path = self.BUILDING_IMAGES[category][building_type]
+            image = pygame.image.load(image_path)
+            scaled_image = pygame.transform.scale(image, (self.icon_size, self.icon_size))
+            self.window.blit(scaled_image, (icon_spacing * 0.9 + i * icon_spacing, icon_y))
+        self.draw_back_button(menu_bar_y, menu_bar_height)
+
+    def draw_building_costs(self, menu_bar_y, category):
         font = pygame.font.Font(None, 24)
-        for i, building_type in enumerate(['house', 'road', 'energy', 'store', 'tree', 'factory', 'hospital', 'firestation']): #BUILDING
-            cost = self.COSTS.get(building_type, 0)
+        icon_spacing = self.window.get_width() / (len(self.COSTS[category]) + 1)
+        for i, building_type in enumerate(self.COSTS[category]):
+            cost = self.COSTS[category][building_type]
             if self.game_state.money < cost: 
                 color = self.COLORS['red']
             else:
                 color = self.COLORS['white'] 
             cost_text = font.render(f"${cost}", True, color)
-            self.window.blit(cost_text, (10 + i * (self.icon_size + 10), menu_bar_y + 5))
+            self.window.blit(cost_text, ((icon_spacing + i * icon_spacing) * 0.9, menu_bar_y + menu_bar_y * 0.025)) 
 
     # If the player has not enough money to place a building, place a warning popup
     def draw_warning_popup(self):
@@ -216,6 +273,13 @@ class Game:
                     level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                     self.window.blit(level_text, (obj.x, obj.y))
 
+    def is_back_button_clicked(self, x, y):
+        back_button_x = self.window.get_width() * 0.05  
+        menu_bar_y = int(0.8 * self.window.get_height())
+        menu_bar_height = self.menu_bar_height
+        back_button_y = menu_bar_y + menu_bar_height * 0.05  
+        return back_button_x <= x <= back_button_x + self.icon_size and back_button_y <= y <= back_button_y + self.icon_size
+
     def handle_click(self, x, y):
         grid_x, grid_y = self.get_grid_coordinates(x, y)
 
@@ -226,7 +290,17 @@ class Game:
             self.handle_clicked_menu_click(x, y)
             return
         if self.menu_bar_visible:
-            self.handle_menu_bar_click(x, y)
+            if self.is_back_button_clicked(x, y):
+                self.current_category = None
+            else:
+                clicked_icon = self.get_clicked_icon(x, y)
+                if self.current_category is None:
+                    self.current_category = clicked_icon
+                else:
+                    for i, category in enumerate(self.categories):
+                        if self.is_icon_clicked(x, y, i):
+                            self.handle_icon_click(clicked_icon)
+                            break
             return
         if self.is_building_already_present(grid_x, grid_y):
             self.selected_cell = (grid_x * self.grid_size, grid_y * self.grid_size)
@@ -238,6 +312,26 @@ class Game:
         
         self.selected_cell = (grid_x * self.grid_size, grid_y * self.grid_size)
         print(f"Clicked on cell ({grid_x}, {grid_y})")
+
+    def is_icon_clicked(self, x, y, icon_index):
+        icon_x = (self.icon_spacing + icon_index * self.icon_spacing) * 0.9
+        return self.icon_y <= y <= self.icon_y + self.icon_size and icon_x <= x <= icon_x + self.icon_size
+
+    def get_clicked_icon(self, x, y):
+        menu_bar_y = int(0.8 * self.window.get_height())
+        icon_y = menu_bar_y + int(self.menu_bar_height * 0.2)
+        icon_spacing = self.window.get_width() / (len(self.categories) + 1)
+
+        for i, category in enumerate(self.categories):
+            icon_x = (icon_spacing + i * icon_spacing) * 0.9
+            if self.current_category is None:
+                if icon_x <= x <= icon_x + self.icon_size and icon_y <= y <= icon_y + self.icon_size:
+                    return category
+            else:
+                for building_type in self.BUILDING_IMAGES[category]:
+                    if icon_x <= x <= icon_x + self.icon_size and icon_y <= y <= icon_y + self.icon_size:
+                        return building_type
+        return None
 
     def handle_clicked_menu_click(self, x, y):
         if self.is_upgrade_button_clicked(x, y):
@@ -304,6 +398,7 @@ class Game:
             if isinstance(obj, Road) and obj.x == x * self.grid_size and obj.y == y * self.grid_size:
                 return True
         return False
+    
     def handle_upgrade_button_click(self):
         for obj in self.game_state.placed_objects:
             if obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
@@ -423,26 +518,64 @@ class Game:
         self.game_state.placed_objects.remove(energy)
         self.game_state.remove_climate_score(5)
 
+    # def handle_menu_bar_click(self, x, y):
+    #     for i, category in enumerate(self.categories):
+    #         if self.is_icon_clicked(x, y, i):
+    #             if category == 'house':
+    #                 self.handle_house_icon_click()
+    #                 self.current_category = None
+    #             elif category == 'road':
+    #                 self.handle_road_icon_click()
+    #                 self.current_category = None
+    #             elif category == 'energy':
+    #                 self.handle_energy_icon_click()
+    #                 self.current_category = None
+    #             elif category == 'tree':
+    #                 self.handle_tree_icon_click()
+    #                 self.current_category = None
+    #             elif category == 'store':
+    #                 self.handle_store_icon_click()
+    #                 self.current_category = None
+    #             elif category == 'factory':
+    #                 self.handle_factory_icon_click()
+    #                 self.current_category = None
+    #             elif category == 'hospital':
+    #                 self.handle_hospital_icon_click()
+    #                 self.current_category = None
+    #             elif category == 'firestation':
+    #                 self.handle_firestation_icon_click()
+    #                 self.current_category = None
+    #             break
+    #     else:
+    #         self.menu_bar_visible = False
+    #         self.selected_cell = None
+
     def handle_menu_bar_click(self, x, y):
-        if self.is_house_icon_clicked(x, y):
-            self.handle_house_icon_click()
-        elif self.is_road_icon_clicked(x, y):
-            self.handle_road_icon_click()
-        elif self.is_energy_icon_clicked(x, y):
-            self.handle_energy_icon_click()
-        elif self.is_tree_icon_clicked(x, y):
-            self.handle_tree_icon_click()  
-        elif self.is_store_icon_clicked(x, y):  
-            self.handle_store_icon_click()    
-        elif self.is_factory_icon_clicked(x, y):
-            self.handle_factory_icon_click()  
-        elif self.is_hospital_icon_clicked(x, y):
-            self.handle_hospital_icon_click()
-        elif self.is_firestation_icon_clicked(x, y):
-            self.handle_firestation_icon_click()
+        for i, category in enumerate(self.categories):
+            if self.is_icon_clicked(x, y, i):
+                self.current_category = category
+                break
         else:
             self.menu_bar_visible = False
             self.selected_cell = None
+    
+    def handle_icon_click(self, category):
+        if category == 'house':
+            self.handle_house_icon_click()
+        elif category == 'road':
+            self.handle_road_icon_click()
+        elif category == 'energy':
+            self.handle_energy_icon_click()
+        elif category == 'tree':
+            self.handle_tree_icon_click()
+        elif category == 'store':
+            self.handle_store_icon_click()
+        elif category == 'factory':
+            self.handle_factory_icon_click()
+        elif category == 'hospital':
+            self.handle_hospital_icon_click()
+        elif category == 'firestation':
+            self.handle_firestation_icon_click()
 
     def handle_store_icon_click(self):
         if self.selected_cell is not None:

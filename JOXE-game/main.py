@@ -95,8 +95,8 @@ def login_screen(window):
             print(f"Starting game for user {username}")
             main(window, gamestate)
         else:
-            print("Please enter a username!")
-            menu.add.label('Please enter a username.', font_name='./src/Grand9K Pixel.ttf')
+            print("Please enter a cityname!")
+            menu.add.label('Please enter a cityname.', font_name='./src/Grand9K Pixel.ttf')
             menu.draw(window)
             pygame.display.update()
 
