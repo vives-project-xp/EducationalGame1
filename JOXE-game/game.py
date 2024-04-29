@@ -221,20 +221,22 @@ class Game:
         self.window.blit(scaled_back_button_image, (back_button_x, back_button_y))
 
     def draw_category_icons(self, menu_bar_y, menu_bar_height):
-        icon_y = menu_bar_y + int(menu_bar_height * 0.2)  
+        icon_y = menu_bar_y + int(menu_bar_height * 0.2)
         icon_spacing = self.window.get_width() / (len(self.categories) + 1)
         for i, category in enumerate(self.categories):
+            icon_x = icon_spacing + i * icon_spacing
             self.window.blit(pygame.transform.scale(pygame.image.load(self.CATEGORY_IMAGES[category]), (self.icon_size, self.icon_size)),
-                            ((icon_spacing + i * icon_spacing) * 0.9, icon_y))
+                            (icon_x, icon_y))
 
     def draw_building_icons(self, menu_bar_y, menu_bar_height, category):
         icon_y = menu_bar_y + int(menu_bar_height * 0.2)
         icon_spacing = self.window.get_width() / (len(self.BUILDING_IMAGES[category]) + 1)
         for i, building_type in enumerate(self.BUILDING_IMAGES[category]):
+            icon_x = icon_spacing + i * icon_spacing
             image_path = self.BUILDING_IMAGES[category][building_type]
             image = pygame.image.load(image_path)
             scaled_image = pygame.transform.scale(image, (self.icon_size, self.icon_size))
-            self.window.blit(scaled_image, (icon_spacing * 0.9 + i * icon_spacing, icon_y))
+            self.window.blit(scaled_image, (icon_x, icon_y))
         self.draw_back_button(menu_bar_y, menu_bar_height)
 
     def draw_building_costs(self, menu_bar_y, category):
@@ -292,13 +294,10 @@ class Game:
                 self.current_category = None
             else:
                 clicked_icon = self.get_clicked_icon(x, y)
-                if self.current_category is None:
-                    self.current_category = clicked_icon
+                if self.current_category is not None:
+                    self.handle_icon_click(clicked_icon)
                 else:
-                    for i, category in enumerate(self.categories):
-                        if self.is_icon_clicked(x, y, i):
-                            self.handle_icon_click(clicked_icon)
-                            break
+                    self.current_category = clicked_icon
             return
         if self.is_building_already_present(grid_x, grid_y):
             self.selected_cell = (grid_x * self.grid_size, grid_y * self.grid_size)
@@ -318,17 +317,19 @@ class Game:
     def get_clicked_icon(self, x, y):
         menu_bar_y = int(0.8 * self.window.get_height())
         icon_y = menu_bar_y + int(self.menu_bar_height * 0.2)
-        icon_spacing = self.window.get_width() / (len(self.categories) + 1)
 
-        for i, category in enumerate(self.categories):
-            icon_x = (icon_spacing + i * icon_spacing) * 0.9
-            if self.current_category is None:
+        if self.current_category is None:
+            icon_spacing = self.window.get_width() / (len(self.categories) + 1)
+            for i, category in enumerate(self.categories):
+                icon_x = icon_spacing + i * icon_spacing
                 if icon_x <= x <= icon_x + self.icon_size and icon_y <= y <= icon_y + self.icon_size:
                     return category
-            elif self.current_category == category:
-                for building_type in self.BUILDING_IMAGES[category]:
-                    if icon_x <= x <= icon_x + self.icon_size and icon_y <= y <= icon_y + self.icon_size:
-                        return building_type
+        else:
+            icon_spacing = self.window.get_width() / (len(self.BUILDING_IMAGES[self.current_category]) + 1)
+            for j, building_type in enumerate(self.BUILDING_IMAGES[self.current_category]):
+                building_icon_x = icon_spacing + j * icon_spacing
+                if building_icon_x <= x <= building_icon_x + self.icon_size and icon_y <= y <= icon_y + self.icon_size:
+                    return building_type
         return None
 
     def handle_clicked_menu_click(self, x, y):
@@ -360,29 +361,29 @@ class Game:
         return menu_y <= y <= menu_y + 30 and \
             menu_x + 100 <= x <= menu_x + 160
     
-    def is_house_icon_clicked(self, x, y):
-        return self.icon_y - 80 <= y <= self.icon_y + self.icon_size and 10 <= x <= 10 + self.icon_size
+    # def is_house_icon_clicked(self, x, y):
+    #     return self.icon_y - 80 <= y <= self.icon_y + self.icon_size and 10 <= x <= 10 + self.icon_size
 
-    def is_road_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + self.icon_size + 10 <= x <= 10 + 2 * self.icon_size + 10
+    # def is_road_icon_clicked(self, x, y):
+    #     return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + self.icon_size + 10 <= x <= 10 + 2 * self.icon_size + 10
 
-    def is_energy_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 2 * self.icon_size + 20 <= x <= 10 + 3 * self.icon_size + 20
+    # def is_energy_icon_clicked(self, x, y):
+    #     return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 2 * self.icon_size + 20 <= x <= 10 + 3 * self.icon_size + 20
     
-    def is_store_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 3 * self.icon_size + 30 <= x <= 10 + 4 * self.icon_size + 30
+    # def is_store_icon_clicked(self, x, y):
+    #     return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 3 * self.icon_size + 30 <= x <= 10 + 4 * self.icon_size + 30
     
-    def is_tree_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 4 * self.icon_size + 40 <= x <= 10 + 5 * self.icon_size + 40
+    # def is_tree_icon_clicked(self, x, y):
+    #     return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 4 * self.icon_size + 40 <= x <= 10 + 5 * self.icon_size + 40
     
-    def is_factory_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 5 * self.icon_size + 50 <= x <= 10 + 6 * self.icon_size + 50
+    # def is_factory_icon_clicked(self, x, y):
+    #     return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 5 * self.icon_size + 50 <= x <= 10 + 6 * self.icon_size + 50
     
-    def is_hospital_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 6 * self.icon_size + 60 <= x <= 10 + 7 * self.icon_size + 60
+    # def is_hospital_icon_clicked(self, x, y):
+    #     return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 6 * self.icon_size + 60 <= x <= 10 + 7 * self.icon_size + 60
 
-    def is_firestation_icon_clicked(self, x, y):
-        return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 7 * self.icon_size + 70 <= x <= 10 + 8 * self.icon_size + 70
+    # def is_firestation_icon_clicked(self, x, y):
+    #     return self.icon_y <= y <= self.icon_y + self.icon_size and 10 + 7 * self.icon_size + 70 <= x <= 10 + 8 * self.icon_size + 70
     
     # Check if there's a tree in the cell
     def is_tree_in_cell(self, x, y):
@@ -525,22 +526,22 @@ class Game:
             self.menu_bar_visible = False
             self.selected_cell = None
     
-    def handle_icon_click(self, category):
-        if category == 'house':
+    def handle_icon_click(self, building_type):
+        if building_type == 'house':
             self.handle_house_icon_click()
-        elif category == 'road':
+        elif building_type == 'road':
             self.handle_road_icon_click()
-        elif category == 'energy':
+        elif building_type == 'windmill':
             self.handle_energy_icon_click()
-        elif category == 'tree':
+        elif building_type == 'tree':
             self.handle_tree_icon_click()
-        elif category == 'store':
+        elif building_type == 'store':
             self.handle_store_icon_click()
-        elif category == 'factory':
+        elif building_type == 'factory':
             self.handle_factory_icon_click()
-        elif category == 'hospital':
+        elif building_type == 'hospital':
             self.handle_hospital_icon_click()
-        elif category == 'firestation':
+        elif building_type == 'firestation':
             self.handle_firestation_icon_click()
 
     def handle_store_icon_click(self):
