@@ -26,17 +26,6 @@ class Game:
         'game_over_text': (255, 0, 0),
     }
 
-    # COSTS = {
-    #     'house': 1000,
-    #     'road': 50,
-    #     'energy': 2000,
-    #     'store': 3000,
-    #     'tree': 250,
-    #     'factory': 10000,
-    #     'hospital': 15000,
-    #     'firestation': 20000,
-    # }
-
     COSTS = {
         'buildings': {
             'house': 1000,
@@ -45,8 +34,12 @@ class Game:
             'hospital': 15000,
             'firestation': 20000,
         },
-        'road': 50,
-        'energy': 2000,
+        'road': {
+            'road': 50,
+        },
+        'energy': {
+            'windmill': 2000,
+        },
         'nature': {
             'tree': 250,
         },
@@ -290,6 +283,11 @@ class Game:
             self.handle_clicked_menu_click(x, y)
             return
         if self.menu_bar_visible:
+            menu_bar_y = int(0.8 * self.window.get_height())
+            menu_bar_height = self.menu_bar_height
+            if y < menu_bar_y or y > menu_bar_y + menu_bar_height:
+                self.menu_bar_visible = False
+                return
             if self.is_back_button_clicked(x, y):
                 self.current_category = None
             else:
@@ -327,7 +325,7 @@ class Game:
             if self.current_category is None:
                 if icon_x <= x <= icon_x + self.icon_size and icon_y <= y <= icon_y + self.icon_size:
                     return category
-            else:
+            elif self.current_category == category:
                 for building_type in self.BUILDING_IMAGES[category]:
                     if icon_x <= x <= icon_x + self.icon_size and icon_y <= y <= icon_y + self.icon_size:
                         return building_type
@@ -518,38 +516,6 @@ class Game:
         self.game_state.placed_objects.remove(energy)
         self.game_state.remove_climate_score(5)
 
-    # def handle_menu_bar_click(self, x, y):
-    #     for i, category in enumerate(self.categories):
-    #         if self.is_icon_clicked(x, y, i):
-    #             if category == 'house':
-    #                 self.handle_house_icon_click()
-    #                 self.current_category = None
-    #             elif category == 'road':
-    #                 self.handle_road_icon_click()
-    #                 self.current_category = None
-    #             elif category == 'energy':
-    #                 self.handle_energy_icon_click()
-    #                 self.current_category = None
-    #             elif category == 'tree':
-    #                 self.handle_tree_icon_click()
-    #                 self.current_category = None
-    #             elif category == 'store':
-    #                 self.handle_store_icon_click()
-    #                 self.current_category = None
-    #             elif category == 'factory':
-    #                 self.handle_factory_icon_click()
-    #                 self.current_category = None
-    #             elif category == 'hospital':
-    #                 self.handle_hospital_icon_click()
-    #                 self.current_category = None
-    #             elif category == 'firestation':
-    #                 self.handle_firestation_icon_click()
-    #                 self.current_category = None
-    #             break
-    #     else:
-    #         self.menu_bar_visible = False
-    #         self.selected_cell = None
-
     def handle_menu_bar_click(self, x, y):
         for i, category in enumerate(self.categories):
             if self.is_icon_clicked(x, y, i):
@@ -585,27 +551,27 @@ class Game:
                     self.store_menu_visible = True
                     break
             else:
-                if self.game_state.money >= self.COSTS['store']:
+                if self.game_state.money >= self.COSTS['buildings']['store']:
                     self.place_new_store()
                 self.selected_cell = None
             self.menu_bar_visible = False
 
     def place_new_store(self):
-        if self.game_state.money >= self.COSTS['store']:
+        if self.game_state.money >= self.COSTS['buildings']['store']:
             store = Store(self.selected_cell[0], self.selected_cell[1], self.grid_size)
             self.game_state.placed_objects.append(store)
             self.placesound.set_volume(0.5)
             self.placesound.play()
-            self.game_state.remove_money(self.COSTS['store'])
+            self.game_state.remove_money(self.COSTS['buildings']['store'])
             self.game_state.add_climate_score(self.ECO_SCORE_BONUS['store'])
         else:
             print("Not enough money to place a new store.")
 
     def handle_tree_icon_click(self):
-        if self.selected_cell is not None and self.game_state.money >= self.COSTS['tree']:
+        if self.selected_cell is not None and self.game_state.money >= self.COSTS['nature']['tree']:
             tree = Tree(self.selected_cell[0], self.selected_cell[1], self.grid_size)
             self.game_state.placed_objects.append(tree)
-            self.game_state.remove_money(self.COSTS['tree'])
+            self.game_state.remove_money(self.COSTS['nature']['tree'])
             self.game_state.add_climate_score(self.ECO_SCORE_BONUS['tree']) 
             self.selected_cell = None
         else:
@@ -620,7 +586,7 @@ class Game:
         self.placesound.play()
         
     def handle_hospital_icon_click(self):
-        if self.selected_cell is not None and self.game_state.money >= self.COSTS['hospital']:
+        if self.selected_cell is not None and self.game_state.money >= self.COSTS['buildings']['hospital']:
             self.place_new_hospital()
         else:
             print("Not enough money to place a hospital.")
@@ -631,12 +597,12 @@ class Game:
         self.game_state.placed_objects.append(hospital)
         self.placesound.set_volume(0.5)
         self.placesound.play()
-        self.game_state.remove_money(self.COSTS['hospital'])
+        self.game_state.remove_money(self.COSTS['buildings']['hospital'])
         self.game_state.remove_climate_score(5)
         self.selected_cell = None
 
     def handle_firestation_icon_click(self):
-        if self.selected_cell is not None and self.game_state.money >= self.COSTS['firestation']:
+        if self.selected_cell is not None and self.game_state.money >= self.COSTS['buildings']['firestation']:
             self.place_new_firestation()
         else:
             print("Not enough money to place a firestation.")
@@ -647,7 +613,7 @@ class Game:
         self.game_state.placed_objects.append(firestation)
         self.placesound.set_volume(0.5)
         self.placesound.play()
-        self.game_state.remove_money(self.COSTS['firestation'])
+        self.game_state.remove_money(self.COSTS['buildings']['firestation'])
         self.game_state.remove_climate_score(5)
         self.selected_cell = None
 
@@ -721,13 +687,13 @@ class Game:
                     house.remove_happiness(2)
 
     def handle_factory_icon_click(self):
-        if self.selected_cell is not None and self.game_state.money >= self.COSTS['factory']:
+        if self.selected_cell is not None and self.game_state.money >= self.COSTS['buildings']['factory']:
             factory = Factory(self.selected_cell[0], self.selected_cell[1], self.grid_size)
             self.game_state.placed_objects.append(factory)
             placesound = pygame.mixer.Sound('./Sounds/Place.mp3')
             placesound.set_volume(0.5)
             placesound.play()
-            self.game_state.remove_money(self.COSTS['factory'])
+            self.game_state.remove_money(self.COSTS['buildings']['factory'])
             self.selected_cell = None
         else:
             self.draw_warning_popup()
@@ -891,8 +857,8 @@ class Game:
         self.play_place_fx()
 
         self.game_state.placed_objects.append(road)
-        for obj in self.game_state.placed_objects:
-            print(obj.x, obj.y)
+        #for obj in self.game_state.placed_objects:
+            #print(obj.x, obj.y)
         self.game_state.remove_money(50)
         self.game_state.remove_climate_score(1)
         self.occupied_cells.add((x - 60, y - 60))

@@ -29,7 +29,7 @@
     </div>
   <RouterView />
   <footer>
-    <div class="footerMenu">
+    <div class="footerMenu" >
     <p>Project made by Esteban Desmedt, Jasper Vantuyne, Olivier Westerman and Xander Vyvey in 2024 for VIVES</p>
     </div>
   </footer>
