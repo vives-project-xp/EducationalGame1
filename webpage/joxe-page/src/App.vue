@@ -29,7 +29,7 @@
     </div>
   <RouterView />
   <footer>
-    <div class="footerMenu">
+    <div class="footerMenu" >
     <p>Project made by Esteban Desmedt, Jasper Vantuyne, Olivier Westerman and Xander Vyvey in 2024 for VIVES</p>
     </div>
   </footer>
@@ -93,11 +93,10 @@
     border-top-left-radius: 80px;
     border-top-right-radius: 80px;
     text-align: center;
-    padding: 40px;
+    padding: 10px;
     /* make this menu stick at the bottom of the page, not in the middle if the page doesnt have enough content */
     position: fixed;
     bottom: 0;
     width: 100%;
-    
     }
 </style>
