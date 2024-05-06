@@ -41,12 +41,16 @@ After placing buildings you can upgrade them. This can be done by clicking the b
 
 
 
-| Category         | Asset                        | Price | Eco-Score Effect                               |
-|------------------|------------------------------|-------|-------------------------------------------------|
-| Buildings        | House                        | $1000 | tbd                                             |
-| Buildings        | Store                        | $3000 | tbd                                             |
-| Special          | Hospital                     | $15000| tbd                                             |
-| Nature           | Tree/park                    | $250  | tbd                                             |
-| Energy           | Windmill                     | $2000 | tbd                                             |
-| Energy           | Factory                      | $10000| tbd                                             |
+| Category         | Asset                        | Price | Instant Eco-Score Effect                        | Money Effect Over Time      | Eco-Score Effect Over Time      |
+|------------------|------------------------------|-------|-------------------------------------------------|-----------------------------|---------------------------------|
+| Buildings        | House                        | $1000 | n/a                                             | tbd                         | tbd                             |
+| Buildings        | Store                        | $3000 | -5                                              | tbd                         | tbd                             |
+| Buildings        | Factory                      | $10000| n/a                                             | tbd                         | tbd                             |
+| Buildings        | Hospital                     | $15000| -5                                              | tbd                         | tbd                             |
+| Buildings        | Fire Station                 | $20000| -5                                              | tbd                         | tbd                             |
+| Road             | Road                         | $50   | -1                                              | tbd                         | tbd                             |
+| Energy           | Windmill                     | $2000 | +10                                             | tbd                         | tbd                             |
+| Energy           | Solar Panel                  | $5000 | +2                                              | tbd                         | tbd                             |
+| Energy           | Powerplant                   | $3000 | -5                                              | tbd                         | tbd                             |
+| Nature           | Tree/Park                    | $250  | +5                                              | tbd                         | tbd                             |
 
