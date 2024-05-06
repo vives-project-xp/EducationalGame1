@@ -127,9 +127,10 @@ class Game:
         self.grid.draw_grid()
         self.draw_selected_cell_outline()
         self.draw_game_elements()
-        self.draw_help_button()
-        if self.help_button_clicked:
-            self.handle_help_button_click()
+        # self.draw_help_button()
+        # self.check_if_help_button_clicked()
+        # if self.help_button_clicked:
+        #     self.draw_tutorial_image()
         self.draw_object_level()
         self.update_image_size()
         self.update_effect_happiness()
@@ -160,7 +161,7 @@ class Game:
                 obj.update_position(self.grid_size)
 
     def draw_averages(self, average_money_gain, average_ecoscore_change):
-        if not self.shop_visible:
+        if not self.shop_visible and not self.help_button_clicked:
             square_width, square_height = self.window.get_width() / 20 , self.window.get_height() / 20
             square_x = self.window.get_width() - square_width
             square_y = self.window.get_height() - square_height
@@ -181,14 +182,18 @@ class Game:
     def draw_help_button(self):
         if not self.shop_visible:
             self.window.blit(pygame.transform.scale(self.help_button, (100, 100)), (10, self.window.get_height() - 110))
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    x, y = pygame.mouse.get_pos()
-                    if 10 <= x <= 110 and self.window.get_height() - 110 <= y <= self.window.get_height() - 10:
-                        self.help_button_clicked = True
-        # if the tutorial image is visible, click on random place to close it
-        if self.help_button_clicked and event.type == pygame.MOUSEBUTTONDOWN:
-            self.help_button_clicked = False
+            
+    def check_if_help_button_clicked(self):
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                if 10 <= x <= 110 and self.window.get_height() - 110 <= y <= self.window.get_height() - 10:
+                    self.help_button_clicked = True
+    
+    def draw_tutorial_image(self):
+        self.window.blit(pygame.transform.scale(self.tutorial_img, (self.window.get_width(), self.window.get_height())), (0, 0))
+        # if click on random place, close tutorial image
+        
     
     # if help button is clicked, show tutorial image
     def handle_help_button_click(self):
