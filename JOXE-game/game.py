@@ -102,6 +102,8 @@ class Game:
         self.icon_y = int(0.8 * self.window.get_height()) + int(self.window.get_height() * 0.2 * 0.1) 
         self.menu_bar_height = self.window.get_height() * 0.2
         self.icon_spacing = self.window.get_width() / (len(self.CATEGORY_IMAGES) + 1)
+        self.shop_visible = False
+        
 
         self.icon_size = int(self.menu_bar_height * 0.8) 
         self.warning_popup = False
@@ -141,21 +143,22 @@ class Game:
                 obj.update_position(self.grid_size)
 
     def draw_averages(self, average_money_gain, average_ecoscore_change):
-        square_width, square_height = self.window.get_width() / 20 , self.window.get_height() / 20
-        square_x = self.window.get_width() - square_width
-        square_y = self.window.get_height() - square_height
+        if not self.shop_visible:
+            square_width, square_height = self.window.get_width() / 20 , self.window.get_height() / 20
+            square_x = self.window.get_width() - square_width
+            square_y = self.window.get_height() - square_height
 
-        formatted_money_gain = self.format_number(average_money_gain)
-        formatted_ecoscore_change = self.format_number(average_ecoscore_change)
+            formatted_money_gain = self.format_number(average_money_gain)
+            formatted_ecoscore_change = self.format_number(average_ecoscore_change)
 
-        font_size = max(int(square_height / 2.5), 10)
-        sizedfont = pygame.font.Font(None, font_size)
+            font_size = max(int(square_height / 2.5), 10)
+            sizedfont = pygame.font.Font(None, font_size)
 
-        money_text = sizedfont.render(f"$/m:   {formatted_money_gain}", True, (255, 255, 255))
-        ecoscore_text = sizedfont.render(f"CO2/m: {formatted_ecoscore_change}", True, (255, 255, 255))
+            money_text = sizedfont.render(f"$/m:   {formatted_money_gain}", True, (255, 255, 255))
+            ecoscore_text = sizedfont.render(f"CO2/m: {formatted_ecoscore_change}", True, (255, 255, 255))
 
-        self.window.blit(money_text, (square_x + 12, square_y + 7))
-        self.window.blit(ecoscore_text, (square_x + 12, square_y + 17))
+            self.window.blit(money_text, (square_x + 12, square_y + 7))
+            self.window.blit(ecoscore_text, (square_x + 12, square_y + 17))
 
     def format_number(self, num):
         sign = "+" if num > 0 else ""
@@ -207,6 +210,7 @@ class Game:
     def draw_menu_bar(self):
         menu_bar_y = int(0.8 * self.window.get_height())
         self.window.blit(pygame.transform.scale(self.menubar, (self.window.get_width(), self.menu_bar_height)), (0, menu_bar_y))
+        self.shop_visible = True
         if self.current_category is None:
             self.draw_category_icons(menu_bar_y, self.menu_bar_height)
         else:
@@ -289,6 +293,7 @@ class Game:
             menu_bar_height = self.menu_bar_height
             if y < menu_bar_y or y > menu_bar_y + menu_bar_height:
                 self.menu_bar_visible = False
+                self.shop_visible = False
                 return
             if self.is_back_button_clicked(x, y):
                 self.current_category = None
