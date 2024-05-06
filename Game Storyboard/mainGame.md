@@ -66,6 +66,10 @@ All trivia about climate that is shown during gameplay is listed below, along wi
 | Environmental Tip: Choosing products with minimal packaging and opting for reusable items can help reduce waste and conserve resources. | Random event during gameplay       |
 | More trivia yet to be added                                                             | TODO                                |
 
+
+![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/b69e4ab5-4a58-4307-a22b-546d5532f585)
+
+
 ## Additional functionality (todo)
 - Adding hotels, appartments and skyscraper buildings
 - Adding max upgrades for all assets
