@@ -129,7 +129,7 @@ def login_screen(window):
     menu.mainloop(window)
 
 def menu_screen(window):
-    background = pygame.image.load('./assets/resources/background/bg2.png')
+    background = pygame.image.load('./assets/resources/background/bg5.png')
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     play_button = pygame.image.load('./assets/resources/background/play.png')
     pixel_font_path = "./src/Grand9K Pixel.ttf"
