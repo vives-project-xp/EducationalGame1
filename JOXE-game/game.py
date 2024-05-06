@@ -6,6 +6,8 @@ from zobjectfiles.factory import Factory
 from zobjectfiles.store import Store
 from zobjectfiles.hospital import Hospital
 from zobjectfiles.firestation import Firestation
+from zobjectfiles.powerplant import Powerplant
+from zobjectfiles.solarpanel import Solarpanel
 from zobjectfiles.empty import Empty
 from resolution import Resolution
 from trivia import Trivia
@@ -60,7 +62,8 @@ class Game:
         },
         'energy': {
             'windmill': './assets/resources/buildings/energy/windmills/windmill1.png',
-            'solarpanel': './assets/resources/buildings/energy/solarpanel/solar.png',
+            'powerplant': './assets/resources/buildings/energy/powergenerate/powerplant1.png',
+            'solarpanel': './assets/resources/buildings/energy/solarpanel/solar1.png',
         },
         'nature': {
             'tree': './assets/resources/nature/tree/tree1.png',
@@ -77,6 +80,7 @@ class Game:
     ECO_SCORE_BONUS = {
         'tree': 5,
         'store': -5,
+        'solarpanel': 2,
     }
 
     def __init__(self, window, grid_size, gamestate=None):
@@ -143,6 +147,10 @@ class Game:
             elif isinstance(obj, Hospital):
                 obj.update_position(self.grid_size)
             elif isinstance(obj, Firestation):
+                obj.update_position(self.grid_size)
+            elif isinstance(obj, Powerplant):
+                obj.update_position(self.grid_size)
+            elif isinstance(obj, Solarpanel):
                 obj.update_position(self.grid_size)
 
     def draw_averages(self, average_money_gain, average_ecoscore_change):
@@ -271,7 +279,7 @@ class Game:
     def draw_object_level(self):
         if self.selected_cell is not None:
             for obj in self.game_state.placed_objects:
-                if isinstance(obj, (House, Store, Factory, Hospital, Energy, Tree, Firestation)):
+                if isinstance(obj, (House, Store, Factory, Hospital, Energy, Tree, Firestation, Powerplant, Solarpanel)):
                     level_text = self.font.render(str(obj.level), True, self.COLORS['white'])
                     self.window.blit(level_text, (obj.x, obj.y))
 
@@ -355,7 +363,7 @@ class Game:
 
     def is_building_already_present(self, grid_x, grid_y):
         for obj in self.game_state.placed_objects:
-            if isinstance(obj, (House, Store, Road, Factory, Hospital, Tree, Energy, Firestation, Empty)) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
+            if isinstance(obj, (House, Store, Road, Factory, Hospital, Tree, Energy, Firestation, Powerplant, Solarpanel, Empty)) and obj.x // self.grid_size == grid_x and obj.y // self.grid_size == grid_y:
                 return True
         return False
 
@@ -409,9 +417,9 @@ class Game:
     def handle_upgrade_button_click(self):
         for obj in self.game_state.placed_objects:
             if obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                max_level = 10 if isinstance(obj, (Store, Factory, Hospital, Firestation)) else 4 if isinstance(obj, (Energy, House)) else 3 if isinstance(obj, Tree) else 0
+                max_level = 10 if isinstance(obj, (Store, Factory, Hospital, Firestation, Powerplant, Solarpanel)) else 4 if isinstance(obj, (Energy, House)) else 3 if isinstance(obj, Tree) else 0
                 # add new building here
-                upgrade_method = self.upgrade_house if isinstance(obj, House) else self.upgrade_store if isinstance(obj, Store) else self.upgrade_factory if isinstance(obj, Factory) else self.upgrade_hospital if isinstance(obj, Hospital) else self.upgrade_energy if isinstance(obj, Energy) else self.upgrade_tree if isinstance(obj, Tree) else self.upgrade_firestation if isinstance(obj, Firestation) else None
+                upgrade_method = self.upgrade_house if isinstance(obj, House) else self.upgrade_store if isinstance(obj, Store) else self.upgrade_factory if isinstance(obj, Factory) else self.upgrade_hospital if isinstance(obj, Hospital) else self.upgrade_energy if isinstance(obj, Energy) else self.upgrade_tree if isinstance(obj, Tree) else self.upgrade_firestation if isinstance(obj, Firestation) else self.upgrade_powerplant if isinstance(obj, Powerplant) else self.upgrade_solarpanel if isinstance(obj, Solarpanel) else None
                 if isinstance(obj, Empty):
                     return
                 else:
@@ -457,6 +465,16 @@ class Game:
         new_image = pygame.image.load(f'./assets/resources/buildings/energy/windmills/windmill{windmill.level}.png')
         windmill.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
 
+    def upgrade_powerplant(self, powerplant):
+        new_image = pygame.image.load(f'./assets/resources/buildings/energy/powergenerate/powerplant{powerplant.level}.png')
+        powerplant.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+        powerplant.lower_effect_range(1)
+
+    def upgrade_solarpanel(self, solarpanel):
+        new_image = pygame.image.load(f'./assets/resources/buildings/energy/solarpanel/solar{solarpanel.level}.png')
+        solarpanel.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
+        solarpanel.higher_effect_range(1)
+
     def upgrade_tree(self, tree):
         new_image = pygame.image.load(f'./assets/resources/nature/tree/tree{tree.level}.png')
         tree.image = pygame.transform.scale(new_image, (self.grid_size, self.grid_size))
@@ -481,7 +499,7 @@ class Game:
             if isinstance(selected_object, Empty):
                 return
             else:
-                remove_method = self.remove_house if isinstance(selected_object, House) else self.remove_store if isinstance(selected_object, Store) else self.remove_road if isinstance(selected_object, Road) else self.remove_factory if isinstance(selected_object, Factory) else self.remove_hospital if isinstance(selected_object, Hospital) else self.remove_tree if isinstance(selected_object, Tree) else self.remove_energy if isinstance(selected_object, Energy) else self.remove_firestation if isinstance(selected_object, Firestation) else None
+                remove_method = self.remove_house if isinstance(selected_object, House) else self.remove_store if isinstance(selected_object, Store) else self.remove_road if isinstance(selected_object, Road) else self.remove_factory if isinstance(selected_object, Factory) else self.remove_hospital if isinstance(selected_object, Hospital) else self.remove_tree if isinstance(selected_object, Tree) else self.remove_energy if isinstance(selected_object, Energy) else self.remove_firestation if isinstance(selected_object, Firestation) else self.remove_powerplant if isinstance(selected_object, Powerplant) else self.remove_solarpanel if isinstance(selected_object, Solarpanel) else None
                 remove_method(selected_object)
         else:
             print("No object found at the selected cell.")
@@ -521,6 +539,14 @@ class Game:
         self.remove_effect_happiness_firestation(firestation)
         self.game_state.placed_objects.remove(firestation)
 
+    def remove_powerplant(self, powerplant):
+        self.remove_effect_happiness_powerplant(powerplant)
+        self.game_state.placed_objects.remove(powerplant)
+
+    def remove_solarpanel(self, solarpanel):
+        self.remove_effect_happiness_solarpanel(solarpanel)
+        self.game_state.placed_objects.remove(solarpanel)
+
     def remove_energy(self, energy):
         self.game_state.placed_objects.remove(energy)
         self.game_state.remove_climate_score(5)
@@ -551,6 +577,10 @@ class Game:
             self.handle_hospital_icon_click()
         elif building_type == 'firestation':
             self.handle_firestation_icon_click()
+        elif building_type == 'powerplant':
+            self.handle_powerplant_icon_click()
+        elif building_type == 'solarpanel':
+            self.handle_solarpanel_icon_click()
 
     def handle_store_icon_click(self):
         if self.selected_cell is not None:
@@ -626,6 +656,38 @@ class Game:
         self.game_state.remove_climate_score(5)
         self.selected_cell = None
 
+    def handle_powerplant_icon_click(self):
+        if self.selected_cell is not None and self.game_state.money >= self.COSTS['energy']['powerplant']:
+            self.place_new_powerplant()
+        else:
+            print("Not enough money to place a powerplant.")
+        self.menu_bar_visible = False
+
+    def place_new_powerplant(self):
+        powerplant = Powerplant(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+        self.game_state.placed_objects.append(powerplant)
+        self.placesound.set_volume(0.5)
+        self.placesound.play()
+        self.game_state.remove_money(self.COSTS['energy']['powerplant'])
+        self.game_state.remove_climate_score(5)
+        self.selected_cell = None
+
+    def handle_solarpanel_icon_click(self):
+        if self.selected_cell is not None and self.game_state.money >= self.COSTS['energy']['solarpanel']:
+            self.place_new_solarpanel()
+        else:
+            print("Not enough money to place a solarpanel.")
+        self.menu_bar_visible = False
+
+    def place_new_solarpanel(self):
+        solarpanel = Solarpanel(self.selected_cell[0], self.selected_cell[1], self.grid_size)
+        self.game_state.placed_objects.append(solarpanel)
+        self.placesound.set_volume(0.5)
+        self.placesound.play()
+        self.game_state.remove_money(self.COSTS['energy']['solarpanel'])
+        self.game_state.add_climate_score(self.ECO_SCORE_BONUS['solarpanel'])
+        self.selected_cell = None
+
     def update_effect_happiness(self):
         self.update_effect_happiness_hospital()
         self.update_effect_happiness_tree()
@@ -693,6 +755,38 @@ class Game:
         for house in self.game_state.placed_objects:
             if isinstance(house, House):
                 if removed_firestation.x - effect_range*self.res.GRID_SIZE <= house.x <= removed_firestation.x + effect_range*self.res.GRID_SIZE and removed_firestation.y - effect_range*self.res.GRID_SIZE <= house.y <= removed_firestation.y + effect_range*self.res.GRID_SIZE:
+                    house.remove_happiness(2)
+
+    def update_effect_happiness_powerplant(self):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Powerplant):
+                effect_range = obj.effect_range
+                for house in self.game_state.placed_objects:
+                    if isinstance(house, House):
+                        if obj.x - effect_range*self.res.GRID_SIZE <= house.x <= obj.x + effect_range*self.res.GRID_SIZE and obj.y - effect_range*self.res.GRID_SIZE <= house.y <= obj.y + effect_range*self.res.GRID_SIZE:
+                            house.remove_happiness(2)
+    
+    def remove_effect_happiness_powerplant(self, removed_powerplant):
+        effect_range = removed_powerplant.effect_range
+        for house in self.game_state.placed_objects:
+            if isinstance(house, House):
+                if removed_powerplant.x - effect_range*self.res.GRID_SIZE <= house.x <= removed_powerplant.x + effect_range*self.res.GRID_SIZE and removed_powerplant.y - effect_range*self.res.GRID_SIZE <= house.y <= removed_powerplant.y + effect_range*self.res.GRID_SIZE:
+                    house.add_happiness(2)
+
+    def update_effect_happiness_solarpanel(self):
+        for obj in self.game_state.placed_objects:
+            if isinstance(obj, Solarpanel):
+                effect_range = obj.effect_range
+                for house in self.game_state.placed_objects:
+                    if isinstance(house, House):
+                        if obj.x - effect_range*self.res.GRID_SIZE <= house.x <= obj.x + effect_range*self.res.GRID_SIZE and obj.y - effect_range*self.res.GRID_SIZE <= house.y <= obj.y + effect_range*self.res.GRID_SIZE:
+                            house.add_happiness(2)
+
+    def remove_effect_happiness_solarpanel(self, removed_solarpanel):
+        effect_range = removed_solarpanel.effect_range
+        for house in self.game_state.placed_objects:
+            if isinstance(house, House):
+                if removed_solarpanel.x - effect_range*self.res.GRID_SIZE <= house.x <= removed_solarpanel.x + effect_range*self.res.GRID_SIZE and removed_solarpanel.y - effect_range*self.res.GRID_SIZE <= house.y <= removed_solarpanel.y + effect_range*self.res.GRID_SIZE:
                     house.remove_happiness(2)
 
     def handle_factory_icon_click(self):
@@ -1044,6 +1138,10 @@ class Game:
             upgrade_cost = self.get_upgrade_cost(Tree)
         if upgrade_cost is None:
             upgrade_cost = self.get_upgrade_cost(Firestation)
+        if upgrade_cost is None:
+            upgrade_cost = self.get_upgrade_cost(Powerplant)
+        if upgrade_cost is None:
+            upgrade_cost = self.get_upgrade_cost(Solarpanel)
 
         # Check if upgrade_cost is not None before comparing it with an integer
         if upgrade_cost is not None and upgrade_cost >= 1000000000:
@@ -1116,6 +1214,12 @@ class Game:
             if isinstance(obj, Firestation) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
                 effect_range = obj.effect_range
                 pygame.draw.rect(self.window, (255, 0, 0), (obj.x - (effect_range*self.res.GRID_SIZE), obj.y - (effect_range*self.res.GRID_SIZE), self.grid_size + (effect_range*self.res.GRID_SIZE) * 2, self.grid_size + (effect_range*self.res.GRID_SIZE) * 2), 2)
+            if isinstance(obj, Powerplant) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                effect_range = obj.effect_range
+                pygame.draw.rect(self.window, (255, 255, 0), (obj.x - (effect_range*self.res.GRID_SIZE), obj.y - (effect_range*self.res.GRID_SIZE), self.grid_size + (effect_range*self.res.GRID_SIZE) * 2, self.grid_size + (effect_range*self.res.GRID_SIZE) * 2), 2)
+            if isinstance(obj, Solarpanel) and obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
+                effect_range = obj.effect_range
+                pygame.draw.rect(self.window, (255, 255, 0), (obj.x - (effect_range*self.res.GRID_SIZE), obj.y - (effect_range*self.res.GRID_SIZE), self.grid_size + (effect_range*self.res.GRID_SIZE) * 2, self.grid_size + (effect_range*self.res.GRID_SIZE) * 2), 2)
 
     def get_upgrade_cost(self, object_type):
         for obj in self.game_state.placed_objects:
