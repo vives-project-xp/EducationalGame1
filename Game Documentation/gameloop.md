@@ -31,16 +31,6 @@ Buildings contain houses (which adds citizens), stores and factories to earn mon
 As third category there's three prefabs in energy. A windmill, powerplant and solar panel. The powerplant will give money but remove happiness score from each nearby building while the other two will cost you some money as upkeep for a raise in citizen happiness for each building inside it's range. Lastly we have the nature category housing the tree/park prefab. When placed you will get a trivia question. You will earn a small amount of money when answering correct boosting your budget. The tree itself will give you and instant eco-score boost and give a small boost over time. When upgraded the tree will become a park.
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/ddef5ff2-21b1-4fbe-9a2f-521f1e78842b)
 
-### Upgrading buildings
-After placing buildings you can upgrade them. This can be done by clicking the building you want to upgrade. You will see the cost for doing this. If you have sufficient budget the text will be black. Otherwise it will be red and you know you're unable to upgrade that specific building. In that same menu you will also find a delete button. This will remove the building and their gained benefits or disadvantages, but you will NOT earn back the invested money for that building. So when placing a building, think twice before doing so. You will not be able to replace that building.
-![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/3250a9fa-4d36-4a73-af30-b278fb91f1ad)
-
-
-
-
-
-
-
 | Category         | Asset                        | Price | Instant Eco-Score Effect                        | Money Effect Over Time      | Eco-Score Effect Over Time      |
 |------------------|------------------------------|-------|-------------------------------------------------|-----------------------------|---------------------------------|
 | Buildings        | House                        | $1000 | n/a                                             | tbd                         | tbd                             |
@@ -53,4 +43,23 @@ After placing buildings you can upgrade them. This can be done by clicking the b
 | Energy           | Solar Panel                  | $5000 | +2                                              | tbd                         | tbd                             |
 | Energy           | Powerplant                   | $3000 | -5                                              | tbd                         | tbd                             |
 | Nature           | Tree/Park                    | $250  | +5                                              | tbd                         | tbd                             |
+
+
+### Upgrading buildings
+After placing buildings you can upgrade them. This can be done by clicking the building you want to upgrade. You will see the cost for doing this. If you have sufficient budget the text will be black. Otherwise it will be red and you know you're unable to upgrade that specific building. In that same menu you will also find a delete button. This will remove the building and their gained benefits or disadvantages, but you will NOT earn back the invested money for that building. So when placing a building, think twice before doing so. You will not be able to replace that building.
+![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/3250a9fa-4d36-4a73-af30-b278fb91f1ad)
+
+
+### Resolution
+At any point in the game you can change the resolution by pressing the **ESC** key on your keyboard. Make sure to press save to apply the new resolution.
+![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/861c7afe-ac26-46fb-b8b2-9e2c39cb4806)
+
+### Game over
+If you reach an eco-score of 0, the game over screen will be shown and you will have to option to quit or restart from scratch. 
+![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/d2e8ed67-2000-4e82-b156-e200a4485732)
+
+### Game save
+When trying to close the window you will have the choice to quit the game, either with or without saving it or to continue the game.
+![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/7d3d766e-3cc8-4676-8580-ed8893dbb792)
+
 
