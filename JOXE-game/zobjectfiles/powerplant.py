@@ -27,9 +27,12 @@ class Powerplant(Object):
 
     def gamestate_update_effect_range(self):
         self.effect_range = self.effect_range + self.level
+
+    def lower_effect_range(self, amount):
+        self.effect_range -= amount
     
     def upgrade(self):
-        if self.level < 9:
+        if self.level < 3:
             self.level += 1
             for i in range(self.level):
                 self.upgrade_cost = (5**i)*100000

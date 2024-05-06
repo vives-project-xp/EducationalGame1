@@ -445,7 +445,7 @@ class Game:
     def handle_upgrade_button_click(self):
         for obj in self.game_state.placed_objects:
             if obj.x == self.selected_cell[0] and obj.y == self.selected_cell[1]:
-                max_level = 10 if isinstance(obj, (Store, Factory, Hospital, Firestation, Powerplant )) else 4 if isinstance(obj, (Energy, House)) else 3 if isinstance(obj, (Tree, Solarpanel)) else 0
+                max_level = 10 if isinstance(obj, (Store, Factory, Hospital, Firestation)) else 4 if isinstance(obj, (Energy, House)) else 3 if isinstance(obj, (Tree, Solarpanel, Powerplant)) else 0
                 # add new building here
                 upgrade_method = self.upgrade_house if isinstance(obj, House) else self.upgrade_store if isinstance(obj, Store) else self.upgrade_factory if isinstance(obj, Factory) else self.upgrade_hospital if isinstance(obj, Hospital) else self.upgrade_energy if isinstance(obj, Energy) else self.upgrade_tree if isinstance(obj, Tree) else self.upgrade_firestation if isinstance(obj, Firestation) else self.upgrade_powerplant if isinstance(obj, Powerplant) else self.upgrade_solarpanel if isinstance(obj, Solarpanel) else None
                 if isinstance(obj, Empty):
@@ -720,6 +720,9 @@ class Game:
         self.update_effect_happiness_hospital()
         self.update_effect_happiness_tree()
         self.update_effect_happiness_factory()
+        self.update_effect_happiness_firestation()
+        self.update_effect_happiness_powerplant()
+        self.update_effect_happiness_solarpanel()
 
     def update_effect_happiness_hospital(self):
         for obj in self.game_state.placed_objects:
@@ -783,7 +786,7 @@ class Game:
         for house in self.game_state.placed_objects:
             if isinstance(house, House):
                 if removed_firestation.x - effect_range*self.res.GRID_SIZE <= house.x <= removed_firestation.x + effect_range*self.res.GRID_SIZE and removed_firestation.y - effect_range*self.res.GRID_SIZE <= house.y <= removed_firestation.y + effect_range*self.res.GRID_SIZE:
-                    house.remove_happiness(2)
+                    house.remove_happiness(10)
 
     def update_effect_happiness_powerplant(self):
         for obj in self.game_state.placed_objects:
@@ -792,7 +795,7 @@ class Game:
                 for house in self.game_state.placed_objects:
                     if isinstance(house, House):
                         if obj.x - effect_range*self.res.GRID_SIZE <= house.x <= obj.x + effect_range*self.res.GRID_SIZE and obj.y - effect_range*self.res.GRID_SIZE <= house.y <= obj.y + effect_range*self.res.GRID_SIZE:
-                            house.remove_happiness(2)
+                            house.remove_happiness(10)
     
     def remove_effect_happiness_powerplant(self, removed_powerplant):
         effect_range = removed_powerplant.effect_range
