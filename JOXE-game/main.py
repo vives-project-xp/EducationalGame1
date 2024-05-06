@@ -14,18 +14,13 @@ res = Resolution()
 WIDTH, HEIGHT = res.width, res.height
 
 if getattr(sys, 'frozen', False):
-    # If it's a bundled application, check if it's bundled with PyInstaller or cx_Freeze
     if hasattr(sys, '_MEIPASS'):
-        # Bundled with PyInstaller
         base_dir = sys._MEIPASS
     else:
-        # Bundled with cx_Freeze
         base_dir = os.path.dirname(sys.executable)
 else:
-    # Not a bundled application, so use the script's directory
     base_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Construct the file path
 icon_path = os.path.join(base_dir, 'assets', 'logo', 'JOXEC.png')
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0, 31)

@@ -1,8 +1,7 @@
 Amount of Citizens: 0
 Amount of Houses: 0
 Money: 993500
-Climate Score: 37
+Climate Score: 100
 Current Date: 2022-01-21
 citizen_happiness: 0
 Placed Objects:
-Tree- 1(900.0-420.0)
