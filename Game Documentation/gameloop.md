@@ -1,3 +1,10 @@
+# Proces
+## Goal
+The goal of this project is to create a digital or physical game about either climate change or gender equality and teach young people about this subject throughout the game. We decided to go for the subject climate change and tried implementing this into both a board and pc game. This file will provide all information about the PC game. 
+
+## Tools
+We decided to use pygame to program our game. Going over our game idea we had a few option. As the game is a 2D game and is not live action we chose pygame. Python is in fact a slower language then for example the c/c++ language. In our game speed is not an important variable. We used VS code as text editor as it's the main tool we use throughout our educational career so far (https://code.visualstudio.com/download). Install python by following the following guide (start of the course: https://www.youtube.com/watch?v=XKHEtdqhLK8&t=178s)
+
 # Main game screen
 ## Pre game 
 ### Title screen
