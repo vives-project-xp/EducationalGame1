@@ -24,7 +24,11 @@ When loading in, you will see an empty grid and some basic information on the ga
 - Tracker (at the bottom-right, this shows the average gain/loss for money and eco-score for the next minute (if the situation does NOT change))
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/1274712f-6b84-45bd-89ba-aa7419a8ec8b)
 
-
+### Placing buildings
+If you press any cell on the grid, this cell will be marked with a yellow outline meaning it's selected. At the same time the shop will open at the bottom as shown in the image down below).
+The shop has been divided into four categories to keep the prefabs organised and easy to find. We have buildings, roads, energy and nature.
+Buildings contain houses (which adds citizens), stores and factories to earn money but lose some eco-score overtime and the hospital/firestation prefab to add happiness score to each house in it's range. They do have a certain upkeep cost. The road category only contains a prefab with the same name: road and will only visually connect and upgrade the city. Each road will also remove 1 eco-score. So placing too many roads at the same time could be detrimental or even unwantedly end your game early, so be CAREFUL! 
+As third category there's three prefabs in energy. A windmill, powerplant and solar panel. The powerplant will give money but remove happiness score from each nearby building while the other two will cost you some money as upkeep for a raise in citizen happiness for each building inside it's range. Lastly we have the nature category housing the tree/park prefab. When placed you will get a trivia question. You will earn a small amount of money when answering correct boosting your budget. The tree itself will give you and instant eco-score boost and give a small boost over time. When upgraded the tree will become a park.
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/ddef5ff2-21b1-4fbe-9a2f-521f1e78842b)
 
 
