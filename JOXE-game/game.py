@@ -101,6 +101,8 @@ class Game:
         self.placing_house_sound = mixer.Sound('Sounds/Placing house SFX.mp3')
         self.placesound = pygame.mixer.Sound('./Sounds/Place.mp3')
         self.menubar = pygame.image.load('./assets/resources/icons/Menubar.png')
+        self.help_button = pygame.image.load('./assets/resources/icons/help.png')
+        self.tutorial_img = pygame.image.load('./tutorial/tutorial1.png')
         self.game_over_timer_duration = 3000 
         self.game_over_timer_start = None
         self.game_over_displayed = False
@@ -110,6 +112,7 @@ class Game:
         self.menu_bar_height = self.window.get_height() * 0.2
         self.icon_spacing = self.window.get_width() / (len(self.CATEGORY_IMAGES) + 1)
         self.shop_visible = False
+        self.help_button_clicked = False
         
 
         self.icon_size = int(self.menu_bar_height * 0.8) 
@@ -124,6 +127,9 @@ class Game:
         self.grid.draw_grid()
         self.draw_selected_cell_outline()
         self.draw_game_elements()
+        self.draw_help_button()
+        if self.help_button_clicked:
+            self.handle_help_button_click()
         self.draw_object_level()
         self.update_image_size()
         self.update_effect_happiness()
@@ -170,6 +176,23 @@ class Game:
 
             self.window.blit(money_text, (square_x + 12, square_y + 7))
             self.window.blit(ecoscore_text, (square_x + 12, square_y + 17))
+
+    # draw help button in bottom left corner
+    def draw_help_button(self):
+        if not self.shop_visible:
+            self.window.blit(pygame.transform.scale(self.help_button, (100, 100)), (10, self.window.get_height() - 110))
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    x, y = pygame.mouse.get_pos()
+                    if 10 <= x <= 110 and self.window.get_height() - 110 <= y <= self.window.get_height() - 10:
+                        self.help_button_clicked = True
+        # if the tutorial image is visible, click on random place to close it
+        if self.help_button_clicked and event.type == pygame.MOUSEBUTTONDOWN:
+            self.help_button_clicked = False
+    
+    # if help button is clicked, show tutorial image
+    def handle_help_button_click(self):
+        self.window.blit(pygame.transform.scale(self.tutorial_img, (self.window.get_width(), self.window.get_height())), (0, 0))
 
     def format_number(self, num):
         sign = "+" if num > 0 else ""
