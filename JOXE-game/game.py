@@ -220,7 +220,7 @@ class Game:
     def draw_back_button(self, menu_bar_y, menu_bar_height):
         back_button_x = self.window.get_width() * 0.05  
         back_button_y = menu_bar_y + menu_bar_height * 0.05  
-        back_button_image = pygame.image.load('./assets/resources/icons/shop.png')
+        back_button_image = pygame.image.load('./assets/resources/icons/back.png')
         scaled_back_button_image = pygame.transform.scale(back_button_image, (self.icon_size, self.icon_size))
         self.window.blit(scaled_back_button_image, (back_button_x, back_button_y))
 
