@@ -29,7 +29,7 @@ class Solarpanel(Object):
         self.effect_range = self.effect_range + self.level
     
     def upgrade(self):
-        if self.level < 9:
+        if self.level < 3:
             self.level += 1
             for i in range(self.level):
                 self.upgrade_cost = (5**i)*5000
