@@ -39,6 +39,8 @@ class Game:
         },
         'energy': {
             'windmill': 2000,
+            'powerplant': 3000,
+            'solarpanel': 5000,
         },
         'nature': {
             'tree': 250,
@@ -58,6 +60,7 @@ class Game:
         },
         'energy': {
             'windmill': './assets/resources/buildings/energy/windmills/windmill1.png',
+            'solarpanel': './assets/resources/buildings/energy/solarpanel/solar.png',
         },
         'nature': {
             'tree': './assets/resources/nature/tree/tree1.png',
