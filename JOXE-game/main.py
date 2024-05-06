@@ -157,6 +157,7 @@ def menu_screen(window):
 
         window.blit(background, (0, 0))
         window.blit(play_button, (button_x, button_y - 10 if button_hover else button_y))
+        
 
         pygame.display.flip()
 
