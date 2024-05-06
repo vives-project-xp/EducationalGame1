@@ -65,10 +65,10 @@ class Game:
     }
 
     CATEGORY_IMAGES = {
-        'buildings': './assets/resources/houses/house11.png',
-        'road': './assets/resources/road/road.png',
-        'energy': './assets/resources/buildings/energy/windmills/windmill.png',
-        'nature': './assets/resources/nature/tree/tree1.png',
+        'buildings': './assets/resources/icons/houseShopBtn.png',
+        'road': './assets/resources/icons/roadShopBtn.png',
+        'energy': './assets/resources/icons/energyShopBtn.png',
+        'nature': './assets/resources/icons/treeShopBtn.png',
     }
 
     ECO_SCORE_BONUS = {
@@ -225,7 +225,7 @@ class Game:
         self.window.blit(scaled_back_button_image, (back_button_x, back_button_y))
 
     def draw_category_icons(self, menu_bar_y, menu_bar_height):
-        icon_y = menu_bar_y + int(menu_bar_height * 0.2)
+        icon_y = menu_bar_y + int(menu_bar_height * 0.1)
         icon_spacing = self.window.get_width() / (len(self.categories) + 1)
         for i, category in enumerate(self.categories):
             icon_x = icon_spacing + i * icon_spacing
