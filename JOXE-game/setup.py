@@ -122,8 +122,6 @@ includefiles = [
     ('assets/resources/road/t-road.png', 'assets/resources/road/t-road.png'),
     ('assets/resources/road/v-road.png', 'assets/resources/road/v-road.png'),
 
-    ('assets/tutorial/tut1.png', 'assets/tutorial/tut1.png'),
-    ('assets/tutorial/tut2.png', 'assets/tutorial/tut2.png'),
     ('assets/underconstruct.png', 'assets/underconstruct.png'),
 
     ('gamesave/dev123.txt', 'gamesave/dev123.txt'),
@@ -150,5 +148,5 @@ setup(
     version="1.0",
     description="as above",
     options={"build_exe": build_exe_options},
-    executables=[Executable("main.py")]
+    executables=[Executable("main.py", base=None, icon="assets/logo/JOXE1.ico")],
 )

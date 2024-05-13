@@ -2,7 +2,7 @@
 export default {
   methods: {
     downloadGame() {
-      window.location.href = '../resources/exe.win-amd64-3.12.zip';
+      window.location.href = '../resources/JOXE-the-game.zip';
     }
   }
 }
@@ -12,7 +12,7 @@ export default {
   <main>
     <div class="mainInfo">
     <button @click="downloadGame" class="button">Click here to download the game</button>
-    <p>Now the game is on your computer! If you go to the downloads folder on your computer, right click the zip folder and click on unzip. <br>In the unzipped folder you will see a file name called 'main.exe'. Click on it and after a few moments, you're able to play!
+    <p>Now the game is on your computer! If you go to the downloads folder on your computer, right click the zip folder and click on unzip. <br>In the unzipped folder you will see a file name called 'joxe.exe'. Click on it and after a few moments, you're able to play!
     </p>
     <img src="/img/gameplay2.png" alt="gameplay screenshot">
     <br><br><br>
