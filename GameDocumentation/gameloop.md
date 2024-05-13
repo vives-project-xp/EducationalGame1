@@ -5,6 +5,9 @@ The goal of this project is to create a digital or physical game about either cl
 ## Tools
 We decided to use pygame to program our game. Going over our game idea we had a few option. As the game is a 2D game and is not live action we chose pygame. Python is in fact a slower language then for example the c/c++ language. In our game speed is not an important variable. We used VS code as text editor as it's the main tool we use throughout our educational career so far (https://code.visualstudio.com/download). Install python by following the following guide (start of the course: https://www.youtube.com/watch?v=XKHEtdqhLK8&t=178s)
 
+## Installation
+You can choose to either pull the entire repository, download the file with the button in our main readme file or via the website button
+
 ## Steps
 ### Step 1 - Initializing
 Firstly we created a basic pygame window by installing and initializing the libraries. This way we already had some kind of visual building block to rely and base our game on.
@@ -27,6 +30,16 @@ We had the idea to make the game resizeable as this is an important feature for 
 
 ### Step 7 - Finalizing game and fixing bugs
 We spent some time on testing the project to find bugs and improvement we could add along the way, we set up some tests which we always had to succeed after adding new features.
+
+## Challanges
+### Roads
+During the entire process the roads where the biggest challange. We started with the same logics as the current buildings by placing one road at a time, but this took to long to build a lengthy road. We then added the functionality to build multiple roads with only a few clicks, which made the placement of roads a lot more bearable. We then programmed the logics to change the image to the correct one whenever roads are besides eachother. Due to the combined placement of objects a lot of issues appeared and the road images didn't change to the wanted image or where placed incorrectly. The roads where also logically located wrong, till we found (after a few lengthy debugging sessions) the problem. In the process we dropped our idea for self driving cars on the placed roads using AI, because the placement was incorrect. After fixing the bug we decided to focus on the core aspects of the game rather then one single feature which we'd like to add. The roads kept forming a challange even after fixing the bug due to the other logics used for them, deleting the roads was a difficult aspect. We have fixed the issues which made this impossiblen but only the edges of a road gets deleted. 
+
+### Resizing
+We spend a good amount of time on the resizing menu and logics for location and size of the images. We valued this feature a lot as almost every application has the option to change the resolution window. We had to pass to right variables to the right placed to be able to calculate the resize value as multiple classes where used for this part of code (main.py for the resolution menu, resolution.py was added to have a central place to hold these variables and other classes where the elements were drawn).
+
+### Gamesave
+Saving the values to the file was quite easy compared to the challange of loading that information to the game variables. The formatting was quite a challange and changes to the game would go hand in hand with changes to the gamesave methods. The rotation and road types formed the biggest challange as this needed a whole lot of added code to the classes which were already on point by that time.
 
 # Main game screen
 ## Pre game 
@@ -52,6 +65,7 @@ When loading in, you will see an empty grid and some basic information on the ga
 - City happiness (this is the overall score between 0 and 100 which shows the mood of citizens. This score will boost money gain and slow down eco-score degradation)
 - Eco-score (at the top-middle, when reaching 0 the game will end and your city will fall to ashes)
 - Tracker (at the bottom-right, this shows the average gain/loss for money and eco-score for the next minute (if the situation does NOT change))
+  
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/1274712f-6b84-45bd-89ba-aa7419a8ec8b)
 
 ### Placing buildings
@@ -82,11 +96,12 @@ After placing buildings you can upgrade them. This can be done by clicking the b
 
 ### Resolution
 At any point in the game you can change the resolution by pressing the **ESC** key on your keyboard. Make sure to press save to apply the new resolution.
-![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/861c7afe-ac26-46fb-b8b2-9e2c39cb4806)
+![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/5029606b-3950-4330-ac3e-9cb62c0c8e9a)
 
 ### Game over
 If you reach an eco-score of 0, the game over screen will be shown and you will have to option to quit or restart from scratch. 
-![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/d2e8ed67-2000-4e82-b156-e200a4485732)
+![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/80b1c5de-7f9a-4d18-8195-7c28eb0f5946)
+
 
 ### Game save
 When trying to close the window you will have the choice to quit the game, either with or without saving it or to continue the game.
