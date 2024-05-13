@@ -93,11 +93,12 @@ After placing buildings you can upgrade them. This can be done by clicking the b
 
 ### Resolution
 At any point in the game you can change the resolution by pressing the **ESC** key on your keyboard. Make sure to press save to apply the new resolution.
-![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/861c7afe-ac26-46fb-b8b2-9e2c39cb4806)
+![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/5029606b-3950-4330-ac3e-9cb62c0c8e9a)
 
 ### Game over
 If you reach an eco-score of 0, the game over screen will be shown and you will have to option to quit or restart from scratch. 
-![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/d2e8ed67-2000-4e82-b156-e200a4485732)
+![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/80b1c5de-7f9a-4d18-8195-7c28eb0f5946)
+
 
 ### Game save
 When trying to close the window you will have the choice to quit the game, either with or without saving it or to continue the game.
