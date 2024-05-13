@@ -14,9 +14,18 @@
       <p></p>
     </div>
     <div class="manual">
-    <h2>Manual</h2>
-    <p>Download the manual for the board game here.</p>
-    </div>
+    <h2>Board game</h2>
+    <p>You can find the manual for the board game <a href="https://github.com/vives-project-xp/EducationalGame1/tree/main/Board%20Game/Rules/English%20Version/Player%20Rules%20v02%20.md" target="_blank">here</a>.</p>
+    <img src="/img/board.png" alt="board game">
+  </div>
+  <div class="tutorial2">
+  <h1>PC game</h1>
+  <p>During the online game the player will have to balance the size of their income, population and CO2 emmisions as well as create their own imaginary city on a gridlike structure by building and upgrading structures. The game runs until the grid is fully occupied and upgraded or until the player's CO2 emmision score goes too low at which point they lose. If 
+    you want more information, you can find it <a href="https://github.com/vives-project-xp/EducationalGame1/blob/main/GameDocumentation/gameloop.md" target="_blank">here</a>.
+  <img src="/img/gameplay.png" alt="gameplay">
+  </p>
+
+  </div>
   </main>
 </template>
 
@@ -25,6 +34,7 @@
         color: white;
         margin-left: 20px;
         margin-bottom: 40px;
+        text-align: center;
     }
 
     h1 {
@@ -36,10 +46,20 @@
     .tutorial {
       background-color: #f8f4f0;
       color: black;
-      height: 400px;
+      height: 300px;
       border-radius: 80px;
       padding: 50px;
       text-align: center;
+    }
+
+    .tutorial2 {
+      background-color: #f8f4f0;
+      color: black;
+      height: 750px;
+      border-radius: 80px;
+      padding: 50px;
+      text-align: center;
+      margin-bottom: 50px;
     }
 
     h2 {
@@ -56,5 +76,10 @@
 
     main {
         margin-top: 50px;
+    }
+
+    img {
+        width: 50%;
+        margin-top: 20px;
     }
 </style>

@@ -5,7 +5,7 @@
   <main>
     <div class="mainInfo">
     <h1>Missions</h1>
-    <p>This page is reserved for special missions!Each one adds mechanics/tiles/tokens and/or cards to the base game. Each mission is designed to be part of a lesson plan that any highschool teacher can use to fill at least one hour of class.
+    <p>This page is reserved for special missions! Each one adds mechanics/tiles/tokens and/or cards to the base game. Each mission is designed to be part of a lesson plan that any highschool teacher can use to fill at least one hour of class.
     Each one adds mechanics/tiles/tokens and/or cards to the base game.
     Each mission is designed to be part of a lesson plan that any highschool teacher can use to fill at least one hour of class.</p>
 

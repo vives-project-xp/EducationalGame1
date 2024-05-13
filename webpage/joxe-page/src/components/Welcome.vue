@@ -25,6 +25,7 @@
   <div class="missionsInfo">
     <h1>Online game</h1>
     <p>This unique city builder game, made in Python, is the main part of Joxe. During the game the player has to balance the size of their income, population and CO2 emmisions as well as create their own imaginary city on a gridlike structure by building and upgrading structures. The game runs until the grid is fully occupied and upgraded or until the player's CO2 emmision score goes too low at which point they lose.</p>
+    <img src="/img/login.png" alt="login screen">
   </div>
 </div>
 <div class="boardgameInfo">
@@ -53,7 +54,7 @@
   .whiteBg {
     background-color: #f8f4f0;
     color: black;
-    height: 400px;
+    height: 650px;
     border-radius: 80px;
   }
 
@@ -79,6 +80,7 @@
   .missionsInfo {
     padding: 50px;
     text-align: center;
+
   }
 
   .missionsInfo h1{
@@ -97,5 +99,10 @@
     font-size: 50px;
     margin-bottom: 50px;
     font-family: 'Public Pixel', sans-serif;
+  }
+
+  img {
+    width: 40%;
+    margin-top: 20px;
   }
 </style>
