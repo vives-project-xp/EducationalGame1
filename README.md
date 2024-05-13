@@ -32,7 +32,7 @@ During the game the player will have to balance the size of their income, popula
 The game runs until the grid is fully occupied and upgraded or until the player's CO2 emmision score goes too low at which point they lose.
 The Game Client will be able to be downloaded from the website and run on the player's device with some minimum requirements specified on the webpage.
 
-More information about the PC-game can be found [here](./Game%20Storyboard/mainGame.md).
+More information about the PC-game can be found [here](./GameDocumentation/gameloop.md).
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/a4ff26a3-a85d-408f-baa0-f898efe43e46)
 
 
