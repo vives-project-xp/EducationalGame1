@@ -21,3 +21,4 @@ class Energy(Object):
         if self.level < 4:
             self.level += 1
             self.image = self.load_image(self.images[self.level - 1], self.grid_size, self.grid_size)
+            self.upgrade_cost = (5**self.level)*10000
