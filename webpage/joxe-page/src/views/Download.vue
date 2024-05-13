@@ -15,6 +15,7 @@ export default {
     <p>Now the game is on your computer! If you go to the downloads folder on your computer, right click the zip folder and click on unzip. <br>In the unzipped folder you will see a file name called 'main.exe'. Click on it and after a few moments, you're able to play!
     </p>
     <img src="/img/gameplay2.png" alt="gameplay screenshot">
+    <br><br><br>
     </div>
   </main>
 </template>

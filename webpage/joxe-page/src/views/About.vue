@@ -20,6 +20,7 @@
     <li>Olivier (Board Game Developer and Administration)</li>
     <br><br>
     <li>The project owner is Vives, guided by our teacher Ronny Mees.</li>
+    <br><br><br>
     </div>
   </main>
 </template>
@@ -28,7 +29,7 @@
   .mainInfo {
       color: white;
       margin-left: 20px;
-      margin-bottom: 40px;
+      margin-bottom: 80px;
       text-align: center;
   }
 

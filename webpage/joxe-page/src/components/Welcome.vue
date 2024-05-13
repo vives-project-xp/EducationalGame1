@@ -31,6 +31,7 @@
 <div class="boardgameInfo">
   <h1>Board Game</h1>
   <p>There is also a board game version, an offline version of the pygame. THis is a grid-based puzzle game similar to existing games like Cathedral, Patchwork and My City. During the game the 2-4 players will be able to place tiles in various shapes and sizes on a grid in which they must balance the size of their population and Climate Impact. The game runs until all tiles have filled up the board or until no tiles are left at which point a winner is calculated by the points they acrued during the game. A Tutorial video on how to play and a downloadable manual will be provided on the webpage. Missions will also be available via the webpage in which the players will get to play with an altered ruleset or start with a prewritten board state to overcome these challenges.</p>
+  <img src="/img/board2.png" alt="boardgame">
 </div>
 </template>
 

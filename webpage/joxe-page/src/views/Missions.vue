@@ -89,6 +89,7 @@
       color: white;
       margin-left: 20px;
       margin-bottom: 40px;
+      text-align: center;
   }
 
   h1 {
