@@ -28,11 +28,11 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 programIcon = pygame.image.load(icon_path)
 pygame.display.set_icon(programIcon)
 
-# # Soundtrack
-# pygame.mixer.init()
-# sound = pygame.mixer.Sound('./Sounds/AmbientLoop1.mp3')
-# sound.set_volume(0.5)
-# sound.play()
+# Soundtrack
+pygame.mixer.init()
+sound = pygame.mixer.Sound('./Sounds/AmbientLoop1.mp3')
+sound.set_volume(0.5)
+sound.play()
 
 FPS = 60
 

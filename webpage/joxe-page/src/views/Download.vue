@@ -2,7 +2,7 @@
 export default {
   methods: {
     downloadGame() {
-      window.location.href = '../resources/exe.win-amd64-3.12';
+      window.location.href = '../resources/exe.win-amd64-3.12.zip';
     }
   }
 }
