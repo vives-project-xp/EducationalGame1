@@ -1009,8 +1009,6 @@ class Game:
         self.play_place_fx()
 
         self.game_state.placed_objects.append(road)
-        #for obj in self.game_state.placed_objects:
-            #print(obj.x, obj.y)
         self.game_state.remove_money(50)
         self.game_state.remove_climate_score(1)
         self.occupied_cells.add((x - 60, y - 60))
