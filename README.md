@@ -56,7 +56,6 @@ A Tutorial video on how to play and a downloadable manual will also be provided 
 
 Once a player did enough missions a download code will be provided to make it possible to download the online version.
 
-Possible expansion: missions for the PC-version (trivia quiz) that will unlock coins or give other advantages in the PC-version.
 
 
 
