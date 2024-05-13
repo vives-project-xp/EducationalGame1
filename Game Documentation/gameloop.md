@@ -23,6 +23,10 @@ Later on we implemented the logic for our basic variables which would track the 
 These variables needed to be loaded in when logging in with a previously used username. We created the code to create the file and load this whenever the correct button was pressed. The most challanging part about this was the rotation of roads and levels of buildings (and versions of houses). After updating our object code for these and trying some things to fix this we came to the correct solution.
 
 ### Step 6 - Resolution
+We had the idea to make the game resizeable as this is an important feature for any application. This took a lot of time bacause we had to implement the logic everywhere and create the menu to update this and get the value in the correct object, which we then had to pass on to the correct classes. 
+
+### Step 7 - Finalizing game and fixing bugs
+We spent some time on testing the project to find bugs and improvement we could add along the way, we set up some tests which we always had to succeed after adding new features.
 
 # Main game screen
 ## Pre game 
