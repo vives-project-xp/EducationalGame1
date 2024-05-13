@@ -49,12 +49,11 @@ For the educationaml part, aside from its themes, the box will be provided with 
 ![Prints 2](https://github.com/vives-project-xp/EducationalGame1/assets/145467433/55809232-4026-4f2f-90ae-4e8e6593c8a5)
 ![Prints 1](https://github.com/vives-project-xp/EducationalGame1/assets/145467433/f5e4212d-fb17-45bc-8727-5a6ebb551ccf)
 
-## Webpage:
+## Webpage & link between both products:
 The project will also contain a website to connect the PC-version and board game version with each other. There will also be added information about both products will also be displayed to present them in an interesting way to potential users.
 
-A Tutorial video on how to play and a downloadable manual will also be provided here. Missions will be available via the webpage in which the players will get to play with an altered ruleset or start with a prewritten board state to overcome these challenges. These will be provided with lesson plans to provide content for teachers who want to use the board game to talk about climate change in a strucured and safe enviroment for teenagers. 
+Missions will be available via the webpage in which the players will get to play with an altered ruleset or start with a prewritten board state to overcome these challenges. These will be provided with lesson plans to provide content for teachers who want to use the board game to talk about climate change in a strucured and safe enviroment for teenagers. 
 
-Once a player did enough missions a download code will be provided to make it possible to download the online version.
 
 
 
