@@ -28,6 +28,16 @@ We had the idea to make the game resizeable as this is an important feature for 
 ### Step 7 - Finalizing game and fixing bugs
 We spent some time on testing the project to find bugs and improvement we could add along the way, we set up some tests which we always had to succeed after adding new features.
 
+## Challanges
+### Roads
+During the entire process the roads where the biggest challange. We started with the same logics as the current buildings by placing one road at a time, but this took to long to build a lengthy road. We then added the functionality to build multiple roads with only a few clicks, which made the placement of roads a lot more bearable. We then programmed the logics to change the image to the correct one whenever roads are besides eachother. Due to the combined placement of objects a lot of issues appeared and the road images didn't change to the wanted image or where placed incorrectly. The roads where also logically located wrong, till we found (after a few lengthy debugging sessions) the problem. In the process we dropped our idea for self driving cars on the placed roads using AI, because the placement was incorrect. After fixing the bug we decided to focus on the core aspects of the game rather then one single feature which we'd like to add. The roads kept forming a challange even after fixing the bug due to the other logics used for them, deleting the roads was a difficult aspect. We have fixed the issues which made this impossiblen but only the edges of a road gets deleted. 
+
+### Resizing
+We spend a good amount of time on the resizing menu and logics for location and size of the images. We valued this feature a lot as almost every application has the option to change the resolution window. We had to pass to right variables to the right placed to be able to calculate the resize value as multiple classes where used for this part of code (main.py for the resolution menu, resolution.py was added to have a central place to hold these variables and other classes where the elements were drawn).
+
+### Gamesave
+Saving the values to the file was quite easy compared to the challange of loading that information to the game variables. The formatting was quite a challange and changes to the game would go hand in hand with changes to the gamesave methods. The rotation and road types formed the biggest challange as this needed a whole lot of added code to the classes which were already on point by that time.
+
 # Main game screen
 ## Pre game 
 ### Title screen
