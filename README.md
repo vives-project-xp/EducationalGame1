@@ -2,7 +2,7 @@
 In this project we aim to create an educational game that consists of **3 large parts**:
  
 1. Pc game made with Pygame.
-2. Board game version based on the PC game. [Download it here](https://github.com/vives-project-xp/EducationalGame1/tree/main/JOXE-game/JOXE-the-game)
+2. Board game version based on the PC game. [Download it here](https://github.com/vives-project-xp/EducationalGame1/tree/main/JOXE-game/JOXE-the-game.zip)
 3. Website to integrate and provide functionality to both versions.
 
 On each of these platform we aim to inform our users and incorporate themes concerning **climate change** and the reality of its consequences depending on humanity's choices.
