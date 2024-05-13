@@ -28,5 +28,41 @@
         "answers": ["Coal", "Oil", "Natural Gas", "Renewable Energy"],
         "correct": "Oil",
         "solution": "Oil is the world's primary source of energy, accounting for 33% of the total energy supply. It is followed by coal (27%) and natural gas (24%)."
+    },
+    {
+        "question": "Which of these countries emits the most carbon dioxide?",
+        "answers": ["China", "USA", "Russia", "UK"],
+        "correct": "China",
+        "solution": "China is currently the largest single-country contributor to global GHG emissions. In 2020, China accounted for about 26% of global CO2 emissions."
+    },
+    {
+        "question": "Globally, which of the following economic sectors emits the largest percentage of greenhouse gas emissions?",
+        "answers": ["Residential", "Transportation", "Industry", "Electric power"],
+        "correct": "Electric power",
+        "solution": "The electric power sector accounted for 39.3% of global CO2 emissions in 2022 followed behind by the industry sector."
+    },
+    {
+        "question": "What is the Greenhouse effect?",
+        "answers": ["The name of climate change legislation that was passed by Congress", "When you paint your house green to become an environmentalist", "When the gasses in our atmosphere trap heat and block it from escaping our planet", "When you build a greenhouse"],
+        "correct": "When the gasses in our atmosphere trap heat and block it from escaping our planet",
+        "solution": "The Earth receives solar radiation from the sun. Passing through the atmosphere, some radiation is absorbed by the Earth, while some is reflected back to space."
+    },
+    {
+        "question": "Which of the following is NOT a consequence associated with climate change?",
+        "answers": ["The ice sheets are declining, glaciers are in retreat globally, and our oceans are more acidic than ever", "Decrease in widespread migration of people across the globe.", "More extreme weather like droughts, heat waves, and hurricanes", "Global sea levels are rising at an alarmingly fast rate - 17 centimeters (6.7 inches) in the last century alone and going higher"],
+        "correct": "Decrease in widespread migration of people across the globe.",
+        "solution": "Climate change will impact the amount of mass migrations occurring for affected societies. As extreme weather events, such as droughts and floods, continue to occur across the globe, more and more locations are becoming uninhabitable for people to sustain livelihoods there."
+    },
+    {
+        "question": "What can you do to help fight climate change?",
+        "answers": ["Utilize public transit", "Consume less meat products", "Vote for political candidates who will advocate for climate-related legislation and policy improvements", "All of the above"],
+        "correct": "All of the above",
+        "solution": "All of these actions help minimize your own carbon footprint. By taking public transport, less cars will be on the road emitting GHG. Most of the world’s land is set aside for livestock, so by consuming less, less resources get used up in meat’s production. Along with these important steps, we also suggest adding your voice to the issues surrounding climate change, supporting clean energy and taking personal actions to reduce your impact on the planet."
+    },
+    {
+        "question": "Scientists measure changes in sea temperature by the decades. About how much have sea temperatures increased every decade since the 20th century?",
+        "answers": ["0.05 Degrees Fahrenheit", "0.10 Degrees Fahrenheit", "0.14 Degrees Fahrenheit", "0.30 Degrees Fahrenheit"],
+        "correct": "0.14 Degrees Fahrenheit",
+        "solution": "From 1901 until 2020, sea surface temperatures increased an average rate of 0.14 degrees Fahrenheit per decade. The consistent rise in temperatures has been devastating on marine ecosystems. In 2023, scientists observed an increase in surface temperatures of 1.78°F in July."
     }
 ]
