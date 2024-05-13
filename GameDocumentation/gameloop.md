@@ -62,6 +62,7 @@ When loading in, you will see an empty grid and some basic information on the ga
 - City happiness (this is the overall score between 0 and 100 which shows the mood of citizens. This score will boost money gain and slow down eco-score degradation)
 - Eco-score (at the top-middle, when reaching 0 the game will end and your city will fall to ashes)
 - Tracker (at the bottom-right, this shows the average gain/loss for money and eco-score for the next minute (if the situation does NOT change))
+  
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/1274712f-6b84-45bd-89ba-aa7419a8ec8b)
 
 ### Placing buildings
