@@ -106,7 +106,12 @@ class Trivia:
 
     # Function to show trivia popup
     def show_trivia_popup( self, trivia):
+        # Create a semi-transparent surface
+        overlay = pygame.Surface((self.window.get_width(), self.window.get_height()), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 128))  # RGBA
 
+        # Draw the overlay onto the window
+        self.window.blit(overlay, (0, 0))
 
         # Create popup (a rectangle with white background and black border)
         popup_rect = pygame.Rect(self.popup_x, self.popup_y, self.popup_width, self.popup_height)

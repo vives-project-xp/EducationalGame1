@@ -19,7 +19,7 @@ class Grid:
         self.pixel_font = "./src/Grand9K Pixel.ttf"
         tracker = Tracker(self.game, self.game_state)
         self.average_money_gain, self.average_ecoscore_change = tracker.get_averages() 
-        self.cornerBox = pygame.image.load('./assets/resources/icons/cornerBox.png')
+        
 
         # Load the logos
         citizens_logo = pygame.image.load('./assets/resources/icons/person.png')
@@ -129,15 +129,13 @@ class Grid:
         self.angry_box = pygame.transform.scale(angry_box, (box1_width, new_height))
         self.nothappy_box = pygame.transform.scale(nothappy_box, (box1_width, new_height))
         self.name_box = pygame.transform.scale(name_box, (box1_width, new_height))
-        self.cornerBox = pygame.transform.scale(self.cornerBox, (int(self.width / 20), new_height))
+        
         
         # Draw the images in place of the boxes
         self.window.blit(self.name_box, (start_x, 15 - padding))
         self.window.blit(self.box_image, (start_x, 15 - padding + self.box_height + MARGIN))
         self.window.blit(self.box_image, (start_x, 15 - padding + 2 * self.box_height + 2 * MARGIN))
         self.window.blit(self.money_box, (start_x, 15 - padding + 3 * self.box_height + 3 * MARGIN))
-        # draw the corner box in the right bottom corner
-        self.window.blit(self.cornerBox, (self.width - int(self.width / 20), self.height - new_height))
         if self.game_state.citizen_happiness < 30:
             self.window.blit(self.angry_box, (start_x, 15 - padding + 4 * self.box_height + 4 * MARGIN))
         elif self.game_state.citizen_happiness < 70:

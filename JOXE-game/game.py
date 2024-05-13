@@ -113,6 +113,14 @@ class Game:
         self.icon_spacing = self.window.get_width() / (len(self.CATEGORY_IMAGES) + 1)
         self.shop_visible = False
         self.help_button_clicked = False
+        self.cornerBox = pygame.image.load('./assets/resources/icons/cornerBox.png')
+
+        box_image = pygame.image.load('./assets/resources/icons/box1.png')
+        self.box_width = 0.09375 * self.width
+        original_width, original_height = box_image.get_size()
+        aspect_ratio = original_height / original_width
+        self.new_height = int(self.box_width * aspect_ratio)
+        self.cornerBox = pygame.transform.scale(self.cornerBox, (int(self.width / 20), self.new_height))
         
 
         self.icon_size = int(self.menu_bar_height * 0.8) 
@@ -127,10 +135,10 @@ class Game:
         self.grid.draw_grid()
         self.draw_selected_cell_outline()
         self.draw_game_elements()
-        # self.draw_help_button()
-        # self.check_if_help_button_clicked()
-        # if self.help_button_clicked:
-        #     self.draw_tutorial_image()
+        self.draw_help_button()
+        self.draw_corner_box()
+        if self.help_button_clicked:
+            self.draw_tutorial_image()
         self.draw_object_level()
         self.update_image_size()
         self.update_effect_happiness()
@@ -182,19 +190,29 @@ class Game:
     def draw_help_button(self):
         if not self.shop_visible:
             self.window.blit(pygame.transform.scale(self.help_button, (100, 100)), (10, self.window.get_height() - 110))
-            
-    def check_if_help_button_clicked(self):
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                x, y = pygame.mouse.get_pos()
-                if 10 <= x <= 110 and self.window.get_height() - 110 <= y <= self.window.get_height() - 10:
-                    self.help_button_clicked = True
-    
+ 
+    def draw_corner_box(self):
+        if not self.shop_visible:
+            self.window.blit(self.cornerBox, (self.width - int(self.width / 20), self.height - self.new_height))
+
     def draw_tutorial_image(self):
-        self.window.blit(pygame.transform.scale(self.tutorial_img, (self.window.get_width(), self.window.get_height())), (0, 0))
-        # if click on random place, close tutorial image
+        # Create a semi-transparent surface
+        overlay = pygame.Surface((self.window.get_width(), self.window.get_height()), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 128))  # RGBA
+
+        # Load and scale the tutorial image
+        tutorial_img_scaled = pygame.transform.scale(self.tutorial_img, (self.window.get_width() // 1.5, self.window.get_height() // 1.5))
+
+        # Calculate the position to center the tutorial image
+        img_x = (self.window.get_width() - tutorial_img_scaled.get_width()) // 2
+        img_y = (self.window.get_height() - tutorial_img_scaled.get_height()) // 2
+
+        # Draw the tutorial image onto the overlay
+        overlay.blit(tutorial_img_scaled, (img_x, img_y))
+
+        # Draw the overlay onto the window
+        self.window.blit(overlay, (0, 0))
         
-    
     # if help button is clicked, show tutorial image
     def handle_help_button_click(self):
         self.window.blit(pygame.transform.scale(self.tutorial_img, (self.window.get_width(), self.window.get_height())), (0, 0))
