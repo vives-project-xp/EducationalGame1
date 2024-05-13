@@ -5,6 +5,29 @@ The goal of this project is to create a digital or physical game about either cl
 ## Tools
 We decided to use pygame to program our game. Going over our game idea we had a few option. As the game is a 2D game and is not live action we chose pygame. Python is in fact a slower language then for example the c/c++ language. In our game speed is not an important variable. We used VS code as text editor as it's the main tool we use throughout our educational career so far (https://code.visualstudio.com/download). Install python by following the following guide (start of the course: https://www.youtube.com/watch?v=XKHEtdqhLK8&t=178s)
 
+## Steps
+### Step 1 - Initializing
+Firstly we created a basic pygame window by installing and initializing the libraries. This way we already had some kind of visual building block to rely and base our game on.
+This was followed by creating the grid layout for the game. All this started in a single resolution, which couldn't be resized. Combined with the background we already set the visual theme of our game, which we kept all the way till now. 
+
+### Step 2 - Click event
+Our game's input heavily involves mouseclicks. Pygame has these events build in, which makes is easier to work with is. We did however have to calculate the mouse position in our grid to match the size of our cells. We then went on with our x and y cell location for the placement of buildings on cells and only used the basic variables for drawing on the screen itself.
+
+### Step 3 - Placing house (buildings)
+We went on to add the logic for placing a house on the grid and align it perfectly. Along the way we added upgrade and delete buttons as well as a visual range for some of JOXE's newly added prefabs, like hospitals or fire stations. These interactions logically and visually require a decent amount of code.
+
+### Step 4 - Global variables
+Later on we implemented the logic for our basic variables which would track the current counters. We only implemented the citizen happiness near the end of the project, to add another form of depth to the game. Influencing the positioning of buildings for people to think about the climate (score).
+
+### Step 5 - Game save
+These variables needed to be loaded in when logging in with a previously used username. We created the code to create the file and load this whenever the correct button was pressed. The most challanging part about this was the rotation of roads and levels of buildings (and versions of houses). After updating our object code for these and trying some things to fix this we came to the correct solution.
+
+### Step 6 - Resolution
+We had the idea to make the game resizeable as this is an important feature for any application. This took a lot of time bacause we had to implement the logic everywhere and create the menu to update this and get the value in the correct object, which we then had to pass on to the correct classes. 
+
+### Step 7 - Finalizing game and fixing bugs
+We spent some time on testing the project to find bugs and improvement we could add along the way, we set up some tests which we always had to succeed after adding new features.
+
 # Main game screen
 ## Pre game 
 ### Title screen
