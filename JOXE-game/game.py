@@ -114,13 +114,13 @@ class Game:
         self.shop_visible = False
         self.help_button_clicked = False
         self.cornerBox = pygame.image.load('./assets/resources/icons/cornerBox.png')
+        self.initial_window_size = (1920,1000)
 
         box_image = pygame.image.load('./assets/resources/icons/box1.png')
         self.box_width = 0.09375 * self.width
         original_width, original_height = box_image.get_size()
         aspect_ratio = original_height / original_width
         self.new_height = int(self.box_width * aspect_ratio)
-        self.cornerBox = pygame.transform.scale(self.cornerBox, (int(self.width / 20), self.new_height))
         
 
         self.icon_size = int(self.menu_bar_height * 0.8) 
@@ -131,13 +131,18 @@ class Game:
 
         self.road_image = pygame.transform.scale(pygame.image.load(self.BUILDING_IMAGES['road']['road']), (80, 80))
 
+        self.back_button_rect = pygame.Rect(0, 0, 0, 0)
+        self.original_window_size = self.window.get_size()
+        self.back_button_position = (0, 0)
+        self.back_button_size = (0, 0)
+
     def draw(self):
         self.grid.draw_grid()
         self.draw_selected_cell_outline()
         self.draw_game_elements()
         self.draw_help_button()
         self.draw_corner_box()
-        if self.help_button_clicked:
+        if self.help_button_clicked and not self.shop_visible:
             self.draw_tutorial_image()
         self.draw_object_level()
         self.update_image_size()
@@ -170,30 +175,64 @@ class Game:
 
     def draw_averages(self, average_money_gain, average_ecoscore_change):
         if not self.shop_visible and not self.help_button_clicked:
-            square_width, square_height = self.window.get_width() / 20 , self.window.get_height() / 20
+            # Calculate the size of the square as a fraction of the window size
+            square_width = self.window.get_width() / 15
+            square_height = self.window.get_height() / 15
+
+            # Calculate the position of the square
             square_x = self.window.get_width() - square_width
             square_y = self.window.get_height() - square_height
 
             formatted_money_gain = self.format_number(average_money_gain)
             formatted_ecoscore_change = self.format_number(average_ecoscore_change)
 
+            # Calculate the font size as a fraction of the square height
             font_size = max(int(square_height / 2.5), 10)
             sizedfont = pygame.font.Font(None, font_size)
 
             money_text = sizedfont.render(f"$/m:   {formatted_money_gain}", True, (255, 255, 255))
             ecoscore_text = sizedfont.render(f"CO2/m: {formatted_ecoscore_change}", True, (255, 255, 255))
 
-            self.window.blit(money_text, (square_x + 12, square_y + 7))
-            self.window.blit(ecoscore_text, (square_x + 12, square_y + 17))
+            # Calculate the position of the text as a fraction of the square size
+            text_x = square_x + square_width / 10
+            text_y_money = square_y + square_height / 4
+            text_y_ecoscore = square_y + square_height / 2
+
+            self.window.blit(money_text, (text_x, text_y_money))
+            self.window.blit(ecoscore_text, (text_x, text_y_ecoscore))
 
     # draw help button in bottom left corner
     def draw_help_button(self):
         if not self.shop_visible:
-            self.window.blit(pygame.transform.scale(self.help_button, (100, 100)), (10, self.window.get_height() - 110))
+            # Calculate the size of the help button as a fraction of the window size
+            button_width = int(self.window.get_width() * 0.05)
+            button_height = int(self.window.get_height() * 0.1)
+
+            # Scale the help button to the calculated size
+            scaled_help_button = pygame.transform.scale(self.help_button, (button_width, button_height))
+
+            # Calculate the position of the help button
+            button_x = 10
+            button_y = self.window.get_height() - button_height - 10
+
+            # Draw the help button
+            self.window.blit(scaled_help_button, (button_x, button_y))
  
     def draw_corner_box(self):
         if not self.shop_visible:
-            self.window.blit(self.cornerBox, (self.width - int(self.width / 20), self.height - self.new_height))
+            # Calculate the size of the corner box as a fraction of the window size
+            box_width = int(self.window.get_width() * 0.075)
+            box_height = int(self.window.get_height() * 0.075)
+
+            # Scale the corner box to the calculated size
+            scaled_corner_box = pygame.transform.scale(self.cornerBox, (box_width, box_height))
+
+            # Calculate the position of the corner box
+            box_x = self.window.get_width() - box_width 
+            box_y = self.window.get_height() - box_height 
+
+            # Draw the corner box
+            self.window.blit(scaled_corner_box, (box_x, box_y))
 
     def draw_tutorial_image(self):
         # Create a semi-transparent surface
@@ -274,12 +313,40 @@ class Game:
             self.draw_building_icons(menu_bar_y, self.menu_bar_height, self.current_category)
             self.draw_building_costs(menu_bar_y, self.current_category)
 
+    # Calculate the scaling factor
+    def calculate_scaling_factor(self):
+        current_window_size = self.window.get_size()
+        return (current_window_size[0] / self.original_window_size[0], current_window_size[1] / self.original_window_size[1])
+
+    # Update the back button's position and size
+    def scale_position_and_size(self, position, size):
+        scaling_factor = self.calculate_scaling_factor()
+        return ((position[0] * scaling_factor[0], position[1] * scaling_factor[1]), (size[0] * scaling_factor[0], size[1] * scaling_factor[1]))
+    
     def draw_back_button(self, menu_bar_y, menu_bar_height):
+        # Calculate the position of the back button as a fraction of the window size
         back_button_x = self.window.get_width() * 0.05  
         back_button_y = menu_bar_y + menu_bar_height * 0.05  
+
+        # Store the back button's position
+        self.back_button_position = (back_button_x, back_button_y)
+
+        # Calculate the size of the back button as a fraction of the window size
+        back_button_width = int(self.window.get_width() * 0.05)
+        back_button_height = int(self.window.get_height() * 0.1)
+
+        # Store the back button's size
+        self.back_button_size = (back_button_width, back_button_height)
+
+        # Scale the back button's position and size
+        scaled_back_button_position, scaled_back_button_size = self.scale_position_and_size(self.back_button_position, self.back_button_size)
+
+        # Update the back button's rectangle
+        self.back_button_rect = pygame.Rect(*scaled_back_button_position, *scaled_back_button_size)
+        
         back_button_image = pygame.image.load('./assets/resources/icons/back.png')
-        scaled_back_button_image = pygame.transform.scale(back_button_image, (self.icon_size, self.icon_size))
-        self.window.blit(scaled_back_button_image, (back_button_x, back_button_y))
+        scaled_back_button_image = pygame.transform.scale(back_button_image, (self.back_button_rect.width, self.back_button_rect.height))
+        self.window.blit(scaled_back_button_image, scaled_back_button_position)
 
     def draw_category_icons(self, menu_bar_y, menu_bar_height):
         icon_y = menu_bar_y + int(menu_bar_height * 0.1)
@@ -320,8 +387,7 @@ class Game:
             else:
                 warning_text = self.font.render("Not enough money to place this building", True, self.COLORS['red'])
                 self.window.blit(warning_text, (self.window.get_width() // 2 - 200, self.window.get_height() // 2))
-
-         
+    
     def draw_object_level(self):
         if self.selected_cell is not None:
             for obj in self.game_state.placed_objects:
@@ -330,12 +396,9 @@ class Game:
                     self.window.blit(level_text, (obj.x, obj.y))
 
     def is_back_button_clicked(self, x, y):
-        back_button_x = self.window.get_width() * 0.05  
-        menu_bar_y = int(0.8 * self.window.get_height())
-        menu_bar_height = self.menu_bar_height
-        back_button_y = menu_bar_y + menu_bar_height * 0.05  
-        return back_button_x <= x <= back_button_x + self.icon_size and back_button_y <= y <= back_button_y + self.icon_size
-
+        scaled_back_button_position, scaled_back_button_size = self.scale_position_and_size(self.back_button_position, self.back_button_size)
+        return pygame.Rect(scaled_back_button_position, scaled_back_button_size).collidepoint(x, y)
+    
     def handle_click(self, x, y):
         grid_x, grid_y = self.get_grid_coordinates(x, y)
 
