@@ -53,6 +53,10 @@ def main(window, gamestate):
                         game.game_state.restart()
                         game.game_over_timer_start = None
                         game.grid.update_date()
+                if game.help_button_clicked:
+                    game.help_button_clicked = False
+                elif 10 <= x <= 110 and game.window.get_height() - 110 <= y <= game.window.get_height() - 10:
+                    game.help_button_clicked = True
                 else:
                     game.handle_click(x, y)
 
@@ -75,7 +79,7 @@ def main(window, gamestate):
             if game.grid.total_elapsed_time >= 2000:
                 game.grid.current_date += datetime.timedelta(days=1)
                 game.grid.total_elapsed_time -= 2000
-
+   
         pygame.display.update()
 
     pygame.quit()
@@ -100,13 +104,14 @@ def login_screen(window):
     # Create a custom theme
     blackTheme = pygame_menu.themes.Theme(
         widget_font='./src/Grand9K Pixel.ttf',
-        background_color=(0, 0, 0),  # Black
+        background_color=(203, 219, 252),  # Black
         widget_font_color=(255, 255, 255),  # White
         widget_font_size=32,
         widget_selection_effect=pygame_menu.widgets.LeftArrowSelection(
             arrow_right_margin=5
         ),
-        selection_color=(255, 255, 255)  # White
+        selection_color=(255, 255, 255),  # White
+        cursor_color=(255, 255, 255)  # White
     )
 
     menu = pygame_menu.Menu('', window_width, window_height, theme=blackTheme)

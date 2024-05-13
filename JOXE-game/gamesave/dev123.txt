@@ -1,8 +1,8 @@
 Amount of Citizens: 0
 Amount of Houses: 0
-Money: 993500
-Climate Score: 100
-Current Date: 2022-01-21
+Money: 1000000
+Climate Score: 50
+Current Date: 2022-01-01
 citizen_happiness: 0
 Placed Objects:
 Empty- 1(0-0)
@@ -413,6 +413,7 @@ Empty- 1(1140-0)
 Empty- 1(1200-0)
 Empty- 1(1260-0)
 Empty- 1(1320-0)
+<<<<<<< HEAD
 Empty- 1(0-0)
 Empty- 1(0-60)
 Empty- 1(0-120)
@@ -991,3 +992,5 @@ Empty- 1(1140-0)
 Empty- 1(1200-0)
 Empty- 1(1260-0)
 Empty- 1(1320-0)
+=======
+>>>>>>> 07062a0fa1326e94fc08ca19134f27b8f79f85e8

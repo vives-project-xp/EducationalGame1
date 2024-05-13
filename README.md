@@ -2,7 +2,7 @@
 In this project we aim to create an educational game that consists of **3 large parts**:
  
 1. Pc game made with Pygame.
-2. Board game version based on the PC game.
+2. Board game version based on the PC game. [Download it here](https://github.com/vives-project-xp/EducationalGame1/tree/main/JOXE-game/build/exe.win-amd64-3.12.zip)
 3. Website to integrate and provide functionality to both versions.
 
 On each of these platform we aim to inform our users and incorporate themes concerning **climate change** and the reality of its consequences depending on humanity's choices.
@@ -32,7 +32,7 @@ During the game the player will have to balance the size of their income, popula
 The game runs until the grid is fully occupied and upgraded or until the player's CO2 emmision score goes too low at which point they lose.
 The Game Client will be able to be downloaded from the website and run on the player's device with some minimum requirements specified on the webpage.
 
-More information about the PC-game can be found [here](./Game%20Storyboard/mainGame.md).
+More information about the PC-game can be found [here](./GameDocumentation/gameloop.md).
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/a4ff26a3-a85d-408f-baa0-f898efe43e46)
 
 
