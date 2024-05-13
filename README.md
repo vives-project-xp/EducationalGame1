@@ -33,6 +33,7 @@ The game runs until the grid is fully occupied and upgraded or until the player'
 The Game Client will be able to be downloaded from the website and run on the player's device with some minimum requirements specified on the webpage.
 
 More information about the PC-game can be found [here](./GameDocumentation/gameloop.md).
+If you want to download the game, follow the instructions [here](https://github.com/vives-project-xp/EducationalGame1/blob/main/GameDocumentation/exe.md).
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/a4ff26a3-a85d-408f-baa0-f898efe43e46)
 
 
@@ -55,7 +56,6 @@ A Tutorial video on how to play and a downloadable manual will also be provided 
 
 Once a player did enough missions a download code will be provided to make it possible to download the online version.
 
-Possible expansion: missions for the PC-version (trivia quiz) that will unlock coins or give other advantages in the PC-version.
 
 
 
