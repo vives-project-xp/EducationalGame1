@@ -135,6 +135,7 @@ class Game:
         self.original_window_size = self.window.get_size()
         self.back_button_position = (0, 0)
         self.back_button_size = (0, 0)
+        
 
     def draw(self):
         self.grid.draw_grid()

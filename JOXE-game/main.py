@@ -32,7 +32,8 @@ pygame.display.set_icon(programIcon)
 pygame.mixer.init()
 sound = pygame.mixer.Sound('./Sounds/AmbientLoop1.mp3')
 sound.set_volume(0.5)
-sound.play()
+sound.play(-1)
+is_sound_playing = True
 
 FPS = 60
 
@@ -62,7 +63,7 @@ def main(window, gamestate):
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    resolutionWindow(window, main, res, gamestate)
+                    settingsWindow(window, main, res, gamestate)
 
         if gamestate.game_over:
             game.draw_game_over()
@@ -158,7 +159,7 @@ def menu_screen(window):
                     login_screen(window) 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    resolutionWindow(window, main, res)
+                    settingsWindow(window, main, res)
 
         window.blit(background, (0, 0))
         window.blit(play_button, (button_x, button_y - 10 if button_hover else button_y))
@@ -170,20 +171,15 @@ def menu_screen(window):
     sys.exit()
 
 
-def resolutionWindow(window, main_function, resolution, gamestate):
+def resolutionSettingsWindow(window, main_function, resolution, gamestate):
     def set_res(resolution_str):
         width, height = map(int, resolution_str.split('x'))
         resolution.set_resolution(width, height)
         window = pygame.display.set_mode((width, height))
-        resolutionWindow(window, main, resolution, gamestate)
+        resolutionSettingsWindow(window, main, resolution, gamestate)
 
-    def back_to_game():
-        main_function(window, gamestate)  
-
-    
-    def save_gamestate():
-        gamestate.save_gamestate()
-        back_to_game() 
+    def back_to_settings():
+        settingsWindow(window, main_function, resolution, gamestate)
 
     window_width, window_height = window.get_size()
     blackTheme = pygame_menu.themes.Theme(
@@ -203,8 +199,50 @@ def resolutionWindow(window, main_function, resolution, gamestate):
     menu.add.vertical_margin(window_height // 20)
     for res_option in ['1920x1080', '1920x1000', '1152x600', '800x416', '640x333']:
         menu.add.button(res_option, set_res, res_option, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 22)
+    menu.add.button('BACK', back_to_settings, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 25)
 
-    menu.add.button('Save', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 25)
+    menu.mainloop(window)
+
+def settingsWindow(window, main_function, resolution, gamestate):
+    global is_sound_playing
+
+    def back_to_game():
+        main_function(window, gamestate)  
+
+    def save_gamestate():
+        gamestate.save_gamestate()
+        back_to_game() 
+
+    def toggle_sound():
+        global is_sound_playing
+        if is_sound_playing:
+            pygame.mixer.pause()
+            is_sound_playing = False
+            sound_button.set_title('Sound: OFF')
+        else:
+            pygame.mixer.unpause()
+            is_sound_playing = True
+            sound_button.set_title('Sound: ON')
+
+    window_width, window_height = window.get_size()
+    blackTheme = pygame_menu.themes.Theme(
+        widget_font='./src/Grand9K Pixel.ttf',
+        background_color=(0, 0, 0),  # Black
+        widget_font_color=(255, 255, 255),  # White
+        widget_font_size=32,
+        widget_selection_effect=pygame_menu.widgets.LeftArrowSelection(
+            arrow_right_margin=5
+        ),
+        selection_color=(255, 255, 255)  # White
+    )
+
+    menu = pygame_menu.Menu('', window_width, window_height, theme=blackTheme)
+
+    menu.add.label('Settings', font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 15)
+    menu.add.vertical_margin(window_height // 20)
+    sound_button = menu.add.button('Sound: ON', toggle_sound, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 22)
+    menu.add.button('Resolution', resolutionSettingsWindow, window, main_function, resolution, gamestate, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 22)
+    menu.add.button('Save current game', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 25)
     menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 25)
 
     menu.mainloop(window)
