@@ -6,3 +6,5 @@ Then you have to click the 'Download raw file' button to download the zip folder
 
 Now the game is on your computer! If you go to the downloads folder on your computer, right click the zip folder and click on unzip.
 In the unzipped folder you will see a file name called 'main.exe'. Click on it and after a few moments, you're able to play!
+
+Attention: it's possible that Windows gives you a popup error which says joxe.exe is not recognised and may contain malware. Don't worry about that, the game is save to play! ;)
