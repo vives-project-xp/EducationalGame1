@@ -75,18 +75,18 @@ Buildings contain houses (which adds citizens), stores and factories to earn mon
 As third category there's three prefabs in energy. A windmill, powerplant and solar panel. The powerplant will give money but remove happiness score from each nearby building while the other two will cost you some money as upkeep for a raise in citizen happiness for each building inside it's range. Lastly we have the nature category housing the tree/park prefab. When placed you will get a trivia question. You will earn a small amount of money when answering correct boosting your budget. The tree itself will give you and instant eco-score boost and give a small boost over time. When upgraded the tree will become a park.
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/ddef5ff2-21b1-4fbe-9a2f-521f1e78842b)
 
-| Category         | Asset                        | Price | Instant Eco-Score Effect                        | Money Effect Over Time      | Eco-Score Effect Over Time      |
-|------------------|------------------------------|-------|-------------------------------------------------|-----------------------------|---------------------------------|
-| Buildings        | House                        | $1000 | n/a                                             | tbd                         | tbd                             |
-| Buildings        | Store                        | $3000 | -5                                              | tbd                         | tbd                             |
-| Buildings        | Factory                      | $10000| n/a                                             | tbd                         | tbd                             |
-| Buildings        | Hospital                     | $15000| -5                                              | tbd                         | tbd                             |
-| Buildings        | Fire Station                 | $20000| -5                                              | tbd                         | tbd                             |
-| Road             | Road                         | $50   | -1                                              | tbd                         | tbd                             |
-| Energy           | Windmill                     | $2000 | +10                                             | tbd                         | tbd                             |
-| Energy           | Solar Panel                  | $5000 | +2                                              | tbd                         | tbd                             |
-| Energy           | Powerplant                   | $3000 | -5                                              | tbd                         | tbd                             |
-| Nature           | Tree/Park                    | $250  | +5                                              | tbd                         | tbd                             |
+| Category         | Asset                        | Price | Instant Eco-Score Effect                        |
+|------------------|------------------------------|-------|-------------------------------------------------|
+| Buildings        | House                        | $1000 | n/a                                             |
+| Buildings        | Store                        | $3000 | -5                                              |
+| Buildings        | Factory                      | $10000| n/a                                             |
+| Buildings        | Hospital                     | $15000| -5                                              |
+| Buildings        | Fire Station                 | $20000| -5                                              |
+| Road             | Road                         | $50   | -1                                              |
+| Energy           | Windmill                     | $2000 | +10                                             |
+| Energy           | Solar Panel                  | $5000 | +2                                              |
+| Energy           | Powerplant                   | $3000 | -5                                              |
+| Nature           | Tree/Park                    | $250  | +5                                              |
 
 
 ### Upgrading buildings
@@ -102,6 +102,8 @@ At any point in the game you can change the resolution by pressing the **ESC** k
 If you reach an eco-score of 0, the game over screen will be shown and you will have to option to quit or restart from scratch. 
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/80b1c5de-7f9a-4d18-8195-7c28eb0f5946)
 
+### Sound
+We added the option to mute the sound in the menu.
 
 ### Game save
 When trying to close the window you will have the choice to quit the game, either with or without saving it or to continue the game.
