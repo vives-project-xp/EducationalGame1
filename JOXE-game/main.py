@@ -33,7 +33,7 @@ pygame.mixer.init()
 sound = pygame.mixer.Sound('./Sounds/AmbientLoop1.mp3')
 sound.set_volume(0.5)
 sound.play(-1)
-is_sound_playing = True
+isSoundPlaying = True
 
 FPS = 60
 
@@ -41,7 +41,6 @@ def main(window, gamestate):
     clock = pygame.time.Clock()
     game = Game(window, res.GRID_SIZE, gamestate)
     tracker = Tracker(game, gamestate)
-
     run = True
     while run:
         for event in pygame.event.get():
@@ -60,7 +59,6 @@ def main(window, gamestate):
                     game.help_button_clicked = True
                 else:
                     game.handle_click(x, y)
-
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     settingsWindow(window, main, res, gamestate)
@@ -82,7 +80,6 @@ def main(window, gamestate):
                 game.grid.total_elapsed_time -= 2000
    
         pygame.display.update()
-
     pygame.quit()
     sys.exit()
 
@@ -204,7 +201,7 @@ def resolutionSettingsWindow(window, main_function, resolution, gamestate):
     menu.mainloop(window)
 
 def settingsWindow(window, main_function, resolution, gamestate):
-    global is_sound_playing
+    global isSoundPlaying
 
     def back_to_game():
         main_function(window, gamestate)  
@@ -214,14 +211,14 @@ def settingsWindow(window, main_function, resolution, gamestate):
         back_to_game() 
 
     def toggle_sound():
-        global is_sound_playing
-        if is_sound_playing:
+        global isSoundPlaying
+        if isSoundPlaying:
             pygame.mixer.pause()
-            is_sound_playing = False
+            isSoundPlaying = False
             sound_button.set_title('Sound: OFF')
         else:
             pygame.mixer.unpause()
-            is_sound_playing = True
+            isSoundPlaying = True
             sound_button.set_title('Sound: ON')
 
     window_width, window_height = window.get_size()
