@@ -49,12 +49,12 @@ export default {
 
   .carousel-content img {
     flex: 1;
-    max-width: 50%; /* Adjust this value as needed */
+    max-width: 50%;
   }
 
   .carousel-text {
     flex: 1;
-    padding-left: 20px; /* Adjust this value as needed */
+    padding-left: 20px; 
   }
   
   .carousel-item {
@@ -98,7 +98,7 @@ export default {
         <div class="carousel-text">
           <h1>Welcome!</h1>
           <p>JOXE is a brand new game, online and offline. On this site you'll find
-          more about the board game and the upcoming additional missions to unlock the online game for free!
+          more about both games and extra missions for the board game
           </p>
         </div>
       </div>
