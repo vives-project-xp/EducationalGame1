@@ -214,10 +214,10 @@ def settingsWindow(window, main_function, resolution, gamestate):
         global isSoundPlaying
         if isSoundPlaying:
             pygame.mixer.pause()
-            is_sound_playing = False
+            isSoundPlaying = False
         else:
             pygame.mixer.unpause()
-            is_sound_playing = True
+            isSoundPlaying = True
 
     window_width, window_height = window.get_size()
     blackTheme = pygame_menu.themes.Theme(
