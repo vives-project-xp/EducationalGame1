@@ -109,4 +109,14 @@ We added the option to mute the sound in the menu.
 When trying to close the window you will have the choice to quit the game, either with or without saving it or to continue the game.
 ![image](https://github.com/vives-project-xp/EducationalGame1/assets/113900803/7d3d766e-3cc8-4676-8580-ed8893dbb792)
 
+## Future updates?
+If we we're given more time we would add the following:
+- Car AI: a few vehicles would drive on the roads
+- Sound slider: Choose the value of the game music and effects
+- Onefile exe?: We tried to do this, but ran into a lot of issues
+- More types/assets
+- Natural disasters: Some events would occur every now and then, making it more difficult to build the city
+- Prefab maps: Maps with for example a hill, where you can't build on or a river which can only hold a windmill for example
+- ...
+
 
