@@ -214,12 +214,10 @@ def settingsWindow(window, main_function, resolution, gamestate):
         global isSoundPlaying
         if isSoundPlaying:
             pygame.mixer.pause()
-            isSoundPlaying = False
-            sound_button.set_title('Sound: OFF')
+            is_sound_playing = False
         else:
             pygame.mixer.unpause()
-            isSoundPlaying = True
-            sound_button.set_title('Sound: ON')
+            is_sound_playing = True
 
     window_width, window_height = window.get_size()
     blackTheme = pygame_menu.themes.Theme(
@@ -237,7 +235,7 @@ def settingsWindow(window, main_function, resolution, gamestate):
 
     menu.add.label('Settings', font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 15)
     menu.add.vertical_margin(window_height // 20)
-    sound_button = menu.add.button('Sound: ON', toggle_sound, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 22)
+    sound_button = menu.add.button('Toggle music', toggle_sound, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 22)
     menu.add.button('Resolution', resolutionSettingsWindow, window, main_function, resolution, gamestate, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 22)
     menu.add.button('Save current game', save_gamestate, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 25)
     menu.add.button('BACK', back_to_game, align=pygame_menu.locals.ALIGN_CENTER, font_name='./src/Grand9K Pixel.ttf', font_size= window_height // 25)
