@@ -1,3 +1,5 @@
+Zie ook, testing documenten.
+
 # Tests to do to debug the game:
 ### Login Screen:
 | Test Name                 | Steps                                                       | Expected Result                                         |
