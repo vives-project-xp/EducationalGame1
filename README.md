@@ -27,7 +27,7 @@ Much more **Documentation** can be found in the [Documentation-folder](./Documen
  like meeting notes, UML diagram for the PC game and our Work Breakdown Structure.
 
 ## PC-version:
-Our goal is for a 2D, top down citybuilder similar to existing games like the _Cities-series_ as well as _Clash of Clans_. 
+Our goal is to create a 2D, top down citybuilder similar to existing games like the _Cities-series_ as well as _Clash of Clans_. 
 During the game the player will have to balance the size of their income, population and CO2 emmisions as well as create their own imaginary city on a gridlike structure by building and upgrading structures.
 The game runs until the grid is fully occupied and upgraded or until the player's CO2 emmision score goes too low at which point they lose.
 The Game Client will be able to be downloaded from the website and run on the player's device with some minimum requirements specified on the webpage.
