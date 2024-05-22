@@ -1,0 +1,6 @@
+version: '3'
+services:
+  vue-app:
+    build: ./joxe-page
+    ports:
+      - ${BACKEND_PORT}:80

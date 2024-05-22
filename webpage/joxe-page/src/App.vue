@@ -19,7 +19,7 @@
   <div class="wrapper">
       <nav class="navbar navbar-expand-lg sticky-top">
         <RouterLink to="/" class="nav-link nav-link-custom">
-          <img :src="image" alt="logo" class="image">
+          Home
         </RouterLink>
         <RouterLink to="/info" class="nav-link nav-link-custom">Info</RouterLink>
         <RouterLink to="/missions" class="nav-link nav-link-custom">Missions</RouterLink>
